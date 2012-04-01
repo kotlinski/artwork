@@ -23,8 +23,7 @@ class Image_admin extends CI_Controller {
         $data['title'] = 'Image Admin';
         $data['menu_item'] = 'image_admin';
 		$data['images'] = $this->images_model->get_images();
-
-		var_dump($data['images']);die();
+		$data['artwork_filters'] = $this->images_model->get_artwork_filters();
 
         $this->load->view('templates/header', $data);
         $this->load->view('image_admin/index', $data);

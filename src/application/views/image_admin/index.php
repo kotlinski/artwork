@@ -64,7 +64,19 @@
 			<div class="aboutHeader">All images</div><br />
 
 			<?
+			$previousFilter = 0;
+
 			foreach ($images as $image) {?>
+
+				<?
+
+				if($image->artwork_filter != $previousFilter)
+				{?>
+					<div class="aboutHeader" style="text-align: center"><?=$image->name?></div><br />
+				<?
+					$previousFilter = $image->artwork_filter;
+				}
+?>
 
 				<div class="imageListContainer" id="container_id_<?=$image->id?>">
 					<div class="imageListElement imageListImage">
@@ -102,6 +114,16 @@
 								   onclick="setImgId(<?=$image->id?>)">
 								RENAME
 							</a></LI>
+							<LI><a class="popUpForm"
+							   href="#filter_image_form_<?=$image->id?>"
+							   onclick="setImgId(<?=$image->id?>)">
+								FILTER
+							</a></LI>
+							<LI><a class="popUpForm"
+								   href="#order_image_form_<?=$image->id?>"
+								   onclick="setImgId(<?=$image->id?>)">
+								ORDER</a>
+							 (<?=$image->order?>)</LI>
 						</UL>
 
 					</div>
@@ -125,6 +147,30 @@
 							</p>
 							<p>
 								<input type="submit" value="Rename" />
+							</p>
+						</form>
+					</div>
+					<div style="display:none">
+						<form class="filter_image_form" id="filter_image_form_<?=$image->id?>"  method="post" action="">
+							<img src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
+							<p>
+								Filter: (dropdown)
+								<input type="text" id="filter_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px"/>
+							</p>
+							<p>
+								<input type="submit" value="Save" />
+							</p>
+						</form>
+					</div>
+					<div style="display:none">
+						<form class="order_image_form" id="order_image_form_<?=$image->id?>"  method="post" action="">
+							<img src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
+							<p>
+								Order:
+								<input type="text" id="order_image_field_<?=$image->id?>" value="<?=$image->order?>" style="width:250px"/>
+							</p>
+							<p>
+								<input type="submit" value="Save" />
 							</p>
 						</form>
 					</div>

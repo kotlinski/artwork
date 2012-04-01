@@ -16,8 +16,10 @@ class Images_model extends CI_Model {
 
     public function get_images()
     {
-        $this->db->order_by("id", "desc");
-        $query = $this->db->get('images');
+		$this->db->order_by("artwork_filters.id", "desc");
+        $this->db->order_by("images.id", "desc");
+		$this->db->join('images', 'images.artwork_filter = artwork_filters.id');
+        $query = $this->db->get('artwork_filters');
         return $query->result();
     }
 
@@ -41,5 +43,13 @@ class Images_model extends CI_Model {
 		);
 		$this->db->where('id', $id);
 		$this->db->update('images', $data);
+	}
+
+
+	public function get_artwork_filters()
+	{
+		$this->db->order_by("id", "ASC");
+		$query = $this->db->get('artwork_filters');
+		return $query->result();
 	}
 }
