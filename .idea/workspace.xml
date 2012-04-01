@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a1a7a417-f259-4e4e-8175-312d808f52d2" name="Default" comment="" />
+    <list id="f8030928-d10a-4e07-8b0e-af1caff86829" name="New changelist" comment="">
+      <change type="DELETED" beforePath="D:\projekt\artwork\src\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="D:\projekt\artwork\src\.idea\workspace.xml" afterPath="" />
+    </list>
+    <list id="6f68f4c9-49c7-4ea6-9909-eb390af86bde" name="bilder" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/00585e64a482700e98ad6f8f11674dab.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/07ae852ef303fbb9e8983d6e7d5dbf44.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/0b50c4886a5590fa47c025a34569377b.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/0c293a937918b93b2bc690ad09d827a9.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/190e42536111223941b08a1dd1c6e9af.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/208bf08ac28fe3760d37bdfbe4998106.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/24009202bbe7f448db823b04f55b6daa.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/245ee3b0708663438c3a3b0899a4a0b4.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/29a7bdb408824ac5644d367d7e847dfe.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/2aa98b4e8b5973310a2a1ff5f96ce622.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/2bea4f418c4b098f0e4c6d5d36c3bb73.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/2d37ee4db33e75543773f020d4827a88.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/2fe656d37b54a7ede3e88b8640703699.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/35eaadfbdbc03a7550d9ae0a3b90ba0a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/37d747d4254b06da9f12720ceec5a27d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/3aeb32fbabba266c57e1d027855badff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/3d3702c1221102e566690b286b4d7444.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/3e95adbbc90fbb84d61c49e3dca5b7b0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/4a8a93f3b9c69549b2c7859293a6d889.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/4e0932c44a723b1a7d666aa34f2de6cd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/50ab7d1e934eba70aac6038d2b1df400.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/5223fd90f112170a98545767254361a4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/53026fa54ccce664a38705286505fc55.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/56740275078bb93bed746d520876f62a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/5a8a0f26711a0e58c3f3df667941a222.JPEG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/5af0bb88a2f250eced13ebe5706472cd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/5c595fb5b4ba9d4a3a787d6b9b6ffba3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/5d5418f82c02adb129c1807947a88904.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/5d68819b8f71b0b8ee7b4278dd10ab3f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/60e4fd3dc826357391f04296f12bbc25.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/63e7790873cfbfb0ed219ff5bc21a493.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/67762c78cda59e58697b45b9fe6a9612.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/6a45e5d554d401016afb028759655a2a.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/6a56ca77301d69062d8aa663d5d1ae92.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/7203499658b0148f47ec8041ffeaa0c4.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/73afd87b715b7d5907a0a06a857f5d03.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/77d15b3ea14c9a2c16a7860968b123d1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/77db550c6c991946834c943f195e1afe.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/7c412f943bb6a7a4b80306dbb14cbbff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/7c6d06b8ef7baa19081e049431822c89.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/82c20aa93f4e7156a5b21d053fcadd58.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/89470bf1bd0ca42cdb057086210a29a1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/95359d8b010894df69cafcc55bb8e02c.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/971a56a929a35861e79bceec62b86a71.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/983f70d60da9d3b7f0578524f71c8f3e.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/a0f027243fb19724a771f4699e05ed0a.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/a12a759ef7909ea03ed2d3cf38b495c5.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/a706b66b1af8f0dd0e5babd000216532.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/a91c0a71afbe9f244b758517bf5de255.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/aebb440f3f1bd7e8045a7206b11019a9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/b28e721c723ad9f0e963924b947b9600.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/b3bd2d5f2320af2fc1fce8e74c970774.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/bb89fdd42f85c0d36d5fdbbe393da5cf.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/bf881a852a20e6a08ff9d238e78e3d2a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/c29dff3b21cef26dc492690f2e1b569a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/c3f500beab3e95ada77412a75e6fa1be.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/c4d1ce20f1450d1de472d750019fa025.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/c703b810bb1e8e06432a8d368043fefb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/ca3e2f28076de7c1df4f69419f5d523f.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/cf664b32093d0a6c684ef8654a8beef6.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/d06a8fc5f05a71a46b79b5c0c78fe3ec.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/d3790d5212b98d22648e93857f6c4c30.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/d3c5a8934f56d756c5416297a583f59b.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/d878fb248a5d37aae9a70a5b750c3f83.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/d8a5692ffcaa78799dc51cc784a7d34e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/dacfe2bb8e85080779467ff7f7eaac85.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/dca7b69382a18cd7234150d1678f512f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/e06f8566b22ef0b26962d5fd7226e255.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/e0e224ce328f325ae5ac0e3d42a10576.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/e2936255d3bcce9e1986262d0e582fe3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/e529b46e35476d188a842996638f907b.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/e77708df02a16eb9798eceefc4bbddc2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/e86bc96d720cd19ccc7a24107980b8b4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/f55f05512835073a2a71bc2bf94532e0.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/f6069ad9a7ddf74812edf9226f97fb22.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/f8e62290633f49815d41685c2f1046be.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/f956954aad459c411509788530519cd0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/f97317c462091875dee5a7902f3875a0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/fe4e0022d32af5b610518af7062f0ce5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/00585e64a482700e98ad6f8f11674dab_thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/07ae852ef303fbb9e8983d6e7d5dbf44.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/0c293a937918b93b2bc690ad09d827a9.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/190e42536111223941b08a1dd1c6e9af.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/208bf08ac28fe3760d37bdfbe4998106.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/245ee3b0708663438c3a3b0899a4a0b4.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/29a7bdb408824ac5644d367d7e847dfe.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/2aa98b4e8b5973310a2a1ff5f96ce622.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/2bea4f418c4b098f0e4c6d5d36c3bb73.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/2d37ee4db33e75543773f020d4827a88.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/2fe656d37b54a7ede3e88b8640703699.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/35eaadfbdbc03a7550d9ae0a3b90ba0a_thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/37d747d4254b06da9f12720ceec5a27d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/3aeb32fbabba266c57e1d027855badff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/3d3702c1221102e566690b286b4d7444.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/4a8a93f3b9c69549b2c7859293a6d889.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/4e0932c44a723b1a7d666aa34f2de6cd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/50ab7d1e934eba70aac6038d2b1df400_thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/5223fd90f112170a98545767254361a4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/53026fa54ccce664a38705286505fc55.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/56740275078bb93bed746d520876f62a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/5a8a0f26711a0e58c3f3df667941a222.JPEG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/5af0bb88a2f250eced13ebe5706472cd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/5c595fb5b4ba9d4a3a787d6b9b6ffba3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/5d5418f82c02adb129c1807947a88904.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/5d68819b8f71b0b8ee7b4278dd10ab3f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/60e4fd3dc826357391f04296f12bbc25.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/63e7790873cfbfb0ed219ff5bc21a493.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/67762c78cda59e58697b45b9fe6a9612.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/6a45e5d554d401016afb028759655a2a.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/6a56ca77301d69062d8aa663d5d1ae92.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/7203499658b0148f47ec8041ffeaa0c4.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/73afd87b715b7d5907a0a06a857f5d03.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/77d15b3ea14c9a2c16a7860968b123d1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/7c412f943bb6a7a4b80306dbb14cbbff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/7c6d06b8ef7baa19081e049431822c89.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/82c20aa93f4e7156a5b21d053fcadd58.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/89470bf1bd0ca42cdb057086210a29a1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/95359d8b010894df69cafcc55bb8e02c.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/971a56a929a35861e79bceec62b86a71.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/983f70d60da9d3b7f0578524f71c8f3e.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/a0f027243fb19724a771f4699e05ed0a.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/a12a759ef7909ea03ed2d3cf38b495c5.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/aebb440f3f1bd7e8045a7206b11019a9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/b28e721c723ad9f0e963924b947b9600.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/b3bd2d5f2320af2fc1fce8e74c970774.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/bb89fdd42f85c0d36d5fdbbe393da5cf.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/bf881a852a20e6a08ff9d238e78e3d2a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/c29dff3b21cef26dc492690f2e1b569a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/c3f500beab3e95ada77412a75e6fa1be.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/c4d1ce20f1450d1de472d750019fa025.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/c703b810bb1e8e06432a8d368043fefb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/ca3e2f28076de7c1df4f69419f5d523f.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/cf664b32093d0a6c684ef8654a8beef6.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/d06a8fc5f05a71a46b79b5c0c78fe3ec.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/d3790d5212b98d22648e93857f6c4c30.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/d3c5a8934f56d756c5416297a583f59b.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/d878fb248a5d37aae9a70a5b750c3f83.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/d8a5692ffcaa78799dc51cc784a7d34e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/dacfe2bb8e85080779467ff7f7eaac85.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/dca7b69382a18cd7234150d1678f512f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/e06f8566b22ef0b26962d5fd7226e255.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/e0e224ce328f325ae5ac0e3d42a10576.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/e529b46e35476d188a842996638f907b.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/e77708df02a16eb9798eceefc4bbddc2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/e86bc96d720cd19ccc7a24107980b8b4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/f55f05512835073a2a71bc2bf94532e0.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/f6069ad9a7ddf74812edf9226f97fb22.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/f8e62290633f49815d41685c2f1046be.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/f956954aad459c411509788530519cd0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/f97317c462091875dee5a7902f3875a0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/medium/fe4e0022d32af5b610518af7062f0ce5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/00585e64a482700e98ad6f8f11674dab_thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/07ae852ef303fbb9e8983d6e7d5dbf44.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/0c293a937918b93b2bc690ad09d827a9.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/190e42536111223941b08a1dd1c6e9af.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/208bf08ac28fe3760d37bdfbe4998106.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/245ee3b0708663438c3a3b0899a4a0b4.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/29a7bdb408824ac5644d367d7e847dfe.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/2aa98b4e8b5973310a2a1ff5f96ce622.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/2bea4f418c4b098f0e4c6d5d36c3bb73.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/2d37ee4db33e75543773f020d4827a88.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/2fe656d37b54a7ede3e88b8640703699.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/35eaadfbdbc03a7550d9ae0a3b90ba0a_thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/37d747d4254b06da9f12720ceec5a27d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/3aeb32fbabba266c57e1d027855badff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/3d3702c1221102e566690b286b4d7444.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/4a8a93f3b9c69549b2c7859293a6d889.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/4e0932c44a723b1a7d666aa34f2de6cd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/50ab7d1e934eba70aac6038d2b1df400_thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/5223fd90f112170a98545767254361a4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/53026fa54ccce664a38705286505fc55.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/56740275078bb93bed746d520876f62a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/5a8a0f26711a0e58c3f3df667941a222.JPEG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/5af0bb88a2f250eced13ebe5706472cd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/5c595fb5b4ba9d4a3a787d6b9b6ffba3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/5d5418f82c02adb129c1807947a88904.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/5d68819b8f71b0b8ee7b4278dd10ab3f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/60e4fd3dc826357391f04296f12bbc25.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/63e7790873cfbfb0ed219ff5bc21a493.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/67762c78cda59e58697b45b9fe6a9612.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/6a45e5d554d401016afb028759655a2a.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/6a56ca77301d69062d8aa663d5d1ae92.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/7203499658b0148f47ec8041ffeaa0c4.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/73afd87b715b7d5907a0a06a857f5d03.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/77d15b3ea14c9a2c16a7860968b123d1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/7c412f943bb6a7a4b80306dbb14cbbff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/7c6d06b8ef7baa19081e049431822c89.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/82c20aa93f4e7156a5b21d053fcadd58.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/89470bf1bd0ca42cdb057086210a29a1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/95359d8b010894df69cafcc55bb8e02c.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/971a56a929a35861e79bceec62b86a71.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/983f70d60da9d3b7f0578524f71c8f3e.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/a0f027243fb19724a771f4699e05ed0a.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/a12a759ef7909ea03ed2d3cf38b495c5.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/aebb440f3f1bd7e8045a7206b11019a9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/b28e721c723ad9f0e963924b947b9600.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/b3bd2d5f2320af2fc1fce8e74c970774.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/bb89fdd42f85c0d36d5fdbbe393da5cf.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/bf881a852a20e6a08ff9d238e78e3d2a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/c29dff3b21cef26dc492690f2e1b569a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/c3f500beab3e95ada77412a75e6fa1be.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/c4d1ce20f1450d1de472d750019fa025.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/c703b810bb1e8e06432a8d368043fefb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/ca3e2f28076de7c1df4f69419f5d523f.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/cf664b32093d0a6c684ef8654a8beef6.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/d06a8fc5f05a71a46b79b5c0c78fe3ec.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/d3790d5212b98d22648e93857f6c4c30.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/d3c5a8934f56d756c5416297a583f59b.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/d878fb248a5d37aae9a70a5b750c3f83.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/d8a5692ffcaa78799dc51cc784a7d34e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/dacfe2bb8e85080779467ff7f7eaac85.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/dca7b69382a18cd7234150d1678f512f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/e06f8566b22ef0b26962d5fd7226e255.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/e0e224ce328f325ae5ac0e3d42a10576.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/e529b46e35476d188a842996638f907b.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/e77708df02a16eb9798eceefc4bbddc2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/e86bc96d720cd19ccc7a24107980b8b4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/f55f05512835073a2a71bc2bf94532e0.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/f6069ad9a7ddf74812edf9226f97fb22.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/f8e62290633f49815d41685c2f1046be.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/f956954aad459c411509788530519cd0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/f97317c462091875dee5a7902f3875a0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statics/img/upload/thumb/fe4e0022d32af5b610518af7062f0ce5.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+    <ignored path="artwork.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="artwork" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="album.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/controllers/album.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="88" column="27" selection-start="2302" selection-end="2302" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1333282771009" expanded="true" signature="2183:2496" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="image_admin.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/application/controllers/image_admin.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="16" selection-start="269" selection-end="269" vertical-scroll-proportion="0.3123845">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="CHECKOUT_INCLUDE_TAGS" value="false" />
+    <option name="UPDATE_CHANGES_POLICY" value="STASH" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/application/views/news/index.php" />
+        <option value="$PROJECT_DIR$/src/application/views/album/edit_album.php" />
+        <option value="$PROJECT_DIR$/src/application/controllers/startpage.php" />
+        <option value="$PROJECT_DIR$/src/application/views/album/index.php" />
+        <option value="$PROJECT_DIR$/src/application/models/album_model.php" />
+        <option value="$PROJECT_DIR$/src/application/config/routes.php" />
+        <option value="$PROJECT_DIR$/src/application/views/album/listView.php" />
+        <option value="$PROJECT_DIR$/src/application/views/album/view.php" />
+        <option value="$PROJECT_DIR$/src/application/views/templates/header.php" />
+        <option value="$PROJECT_DIR$/src/application/views/contact/index.php" />
+        <option value="$PROJECT_DIR$/src/application/views/startpage/index.php" />
+        <option value="$PROJECT_DIR$/src/application/views/templates/footer.php" />
+        <option value="$PROJECT_DIR$/src/application/views/about/index.php" />
+        <option value="$PROJECT_DIR$/src/statics/css/styles.css" />
+        <option value="$PROJECT_DIR$/src/application/controllers/album.php" />
+        <option value="$PROJECT_DIR$/src/application/controllers/image_admin.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="667" />
+    <option name="width" value="1255" />
+    <option name="height" value="998" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents ProjectPane="true" />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="statics" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="startpage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="news" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="login" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="image_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="album" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="about" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="live" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="development" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cache" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="preferences.sourceCode.XML" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\projekt\artwork\src\application\views\album" />
+      <recent name="D:\projekt\artwork\src\application\views" />
+      <recent name="D:\projekt\artwork\src\application\models" />
+      <recent name="D:\projekt\artwork\src\application\controllers" />
+      <recent name="D:\projekt\artwork\src\application\views\artwork" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" scope="Directory">
+      <TestRunner />
+      <method>
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method>
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="DETECT_NESTED_COPIES" value="true" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <configuration useDefault="false">C:\Users\Simon Kotlinski\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a1a7a417-f259-4e4e-8175-312d808f52d2" name="Default" comment="" />
+      <changelist id="f8030928-d10a-4e07-8b0e-af1caff86829" name="New changelist" comment="" />
+      <changelist id="6f68f4c9-49c7-4ea6-9909-eb390af86bde" name="bilder" comment="" />
+      <created>1327188825104</created>
+      <updated>1327188825104</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="667" y="0" width="1255" height="998" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25776657" sideWeight="0.6738095" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25119048" sideWeight="0.99349713" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32619047" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09405941" sideWeight="0.89162993" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" sideWeight="0.6345238" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="ENABLE_BACKGROUND_PROCESSES" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working copy from website added with database.&#10;" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="boilplate" />
+    <MESSAGE value="artwork add&#10;" />
+    <MESSAGE value="Delete artwork + fancyboc 2.0&#10;" />
+    <MESSAGE value="News section&#10;" />
+    <MESSAGE value="artwork&#10;" />
+    <MESSAGE value="artwork -&gt; album" />
+    <MESSAGE value="css, footer.. album deatils" />
+    <MESSAGE value="test" />
+    <MESSAGE value="live&#10;" />
+    <MESSAGE value="Going live, small updates.." />
+    <MESSAGE value="Admin menu and google analytics." />
+    <MESSAGE value="htaccess&#10;" />
+    <MESSAGE value="Startpage" />
+    <MESSAGE value="Artwork" />
+    <MESSAGE value="Working copy from website added with database.&#10;" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/application/views/album/listView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="44" selection-start="457" selection-end="457" vertical-scroll-proportion="0.40532959" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/config/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="33" selection-start="2888" selection-end="2888" vertical-scroll-proportion="0.44790256" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/album/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="43" selection-start="1171" selection-end="1171" vertical-scroll-proportion="-15.076923" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/image_admin/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="120" selection-start="3362" selection-end="3362" vertical-scroll-proportion="0.16049382" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/contact/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="10" selection-start="173" selection-end="173" vertical-scroll-proportion="0.026234567" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/startpage/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="36" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/templates/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="18" selection-start="5044" selection-end="5044" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/about/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="10" selection-start="173" selection-end="173" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/views/templates/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="127" column="33" selection-start="2721" selection-end="2721" vertical-scroll-proportion="0.029411765">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controllers/album.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="27" selection-start="2302" selection-end="2302" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1333282771009" expanded="true" signature="2183:2496" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controllers/image_admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="16" selection-start="269" selection-end="269" vertical-scroll-proportion="0.3123845">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+
