@@ -16,7 +16,6 @@ class Artwork_model extends CI_Model {
 
 	public function get_news($id = FALSE)
 	{
-
 		$this->db->order_by("id", "desc");
 		if ($id === FALSE)
 		{
@@ -27,6 +26,21 @@ class Artwork_model extends CI_Model {
 		$query = $this->db->get_where('artwork', array('id' => $id));
 		return $query->row_array();
 	}
+
+	public function get_artwork_filters($id = FALSE)
+	{
+		$this->db->order_by("id", "asc");
+		if ($id === FALSE)
+		{
+			$query = $this->db->get('artwork_filters');
+			return $query->result_array();
+		}
+
+		$query = $this->db->get_where('artwork_filters', array('id' => $id));
+		return $query->row_array();
+	}
+
+
 
 	public function set_artwork()
 	{

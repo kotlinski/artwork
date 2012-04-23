@@ -58,7 +58,7 @@
 
 
 		<?$prev_id = 0?>
-		<?php foreach ($news as $news_item): ?>
+		<?php foreach ($news as $key=>$news_item): ?>
 		<?if($news_item['show']==1 || $this->session->userdata('logged_in')){?>
 
 			<br/>
@@ -131,10 +131,11 @@
 						<a href="<?=site_url('/news/show/')?>/<?echo $news_item['id'].'/#'.($prev_id-1);?>">Click here to make this visible</a></p><br />
 					<?}?>
 				<?}?>
-			<?$prev_id +=1;?>
-
-			<hr/>
-			<?}?>
+			<?$prev_id +=1;
+			if(!($key+1 == count($news))) {
+				echo '<hr/>';
+			}
+			}?>
 		<?php endforeach ?>
 	</div>
 

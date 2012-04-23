@@ -149,9 +149,6 @@
 						<a href="<?=base_url('news');?>">News administration</a>
 					</li>
 					<li>
-						<a href="<?=base_url('album');?>">Artwork administration</a>
-					</li>
-					<li>
 						<a href="<?=base_url('about');?>">About administration</a>
 					</li>
 					<li>

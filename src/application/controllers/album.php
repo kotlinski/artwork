@@ -14,39 +14,21 @@ class Album extends CI_Controller {
         parent::__construct();
         $this->load->model('album_model');
 		$this->load->model('Images_model', 'images_model');
+		$this->load->model('Artwork_model', 'artwork_model');
     }
 
-    public function index()
+    public function index($selected_filter = 2)
     {
 
-        //$albums = $this->album_model->get_album();
+		$data['images'] = $this->images_model->get_filtered_images($selected_filter);
 
-		$cover_images = array();
-
-		/*foreach ($albums as $key=>$album) {
-
-			$cover_image = $this->album_model->get_cover_images($album['id']);
-			if($cover_image){
-				$image_id = $cover_image['image_id'];
-				$image_object = $this->images_model->get_image($image_id);
-				$albums[$key]['image_id'] = $image_id;
-				if($image_object){
-					$albums[$key]['filename'] = $image_object->file_name;
-				}
-			} else {
-				$albums[$key]['image_id'] = null;
-				$albums[$key]['filename'] = null;
-			}
-		}*/
-
-		$data['album'] = null;
-/*		echo '<pre>';
-		var_dump($albums);
-		echo '</pre>';
-		die();*/
-		$data['cover_images'] =$cover_images;
-		$data['title'] = 'Album';
         $data['menu_item'] = 'album';
+		$submenu = $this->artwork_model->get_artwork_filters();
+		unset($submenu[0]);
+		$data['submenu'] = $submenu;
+		$data['selected_filter'] = $selected_filter;
+		$sel= $this->artwork_model->get_artwork_filters($selected_filter);
+		$data['title'] = $sel['name'];
 
         $this->load->view('templates/header', $data);
         $this->load->view('album/index', $data);

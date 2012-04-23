@@ -58,13 +58,18 @@ class Image_admin extends CI_Controller {
 
 			$data_insert = array(
 				'title' => $this->input->post('title'),
-				'file_name' => $upload_data['file_name']
+				'file_name' => $upload_data['file_name'],
+				'artwork_filter' => $this->input->post('upload_filter'),
+				'order' => $this->input->post('order')
 			);
 
-			$data['upload_data'] = array( 	'id' => $this->images_model->insert_image($data_insert),
-											'title' => $this->input->post('title'),
-											'file_name' => $upload_data['file_name'],
-											);
+			$data['upload_data'] = array(
+				'id' => $this->images_model->insert_image($data_insert),
+				'title' => $this->input->post('title'),
+				'file_name' => $upload_data['file_name'],
+				'filter' => $this->input->post('upload_filter'),
+				'order' => $this->input->post('order'),
+			);
 
 			$config = array(
 				'source_image' => $upload_data['full_path'], //get original image
@@ -116,8 +121,27 @@ class Image_admin extends CI_Controller {
 	public function update($id){
 		$newTitle = $this->input->post('title');
 		echo "new title: " . $this->input->post('title')."<br/>";
-		$this->images_model->update($id, $newTitle);
+		$data = array(
+			'title' => $newTitle
+		);
+		$this->images_model->update($id, $data);
 		echo "<br /><br /><br /><p>Your image have been renamed. </p>";
+	}
+	public function setFilter($imgId){
+		$filter_id = $this->input->post('filter_id');
+		$data = array(
+			'artwork_filter' => $filter_id
+		);
+		$this->images_model->update($imgId, $data);
+		echo '<br /><br /><br /><p>Filter changed. <a href="http://anne.local/image_admin">Continue</a> </p>';
+	}
+	public function setOrder($imgId){
+		$order = $this->input->post('order');
+		$data = array(
+			'order' => $order
+		);
+		$this->images_model->update($imgId, $data);
+		echo '<br /><br /><br /><p>Order saved. <a href="http://anne.local/image_admin">Continue</a> </p>';
 	}
 
 }

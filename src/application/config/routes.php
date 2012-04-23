@@ -63,7 +63,7 @@ $route['album/update/(:any)'] = 'album/update/$1';
 $route['album/edit_album/(:any)'] = 'album/edit_album/$1';
 $route['album/update_album'] = 'album/update_album';
 $route['album/listView/(:any)'] = 'album/listView/$1';
-$route['album/(:any)'] = 'album/view/$1';
+$route['album/(:any)'] = 'album/index/$1';
 $route['album'] = 'album';
 
 
@@ -79,6 +79,8 @@ $route['image_admin/create'] = 'image_admin/create';
 $route['image_admin/do_upload'] = 'image_admin/do_upload';
 $route['image_admin/delete/(:any)'] = 'image_admin/delete/$1';
 $route['image_admin/update/(:any)'] = 'image_admin/update/$1';
+$route['image_admin/setFilter/(:any)'] = 'image_admin/setFilter/$1';
+$route['image_admin/setOrder/(:any)'] = 'image_admin/setOrder/$1';
 $route['image_admin/(:any)/(:any)'] = 'image_admin/view/$1/$2';
 $route['image_admin'] = 'image_admin';
 

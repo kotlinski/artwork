@@ -14,14 +14,29 @@ class Images_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_images()
-    {
+	public function get_images()
+	{
 		$this->db->order_by("artwork_filters.id", "desc");
-        $this->db->order_by("images.id", "desc");
+		$this->db->order_by("images.order", "asc");
+		$this->db->order_by("images.id", "desc");
 		$this->db->join('images', 'images.artwork_filter = artwork_filters.id');
-        $query = $this->db->get('artwork_filters');
-        return $query->result();
-    }
+		$query = $this->db->get('artwork_filters');
+		return $query->result();
+	}
+
+
+	public function get_filtered_images($filter_id = null)
+	{
+		$this->db->order_by("artwork_filters.id", "desc");
+		$this->db->order_by("images.order", "asc");
+		if($filter_id){
+			$this->db->where('artwork_filters.id', $filter_id);
+		}
+		$this->db->order_by("images.id", "desc");
+		$this->db->join('images', 'images.artwork_filter = artwork_filters.id');
+		$query = $this->db->get('artwork_filters');
+		return $query->result();
+	}
 
     public function insert_image($data = array())
     {
@@ -37,10 +52,7 @@ class Images_model extends CI_Model {
 		$query = $this->db->get_where('images', array('id' => $id));
 		return $query->row();
 	}
-	public function update($id, $title){
-		$data = array(
-			'title' => $title
-		);
+	public function update($id, $data){
 		$this->db->where('id', $id);
 		$this->db->update('images', $data);
 	}

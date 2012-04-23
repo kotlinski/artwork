@@ -38,6 +38,11 @@ body
     width: 100%;
     background-color: white;
 }
+.submenu
+{
+	text-align:left;
+}
+
 
 .menu ul{
     margin: auto;
@@ -54,6 +59,11 @@ body
     padding-left: 60px;
     padding-right: 1px;
     background-color: white;
+}
+.submenu ul li a
+{
+	text-align:left;
+	padding-left: 00px;
 }
 .menu ul li a:visited{
     color: #777;

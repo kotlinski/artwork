@@ -204,7 +204,41 @@
 
 			return false;
 		});
+		$(".filter_image_form").bind("submit", function() {
+			if (imgId < 0 ) {
+				return false;
+			}
+			var newFilter = $('#filter_image_form_'+imgId +' option:selected').val();
+			$.ajax({
+				type	: "POST",
+				cache	: false,
+				url		: "<?=base_url('image_admin/setFilter')?>/"+imgId,
+				data	: {filter_id: newFilter},
+				success: function(data) {
+					$.fancybox(data);
+				}
+			});
 
+			return false;
+		});
+
+		$(".order_image_form").bind("submit", function() {
+			if (imgId < 0 ) {
+				return false;
+			}
+			var newOrder = $('#order_image_field_'+imgId).val();
+			$.ajax({
+				type	: "POST",
+				cache	: false,
+				url		: "<?=base_url('image_admin/setOrder')?>/"+imgId,
+				data	: {order: newOrder},
+				success: function(data) {
+					$.fancybox(data);
+				}
+			});
+
+			return false;
+		});
 	});
 
 </script>
