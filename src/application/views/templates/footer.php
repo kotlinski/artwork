@@ -14,11 +14,11 @@
 <br /><br/>
 </div>
 <footer id="sFooter">
-<!--<br /><br /><br /><br /><br /><br /><br /><br />
-	<br /><br />
-	<br /><br /><br /><br />
+	<!--<br /><br /><br /><br /><br /><br /><br /><br />
+	 <br /><br />
+	 <br /><br /><br /><br />
 
--->
+ -->
 	<div id="footerspan">
 		<div class="aboutText" style="text-align: center;">
 			<hr />
@@ -38,208 +38,124 @@
 <script>window.jQuery || document.write('<script src="<?=base_url('static/js/libs/jquery-1.6.2.min.js')?>"><\/script>')</script>
 
 <script type="text/javascript">
-	var imgId = -1;
-	var newsId = -1;
+var imgId = -1;
+var newsId = -1;
 
-	function setImgId(id){
-		imgId = id;
+function setImgId(id){
+	imgId = id;
+}
+function setNewsId(id){
+	newsId = id;
+}
+
+function closeButton(event){
+	event.returnValue = false;
+	if(event.preventDefault){
+		event.preventDefault();
 	}
-	function setNewsId(id){
-		newsId = id;
-	}
 
-	$(document).ready(function() {
-		var properties = {
-			prevEffect		: 'fade',
-			nextEffect		: 'fade',
-			openSpeed 		: 900,
-			closeSpeed 		: 800,
-			nextSpeed		: 500,
-			prevSpeed		: 500,
-			openOpacity		: true,
-			closeBtn		: true,
-			closeClick		: true,
-			helpers		: {
-				title	: { type : 'inside'},
+	$.fancybox.close();
+}
 
-				overlay	: {
-					opacity : 1.0,
-					css : {
-						'background-color' : '#FFF'
-					},
-					closeClick		: false
-				}
+$(document).ready(function() {
+	var properties = {
+		prevEffect		: 'fade',
+		nextEffect		: 'fade',
+		openSpeed 		: 900,
+		closeSpeed 		: 800,
+		nextSpeed		: 500,
+		prevSpeed		: 500,
+		openOpacity		: true,
+		closeBtn		: false,
+		closeClick		: true,
+
+		helpers		: {
+			title	: { type : 'inside'},
+			overlay	: {
+				opacity : 1.0,
+				css : {
+					'background-color' : '#FFF'
+				},
+				closeClick		: false
 			}
-		};
+		},
+		afterLoad : function() {
+			this.title = $("#fancyboxTitles div").eq(this.index).html();
+		} // afterload
+	};
 
-		var properties2 = {
-			prevEffect		: 'fade',
-			nextEffect		: 'fade',
-			maxHeight		: '80%',
-			openSpeed 		: 900,
-			closeSpeed 		: 800,
-			nextSpeed		: 500,
-			prevSpeed		: 500,
-			openOpacity		: true,
-			closeBtn		: false,
-			closeClick		: false,
-			helpers		: {
-				title	: { type : 'inside'},
 
-				overlay	: {
-					opacity : 1.0,
-					css : {
-						'background-color' : '#FFF'
-					},
-					closeClick		: false
-				}
+	var properties2 = {
+		prevEffect		: 'fade',
+		nextEffect		: 'fade',
+		maxHeight		: '80%',
+		openSpeed 		: 900,
+		closeSpeed 		: 800,
+		nextSpeed		: 500,
+		prevSpeed		: 500,
+		openOpacity		: true,
+		closeBtn		: false,
+		closeClick		: false,
+		helpers		: {
+			title	: { type : 'inside'},
+			overlay	: {
+				opacity : 1.0,
+				css : {
+					'background-color' : '#FFF'
+				},
+				closeClick		: false
 			}
-		};
+		}
+	};
 
-		/*
-		   *   Examples - images
-		   */
-		$(".picture").fancybox(properties);
-		$(".startUpPicture").fancybox(properties2).trigger('click')
 
-		$(".popUpForm").fancybox({
-			'autoDimensions': true,
-			'margin'		: 50,
-			'padding'		: 10,
-			'titleShow'		: false,
-			'onClosed'		: function() {
-				$("#login_error").hide();
-			}
-		});
-		$(".popUpFormImages").fancybox({
-			'scrolling'		: 'yes',
-			'autoDimensions': true,
-			'margin'		: 50,
-			'padding'		: 10,
-			'titleShow'		: false,
-			'onClosed'		: function() {
-				$("#login_error").hide();
-			}
-		});
-		/*
-		'scrolling'		: 'yes',
-			'autoDimensions': true,
-			'margin'		: 50,
-			'padding'		: 10,
-			'titleShow'		: false,*/
-		$(".delete_image_form").bind("submit", function() {
-			if (imgId < 0 ) {
-				return false;
-			}
-			$("#container_id_"+imgId).css( 'visibility' , 'hidden'  );
-			$("#container_id_"+imgId).css( 'height' , '0px'  );
-			$("#container_id_"+imgId).css( 'margin' , '0px'  );
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('image_admin/delete')?>/"+imgId,
-				data	: $(this).serializeArray(),
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
 
-			return false;
-		});
-		$(".rename_image_form").bind("submit", function() {
-			if (imgId < 0 ) {
-				return false;
-			}
-			var newName = $('#rename_image_field_'+imgId).val();
-			var subName = newName;
-			if(subName.length > 16){
-				subName = newName.substr(0, 13)+'...';
-			}
-			$('#admin_picture_'+imgId).html(subName);
+	/*
+			   *   Examples - images
+			   */
+	$(".picture").fancybox(properties);
 
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('image_admin/update')?>/"+imgId,
-				data	: {title: newName},
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
+	$(".startUpPicture").fancybox(properties2).trigger('click');
 
-			return false;
-		});
-		$(".delete_news_form").bind("submit", function() {
-			if (newsId < 0 ) {
-				return false;
-			}
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('news/delete')?>/"+newsId,
-				data	: $(this).serializeArray(),
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
 
-			return false;
-		});
-		$(".rename_news_form").bind("submit", function() {
-			if (newsId < 0 ) {
-				return false;
-			}
-			var newTitle = $('#rename_title_field_'+newsId).val();
-			var newText = $('#rename_text_field_'+newsId).val();
-
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('news/update')?>/"+newsId,
-				data	: {title: newTitle, text: newText},
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
-
-			return false;
-		});
-		$(".filter_image_form").bind("submit", function() {
-			if (imgId < 0 ) {
-				return false;
-			}
-			var newFilter = $('#filter_image_form_'+imgId +' option:selected').val();
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('image_admin/setFilter')?>/"+imgId,
-				data	: {filter_id: newFilter},
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
-
-			return false;
-		});
-
-		$(".order_image_form").bind("submit", function() {
-			if (imgId < 0 ) {
-				return false;
-			}
-			var newOrder = $('#order_image_field_'+imgId).val();
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('image_admin/setOrder')?>/"+imgId,
-				data	: {order: newOrder},
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
-
-			return false;
-		});
+	$(".popUpForm").fancybox({
+		'autoDimensions': true,
+		'margin'		: 50,
+		'padding'		: 10,
+		'titleShow'		: false,
+		'onClosed'		: function() {
+			$("#login_error").hide();
+		}
 	});
+	$(".popUpFormImages").fancybox({
+		'scrolling'		: 'yes',
+		'autoDimensions': true,
+		'margin'		: 50,
+		'padding'		: 10,
+		'titleShow'		: false,
+		'onClosed'		: function() {
+			$("#login_error").hide();
+		}
+	});
+
+<?
+	if($this->session->userdata('logged_in')){
+		include './././statics/js/adminHandling.php';
+		/*$this->load->helper('file');
+		$string = read_file('./././statics/js/adminHandling.php');
+		echo $string;*/
+	} else {
+
+	}
+?>
+
+	$(".fancybox").fancybox({
+		afterLoad : function() {
+			this.title = $("#fancyboxTitles div").eq(this.index).html();
+		}
+	}); //fancybox
+});
+
 
 </script>
 
@@ -247,15 +163,6 @@
 <!--<script defer src="<?=base_url('statics/js/plugins.js')?>"></script>
 <script defer src="<?=base_url('statics/js/script.js')?>"></script>-->
 <!-- end scripts-->
-
-
-<!-- Change UA-XXXXX-X to be your site's ID -->
-<script>
-    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-        load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    });
-</script>
 
 <!-- Google +1 button -->
 <script type="text/javascript">

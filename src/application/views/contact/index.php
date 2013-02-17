@@ -7,9 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 ?>
-	<br />
     <div class="aboutText">
-        	<?php echo $contact['text'] ?>
+       <?php echo $contact['text'] ?>
     </div>
 
     <?

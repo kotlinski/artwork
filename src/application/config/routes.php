@@ -54,7 +54,7 @@ $route['news/(:any)'] = 'news/view/$1';
 $route['news'] = 'news';
 
 
-$route['album/create'] = 'album/create';
+/*$route['album/create'] = 'album/create';
 $route['album/create_album'] = 'album/create_album';
 $route['album/hide/(:any)'] = 'album/hide/$1';
 $route['album/show/(:any)'] = 'album/show/$1';
@@ -63,6 +63,7 @@ $route['album/update/(:any)'] = 'album/update/$1';
 $route['album/edit_album/(:any)'] = 'album/edit_album/$1';
 $route['album/update_album'] = 'album/update_album';
 $route['album/listView/(:any)'] = 'album/listView/$1';
+$route['album/(:any)'] = 'album/index/$1';*/
 $route['album/(:any)'] = 'album/index/$1';
 $route['album'] = 'album';
 

@@ -8,8 +8,7 @@
  */?>
 
 <div class="aboutText"  style="white-space:normal;">
-	<br/>
-	<div style="margin-top:10px;">
+	<div style="margin-top:1.25cm;">
 		<a class="picture"
 		   rel="group2"
 		   href="<?=base_url('statics/img/upload/' . $image->file_name)?>"
@@ -20,13 +19,21 @@
 			<img class="newsImg" src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
 		</a>
 
-		<div style="width:360px;text-align: left; margin-top:50px">
+		<div style="width:360px;text-align: left; margin-top:10px">
 			<p>
 				<?php echo $text ?>
 			</p>
 
 		</div>
 
+	</div>
+	<div id="fancyboxTitles" style="display: none;">
+		<?echo '<div>'.
+		'<span style="float:left;max-width:80%;">'.htmlspecialchars($image->title, ENT_QUOTES).'</span>'.
+		'<span style="float:right;" title="close">'.'<a href="#" OnClick="closeButton(event);">close</a>'.'</span>'.
+		'<br style="clear:both;" />'.
+		'<p style="text-align:center;color:#777;font: normal 13px "Helvetica Neue",Helvetica,Arial,sans-serif;">Copyright © Anne Hamrin Simonsson '.date("Y").'</p>'.
+		'</div>';?>
 	</div>
 
 

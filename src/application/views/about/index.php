@@ -7,7 +7,6 @@
  * To change this template use File | Settings | File Templates.
  */
 ?>
-	<br />
     <div class="aboutText">
         <?php echo $about['text'] ?>
     </div>

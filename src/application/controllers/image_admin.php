@@ -112,9 +112,9 @@ class Image_admin extends CI_Controller {
 		define('PUBPATH',str_replace(SELF,'',FCPATH)); // added
 
 		//unlink(base_url('statics/img/upload/thumb/'.$image->file_name));
-		unlink(PUBPATH."statics\\img\\upload\\thumb\\".$image->file_name);
-		unlink(PUBPATH."statics\\img\\upload\\".$image->file_name);
-		unlink(PUBPATH."statics\\img\\upload\\medium\\".$image->file_name);
+		unlink(PUBPATH."statics/img/upload/thumb/".$image->file_name);
+		unlink(PUBPATH."statics/img/upload/".$image->file_name);
+		unlink(PUBPATH."statics/img/upload/medium/".$image->file_name);
 		$this->images_model->delete($id);
 		echo "<br /><br /><br /><p>Your image have been removed. </p>";
 	}
@@ -133,7 +133,7 @@ class Image_admin extends CI_Controller {
 			'artwork_filter' => $filter_id
 		);
 		$this->images_model->update($imgId, $data);
-		echo '<br /><br /><br /><p>Filter changed. <a href="http://anne.local/image_admin">Continue</a> </p>';
+		echo '<br /><br /><br /><p>Filter changed. <a href="'.base_url('image_admin').'">Continue</a> </p>';
 	}
 	public function setOrder($imgId){
 		$order = $this->input->post('order');
@@ -141,7 +141,7 @@ class Image_admin extends CI_Controller {
 			'order' => $order
 		);
 		$this->images_model->update($imgId, $data);
-		echo '<br /><br /><br /><p>Order saved. <a href="http://anne.local/image_admin">Continue</a> </p>';
+		echo '<br /><br /><br /><p>Order saved. <a href="'.base_url('image_admin').'">Continue</a> </p>';
 	}
 
 }

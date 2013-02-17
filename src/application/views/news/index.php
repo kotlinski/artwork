@@ -60,9 +60,7 @@
 		<?$prev_id = 0?>
 		<?php foreach ($news as $key=>$news_item): ?>
 		<?if($news_item['show']==1 || $this->session->userdata('logged_in')){?>
-
-			<br/>
-			<div>
+			<div style="margin-top:20px;">
 
 				<?
 				if($news_item['show']==0 && $this->session->userdata('logged_in')){

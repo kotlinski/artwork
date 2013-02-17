@@ -14,40 +14,47 @@
 
 <?$prev_id = 0?>
 <?//$mode = current($cover_images);?>
-	<div class="submenu menu">
-		<ul>
-			<?foreach( $submenu as $key=>$submenu_item){
-			if($selected_filter == $submenu_item['id']){
-				echo '<li><a style="margin-right: 60px" href="'.base_url('album/'.$submenu_item['id']).'" class="current">'.$submenu_item['name'].'</a></li>';
-			} else {
-				echo '<li><a style="margin-right: 60px" href="'.base_url('album/'.$submenu_item['id']).'">'.$submenu_item['name'].'</a></li>';
-			}
-		}?>
-		</ul><br style="clear:left"/>
-	</div>
 
-
+	<br />
 	<table style="width:370px;border: 0px solid #ff0f0f;padding:0px;margin:0px;">
 		<?
+		$titles ="";
 		echo '<tr>';
 		foreach ($images as $counter=>$image) {?>
 			<? if($counter%3 == 0) {
 				echo '</tr><tr>';
 			}?>
-			<td valign="middle" align="center" style="padding:0px;margin:0px;">
+			<td valign="middle" align="center" style="padding-bottom:10px;margin:0px;">
 				<a class="picture"
-				   id="pic"
 				   rel="group2"
 				   href="<?=base_url('statics/img/upload/'.$image->file_name)?>"
 				   title="<?=$image->title?>"
-				   style="padding:0px;margin:0px;">
+				   style="padding:0px;margin:0px;border:0px;">
 					<img
 						src="<?=base_url('statics/img/upload/thumb/'.$image->file_name)?>"
-						style="padding:0px;margin:0px;"/></a>
+						style="padding:0px;margin:0px;border:0px;"/>
+				</a>
 			</td>
 
-			<?}?>
+			<?
+			$titles .=
+				'<div>'.
+					'<span style="float:left;max-width:80%;">'.
+						htmlspecialchars($image->title, ENT_QUOTES).'<br />'.
+						'<span style="text-align:left;color:#777;font: normal 13px "Helvetica Neue",Helvetica,Arial,sans-serif;">Copyright © Anne Hamrin Simonsson '/*.date("Y")*/.'</span>'.
+
+					'</span>'.
+					'<span style="float:right;" title="close">'.'<a href="#" OnClick="closeButton(event);">close</a>'.'</span>'.
+					'<br style="clear:both;" />'.
+				'</div>';
+
+?>
+
+		<?}?>
 	</table>
+	<div id="fancyboxTitles" style="display: none;">
+		<?echo $titles?>
+	</div>
 
 
 	<br /> <br /> <br /><br /> <br /> <br />
