@@ -11,7 +11,7 @@
         <div class="aboutHeader"><?php echo $album_item['title'] ?></div>
     </div><br />
 
-	<table style="width:370px;border: 0px solid #ff0f0f;padding:0px;margin:0px;">
+	<table class="tableview">
 	<?
 	foreach ($images as $counter=>$image) {?>
 		<tr>

@@ -21,7 +21,7 @@
 				<img class="newsImg" src="<?//=base_url('statics/img/upload/'.$cover_image['file_name'])?>" /></a-->
 		<?}?>
 
-		<table style="width:370px;border: 0px solid #ff0f0f;padding:0px;margin:0px;">
+		<table class="tableview">
 		<?
 		echo '<tr>';
 		foreach ($images as $counter=>$image) {?>
