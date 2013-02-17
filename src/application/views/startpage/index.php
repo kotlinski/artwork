@@ -19,7 +19,7 @@
 			<img class="newsImg" src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
 		</a>
 
-		<div style="width:360px;text-align: left; margin-top:10px">
+		<div class="startpageText">
 			<p>
 				<?php echo $text ?>
 			</p>
