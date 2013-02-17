@@ -287,6 +287,9 @@ a {
 	.aboutText{
 		white-space:normal;
 	}
+	.newsImg{
+		width: 100%;
+	}
 
 }
 
