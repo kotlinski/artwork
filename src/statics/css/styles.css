@@ -258,7 +258,7 @@ a {
 	width:360px;text-align: left; margin-top:10px;
 }
 
-@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 370px), only screen and (max-device-width: 370px) {
 	.tableview{
 		width:100%;
 	}
@@ -272,6 +272,7 @@ a {
 	#header
 	{
 		width: 100%;
+		font-size:20px;
 	}
 
 	#footerspan{
@@ -294,7 +295,7 @@ a {
 		width: 100%;
 	}
 	.startpageText{
-		width:100;
+		width:100%;
 	}
 
 }
