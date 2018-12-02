@@ -36,4 +36,5 @@ Thumbs.db
 database.php
 config.php
 
-/.idea/
+.idea
+.idea/workspace.xml

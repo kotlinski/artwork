@@ -12,7 +12,9 @@ class Contact extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('contact_model');
+		$this->load->library('session');
+
+		$this->load->model('contact_model');
     }
 
     public function index()

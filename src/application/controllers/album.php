@@ -12,7 +12,9 @@ class Album extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('album_model');
+		$this->load->library('session');
+
+		$this->load->model('album_model');
 		$this->load->model('Images_model', 'images_model');
 		$this->load->model('Artwork_model', 'artwork_model');
     }

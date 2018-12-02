@@ -12,6 +12,8 @@ class Image_admin extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
+
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Images_model', 'images_model');
 	}
