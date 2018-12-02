@@ -12,7 +12,10 @@ class About extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('about_model');
+
+		$this->load->helper('security');
+        $this->load->library('session');
+		$this->load->model('about_model');
     }
 
     public function index()

@@ -9,10 +9,10 @@
 ?>
 
 
-	<div class="aboutText">
+<div class="aboutText">
 
 
-		<?if($this->session->userdata('logged_in')) {
+	<?if($this->session->userdata('logged_in')) {
 
 	} else { ?>
 		<div class="aboutHeader">User Status</div> <?
@@ -21,36 +21,36 @@
 		<hr /><br/><?
 	}?>
 
-	</div>
+</div>
 
 
-	<div class="aboutText">
-		<?
-		//BOF Login user
-		if(!$this->session->userdata('logged_in')) {?>
+<div class="aboutText">
+	<?
+	//BOF Login user
+	if(!$this->session->userdata('logged_in')) {?>
 
-			<div class="aboutHeader">Login</div>
+		<div class="aboutHeader">Login</div>
 
-			<?echo '<form action="' . site_url('/login/logmein/') . '" method="post">';?>
+		<?echo '<form action="' . site_url('/login/logmein/') . '" method="post">';?>
 
-			<label for="login_username">Username:</label>
-			<input type="text" id="login_username" name="login_username" value="" /><br />
+		<label for="login_username">Username:</label>
+		<input type="text" id="login_username" name="login_username" value="" /><br />
 
-			<label for="login_password">Password:</label>
-			<input type="password" id="login_password" name="login_password" value="" /><br />
+		<label for="login_password">Password:</label>
+		<input type="password" id="login_password" name="login_password" value="" /><br />
 
-			<input type="submit" id="login" name="login" value="Login" />
+		<input type="submit" id="login" name="login" value="Login" />
 
-			</form><br />
-			<hr />
-			<?}
-		//EOF Login user?>
-	</div>
-	<br/>
+		</form><br />
+		<hr />
+	<?}
+	//EOF Login user?>
+</div>
+<br/>
 
 
-	<?//BOF Create user?>
-	<?if($this->session->userdata('superuser')) {?>
+<?//BOF Create user?>
+<?if($this->session->userdata('logged_in')) {?>
 	<div class="aboutText">
 		<div class="aboutHeader">Create A User</div>
 
@@ -71,9 +71,9 @@
 		<br />
 	</div>
 	<hr />
-	<?}//EOF Create user?>
+<?}//EOF Create user?>
 
-	<?if($this->session->userdata('logged_in')) {?>
+<?if($this->session->userdata('logged_in')) {?>
 	<div class="aboutText">
 		<br />
 		<?
@@ -96,40 +96,40 @@
 						Superuser
 					</th>
 					<?if($this->session->userdata('superuser')) {?>
-					<th>
-						Delete
-					</th>
+						<th>
+							Delete
+						</th>
 					<?}?>
 				</tr>
 				<?foreach($user_array as $ua) {?>
-				<tr>
-					<td>
-						<?echo $ua['id'];?>
-					</td>
-					<td>
-						<?echo $ua['username'];?>
-					</td>
-					<td>
-						<? echo $ua['superuser']==1?'yes':'no';?>
-					</td>
-					<?if($this->session->userdata('superuser')) {?>
-					<td>
-						<?if($ua['superuser']!=1){?>
-						<a href="<?echo site_url('/login/delete/' . $ua['id'])?>" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+					<tr>
+						<td>
+							<?echo $ua['id'];?>
+						</td>
+						<td>
+							<?echo $ua['username'];?>
+						</td>
+						<td>
+							<? echo $ua['superuser']==1?'yes':'no';?>
+						</td>
+						<?if($this->session->userdata('superuser')) {?>
+							<td>
+								<?if($ua['superuser']!=1){?>
+									<a href="<?echo site_url('/login/delete/' . $ua['id'])?>" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+								<?}?>
+							</td>
 						<?}?>
-					</td>
-					<?}?>
-				</tr>
+					</tr>
 				<?}?>
 			</table>
 			<br />
-			<?}
+		<?}
 		?>
 	</div>
 
 	<hr />
 
-	<?}?>
+<?}?>
 </div>
 
 

@@ -139,7 +139,7 @@ $(document).ready(function() {
 	});
 
 <?
-	if($this->session->userdata('logged_in')){
+	if($this->session->get_userdata('logged_in')){
 		include './././statics/js/adminHandling.php';
 		/*$this->load->helper('file');
 		$string = read_file('./././statics/js/adminHandling.php');

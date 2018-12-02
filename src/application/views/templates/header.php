@@ -110,7 +110,7 @@
 					<?
 					$i = 0;
 					foreach($list as $key=>$item){
-						$special_attribute ="";
+						$special_attribute="";
 						if($i == 0) {
 							$special_attribute = 'style="float:left;"';
 						}
@@ -143,8 +143,6 @@
 	<div id="sMain" role="main">
 		<div id="bodyspan">
 			<?if($this->session->userdata('logged_in')) {?>
-
-
 
 			<div class="aboutHeader">Administration</div>
 			<p>

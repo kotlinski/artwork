@@ -12,7 +12,10 @@ class Startpage extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('startpage_model');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$this->load->library('form_validation');
+		$this->load->model('startpage_model');
 		$this->load->model('Images_model', 'images_model');
     }
 

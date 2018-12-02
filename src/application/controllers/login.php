@@ -13,7 +13,10 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         //$this->load->model('login_model');
-        $this->load->library('simplelogin');
+		$this->load->library('session');
+		$this->load->library('form_validation');
+
+		$this->load->library('Simplelogin');
     }
 
     public function index()
@@ -32,8 +35,8 @@ class Login extends CI_Controller {
 
         //Load
         $this->load->helper('url');
+		$this->load->library('form_validation');
 
-        $this->form_validation->set_rules('create_username', 'Username', 'required|min_length[4]|max_length[32]|alpha_dash');
         $this->form_validation->set_rules('create_password', 'Password', 'required|min_length[4]|max_length[32]|alpha_dash');
 
         if ($this->form_validation->run() == false) {
@@ -105,8 +108,19 @@ class Login extends CI_Controller {
                     $flashdata = array('success' => true, 'success_text' => 'Login Successful!');
                     $this->session->set_flashdata($flashdata);
                     */
-                redirect('/login/');
+
+				print("Bacl to login: ");
+
+
+				print("user data logged in: ");
+				print_r($this->session->get_userdata(array('logged_in')));
+				print_r($this->session->get_userdata(array('logged_in')));
+
+				print_r($_SESSION);
+
+				redirect('/login/');
             } else {
+				print("fail"); die();
                 //echo $this->input->post('login_username') . " " . $this->input->post('login_password'); die();
                 /*
                     //If you are using OBSession you can uncomment these lines
