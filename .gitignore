@@ -33,7 +33,7 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-database.php
-config.php
+src/application/config/config*.php
+src/application/config/database*.php
 
-/.idea/
+.idea
