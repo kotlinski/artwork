@@ -8,14 +8,17 @@
  */
 
 class News extends CI_Controller {
+	public $form_validation;
+    public $session;
+    public $news_model;
+    public $images_model;
 
     public function __construct()
     {
         parent::__construct();
 		$this->load->library('session');
-		$this->load->model('news_model');
-		$this->load->model('Images_model', 'images_model');
-		$this->load->model('Images_model', 'images_model');
+		$this->load->model('News_model', 'news_model');
+        $this->load->model('Images_model', 'images_model');
     }
 
     public function index()

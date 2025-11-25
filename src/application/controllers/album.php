@@ -8,6 +8,11 @@
  */
 
 class Album extends CI_Controller {
+    public $form_validation;
+    public $session;
+    public $album_model;
+    public $images_model;
+    public $artwork_model;
 
     public function __construct()
     {

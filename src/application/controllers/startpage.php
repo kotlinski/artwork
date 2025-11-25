@@ -8,10 +8,15 @@
  */
 
 class Startpage extends CI_Controller {
+	public $form_validation;
+    public $session;
+    public $startpage_model;
+    public $images_model;
 
     public function __construct()
     {
         parent::__construct();
+
 		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->library('form_validation');

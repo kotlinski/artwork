@@ -8,6 +8,9 @@
  */
 
 class Login extends CI_Controller {
+    public $session;
+    public $form_validation;
+    public $simplelogin;
 
     public function __construct()
     {
@@ -109,14 +112,14 @@ class Login extends CI_Controller {
                     $this->session->set_flashdata($flashdata);
                     */
 
-				print("Bacl to login: ");
+				/*print("Bacl to login: ");
 
 
 				print("user data logged in: ");
 				print_r($this->session->get_userdata(array('logged_in')));
 				print_r($this->session->get_userdata(array('logged_in')));
 
-				print_r($_SESSION);
+				print_r($_SESSION);*/
 
 				redirect('/login/');
             } else {
