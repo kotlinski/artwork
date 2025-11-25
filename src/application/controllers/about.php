@@ -8,6 +8,9 @@
  */
 
 class About extends CI_Controller {
+    public $form_validation;
+    public $session;
+    public $about_model;
 
     public function __construct()
     {

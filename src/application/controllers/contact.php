@@ -8,7 +8,10 @@
  */
 
 class Contact extends CI_Controller {
-
+    public $session;
+    public $contact_model;
+    public $form_validation;
+    
     public function __construct()
     {
         parent::__construct();

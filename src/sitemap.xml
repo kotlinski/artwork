@@ -7,27 +7,27 @@
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 <url>
-  <loc>http://www.annesimonsson.se/</loc>
+  <loc>https://www.annesimonsson.se/</loc>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
-  <loc>http://www.annesimonsson.se/news</loc>
+  <loc>https://www.annesimonsson.se/news</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 <url>
-  <loc>http://www.annesimonsson.se/album</loc>
+  <loc>https://www.annesimonsson.se/album</loc>
   <changefreq>weekly</changefreq>
 	<priority>0.6</priority>
 </url>
 <url>
-  <loc>http://www.annesimonsson.se/about</loc>
+  <loc>https://www.annesimonsson.se/about</loc>
   <changefreq>weekly</changefreq>
 	<priority>0.6</priority>
 </url>
 <url>
-  <loc>http://www.annesimonsson.se/contact</loc>
+  <loc>https://www.annesimonsson.se/contact</loc>
   <changefreq>weekly</changefreq>
 	<priority>0.6</priority>
 </url>

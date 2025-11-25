@@ -8,6 +8,9 @@
  */
 
 class Image_admin extends CI_Controller {
+    public $form_validation;
+    public $session;
+    public $images_model;
 
 	function __construct()
 	{

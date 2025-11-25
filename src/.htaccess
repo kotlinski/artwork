@@ -1,9 +1,15 @@
 DirectoryIndex index.php
 RewriteEngine on
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Force www
+RewriteCond %{HTTP_HOST} ^annesimonsson\.se [NC]
+RewriteRule (.*) https://www.annesimonsson.se/$1 [R=301,L]
+
 RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
-
-RewriteCond %{HTTP_HOST} ^annesimonsson.se
-RewriteRule (.*) http://www.annesimonsson.se/$1 [R=301,L]
