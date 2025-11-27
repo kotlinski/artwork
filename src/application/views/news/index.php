@@ -32,7 +32,7 @@
 					<?foreach ($images as $image) {?>
 					<div style="padding:0px 50px;margin:0px 50px;width:150px">
 
-						<img src="<?= base_url('statics/img/upload/thumb/'.$image->file_name);?>" alt="<?=$image->title?>" />
+						<img src="<?= base_url('konst/thumb/'.$image->file_name);?>" alt="<?=$image->title?>" />
 						<?echo ' '.$image->id. '.'?>
 
 					</div>
@@ -60,20 +60,20 @@
 		<?$prev_id = 0?>
 		<?php foreach ($news as $key=>$news_item): ?>
 		<?if($news_item['show']==1 || $this->session->userdata('logged_in')){?>
-			<div style="margin-top:20px;">
 
+			<div style="margin-top:20px;">
 				<?
 				if($news_item['show']==0 && $this->session->userdata('logged_in')){
-					echo '<div class="aboutHeader greyText">';
+					echo '<h3 class="aboutHeader greyText">';
 				} else {
-					echo '<div class="aboutHeader">';
+					echo '<h3 class="aboutHeader">';
 				}?>
-				<?php echo $news_item['title'] ?></div>
+				<?php echo $news_item['title'] ?></h3>
 				<?
 				if($news_item['show']==0 && $this->session->userdata('logged_in')){
-					echo '<p class="greyText">';
+					echo '<p class="greyText" style="margin-top:2px;">';
 				} else {
-					echo '<p>';
+					echo '<p style="margin-top:2px;">';
 				}?>
 
 				<?php echo $news_item['text'] ?>
@@ -131,8 +131,8 @@
 				<?}?>
 			<?$prev_id +=1;
 			if(!($key+1 == count($news))) {
-				echo '<hr/>';
-			}
+                echo '<hr style="border-color: #ccc; background-color: #ccc; color: #ccc; height:1px;" />';
+            }
 			}?>
 		<?php endforeach ?>
 	</div>

@@ -54,8 +54,8 @@ class News extends CI_Controller {
 				$needle = substr($after, $start_pos + 3, ($end_pos - 3) - $start_pos);
 				$image = $this->images_model->get_image($needle);
 				if ($image) {
-					$image = '<img class="newsImg" src="' . base_url('/statics/img/upload/medium/' . $image->file_name) . '" />';
-				} else {
+                    $image = '<img class="newsImg" src="' . base_url('/konst/medium/' . $image->file_name) . '" />';
+                } else {
 					$image = "";
 				}
 				$before = substr($after, 0, $start_pos);

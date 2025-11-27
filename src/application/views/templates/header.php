@@ -1,22 +1,5 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Simon Kotlinski
- * Date: 2012-01-22
- * Time: 00:02
- * To change this template use File | Settings | File Templates.
- */
-?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en" itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en" itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en" itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/WebPage"> <!--<![endif]-->
-
+<!DOCTYPE html>
+<html class="no-js" lang="en" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
 	<meta charset="utf-8">
@@ -24,6 +7,29 @@
 	<!-- Use the .htaccess and remove these lines to avoid edge case issues.
 	 More info: h5bp.com/b/378 -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Anne Simonsson",
+            "alternateName": "Anne Hamrin Simonsson",
+            "birthDate": "1967",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Färjestaden",
+                "addressCountry": "Sweden"
+            },
+            "jobTitle": "Conceptual Artist",
+            "description": "Anne Hamrin Simonsson is a conceptual artist working with paintings, objects, and installations. Her work explores the theme of 'LIFE' through various techniques and materials, often in unexpected public spaces.",
+            "sameAs": [
+                "https://www.instagram.com/ahamrinsimonsson/",
+                "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+                "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+                "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+            ]
+        }
+    </script>
 
 	<?if($title == "Startpage"){ ?>
 		<title>Anne Hamrin Simonsson</title>
@@ -33,19 +39,24 @@
 		<meta name="description" content="Official website of Swedish artist Anne Hamrin Simonsson; <?=$title?>. All images and texts belong to Anne Hamrin Simonsson.">
 	<? } ?>
 	<meta name="revisit-after" content="1 days">
+    <meta property="og:title" content="Anne Hamrin Simonsson - Artwork">
+    <meta property="og:description" content="Official website of Swedish artist Anne Hamrin Simonsson. View artwork, news, and contact information.">
+    <meta property="og:image" content="https://www.annesimonsson.se/konst/medium/anne-simonsson-konstverk-smalandstrienalen-rotvalta.jpg">
+    <meta property="og:url" content="https://www.annesimonsson.se/">
 
 	<meta name="keywords" content="anne simonsson, anne hamrin simonsson, öland, konst, artwork, artist, konstnär, vernisage, utställning, helg">
-	<meta name="author" content="The website is made by Simon Kotlinski/Springworks">
+	<meta name="author" content="The website is made by Simon Kotlinski">
+    <meta name="robots" content="index,follow">
 
 	<meta itemprop="name" content="Anne Hamrin Simonsson">
-	<!--<meta itemprop="description" content="Official website of Swedish artist Anne Hamrin Simonsson; news, artwork, about and contact. All images and texts belong to Anne Hamrin Simonsson.">
-	-->
 
+    <link rel="canonical" href="https://www.annesimonsson.se<?= $_SERVER['REQUEST_URI'] ?>" />
 
 	<!-- Mobile viewport optimized: j.mp/bplateviewport -->
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+    <link rel="icon" href="<?=base_url('favicon.ico')?>" type="image/x-icon" />
 
 	<!-- CSS: implied media=all -->
 	<!-- CSS concatenated and minified via ant build script-->
@@ -57,7 +68,7 @@
 	<link rel="stylesheet" href="<?=base_url('statics/fancybox/source/helpers/jquery.fancybox-buttons.css?v=2.0.4')?>" type="text/css" media="screen" />
 
 
-	<link rel="stylesheet" href="<?=base_url('statics/css/styles.css')?>" />
+	<link rel="stylesheet" href="<?=base_url('statics/css/styles.css?v=20251126')?>" />
 
 	<!-- end CSS-->
 
@@ -90,8 +101,8 @@
 		<div id="headspan">
 			<div id="header" itemscope itemtype="http://schema.org/Person">
 				<br/>
-				<span itemprop="name">ANNE HAMRIN SIMONSSON</span>
-				<br/><br/>
+				<h1 itemprop="name">ANNE HAMRIN SIMONSSON</h1>
+				<br/>
 			</div>
 			<?
 			$list = array("news" => "NEWS",
@@ -115,9 +126,9 @@
 							$special_attribute = 'style="float:left;"';
 						}
 						if($key == $menu_item){?>
-							<li><a itemprop="significantLinks" <?=$special_attribute?> href="<?=base_url($key)?>" class="current" id="<?=$i==0?'spec':''?>"><?=$item?></a></li>
+							<li><h2><a itemprop="significantLinks" <?=$special_attribute?> href="<?=base_url($key)?>" class="current" id="<?=$i==0?'spec':''?>"><?=$item?></a></h2></li>
 							<?} else {?>
-							<li><a itemprop="significantLinks" <?=$special_attribute?> href="<?=base_url($key)?>"  id="<?=$i==0?'spec':''?>"><?=$item?></a></li>
+							<li><h2><a itemprop="significantLinks" <?=$special_attribute?> href="<?=base_url($key)?>"  id="<?=$i==0?'spec':''?>"><?=$item?></a></h2></li>
 							<?} $i++;?>
 						<?}?>
 				</ul>
@@ -128,9 +139,9 @@
 				<ul>
 					<?foreach( $submenu as $key=>$submenu_item){
 					if($selected_filter == $submenu_item['id']){
-						echo '<li><a href="'.base_url('album/'.$submenu_item['id']).'" class="current">'.$submenu_item['name'].'</a></li>';
+						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['id']).'" class="current">'.$submenu_item['name'].'</a></h3></li>';
 					} else {
-						echo '<li><a href="'.base_url('album/'.$submenu_item['id']).'">'.$submenu_item['name'].'</a></li>';
+						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['id']).'">'.$submenu_item['name'].'</a></h3></li>';
 					}
 				}?>
 				</ul>

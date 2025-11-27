@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-<url>
-  <loc>https://www.annesimonsson.se/</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.8</priority>
-</url>
-<url>
-  <loc>https://www.annesimonsson.se/news</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://www.annesimonsson.se/album</loc>
-  <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-<url>
-  <loc>https://www.annesimonsson.se/about</loc>
-  <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-<url>
-  <loc>https://www.annesimonsson.se/contact</loc>
-  <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
+    <url>
+        <loc>https://www.annesimonsson.se/startpage</loc>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/medium/anne-simonsson-konstverk-smalandstrienalen-rotvalta.jpg</image:loc>
+            <image:title>Installation Under_Liv by Anne Simonsson</image:title>
+            <image:caption>Professional Artist Anne Simonsson, part of Under_Liv root roll with 24 objects installation Kalmar konstmuseum 2023</image:caption>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/news</loc>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album</loc>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/about</loc>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/2</loc>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg</image:loc>
+            <image:title>LIV no 8 installation by Anne Simonsson</image:title>
+            <image:caption>Installation by artist Anne Simonsson: LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017</image:caption>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/3</loc>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/thumb/IMG_20230827_163130_(1).jpg</image:loc>
+            <image:title>Part of Under_Liv Installation by Anne Simonsson</image:title>
+            <image:caption>Object by artist Anne Simonsson: Part of Under_Liv installation Kalmar konstmuseum l 93cm w 19x15cm 2023</image:caption>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/4</loc>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/4e0932c44a723b1a7d666aa34f2de6cd.jpg</image:loc>
+            <image:title>Sparris no 2, acrylic painting by Anne Simonsson</image:title>
+            <image:caption>Professional painting by painter Anne Simonsson: Sparris no 2 (Asparagus no 2) acrylic on masonite 1x1m 2009</image:caption>
+        </image:image>
+    </url>
 </urlset>
