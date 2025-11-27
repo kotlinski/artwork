@@ -25,12 +25,12 @@ class Images_model extends CI_Model {
 	}
 
 
-	public function get_filtered_images($filter_id = null)
+	public function get_filtered_images($filter_name = null)
 	{
 		$this->db->order_by("artwork_filters.id", "desc");
 		$this->db->order_by("images.order", "asc");
-		if($filter_id){
-			$this->db->where('artwork_filters.id', $filter_id);
+		if($filter_name){
+			$this->db->where('artwork_filters.name', $filter_name);
 		}
 		$this->db->order_by("images.id", "desc");
 		$this->db->join('images', 'images.artwork_filter = artwork_filters.id');

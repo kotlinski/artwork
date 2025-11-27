@@ -24,14 +24,18 @@ class Album extends CI_Controller {
 		$this->load->model('Artwork_model', 'artwork_model');
     }
 
-    public function index($selected_filter = 2)
+    public function index($selected_filter = 'installations')
     {
 
 		$data['images'] = $this->images_model->get_filtered_images($selected_filter);
 
         $data['menu_item'] = 'album';
 		$submenu = $this->artwork_model->get_artwork_filters();
-		unset($submenu[0]);
+        foreach ($submenu as $key => $item) {
+            if (isset($item['name']) && $item['name'] === 'Not filtered') {
+                unset($submenu[$key]);
+            }
+        }
 		$data['submenu'] = $submenu;
 		$data['selected_filter'] = $selected_filter;
 		$sel= $this->artwork_model->get_artwork_filters($selected_filter);

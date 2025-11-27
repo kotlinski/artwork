@@ -17,7 +17,7 @@
 		<tr>
 		<td valign="middle" style="padding:4px 0px;margin:0px;">
 			<?=$counter+1?>.
-			<a href="<?=base_url('album/'.$album_item['id'].'/'.$image['id'])?>"
+			<a href="<?=base_url('album/'.$album_item['title'].'/'.$image['id'])?>"
 			style="padding:0px;margin:0px 0px;">
 			<?=$image['title']?>
 			</a>
