@@ -18,10 +18,23 @@
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Färjestaden",
+                "addressRegion": "Öland, Kalmar Län",
                 "addressCountry": "Sweden"
             },
-            "jobTitle": "Conceptual Artist",
-            "description": "Anne Hamrin Simonsson is a conceptual artist working with paintings, objects, and installations. Her work explores the theme of 'LIFE' through various techniques and materials, often in unexpected public spaces.",
+            "jobTitle": [
+                { "@value": "Conceptual Artist", "@language": "en" },
+                { "@value": "Konstnär", "@language": "sv" }
+            ],
+            "description": [
+                {
+                    "@value": "Anne Hamrin Simonsson is a conceptual artist from Öland and Kalmar Län, Sweden, working with paintings, objects, and installations. Her work explores the theme of 'LIFE' through various techniques and materials, often in unexpected public spaces.",
+                    "@language": "en"
+                },
+                {
+                    "@value": "Anne Hamrin Simonsson är en konstnär från Färjestaden, på Öland i Kalmar län, som arbetar med måleri, objekt och installationer. Hennes verk utforskar temat 'LIVET' genom olika tekniker och material, ofta i oväntade offentliga rum.",
+                    "@language": "sv"
+                }
+            ],
             "sameAs": [
                 "https://www.instagram.com/ahamrinsimonsson/",
                 "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
@@ -31,13 +44,47 @@
         }
     </script>
 
-	<?if($title == "Startpage"){ ?>
-		<title>Anne Hamrin Simonsson</title>
-		<meta name="description" content="Official website of Swedish artist Anne Hamrin Simonsson; news, artwork, about and contact. All images and texts belong to Anne Hamrin Simonsson.">
-	<? } else {?>
-		<title>Anne Hamrin Simonsson <?= ' - ' . $title ?></title>
-		<meta name="description" content="Official website of Swedish artist Anne Hamrin Simonsson; <?=$title?>. All images and texts belong to Anne Hamrin Simonsson.">
-	<? } ?>
+    <?php
+    switch (strtolower($title)) {
+        case 'news':
+            $page_title = 'Anne Hamrin Simonsson – News';
+            $page_description = 'Latest news and updates from Swedish artist Anne Hamrin Simonsson.';
+            break;
+        case 'about':
+            $page_title = 'Anne Hamrin Simonsson – About';
+            $page_description = 'Learn more about Swedish conceptual artist Anne Hamrin Simonsson.';
+            break;
+        case 'contact':
+            $page_title = 'Anne Hamrin Simonsson – Contact';
+            $page_description = 'Contact Anne Hamrin Simonsson, Swedish conceptual artist, for inquiries and collaborations.';
+            break;
+        case 'installations':
+            $page_title = 'Anne Hamrin Simonsson – Installations';
+            $page_description = 'Explore installations by Anne Hamrin Simonsson, Swedish conceptual artist.';
+            break;
+        case 'objects':
+            $page_title = 'Anne Hamrin Simonsson – Objects';
+            $page_description = 'Discover objects created by Anne Hamrin Simonsson, Swedish conceptual artist.';
+            break;
+        case 'paintings':
+            $page_title = 'Anne Hamrin Simonsson – Paintings';
+            $page_description = 'View paintings by Anne Hamrin Simonsson, Swedish conceptual artist.';
+            break;
+        default:
+            if (empty($title)) {
+                $page_title = 'Anne Hamrin Simonsson – Swedish Conceptual Artist, Paintings, Installations, Objects';
+                $page_description = 'Discover the official website of Anne Hamrin Simonsson, a Swedish conceptual artist. Explore her paintings, installations, objects, news, and contact information. All images and texts belong to Anne Hamrin Simonsson.';
+            } else {
+                $page_title = 'Anne Hamrin Simonsson - ' . ucfirst($title);
+                $page_description = 'Official website of Swedish artist Anne Hamrin Simonsson; ' . $title . '. All images and texts belong to Anne Hamrin Simonsson.';
+            }
+            break;
+    }
+    ?>
+    <title><?= $page_title ?></title>
+    <meta name="description" content="<?= $page_description ?>">
+
+
 	<meta name="revisit-after" content="1 days">
     <meta property="og:title" content="Anne Hamrin Simonsson - Artwork">
     <meta property="og:description" content="Official website of Swedish artist Anne Hamrin Simonsson. View artwork, news, and contact information.">
@@ -124,13 +171,17 @@
 						$special_attribute="";
 						if($i == 0) {
 							$special_attribute = 'style="float:left;"';
-						}
-						if($key == $menu_item){?>
-							<li><h2><a itemprop="significantLinks" <?=$special_attribute?> href="<?=base_url($key)?>" class="current" id="<?=$i==0?'spec':''?>"><?=$item?></a></h2></li>
-							<?} else {?>
-							<li><h2><a itemprop="significantLinks" <?=$special_attribute?> href="<?=base_url($key)?>"  id="<?=$i==0?'spec':''?>"><?=$item?></a></h2></li>
-							<?} $i++;?>
-						<?}?>
+						}?>
+                    <li>
+                        <h2>
+                            <?php
+                            $href = ($key === 'album') ? base_url($key . '/installations') : base_url($key);
+                            ?>
+                            <a itemprop="significantLinks" <?=$special_attribute?> href="<?=$href?>" <?=($key == $menu_item ? 'class="current"' : '')?> id="<?=$i==0?'spec':''?>"><?=$item?></a>
+                        </h2>
+                    </li>
+                    <?$i++;?>
+                    <?}?>
 				</ul>
 
 			</div>
@@ -138,10 +189,10 @@
 			<div class="submenu menu" style="margin-top:10px;">
 				<ul>
 					<?foreach( $submenu as $key=>$submenu_item){
-					if($selected_filter == $submenu_item['id']){
-						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['name']).'" class="current">'.strtoupper($submenu_item['name']).'</a></h3></li>';
+					if($selected_filter == $submenu_item['name']){
+						echo '<li><h3><a itemprop="significantLinks" href="'.base_url('album/'.$submenu_item['name']).'" class="current">'.strtoupper($submenu_item['name']).'</a></h3></li>';
 					} else {
-						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['name']).'">'.strtoupper($submenu_item['name']).'</a></h3></li>';
+						echo '<li><h3><a itemprop="significantLinks" href="'.base_url('album/'.$submenu_item['name']).'">'.strtoupper($submenu_item['name']).'</a></h3></li>';
 					}
 				}?>
 				</ul>

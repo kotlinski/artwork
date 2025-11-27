@@ -10,6 +10,11 @@ RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^www\.annesimonsson\.se$ [NC]
 RewriteRule ^startpage/?$ https://www.annesimonsson.se/ [R=301,L]
 
+# Redirect album IDs to named albums
+RewriteRule ^album/2/?$ /album/installations [R=301,L]
+RewriteRule ^album/3/?$ /album/objects [R=301,L]
+RewriteRule ^album/4/?$ /album/paintings [R=301,L]
+
 # Force www
 RewriteCond %{HTTP_HOST} ^annesimonsson\.se [NC]
 RewriteRule (.*) https://www.annesimonsson.se/$1 [R=301,L]
