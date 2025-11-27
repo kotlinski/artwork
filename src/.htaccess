@@ -5,6 +5,11 @@ RewriteEngine on
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Redirect /startpage to homepage
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} ^www\.annesimonsson\.se$ [NC]
+RewriteRule ^startpage/?$ https://www.annesimonsson.se/ [R=301,L]
+
 # Force www
 RewriteCond %{HTTP_HOST} ^annesimonsson\.se [NC]
 RewriteRule (.*) https://www.annesimonsson.se/$1 [R=301,L]

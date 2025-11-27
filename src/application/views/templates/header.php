@@ -139,9 +139,9 @@
 				<ul>
 					<?foreach( $submenu as $key=>$submenu_item){
 					if($selected_filter == $submenu_item['id']){
-						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['id']).'" class="current">'.$submenu_item['name'].'</a></h3></li>';
+						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['id']).'" class="current">'.strtoupper($submenu_item['name']).'</a></h3></li>';
 					} else {
-						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['id']).'">'.$submenu_item['name'].'</a></h3></li>';
+						echo '<li><h3><a href="'.base_url('album/'.$submenu_item['id']).'">'.strtoupper($submenu_item['name']).'</a></h3></li>';
 					}
 				}?>
 				</ul>
