@@ -29,6 +29,16 @@ class About extends CI_Controller {
         $text['text'] = str_replace("???", '<h3 class="aboutHeader">', $text['text']);
         $text['text'] = str_replace("!!!", '</h3>',nl2br($text['text']));
 
+        // Replace URLs with <a> tags, truncate display to 50 chars, add external link symbol
+        $text['text'] = preg_replace_callback(
+            '/https?:\/\/[^\s<]+/i',
+            function ($matches) {
+                $url = $matches[0];
+                $display = mb_strlen($url) > 50 ? mb_substr($url, 0, 50) . '...' : $url;
+                return '<a href="' . htmlspecialchars($url) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($display) . '</a>';
+            },
+            $text['text']
+        );
         $data['about'] = $text;
         $data['about_raw'] = $this->about_model->get_about();
         $data['title'] = 'About';

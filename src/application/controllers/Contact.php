@@ -24,9 +24,29 @@ class Contact extends CI_Controller {
     {
         $text = $this->contact_model->get_contact();
 
+        // Make emails clickable
+        $text['text'] = preg_replace(
+            '/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/',
+            '<a href="mailto:$1">$1</a>',
+            $text['text']
+        );
+
+        // Make phone numbers clickable (Swedish format)
+        $text['text'] = preg_replace(
+            '/(\b0\d{1,3}[- ]?\d{6,8}\b)/',
+            '<a href="tel:$1">$1</a>',
+            $text['text']
+        );
+
+        // Make URLs clickable
+        $text['text'] = preg_replace(
+            '/(https?:\/\/[^\s]+)/',
+            '<a href="$1" target="_blank">$1</a>',
+            $text['text']
+        );
 
         $text['text'] = str_replace("???", '<span class="aboutHeader">', $text['text']);
-        $text['text'] = str_replace("!!!", '</span>',nl2br($text['text']));
+        $text['text'] = str_replace("!!!", '</span>', nl2br($text['text']));
 
         $data['contact'] = $text;
         $data['contact_raw'] = $this->contact_model->get_contact();

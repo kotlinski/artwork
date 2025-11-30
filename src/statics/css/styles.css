@@ -68,13 +68,13 @@ body
 }
 .menu ul li a{
     float: inherit; text-decoration: none;
-    color: #777;
+    color: #767676;
     padding-left: 60px;
     padding-right: 1px;
     background-color: white;
 }
 .menu ul li a:visited{
-    color: #777;
+    color: #767676;
 }
 .submenu
 {
@@ -110,8 +110,8 @@ body
 }
 
 hr {
-    color: #777;
-    background-color: #777;
+    color: #767676;
+    background-color: #767676;
     height: 1px;
     border: 0;
 	margin-bottom: 10px;
@@ -171,7 +171,7 @@ hr {
 
 
 .aboutText{
-    color: #777;
+    color: #767676;
     white-space:nowrap;
     letter-spacing: -0.5px;
     margin-top: 20px;
@@ -199,7 +199,7 @@ textarea {
 }
 
 table {
-    color: #777;
+    color: #767676;
     white-space:normal;
     letter-spacing: -0.5px;
     font-family:"Courier New", sans-serif;
@@ -258,7 +258,7 @@ li{
 }
 
 a {
-	color: #777;
+	color: #767676;
 }
 
 .newsImg{

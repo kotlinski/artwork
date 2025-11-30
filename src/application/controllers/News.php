@@ -186,19 +186,20 @@ class News extends CI_Controller {
 //
 //		return $string;
 //	}
-	function makeLink($post)
-	{ // Disclaimer: This "URL plucking" regex is far from ideal.
-		$post = preg_replace("/([^\w\/])(www\.[a-z0-9\-]+\.[a-z0-9\-]+)/i", "$1http://$2",$post);
-		$pattern = '!http://[a-z0-9\-._~\!$&\'()*+,;=:/?#[\]@%]+!i';
-		$replace='_handle_URL_callback';
-		return preg_replace_callback($pattern,$replace, $post);
-	}
+    function makeLink($post)
+    { // Improved regex to match http, https, and youtu.be links.
+        $post = preg_replace("/([^\w\/])(www\.[a-z0-9\-]+\.[a-z0-9\-]+)/i", "$1http://$2", $post);
+        $pattern = '!(https?://[a-z0-9\-._~\!$&\'()*+,;=:/?#[\]@%]+|https?://youtu\.be/[a-zA-Z0-9_-]+)!i';
+        $replace = '_handle_URL_callback';
+        return preg_replace_callback($pattern, $replace, $post);
+    }
 }
 function _handle_URL_callback($matches)
-{ // preg_replace_callback() is passed one parameter: $matches.
-	if (preg_match('/\.(?:jpe?g|png|gif|JPG|JPEG)(?:$|[?#])/', $matches[0]))
-	{ // This is an image if path ends in .GIF, .PNG, .JPG or .JPEG.
-		return $matches[0];
-	} // Otherwise handle as NOT an image.
-	return '<a href="'. $matches[0] .'">'. $matches[0] .'</a>';
+{
+    $url = $matches[0];
+    if (preg_match('/\.(?:jpe?g|png|gif|JPG|JPEG)(?:$|[?#])/', $url)) {
+        return $url;
+    }
+    $display = mb_strlen($url) > 50 ? mb_substr($url, 0, 50) . '...' : $url;
+    return '<a href="' . htmlspecialchars($url) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($display) . '</a>';
 }
