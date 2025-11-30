@@ -25,16 +25,16 @@ if ($this->session->userdata('logged_in')) {
 	<div class="imageListContainer">
 		<div class="imageListElement imageListImage">
 			<a class="picture"
-			   href="<?=base_url('statics/img/upload/' . $upload_data['file_name'])?>"
+			   href="<?=base_url('konst/' . $upload_data['file_name'])?>"
 			   title="<?=$upload_data['title']?>">
-				<img src="<?= base_url('statics/img/upload/thumb/' . $upload_data['file_name']);?>"
+				<img src="<?= base_url('konst/thumb/' . $upload_data['file_name']);?>"
 					 alt="<?=$upload_data['title']?>"/>
 			</a>
 		</div>
 		<div class="imageListElement imageListText">
 
 			<?echo $upload_data['id'] . '. '?>
-			<a href="<?=base_url('statics/img/upload/' . $upload_data['file_name'])?>"><?=$upload_data['title']?></a>
+			<a href="<?=base_url('konst/' . $upload_data['file_name'])?>"><?=$upload_data['title']?></a>
 
 		</div>
 	</div>
@@ -103,9 +103,9 @@ if ($this->session->userdata('logged_in')) {
 			<div class="imageListElement imageListImage">
 				<a class="picture"
 				   rel="group"
-				   href="<?=base_url('statics/img/upload/' . $image->file_name)?>"
+				   href="<?=base_url('konst/' . $image->file_name)?>"
 				   title="<?=$image->title?>">
-					<img src="<?= base_url('statics/img/upload/thumb/' . $image->file_name);?>"
+					<img src="<?= base_url('konst/thumb/' . $image->file_name);?>"
 						 alt="<?=$image->title?>"/>
 				</a>
 			</div>
@@ -115,7 +115,7 @@ if ($this->session->userdata('logged_in')) {
 				<a class="picture"
 				   id="admin_picture_<?=$image->id?>"
 				   rel="group2"
-				   href="<?=base_url('statics/img/upload/' . $image->file_name)?>"
+				   href="<?=base_url('konst/' . $image->file_name)?>"
 				   title="<?=$image->title?>">
 					<?=strlen($image->title) > 16 ? substr($image->title, 0, 13) . '...' : $image->title;?>
 				</a>
@@ -155,7 +155,7 @@ if ($this->session->userdata('logged_in')) {
 					<p>
 						Delete this image?
 					</p>
-					<img src="<?= base_url('statics/img/upload/medium/' . $image->file_name);?>"
+					<img src="<?= base_url('konst/medium/' . $image->file_name);?>"
 						 alt="<?=$image->title?>"/>
 
 					<p>
@@ -165,7 +165,7 @@ if ($this->session->userdata('logged_in')) {
 			</div>
 			<div style="display:none">
 				<form class="rename_image_form" id="rename_image_form_<?=$image->id?>" method="post" action="">
-					<img src="<?= base_url('statics/img/upload/medium/' . $image->file_name);?>"
+					<img src="<?= base_url('konst/medium/' . $image->file_name);?>"
 						 alt="<?=$image->title?>"/>
 
 					<p>
@@ -179,7 +179,7 @@ if ($this->session->userdata('logged_in')) {
 			</div>
 			<div style="display:none">
 				<form class="filter_image_form" id="filter_image_form_<?=$image->id?>"  method="post" action="">
-					<img src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
+					<img src="<?= base_url('konst/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
 					<?
 					$options = array();
 					foreach($artwork_filters as $filter){
@@ -197,7 +197,7 @@ if ($this->session->userdata('logged_in')) {
 			</div>
 			<div style="display:none">
 				<form class="order_image_form" id="order_image_form_<?=$image->id?>"  method="post" action="">
-					<img src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
+					<img src="<?= base_url('konst/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
 					<p>
 						Order:
 						<input type="text" id="order_image_field_<?=$image->id?>" value="<?=$image->order?>" style="width:250px"/>

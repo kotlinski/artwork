@@ -22,7 +22,7 @@
 	<div id="footerspan">
 		<div class="aboutText" style="text-align: center;">
 			<hr />
-			Copyright © Anne Hamrin Simonsson 2012
+			Copyright © Anne Hamrin Simonsson 2012-2025
 			<!-- Place this tag where you want the +1 button to render -->
 			<!--<div class="g-plusone" data-size="small" data-annotation="none"></div>-->
 		</div>

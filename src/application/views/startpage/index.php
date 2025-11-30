@@ -9,16 +9,14 @@
 
 <div class="aboutText"  style="white-space:normal;">
 	<div style="margin-top:1.25cm;">
-		<a class="picture"
-		   rel="group2"
-		   href="<?=base_url('statics/img/upload/' . $image->file_name)?>"
-		   title="<?=$image->title?><div class='aboutText' style='text-align: center;'>
-				Copyright © Anne Hamrin Simonsson 2012
-			</div>
-		">
-			<img class="newsImg" src="<?= base_url('statics/img/upload/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />
-		</a>
-
+        <a class="picture"
+           data-fancybox="gallery"
+           data-caption="Verk av konstnär Anne Hamrin Simonsson: <?=htmlspecialchars($image->title, ENT_QUOTES)?>"
+           href="<?=base_url('konst/' . $image->file_name)?>"
+           title="<?=$image->title?>">
+            <img class="newsImg" src="<?= base_url('konst/medium/'.$image->file_name);?>"
+                 alt="Verk av konstnär Anne Hamrin Simonsson: <?=htmlspecialchars($image->title, ENT_QUOTES)?>" />
+        </a>
 		<div class="startpageText">
 			<p>
 				<?php echo $text ?>
@@ -87,9 +85,9 @@
 						<div class="imageListElement imageListImage">
 							<a class="picture"
 							   rel="group"
-							   href="<?=base_url('statics/img/upload/' . $image->file_name)?>"
+							   href="<?=base_url('konst/' . $image->file_name)?>"
 							   title="<?=$image->title?>">
-								<img src="<?= base_url('statics/img/upload/thumb/' . $image->file_name);?>"
+								<img src="<?= base_url('konst/thumb/' . $image->file_name);?>"
 									 alt="<?=$image->title?>"/>
 							</a>
 						</div>
@@ -99,7 +97,7 @@
 							<a class="picture"
 							   id="admin_picture_<?=$image->id?>"
 							   rel="group2"
-							   href="<?=base_url('statics/img/upload/' . $image->file_name)?>"
+							   href="<?=base_url('konst/' . $image->file_name)?>"
 							   title="<?=$image->title?>">
 								<?=strlen($image->title) > 16 ? substr($image->title, 0, 13) . '...' : $image->title;?>
 							</a>

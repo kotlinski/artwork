@@ -8,7 +8,7 @@
  */?>
 <div id="bodyspan">
     <div class="aboutText">
-        <div class="aboutHeader"><?php echo $news_item['title'] ?></div>
+        <h3 class="aboutHeader"><?php echo $news_item['title'] ?></h3>
         <?php echo $news_item['text'] ?>
     </div>
 </div>

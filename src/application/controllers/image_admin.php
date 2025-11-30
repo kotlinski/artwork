@@ -11,6 +11,8 @@ class Image_admin extends CI_Controller {
     public $form_validation;
     public $session;
     public $images_model;
+    public $upload;
+    public $image_lib;
 
 	function __construct()
 	{
@@ -37,7 +39,7 @@ class Image_admin extends CI_Controller {
 
 	function do_upload()
 	{
-		$config['upload_path'] = 'statics/img/upload/';
+		$config['upload_path'] = 'konst/';
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
 		$config['encrypt_name']	= 'TRUE';
 		$config['max_size']	= '250000';
@@ -78,7 +80,7 @@ class Image_admin extends CI_Controller {
 
 			$config = array(
 				'source_image' => $upload_data['full_path'], //get original image
-				'new_image' => 'statics/img/upload/medium/', //save as new image //need to create thumbs first
+				'new_image' => 'konst/medium/', //save as new image //need to create thumbs first
 				'maintain_ratio' => TRUE,
 				'image_library' => 'gd2',
 				'quality' => 100,
@@ -92,7 +94,7 @@ class Image_admin extends CI_Controller {
 
 			$config = array(
 				'source_image' => $upload_data['full_path'], //get original image
-				'new_image' => 'statics/img/upload/thumb/', //save as new image //need to create thumbs first
+				'new_image' => 'konst/thumb/', //save as new image //need to create thumbs first
 				'maintain_ratio' => true,
 				'width' => 120,
 				'height' => 70,
@@ -116,10 +118,10 @@ class Image_admin extends CI_Controller {
 
 		define('PUBPATH',str_replace(SELF,'',FCPATH)); // added
 
-		//unlink(base_url('statics/img/upload/thumb/'.$image->file_name));
-		unlink(PUBPATH."statics/img/upload/thumb/".$image->file_name);
-		unlink(PUBPATH."statics/img/upload/".$image->file_name);
-		unlink(PUBPATH."statics/img/upload/medium/".$image->file_name);
+		//unlink(base_url('konst/thumb/'.$image->file_name));
+		unlink(PUBPATH."konst/thumb/".$image->file_name);
+		unlink(PUBPATH."konst/".$image->file_name);
+		unlink(PUBPATH."konst/medium/".$image->file_name);
 		$this->images_model->delete($id);
 		echo "<br /><br /><br /><p>Your image have been removed. </p>";
 	}

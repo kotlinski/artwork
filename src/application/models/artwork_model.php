@@ -27,16 +27,16 @@ class Artwork_model extends CI_Model {
 		return $query->row_array();
 	}
 
-	public function get_artwork_filters($id = FALSE)
+	public function get_artwork_filters($name = FALSE)
 	{
-		$this->db->order_by("id", "asc");
-		if ($id === FALSE)
+		$this->db->order_by("name", "asc");
+		if ($name === FALSE)
 		{
 			$query = $this->db->get('artwork_filters');
 			return $query->result_array();
 		}
 
-		$query = $this->db->get_where('artwork_filters', array('id' => $id));
+		$query = $this->db->get_where('artwork_filters', array('name' => $name));
 		return $query->row_array();
 	}
 

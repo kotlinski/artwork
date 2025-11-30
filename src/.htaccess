@@ -1,14 +1,31 @@
 DirectoryIndex index.php
 RewriteEngine on
 
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# --- SECURITY & HTTPS HEADERS ---
+# Tells the browser to remember that this site must only be accessed via HTTPS
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
 
-# Force www
-RewriteCond %{HTTP_HOST} ^annesimonsson\.se [NC]
-RewriteRule (.*) https://www.annesimonsson.se/$1 [R=301,L]
+# --- MAIN REDIRECTS (WWW + HTTPS) ---
+# Redirect non-www OR non-https to https://www.annesimonsson.se in one step
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.annesimonsson.se/$1 [L,R=301]
 
+RewriteEngine On
+RewriteRule ^license$ /license.html [L]
+
+# --- CUSTOM REDIRECTS ---
+# Redirect /startpage to homepage
+RewriteRule ^startpage/?$ https://www.annesimonsson.se/ [R=301,L]
+
+# Redirect album IDs to named albums
+RewriteRule ^album/2/?$ /album/installations [R=301,L]
+RewriteRule ^album/3/?$ /album/objects [R=301,L]
+RewriteRule ^album/4/?$ /album/paintings [R=301,L]
+
+# --- APP ROUTING (Do not change) ---
 RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
