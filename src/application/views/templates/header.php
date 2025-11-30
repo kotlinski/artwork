@@ -240,8 +240,8 @@
                 "@context": "https://schema.org",
                 "@type": ["Person", "Artist"],
                 "@id": "https://www.annesimonsson.se",
-                "name": "Anne Simonsson",
-                "alternateName": "Anne Hamrin Simonsson",
+                "name": "Anne Hamrin Simonsson",
+                "alternateName": "Anne Simonsson",
                 "url": "https://www.annesimonsson.se",
                 "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
                 "birthDate": "1967",
@@ -319,7 +319,7 @@
     <meta property="og:url" content="https://www.annesimonsson.se/">
 
     <meta name="keywords"
-          content="anne simonsson, anne hamrin simonsson, öland, konst, artwork, artist, konstnär, vernisage, utställning, helg">
+          content="anne hamrin simonsson, öland, konst, artwork, artist, konstnär, vernisage, utställning, helg">
     <meta name="author" content="The website is made by Simon Kotlinski">
     <meta name="robots" content="index,follow">
 
