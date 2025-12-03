@@ -7,6 +7,8 @@
 
 <br /><br/>
 </div>
+</div>
+
 <footer id="sFooter">
   <div id="footerspan">
     <div class="aboutText" style="text-align: center;">
@@ -15,7 +17,6 @@
     </div>
   </div>
 </footer>
-</div>
 
 <script>
   // Load jQuery only if not already present
@@ -101,6 +102,10 @@
             var thumbAlt = $(this.element).find('img').attr('alt');
             var finalAlt = figCaption ? figCaption : (thumbAlt ? thumbAlt : newTitle);
             $('.fancybox-image').attr('alt', $.trim(finalAlt));
+            var dbId = $(this.element).data('id') || $(this.element).find('img').data('id');
+            if (dbId) {
+              $('.fancybox-image').attr('id', dbId);
+            }
           },
           afterClose: function() {
             document.title = originalTitle;

@@ -8,10 +8,10 @@
  */ ?>
 
 <div class="aboutText" style="white-space:normal;">
-  <figure>
     <div style="margin-top:1.25cm;">
         <a class="picture"
            data-fancybox="gallery"
+           data-id='<?= $image->id ?>'
            data-caption="Verk av konstnär Anne Hamrin Simonsson: <?= htmlspecialchars($image->title, ENT_QUOTES) ?>"
            href="<?= base_url('konst/' . $image->file_name) ?>"
            title="<?= $image->title ?>">
@@ -20,7 +20,7 @@
                alt="Verk av konstnär Anne Hamrin Simonsson: <?= htmlspecialchars($image->title, ENT_QUOTES) ?>"
                fetchpriority="high"/>
         </a>
-        <figcaption class="startpageText"><?php echo $text ?></figcaption>
+        <div class="startpageText"><?php echo $text ?></div>
     </div>
     <div id="fancyboxTitles" style="display: none;">
       <div>
@@ -34,7 +34,6 @@
         </p>
       </div>
     </div>
-  </figure>
 
 
   <? if ($this->session->userdata('logged_in')) { ?>
@@ -117,4 +116,5 @@
   <? } ?>
 
 
+</div>
 </div>
