@@ -157,13 +157,13 @@ class News extends CI_Controller {
 	public function delete($id)
 	{
 		$this->news_model->delete($id);
-		echo "<br /><br /><br /><p>News removed. Uppdater för att se ändringen.</p>";
+		echo "<br /><br /><br /><p>News removed. Refresh browser to see changes.</p>";
 	}
 	public function update($id){
 		$newTitle 	= $this->input->post('title');
 		$newText 	= $this->input->post('text');
 		$this->news_model->update($id, $newTitle, $newText);
-		echo "<br /><br /><br /><p>Your news have been updated.<br />Refresh browser to see chagnes. </p>";
+		echo "<br /><br /><br /><p>Your news have been updated.<br />Refresh browser to see changes.</p>";
 	}
 
 	/**
