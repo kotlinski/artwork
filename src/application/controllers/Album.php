@@ -23,12 +23,6 @@ class Album extends CI_Controller
     $this->load->model('album_model');
     $this->load->model('Images_model', 'images_model');
     $this->load->model('Artwork_model', 'artwork_model');
-
-    if (isset($_GET['image'])) {
-      $data['clicked_image'] = $_GET['image'];
-      // You can now log this, or use JavaScript to pop open a lightbox for this specific image
-      echo "<script>console.log('User arrived via image: " . htmlspecialchars($data['clicked_image']) . "');</script>";
-    }
   }
 
   public function index($selected_filter = 'installations')

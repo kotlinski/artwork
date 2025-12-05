@@ -54,6 +54,9 @@
         // --- SEO: Save original state to revert later ---
         var originalTitle = document.title;
         var originalPath = window.location.pathname;
+        window.originalDescription = $('meta[name="description"]').attr('content');
+        var $jsonLdScript = $('script[type="application/ld+json"]');
+        window.originalJsonLd = $jsonLdScript.length ? $jsonLdScript.text() : '';
 
         // --- Main Gallery Settings ---
         var properties = {
@@ -87,16 +90,17 @@
             var imgUrl = this.href;
             var filename = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
             var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-simonsson-/, '');
+            updateJsonLdForImage(slug)
             var newTitle = "";
-            if (this.title) {
-              var textTitle = $("<div/>").html(this.title).text();
-              newTitle = textTitle.split(' - ')[0] + " | Anne Hamrin Simonsson";
+            if (slug) {
+              newTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " | Anne Hamrin Simonsson";
             } else {
               newTitle = "Artwork | Anne Hamrin Simonsson";
             }
             document.title = newTitle;
+            $('meta[name="description"]').attr('content', $(this.element).data('imgtitle') || $(this.element).find('img').data('imgtitle'));
             if (history.pushState) {
-              window.history.pushState({image: slug}, newTitle, "?image=" + slug);
+                window.history.pushState({image: slug}, newTitle, "?image=" + slug);
             }
             var figCaption = $(this.element).closest('figure').find('figcaption').text();
             var thumbAlt = $(this.element).find('img').attr('alt');
@@ -111,6 +115,13 @@
             document.title = originalTitle;
             if (history.pushState) {
               window.history.pushState({}, originalTitle, originalPath);
+            }
+            // Restore original meta description
+            $('meta[name="description"]').attr('content', window.originalDescription);
+            // Restore original JSON-LD
+            var $jsonLdScript = $('script[type="application/ld+json"]');
+            if ($jsonLdScript.length && window.originalJsonLd) {
+              $jsonLdScript.text(window.originalJsonLd);
             }
           }
         };
@@ -180,6 +191,45 @@
     };
     document.head.appendChild(fancyboxScript);
   });
+</script>
+
+<script>
+  // After the Fancybox image is shown and slug is available
+  function updateJsonLdForImage(slug) {
+    // Find the image element by slug
+    var $imgLink = $('a.picture[href*="' + slug + '"]');
+    var $img = $imgLink.find('img');
+    if ($img.length === 0) return;
+
+    // Gather data attributes or fallback to defaults
+    var imgUrl = $img.attr('src');
+    var creatorImg = "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg";
+
+    var jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " - <?= ucfirst(rtrim($title, 's')) ?> by Anne Hamrin Simonsson",
+      "url": window.location.href.replace(/\?.*$/, '') + "?image=" + slug,
+      "mainEntity": {
+        "@type": "VisualArtwork",
+        "@id": window.location.href.replace(/\?.*$/, '') + "?image=" + slug,
+        "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+        "image": "https:" + imgUrl.replace('/thumb', ''),
+        "artform": "<?= ucfirst(rtrim($title, 's')) ?>",
+        "creator": {
+          "@type": "Person",
+          "name": "Anne Hamrin Simonsson",
+          "image": creatorImg
+        }
+      }
+    };
+
+    // Replace the existing JSON-LD script
+    var $jsonLdScript = $('script[type="application/ld+json"]');
+    if ($jsonLdScript.length) {
+      $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));
+    }
+  }
 </script>
 
 <script>

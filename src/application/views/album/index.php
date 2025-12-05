@@ -33,6 +33,7 @@
           <img
             id="<?= $image->id ?>"
             data-id="<?= $image->id ?>"
+            data-imgtitle="<?= $image->title ?>"
             src="<?= base_url('konst/thumb/' . $image->file_name) ?>"
             alt="<?= htmlspecialchars('Art ' . $title . ' av konstnar Anne Hamrin Simonsson: ' . $image->title, ENT_QUOTES, 'UTF-8') ?>"
             style="padding:0px;margin:0px;border:0px;"/>
@@ -60,7 +61,8 @@
   </div>
 
 
-  <br/> <br/> <br/><br/> <br/> <br/>
+  <br/> <br/>
+</div>
 </div>
 
 <?php /*if (!empty($data['clicked_image'])): */?><!--
