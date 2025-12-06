@@ -1,0 +1,71 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Sculptures and Objects by Anne Hamrin Simonsson",
+  "url": "https://www.annesimonsson.se/album/objects",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-vitt-radjur.jpg",
+          "name": "Under_Liv (White Deer)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-vitt-radjur.jpg",
+          "artform": "Sculpture",
+          "artMedium": "Mixed Media",
+          "genre": "Sculpture, Contemporary Art",
+          "keywords": "sculpture, mixed media, white deer, contemporary",
+          "dateCreated": "2023",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kokong.jpg",
+          "name": "Under_Liv (Cocoon)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kokong.jpg",
+          "artform": "Sculpture",
+          "artMedium": "Mixed Media",
+          "genre": "Sculpture, Contemporary Art",
+          "keywords": "sculpture, mixed media, cocoon, contemporary",
+          "dateCreated": "2023",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-dandeloin-moon.jpg",
+          "name": "Embryo (Dandelion Moon)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-dandeloin-moon.jpg",
+          "artform": "Sculpture",
+          "artMedium": "Silicon, Threads",
+          "genre": "Sculpture, Contemporary Art",
+          "keywords": "sculpture, silicon, threads, dandelion, contemporary",
+          "dateCreated": "2020",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      }
+    ]
+  }
+}

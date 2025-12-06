@@ -1,0 +1,41 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "News & Updates - Anne Hamrin Simonsson",
+  "url": "https://www.annesimonsson.se/news",
+  "description": "Latest news, exhibitions, and updates from Anne Hamrin Simonsson.",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "NewsArticle",
+          "headline": "\"Avfällningar\" & \"Ett trevande efter det identiska\"",
+          "url": "https://www.annesimonsson.se/news#avfallningar-ett-trevande-efter-det-identiska",
+          "datePublished": "2024-05-01",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
+          "author": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "NewsArticle",
+          "headline": "Smålandstriennalen",
+          "url": "https://www.annesimonsson.se/news#smalandstriennalen",
+          "datePublished": "2023-11-15",
+          "author": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://schema.org",
+  "@type": ["WebPage", "ContactPage"],
+  "name": "Contact Anne Hamrin Simonsson",
+  "url": "https://www.annesimonsson.se/contact",
+  "description": "Contact Swedish conceptual artist Anne Hamrin Simonsson.",
+  "isPartOf": {
+    "@id": "https://www.annesimonsson.se/#website"
+  }
+}

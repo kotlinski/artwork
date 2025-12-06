@@ -70,10 +70,6 @@ class Album extends CI_Controller
       }
       $data['images'] = array_merge($lastHalf, $firstHalf);
       $data['images'] = array_merge($data['images'], $specialPic);
-      /*			var_dump($lastHalf);
-            var_dump($firstHalf);
-            var_dump($data['images']);
-            die();*/
       $data['title'] = 'Album';
       $data['menu_item'] = 'album';
 

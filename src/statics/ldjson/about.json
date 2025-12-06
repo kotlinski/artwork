@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "occupation": "Visual Artist",
+  "@id": "https://www.annesimonsson.se",
+  "name": "Anne Hamrin Simonsson",
+  "alternateName": "Anne Simonsson",
+  "url": "https://www.annesimonsson.se",
+  "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
+  "birthDate": "1967-10-11",
+  "disambiguatingDescription": "Svensk konstnär och skulptör, verksam på Öland och i Kalmar. Känd för installationer som 'Under_Liv' och 'LIV'.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Färjestaden",
+    "addressRegion": "Kalmar Län",
+    "addressCountry": "SE"
+  },
+  "jobTitle": [
+    "Conceptual Artist",
+    "Konstnär"
+  ],
+  "description": "Anne Hamrin Simonsson är en konceptuell konstnär från Färjestaden, Öland, som arbetar med plats-specifika installationer och måleri. Ateljé i Färjestaden och verksam i Kalmar län. Hennes verk utforskar temat 'LIV' genom olika tekniker och material.",
+  "sameAs": [
+    "https://www.instagram.com/ahamrinsimonsson/",
+    "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+    "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+    "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+  ],
+  "keywords": "conceptual art, Swedish artist, Öland, painting, installation, konstnär"
+}

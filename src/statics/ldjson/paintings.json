@@ -1,0 +1,71 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Paintings by Anne Hamrin Simonsson",
+  "url": "https://www.annesimonsson.se/album/paintings",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg",
+          "name": "Sparris no 2 (Asparagus)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg",
+          "artform": "Painting",
+          "artMedium": "Acrylic on Masonite",
+          "genre": "Painting, Contemporary Art",
+          "keywords": "painting, acrylic, asparagus, Öland, contemporary",
+          "dateCreated": "2009",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png",
+          "name": "Röd-vit Traktor (Red Tractor)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png",
+          "artform": "Painting",
+          "artMedium": "Acrylic on Masonite",
+          "genre": "Painting, Contemporary Art",
+          "keywords": "painting, acrylic, tractor, contemporary",
+          "dateCreated": "2006",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg",
+          "name": "Vi i Villa no 4",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg",
+          "artform": "Painting",
+          "artMedium": "Oil on Masonite",
+          "genre": "Painting, Contemporary Art",
+          "keywords": "painting, oil, villa, contemporary",
+          "dateCreated": "1999",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      }
+    ]
+  }
+}

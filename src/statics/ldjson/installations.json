@@ -1,0 +1,80 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Installation Art by Anne Hamrin Simonsson",
+  "url": "https://www.annesimonsson.se/album/installations",
+  "description": "Site-specific installations including Under_Liv, LIV no 8, and Avfällningar.",
+  "creator": {
+    "@type": "Person",
+    "name": "Anne Hamrin Simonsson",
+    "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
+    "url": "https://www.annesimonsson.se"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+          "name": "Under_Liv (Root Roll / Rotvälta)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+          "artform": "Installation",
+          "genre": "Site-specific Installation, Contemporary Art",
+          "keywords": "installation, site-specific, contemporary, root roll, Kalmar Konstmuseum",
+          "dateCreated": "2023",
+          "description": "Part of Under_Liv root roll with 24 objects, exhibited at Kalmar Konstmuseum.",
+          "locationCreated": "Kalmar Konstmuseum, Sweden",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
+          "name": "LIV no 8 (Wheat & Soil)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
+          "artform": "Installation",
+          "artMedium": "Wheat, Soil",
+          "genre": "Land Art, Contemporary Art",
+          "keywords": "installation, land art, wheat, soil, Öland, contemporary",
+          "dateCreated": "2017",
+          "locationCreated": "Algutsrum, Öland, Sweden",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "VisualArtwork",
+          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
+          "name": "Avfällningar (The Mirror)",
+          "image": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
+          "artform": "Installation",
+          "genre": "Contemporary Art, Mixed Media",
+          "keywords": "installation, mixed media, contemporary, mirror, Kläppinge",
+          "dateCreated": "2024",
+          "locationCreated": "Undantaget, Kläppinge, Sweden",
+          "creator": {
+            "@type": "Person",
+            "name": "Anne Hamrin Simonsson",
+            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+          }
+        }
+      }
+    ]
+  }
+}
