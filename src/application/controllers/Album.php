@@ -25,7 +25,7 @@ class Album extends CI_Controller
     $this->load->model('Artwork_model', 'artwork_model');
   }
 
-  public function index($selected_filter = 'installations')
+  public function index($selected_filter = 'installations', $image_slug = null)
   {
     $data['images'] = $this->images_model->get_filtered_images($selected_filter);
 
@@ -40,6 +40,7 @@ class Album extends CI_Controller
     $data['selected_filter'] = $selected_filter;
     $sel = $this->artwork_model->get_artwork_filters($selected_filter);
     $data['title'] = $sel['name'];
+    $data['image_slug'] = $image_slug;
 
     $this->load->view('templates/header', $data);
     $this->load->view('album/index', $data);

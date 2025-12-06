@@ -392,9 +392,9 @@
   <div id="sHeader">
     <div id="headspan">
       <div id="header" itemscope itemtype="http://schema.org/Person">
-        <br/>
-        <h1 itemprop="name">ANNE HAMRIN SIMONSSON</h1>
-        <br/>
+        <h1 itemprop="name" style="margin: 33px 0;">
+          <a href="<?= base_url('startpage') ?>" style="color:inherit;text-decoration:none;">ANNE HAMRIN SIMONSSON</a>
+        </h1>
       </div>
       <?
       $list = array("news" => "NEWS",

@@ -62,10 +62,10 @@
         var properties = {
           prevEffect  : 'fade',
           nextEffect  : 'fade',
-          openSpeed   : 900,
-          closeSpeed  : 800,
-          nextSpeed   : 500,
-          prevSpeed   : 500,
+          openSpeed   : 100,
+          closeSpeed  : 100,
+          nextSpeed   : 100,
+          prevSpeed   : 100,
           openOpacity : true,
           closeBtn    : false,
           closeClick  : true,
@@ -100,8 +100,10 @@
             document.title = newTitle;
             $('meta[name="description"]').attr('content', $(this.element).data('imgtitle') || $(this.element).find('img').data('imgtitle'));
             if (history.pushState) {
-                window.history.pushState({image: slug}, newTitle, "?image=" + slug);
+              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
+              window.history.pushState({image: slug}, newTitle, albumPath + '/' + slug);
             }
+
             var figCaption = $(this.element).closest('figure').find('figcaption').text();
             var thumbAlt = $(this.element).find('img').attr('alt');
             var finalAlt = figCaption ? figCaption : (thumbAlt ? thumbAlt : newTitle);
@@ -114,7 +116,9 @@
           afterClose: function() {
             document.title = originalTitle;
             if (history.pushState) {
-              window.history.pushState({}, originalTitle, originalPath);
+              // Remove the image slug from the path
+              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
+              window.history.pushState({}, originalTitle, albumPath);
             }
             // Restore original meta description
             $('meta[name="description"]').attr('content', window.originalDescription);
@@ -124,16 +128,17 @@
               $jsonLdScript.text(window.originalJsonLd);
             }
           }
+
         };
 
         var properties2 = {
           prevEffect  : 'fade',
           nextEffect  : 'fade',
           maxHeight   : '80%',
-          openSpeed   : 900,
-          closeSpeed  : 800,
-          nextSpeed   : 500,
-          prevSpeed   : 500,
+          openSpeed   : 100,
+          closeSpeed  : 100,
+          nextSpeed   : 100,
+          prevSpeed   : 100,
           openOpacity : true,
           closeBtn    : false,
           closeClick  : false,
@@ -173,8 +178,10 @@
           }
         });
 
-        var searchParams = new URLSearchParams(window.location.search);
-        var imageTarget = searchParams.get('image');
+/*        var searchParams = new URLSearchParams(window.location.search);
+        var imageTarget = searchParams.get('image');*/
+        var imageTarget = "<?= isset($image_slug) ? addslashes($image_slug) : '' ?>";
+
         if (imageTarget) {
           var $targetLink = $('a.picture[href*="' + imageTarget + '"]');
           if ($targetLink.length > 0) {
@@ -209,10 +216,10 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " - <?= ucfirst(rtrim($title, 's')) ?> by Anne Hamrin Simonsson",
-      "url": window.location.href.replace(/\?.*$/, '') + "?image=" + slug,
+      "url": window.location.href.replace(/\?.*$/, '') + "/" + slug,
       "mainEntity": {
         "@type": "VisualArtwork",
-        "@id": window.location.href.replace(/\?.*$/, '') + "?image=" + slug,
+        "@id": window.location.href.replace(/\?.*$/, '') + "/" + slug,
         "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
         "image": "https:" + imgUrl.replace('/thumb', ''),
         "artform": "<?= ucfirst(rtrim($title, 's')) ?>",
