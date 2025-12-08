@@ -11,7 +11,7 @@
         "position": 1,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-vitt-radjur.jpg",
+          "@id": "https://www.annesimonsson.se/album/objects/under-liv-kalmar-konstmuseum-vitt-radjur",
           "name": "Under_Liv (White Deer)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-vitt-radjur.jpg",
           "artform": "Sculpture",
@@ -31,7 +31,7 @@
         "position": 2,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kokong.jpg",
+          "@id": "https://www.annesimonsson.se/album/objects/under-liv-kokong",
           "name": "Under_Liv (Cocoon)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kokong.jpg",
           "artform": "Sculpture",
@@ -51,7 +51,7 @@
         "position": 3,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-dandeloin-moon.jpg",
+          "@id": "https://www.annesimonsson.se/album/objects/embryo-silicon-dandeloin-moon",
           "name": "Embryo (Dandelion Moon)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-dandeloin-moon.jpg",
           "artform": "Sculpture",

@@ -11,7 +11,7 @@
         "position": 1,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg",
+          "@id": "https://www.annesimonsson.se/album/paintings/sparris-oland",
           "name": "Sparris no 2 (Asparagus)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg",
           "artform": "Painting",
@@ -31,7 +31,7 @@
         "position": 2,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png",
+          "@id": "https://www.annesimonsson.se/album/paintings/red-traktor",
           "name": "Röd-vit Traktor (Red Tractor)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png",
           "artform": "Painting",
@@ -51,7 +51,7 @@
         "position": 3,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg",
+          "@id": "https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4",
           "name": "Vi i Villa no 4",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg",
           "artform": "Painting",

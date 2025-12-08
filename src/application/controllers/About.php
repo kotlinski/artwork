@@ -26,8 +26,8 @@ class About extends CI_Controller {
         $text = $this->about_model->get_about();
 
 
-        $text['text'] = str_replace("???", '<h3 class="aboutHeader">', $text['text']);
-        $text['text'] = str_replace("!!!", '</h3>',nl2br($text['text']));
+        $text['text'] = str_replace("???", '<h2 class="aboutHeader">', $text['text']);
+        $text['text'] = str_replace("!!!", '</h2>',nl2br($text['text']));
 
         // Replace URLs with <a> tags, truncate display to 50 chars, add external link symbol
         $text['text'] = preg_replace_callback(

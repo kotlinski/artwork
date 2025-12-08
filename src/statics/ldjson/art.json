@@ -1,0 +1,69 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}/#webpage",
+      "url": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}",
+      "name": "{{{name}}} – {{{album}}} by Anne Hamrin Simonsson",
+      "description": "{{{description}}}",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://www.annesimonsson.se/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}/#primaryimage"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.annesimonsson.se/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{{album}}}",
+            "item": "https://www.annesimonsson.se/album/{{{album}}}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{{name}}}"
+          }
+        ]
+      }
+    },
+
+    {
+      "@type": "VisualArtwork",
+      "@id": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}/#artwork",
+      "name": "{{{name}}}",
+      "image": {
+        "@id": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}/#primaryimage"
+      },
+      "artform": "{{{album}}}",
+      "genre": "Contemporary Art",
+      "artEdition": "Original",
+      "description": "{{{description}}}",
+      "creator": {
+        "@type": "Person",
+        "@id": "https://www.annesimonsson.se/#person",
+        "name": "Anne Hamrin Simonsson"
+      }
+    },
+
+    {
+      "@type": "ImageObject",
+      "@id": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}/#primaryimage",
+      "url": "https://www.annesimonsson.se/album/{{{album}}}/{{{slug}}}",
+      "contentUrl": "{{{filename}}}",
+      "caption": "{{{description}}}",
+      "inLanguage": "en",
+      "license": "https://www.annesimonsson.se/license"
+    }
+  ]
+}

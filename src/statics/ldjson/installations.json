@@ -18,7 +18,7 @@
         "position": 1,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+          "@id": "https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-rotvaltan",
           "name": "Under_Liv (Root Roll / Rotvälta)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
           "artform": "Installation",
@@ -39,7 +39,7 @@
         "position": 2,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
+          "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-wheat-oland-soil",
           "name": "LIV no 8 (Wheat & Soil)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
           "artform": "Installation",
@@ -60,7 +60,7 @@
         "position": 3,
         "item": {
           "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
+          "@id": "https://www.annesimonsson.se/album/installations/avfallningar-undantaget-klappinge-mirror",
           "name": "Avfällningar (The Mirror)",
           "image": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
           "artform": "Installation",

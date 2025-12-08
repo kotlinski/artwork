@@ -37,6 +37,18 @@ body
     font-weight: normal;
     margin: 0;
 }
+/* Läggs inuti <style> taggen */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 
 .menu
 {
@@ -56,14 +68,14 @@ body
 .menu ul li{
     display: inline !important;;
 }
-.menu ul li h2 {
+.menu ul li {
     display: inline !important;;
     font-size: inherit !important;;
     font-weight: normal !important;;
     margin: 0;
     padding: 0;
 }
-.menu ul li h2 a {
+.menu ul li a {
     font-size: inherit !important;;
     font-weight: normal !important;;
     margin: 0;
@@ -83,14 +95,14 @@ body
 {
     text-align:left;
 }
-.submenu ul li h3 {
+.submenu ul li {
     display: inline;
     font-size: inherit;
     font-weight: normal;
     margin: 0;
     padding: 0;
 }
-.submenu ul li h3 a {
+.submenu ul li a {
     font-size: inherit;
     font-weight: normal;
     margin-right: 40px;

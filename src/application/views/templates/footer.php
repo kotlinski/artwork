@@ -90,13 +90,13 @@
             var imgUrl = this.href;
             var filename = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
             var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-simonsson-/, '');
-            updateJsonLdForImage(slug)
             var newTitle = "";
             if (slug) {
               newTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " | Anne Hamrin Simonsson";
             } else {
               newTitle = "Artwork | Anne Hamrin Simonsson";
             }
+            updateJsonLdForImage(slug)
             document.title = newTitle;
             $('meta[name="description"]').attr('content', $(this.element).data('imgtitle') || $(this.element).find('img').data('imgtitle'));
             if (history.pushState) {
@@ -212,6 +212,13 @@
     var imgUrl = $img.attr('src');
     var creatorImg = "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg";
 
+/*    <?php
+      // I would like to load the ldjson template from statics/ldjson/art.json
+     //  $ldjson = file_get_contents('./././statics/ldjson/art.json');
+      // the $ldjson I want to replace some template strings. {{{name}}} {{{album}}} {{{filename}}}
+      // $ldjson = str_replace('{{{album}}}', rtrim($title, 's'), $ldjson);
+     //  print $ldjson;
+      ?>*/
     var jsonLd = {
       "@context": "https://schema.org",
       "@type": "WebPage",

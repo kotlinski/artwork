@@ -146,10 +146,8 @@
 <div id="container">
   <div id="sHeader">
     <div id="headspan">
-      <div id="header">
-        <h1 style="margin: 33px 0;">
-          <a href="<?= base_url('startpage') ?>" style="color:inherit;text-decoration:none;">ANNE HAMRIN SIMONSSON</a>
-        </h1>
+      <div id="header" style='margin: 33px 0;'>
+        <a href="<?= base_url('startpage') ?>" style="color:inherit;text-decoration:none;">ANNE HAMRIN SIMONSSON</a>
       </div>
       <?
       $list = array("news" => "NEWS",
@@ -162,44 +160,59 @@
         $menu_item = '';
       }
       ?>
-
-      <div class="menu">
+      <nav class="menu" aria-label="Main menu">
         <ul>
-          <?
+          <?php
           $i = 0;
           foreach ($list as $key => $item) {
-            $special_attribute = "";
-            if ($i == 0) {
-              $special_attribute = 'style="float:left;"';
-            } ?>
-            <li>
-              <h2>
-                <?php
-                $href = ($key === 'album') ? base_url($key . '/installations') : base_url($key);
-                ?>
-                <a <?= $special_attribute ?>
-                  href="<?= $href ?>" <?= ($key == $menu_item ? 'class="current"' : '') ?>
-                  id="<?= $i == 0 ? 'spec' : '' ?>"><?= $item ?></a>
-              </h2>
-            </li>
-            <? $i++; ?>
-          <? } ?>
-        </ul>
+            // Behåll specialstilen för första elementet (om det behövs för din layout)
+            $special_attribute = ($i == 0) ? 'style="float:left;"' : '';
 
-      </div>
-      <? if ($menu_item == 'album') { ?>
-        <div class="submenu menu" style="margin-top:10px;">
+            // Fixa länken
+            $href = ($key === 'album') ? base_url($key . '/installations') : base_url($key);
+
+            // Kolla om sidan är aktiv
+            $is_active = ($key == $menu_item);
+            $active_class = $is_active ? 'class="current"' : '';
+            $aria_current = $is_active ? 'aria-current="page"' : '';
+            ?>
+
+            <li>
+              <a <?= $special_attribute ?>
+                href="<?= $href ?>"
+                <?= $active_class ?>
+                <?= $aria_current ?>
+                id="<?= $i == 0 ? 'spec' : '' ?>">
+                <?= $item ?>
+              </a>
+            </li>
+
+            <?php $i++; ?>
+          <?php } ?>
+        </ul>
+      </nav>
+
+      <?php if ($menu_item == 'album') { ?>
+        <nav class="submenu menu" aria-label="Art categories" style="margin-top:10px;">
           <ul>
-            <? foreach ($submenu as $key => $submenu_item) {
-              if ($selected_filter == $submenu_item['name']) {
-                echo '<li><h3><a href="' . base_url('album/' . $submenu_item['name']) . '" class="current">' . strtoupper($submenu_item['name']) . '</a></h3></li>';
-              } else {
-                echo '<li><h3><a href="' . base_url('album/' . $submenu_item['name']) . '">' . strtoupper($submenu_item['name']) . '</a></h3></li>';
-              }
-            } ?>
+            <?php foreach ($submenu as $key => $submenu_item) {
+              $is_sub_active = ($selected_filter == $submenu_item['name']);
+              $sub_active_class = $is_sub_active ? 'class="current"' : '';
+              $sub_aria_current = $is_sub_active ? 'aria-current="page"' : '';
+              ?>
+
+              <li>
+                <a href="<?= base_url('album/' . $submenu_item['name']) ?>"
+                  <?= $sub_active_class ?>
+                  <?= $sub_aria_current ?>>
+                  <?= strtoupper($submenu_item['name']) ?>
+                </a>
+              </li>
+
+            <?php } ?>
           </ul>
-        </div>
-      <? } ?>
+        </nav>
+      <?php } ?>
       <hr/>
     </div>
   </div>
@@ -238,5 +251,22 @@
         <br/>
         <hr/>
       <? } ?>
+      <?php
+      // Definiera H1 baserat på sidan
+      $h1_text = "";
+      switch (strtolower($title)) {
+        case 'news': $h1_text = "News"; break;
+        case 'about': $h1_text = "About Anne Hamrin Simonsson"; break;
+        case 'contact': $h1_text = "Contact"; break;
+        case 'installations': $h1_text = "Installations"; break;
+        case 'objects': $h1_text = "Sculptures & Objects"; break;
+        case 'paintings': $h1_text = "Paintings"; break;
+        default:
+          // På startsidan kan namnet få vara H1
+          $h1_text = empty($title) ? "Anne Hamrin Simonsson" : $title;
+          break;
+      }
+      ?>
+      <h1 class="visually-hidden"><?= $h1_text ?></h1>
 
 

@@ -61,7 +61,7 @@ class Login extends CI_Controller {
 
         //BOF Status Info
         echo '<div id="status">';
-        echo '<h3>User Status</h3>';
+        echo '<h2>User Status</h2>';
         if($this->session->userdata('logged_in')) {
             echo 'User logged in as ' . $this->session->userdata('username');
         } else {
@@ -73,7 +73,7 @@ class Login extends CI_Controller {
 
         //BOF Create user
         echo '<div id="create">';
-        echo '<h3>Create A User</h3>';
+        echo '<h2>Create A User</h2>';
         echo '<form action="' . site_url('/login/create/') . '" method="post">';
 
         echo '<label for="create_username">Username:</label>';
@@ -93,7 +93,7 @@ class Login extends CI_Controller {
         //BOF Login user
         if(!$this->session->userdata('logged_in')) {
             echo '<div id="login">';
-            echo '<h3>Login</h3>';
+            echo '<h2>Login</h2>';
             echo '<form action="' . site_url('/login/logmein/') . '" method="post">';
 
             echo '<label for="login_username">Username:</label>';
@@ -109,7 +109,7 @@ class Login extends CI_Controller {
             echo '<hr />';
         } else {
             echo '<div id="logut">';
-            echo '<h3>Logut</h3>';
+            echo '<h2>Logut</h2>';
             echo '<a href="' . site_url('/login/logout/') . '">Click here to logout.</a>';
             echo '</div>';
             echo '<hr />';
@@ -126,7 +126,7 @@ class Login extends CI_Controller {
 
             if(count($user_array) > 0) {
                 echo '<div id="user_table">';
-                echo '<h3>User Table</h3>';
+                echo '<h2>User Table</h2>';
                 echo '<table>';
                 echo '<tr>';
                 echo '<th>';

@@ -62,20 +62,22 @@
     <? if ($news_item['show'] == 1 || $this->session->userdata('logged_in')) {
       $news_id = trim(strtolower(preg_replace(['/å|ä/', '/ö/', '/[^a-zA-Z0-9]+/u'], ['a', 'o', '-'], $news_item['title'])), '-');
       ?>
-      <div id="<?= $news_id ?>" style="margin-top:20px;">
+      <article style="margin-top:20px;">
         <?
         $class = ($news_item['show'] == 0 && $this->session->userdata('logged_in')) ? 'aboutHeader greyText' : 'aboutHeader';
-        echo '<h3 class="' . $class . '">' . $news_item['title'] . '</h3>';
-        if ($news_item['show'] == 0 && $this->session->userdata('logged_in')) {
-          echo '<p class="greyText" style="margin-top:2px;">';
-        } else {
-          echo '<p style="margin-top:2px;">';
-        } ?>
+        echo '<h2 class="' . $class . '" id="'.$news_id .'">' . $news_item['title'] . '</h2>';
+        echo '<div>';
+          if ($news_item['show'] == 0 && $this->session->userdata('logged_in')) {
+            echo '<p class="greyText" style="margin-top:2px;">';
+          } else {
+            echo '<p style="margin-top:2px;">';
+          } ?>
 
-        <?php echo $news_item['text'] ?>
-        </p>
+          <?php echo $news_item['text'] ?>
+          </p>
+        </div>
 
-      </div>
+      </article>
 
       <div style="display:none">
         <form class="delete_news_form" id="delete_news_form_<?= $news_item['id'] ?>" method="post" action="">
