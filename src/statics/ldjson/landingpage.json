@@ -31,6 +31,7 @@
       "representativeOfPage": true,
       "datePublished": "2023-10-12",
       "license": "https://www.annesimonsson.se/license",
+      "copyrightNotice": "© Anne Hamrin Simonsson",
       "acquireLicensePage": "https://www.annesimonsson.se/contact",
       "keywords": [
         "Installation art",
@@ -95,7 +96,44 @@
         },
         "query-input": "required name=search_term_string"
       }
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://www.annesimonsson.se/#navigation",
+      "name": "Main Navigation",
+      "citation": "Site Menu",
+      "hasPart": [
+        {
+          "@type": "WebPage",
+          "name": "News",
+          "url": "https://www.annesimonsson.se/news"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Installations",
+          "url": "https://www.annesimonsson.se/album/installations"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Objects",
+          "url": "https://www.annesimonsson.se/album/objects"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Paintings",
+          "url": "https://www.annesimonsson.se/album/paintings"
+        },
+        {
+          "@type": "WebPage",
+          "name": "About",
+          "url": "https://www.annesimonsson.se/about"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Contact",
+          "url": "https://www.annesimonsson.se/contact"
+        }
+      ]
     }
-
   ]
 }

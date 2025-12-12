@@ -1,41 +1,140 @@
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "News & Updates - Anne Hamrin Simonsson",
-  "url": "https://www.annesimonsson.se/news",
-  "description": "Latest news, exhibitions, and updates from Anne Hamrin Simonsson.",
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@type": "NewsArticle",
-          "headline": "\"Avfällningar\" & \"Ett trevande efter det identiska\"",
-          "url": "https://www.annesimonsson.se/news#avfallningar-ett-trevande-efter-det-identiska",
-          "datePublished": "2024-05-01",
-          "image": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
-          "author": {
-            "@type": "Person",
-            "name": "Anne Hamrin Simonsson"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://www.annesimonsson.se/news",
+      "name": "News & Updates - Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se/news",
+      "description": "Latest news, exhibitions, and updates from Anne Hamrin Simonsson.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "\"Avfällningar\" & \"Ett trevande efter det identiska\"",
+              "description": "Exhibition at Undantaget & Stallet, Kläppinge. Open weekends 24/8-29/9 2024. A continuation of the collaboration between Johanna Karlin and Anne Hamrin Simonsson.",
+              "articleBody": "UNDANTAGET & STALLET, KLÄPPINGE 1:18. 'Avfällningar' & 'Ett trevande efter det identiska'. Open weekends at 14.00-16.00 24/8-29/9 2024. Continuation on Johanna Karlin's and Anne Hamrin Simonsson's collaboration in the exhibition 'An Ear to the Ground, Gazing Outwards' (Örat mot marken och blicken utåt) on Kalmar konstmuseum 2023 as part of Smålandstriennalen. With support from Smålandstriennalen, Konstfrämjandet Småland and Kalmar konstmuseum.",
+              "url": "https://www.annesimonsson.se/news#avfallningar-ett-trevande-efter-det-identiska",
+              "datePublished": "2024-06-03T13:44:38+02:00",
+              "dateModified": "2024-06-03T13:44:38+02:00",
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
+                "width": 4640,
+                "height": 3472,
+                "caption": "Avfällningar installation at Undantaget",
+                "creditText": "Photo: Anne Hamrin Simonsson",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact",
+                "creator": {
+                  "@type": "Person",
+                  "name": "Anne Hamrin Simonsson"
+                },
+                "copyrightNotice": "© Anne Hamrin Simonsson",
+                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Anne Hamrin Simonsson",
+                "url": "https://www.annesimonsson.se/about"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Anne Hamrin Simonsson",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+                }
+              },
+              "locationCreated": {
+                "@type": "Place",
+                "name": "Undantaget & Stallet",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Kläppinge 1:18",
+                  "addressCountry": "SE"
+                }
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Smålandstriennalen",
+              "description": "Group exhibition at Kalmar konstmuseum (27/5-1/10 2023) featuring Johanna Karlin, Anne Hamrin Simonsson, Amanda Selinder, and Jan Carleklev.",
+              "articleBody": "Kalmar konstmuseum Smålandstriennalen 27/5-1/10 2023. Group exhibition with Johanna Karlin, Anne Hamrin Simonsson, Amanda Selinder and Jan Carleklev. Head organizer Konstfrämjandet Småland with support from the Swedish Arts Council, Postkodstiftelsen and the County Council of Jönköping, Kalmar and Kronoberg.",
+              "url": "https://www.annesimonsson.se/news#smalandstriennalen",
+              "datePublished": "2023-03-27T08:29:37+02:00",
+              "dateModified": "2023-03-27T08:29:37+02:00",
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-installation.jpg",
+                "width": 5472,
+                "height": 3648,
+                "caption": "Installation view of Under_Liv at Kalmar Konstmuseum (Smålandstriennalen)",
+                "creditText": "Photo: Per Hamrin",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact",
+                "creator": {
+                  "@type": "Person",
+                  "name": "Per Hamrin"
+                },
+                "copyrightNotice": "© Anne Hamrin Simonsson",
+                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Anne Hamrin Simonsson",
+                "url": "https://www.annesimonsson.se/about"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Anne Hamrin Simonsson",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+                }
+              },
+              "citation": [
+                "http://www.kalmarkonstmuseum.se/wp-content/uploads/2023/05/orat-mot-marken-och-blicken-utat--anne-hamrin-simonsson.pdf",
+                "http://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat"
+              ],
+              "locationCreated": {
+                "@type": "Place",
+                "name": "Kalmar Konstmuseum",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Kalmar",
+                  "addressCountry": "SE"
+                }
+              }
+            }
           }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "item": {
-          "@type": "NewsArticle",
-          "headline": "Smålandstriennalen",
-          "url": "https://www.annesimonsson.se/news#smalandstriennalen",
-          "datePublished": "2023-11-15",
-          "author": {
-            "@type": "Person",
-            "name": "Anne Hamrin Simonsson"
-          }
-        }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.annesimonsson.se/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "News",
+          "item": "https://www.annesimonsson.se/news"
+        }
+      ]
+    }
+  ]
 }

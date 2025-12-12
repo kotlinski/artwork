@@ -1,30 +1,126 @@
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "occupation": "Visual Artist",
-  "@id": "https://www.annesimonsson.se",
-  "name": "Anne Hamrin Simonsson",
-  "alternateName": "Anne Simonsson",
-  "url": "https://www.annesimonsson.se",
-  "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
-  "birthDate": "1967-10-11",
-  "disambiguatingDescription": "Svensk konstnär och skulptör, verksam på Öland och i Kalmar. Känd för installationer som 'Under_Liv' och 'LIV'.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Färjestaden",
-    "addressRegion": "Kalmar Län",
-    "addressCountry": "SE"
-  },
-  "jobTitle": [
-    "Conceptual Artist",
-    "Konstnär"
-  ],
-  "description": "Anne Hamrin Simonsson är en konceptuell konstnär från Färjestaden, Öland, som arbetar med plats-specifika installationer och måleri. Ateljé i Färjestaden och verksam i Kalmar län. Hennes verk utforskar temat 'LIV' genom olika tekniker och material.",
-  "sameAs": [
-    "https://www.instagram.com/ahamrinsimonsson/",
-    "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
-    "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-    "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
-  ],
-  "keywords": "conceptual art, Swedish artist, Öland, painting, installation, konstnär"
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://www.annesimonsson.se/about",
+      "name": "About Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se/about",
+      "description": "Biography, CV, and artist statement of Anne Hamrin Simonsson.",
+      "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
+      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" }
+    },
+
+    {
+      "@type": ["Person", "Artist"],
+      "@id": "https://www.annesimonsson.se/#person",
+      "name": "Anne Hamrin Simonsson",
+      "alternateName": "Anne Simonsson",
+      "jobTitle": ["Konstnär", "Conceptual Artist", "Visual Artist"],
+      "birthDate": "1967-10-11",
+      "url": "https://www.annesimonsson.se/about",
+      "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Färjestaden",
+        "addressRegion": "Kalmar län",
+        "addressCountry": "SE"
+      },
+      "description": "I work with conceptual art in different techniques and materials; it´s the idea which decides how the presentation will be. I find it most interesting working with installations placed on unexpected public areas. Whatever technique characterises my work of time consuming precision and consists of several dimensions with strong feeling for colour, form and material. I have for many years been investigating the theme of 'LIFE'.",
+      "disambiguatingDescription": "Svensk konceptuell konstnär baserad i Färjestaden, känd för installationer och platsspecifika verk.",
+
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Kalmar Konstmuseum"
+      },
+
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Stockholm University",
+          "sameAs": "https://www.su.se/",
+          "description": "Art Science (1993)"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Ölands Konstskola",
+          "description": "1988-90, 1986-87"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "KV Konstskola",
+          "description": "1987-88"
+        }
+      ],
+
+      "award": [
+        "Ölandsklubben (2025)",
+        "Smålandstriennalen / Konstfrämjandet Småland (2024)",
+        "Ölandsklubben (2023)",
+        "Konstnärsnämnden (2022)",
+        "Konstnärsnämnden (2021)",
+        "Region Kalmar län (2021)",
+        "Konstnärsnämnden (2020)",
+        "Familjen Kamprads stiftelse Experimentellt kulturarv (2016-18)",
+        "Ölandsklubben (2017)",
+        "Svenska kyrkan (2011)",
+        "EU växtkraft mål 4 Kilen (1997-98)"
+      ],
+
+      "knowsAbout": [
+        "Conceptual Art",
+        "Installation Art",
+        "Public Art",
+        "Site-specific Art",
+        "Sculpture"
+      ],
+
+      "sameAs": [
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://www.annesimonsson.se/#website",
+      "url": "https://www.annesimonsson.se/",
+      "name": "Anne Hamrin Simonsson",
+      "publisher": { "@id": "https://www.annesimonsson.se/#person" }
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.annesimonsson.se/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About",
+          "item": "https://www.annesimonsson.se/about"
+        }
+      ]
+    },
+
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://www.annesimonsson.se/#navigation",
+      "name": "Main Navigation",
+      "hasPart": [
+        { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
+        { "@type": "WebPage", "name": "Installations", "url": "https://www.annesimonsson.se/album/installations" },
+        { "@type": "WebPage", "name": "Objects", "url": "https://www.annesimonsson.se/album/objects" },
+        { "@type": "WebPage", "name": "Paintings", "url": "https://www.annesimonsson.se/album/paintings" },
+        { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
+        { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
+      ]
+    }
+  ]
 }

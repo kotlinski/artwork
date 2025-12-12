@@ -28,6 +28,12 @@
                 "width": 2648,
                 "height": 2640,
                 "creditText": "Photo: Anne Hamrin Simonsson",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact",
+                "creator": {
+                  "@type": "Person",
+                  "name": "Anne Hamrin Simonsson"
+                },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
                 "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
               }
@@ -52,6 +58,12 @@
                 "height": 500,
                 "encodingFormat": "image/png",
                 "creditText": "Photo: Anne Hamrin Simonsson",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact",
+                "creator": {
+                  "@type": "Person",
+                  "name": "Anne Hamrin Simonsson"
+                },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
                 "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
               }
@@ -75,6 +87,12 @@
                 "width": 1181,
                 "height": 903,
                 "creditText": "Photo: Anne Hamrin Simonsson",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact",
+                "creator": {
+                  "@type": "Person",
+                  "name": "Anne Hamrin Simonsson"
+                },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
                 "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
               }
@@ -94,6 +112,23 @@
         "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
         "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
         "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.annesimonsson.se/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Paintings",
+          "item": "https://www.annesimonsson.se/album/paintings"
+        }
       ]
     }
   ]
