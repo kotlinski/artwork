@@ -1,80 +1,113 @@
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Installation Art by Anne Hamrin Simonsson",
-  "url": "https://www.annesimonsson.se/album/installations",
-  "description": "Site-specific installations including Under_Liv, LIV no 8, and Avfällningar.",
-  "creator": {
-    "@type": "Person",
-    "name": "Anne Hamrin Simonsson",
-    "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
-    "url": "https://www.annesimonsson.se"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-rotvaltan",
-          "name": "Under_Liv (Root Roll / Rotvälta)",
-          "image": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
-          "artform": "Installation",
-          "genre": "Site-specific Installation, Contemporary Art",
-          "keywords": "installation, site-specific, contemporary, root roll, Kalmar Konstmuseum",
-          "dateCreated": "2023",
-          "description": "Part of Under_Liv root roll with 24 objects, exhibited at Kalmar Konstmuseum.",
-          "locationCreated": "Kalmar Konstmuseum, Sweden",
-          "creator": {
-            "@type": "Person",
-            "name": "Anne Hamrin Simonsson",
-            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://www.annesimonsson.se/album/installations",
+      "name": "Installation Art by Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se/album/installations",
+      "description": "Site-specific installations by Anne Hamrin Simonsson, featuring works that explore life, nature and time.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-rotvaltan",
+              "name": "Under_Liv (Root Roll)",
+              "artform": "Installation",
+              "dateCreated": "2023",
+              "description": "A site-specific installation featuring a root windfall (Rotvälta) and 24 miniature objects, exploring themes of hidden life.",
+              "material": ["Wood", "Roots", "Mixed Media", "Concrete"],
+              "creator": { "@id": "https://www.annesimonsson.se/#person" },
+              "locationCreated": {
+                "@type": "Place",
+                "name": "Kalmar Konstmuseum",
+                "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+                "width": 5472,
+                "height": 3648,
+                "creditText": "Photo: Kalmar Konstmuseum",
+                "copyrightNotice": "© Anne Hamrin Simonsson",
+                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-wheat-oland-soil",
+              "name": "LIV no 8",
+              "artform": "Installation",
+              "dateCreated": "2017-08",
+              "description": "An ephemeral land art installation using organic wheat and Öland soil.",
+              "material": ["Wheat", "Soil", "Organic Material"],
+              "creator": { "@id": "https://www.annesimonsson.se/#person" },
+              "locationCreated": {
+                "@type": "Place",
+                "name": "Algutsrum",
+                "address": { "@type": "PostalAddress", "addressLocality": "Färjestaden", "addressRegion": "Öland", "addressCountry": "SE" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
+                "width": 3997,
+                "height": 2998,
+                "creditText": "Photo: Jan Engström",
+                "copyrightNotice": "© Anne Hamrin Simonsson",
+                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/installations/avfallningar-undantaget-klappinge-mirror",
+              "name": "Avfällningar (The Mirror)",
+              "artform": "Installation",
+              "dateCreated": "2024",
+              "description": "Mixed media installation playing with reflection, light, and space at Undantaget.",
+              "material": ["Mirror", "Glass", "Light"],
+              "creator": { "@id": "https://www.annesimonsson.se/#person" },
+              "locationCreated": {
+                "@type": "Place",
+                "name": "Undantaget",
+                "address": { "@type": "PostalAddress", "addressLocality": "Kläppinge", "addressCountry": "SE" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
+                "width": 4640,
+                "height": 3472,
+                "copyrightNotice": "© Anne Hamrin Simonsson",
+                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+              }
+            }
           }
-        }
+        ]
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "item": {
-          "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-wheat-oland-soil",
-          "name": "LIV no 8 (Wheat & Soil)",
-          "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
-          "artform": "Installation",
-          "artMedium": "Wheat, Soil",
-          "genre": "Land Art, Contemporary Art",
-          "keywords": "installation, land art, wheat, soil, Öland, contemporary",
-          "dateCreated": "2017",
-          "locationCreated": "Algutsrum, Öland, Sweden",
-          "creator": {
-            "@type": "Person",
-            "name": "Anne Hamrin Simonsson",
-            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
-          }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@type": "VisualArtwork",
-          "@id": "https://www.annesimonsson.se/album/installations/avfallningar-undantaget-klappinge-mirror",
-          "name": "Avfällningar (The Mirror)",
-          "image": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
-          "artform": "Installation",
-          "genre": "Contemporary Art, Mixed Media",
-          "keywords": "installation, mixed media, contemporary, mirror, Kläppinge",
-          "dateCreated": "2024",
-          "locationCreated": "Undantaget, Kläppinge, Sweden",
-          "creator": {
-            "@type": "Person",
-            "name": "Anne Hamrin Simonsson",
-            "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
-          }
-        }
-      }
-    ]
-  }
+      "publisher": { "@id": "https://www.annesimonsson.se/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.annesimonsson.se/#person",
+      "name": "Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se",
+      "sameAs": [
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+      ]
+    }
+  ]
 }
