@@ -16,49 +16,28 @@
             "item": {
               "@type": "BlogPosting",
               "headline": "\"Avfällningar\" & \"Ett trevande efter det identiska\"",
-              "description": "Exhibition at Undantaget & Stallet, Kläppinge. Open weekends 24/8-29/9 2024. A continuation of the collaboration between Johanna Karlin and Anne Hamrin Simonsson.",
-              "articleBody": "UNDANTAGET & STALLET, KLÄPPINGE 1:18. 'Avfällningar' & 'Ett trevande efter det identiska'. Open weekends at 14.00-16.00 24/8-29/9 2024. Continuation on Johanna Karlin's and Anne Hamrin Simonsson's collaboration in the exhibition 'An Ear to the Ground, Gazing Outwards' (Örat mot marken och blicken utåt) on Kalmar konstmuseum 2023 as part of Smålandstriennalen. With support from Smålandstriennalen, Konstfrämjandet Småland and Kalmar konstmuseum.",
+              "description": "Exhibition at Undantaget & Stallet, Kläppinge. Open weekends 24/8-29/9 2024.",
               "url": "https://www.annesimonsson.se/news#avfallningar-ett-trevande-efter-det-identiska",
-              "datePublished": "2024-06-03T13:44:38+02:00",
-              "dateModified": "2024-06-03T13:44:38+02:00",
+              "datePublished": "2024-08-24T14:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Exhibition: Avfällningar & Ett trevande efter det identiska",
+                "startDate": "2024-08-24",
+                "endDate": "2024-09-29",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Undantaget & Stallet",
+                  "address": { "@type": "PostalAddress", "streetAddress": "Kläppinge 1:18", "addressLocality": "Färjestaden", "addressCountry": "SE" }
+                }
+              },
               "image": {
                 "@type": "ImageObject",
                 "url": "https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg",
-                "width": 4640,
-                "height": 3472,
-                "caption": "Avfällningar installation at Undantaget",
-                "creditText": "Photo: Anne Hamrin Simonsson",
                 "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Person",
-                  "name": "Anne Hamrin Simonsson"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
               },
-              "author": {
-                "@type": "Person",
-                "name": "Anne Hamrin Simonsson",
-                "url": "https://www.annesimonsson.se/about"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Anne Hamrin Simonsson",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
-                }
-              },
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Undantaget & Stallet",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "Kläppinge 1:18",
-                  "addressCountry": "SE"
-                }
-              }
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
             }
           },
           {
@@ -67,73 +46,927 @@
             "item": {
               "@type": "BlogPosting",
               "headline": "Smålandstriennalen",
-              "description": "Group exhibition at Kalmar konstmuseum (27/5-1/10 2023) featuring Johanna Karlin, Anne Hamrin Simonsson, Amanda Selinder, and Jan Carleklev.",
-              "articleBody": "Kalmar konstmuseum Smålandstriennalen 27/5-1/10 2023. Group exhibition with Johanna Karlin, Anne Hamrin Simonsson, Amanda Selinder and Jan Carleklev. Head organizer Konstfrämjandet Småland with support from the Swedish Arts Council, Postkodstiftelsen and the County Council of Jönköping, Kalmar and Kronoberg.",
+              "description": "Group exhibition at Kalmar konstmuseum (27/5-1/10 2023).",
               "url": "https://www.annesimonsson.se/news#smalandstriennalen",
-              "datePublished": "2023-03-27T08:29:37+02:00",
-              "dateModified": "2023-03-27T08:29:37+02:00",
+              "datePublished": "2023-05-27T14:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Smålandstriennalen Group Exhibition",
+                "startDate": "2023-05-27",
+                "endDate": "2023-10-01",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Kalmar Konstmuseum",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                },
+                "organizer": { "@type": "Organization", "name": "Konstfrämjandet Småland" }
+              },
               "image": {
                 "@type": "ImageObject",
                 "url": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-installation.jpg",
-                "width": 5472,
-                "height": 3648,
-                "caption": "Installation view of Under_Liv at Kalmar Konstmuseum (Smålandstriennalen)",
-                "creditText": "Photo: Per Hamrin",
                 "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Person",
-                  "name": "Per Hamrin"
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "The Arts In Society - Voices from the Edge",
+              "description": "Participation in the 16th International Conference on The Arts in Society.",
+              "url": "https://www.annesimonsson.se/news#the-arts-in-society-voices-from-the-edge",
+              "datePublished": "2021-06-16T09:00:00+02:00",
+              "citation": "https://youtu.be/cl9nExqXf1g",
+              "about": {
+                "@type": "Event",
+                "name": "The Arts In Society: Voices from the Edge",
+                "startDate": "2021-06-16",
+                "endDate": "2021-06-18",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Virtual / Perth",
+                  "address": { "@type": "PostalAddress", "addressCountry": "AU" }
                 },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+                "organizer": { "@type": "Organization", "name": "The University of Western Australia" }
               },
-              "author": {
-                "@type": "Person",
-                "name": "Anne Hamrin Simonsson",
-                "url": "https://www.annesimonsson.se/about"
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
               },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Anne Hamrin Simonsson",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg"
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Panel call: Memory Portals",
+              "description": "Panel discussion at Ölands Museum Himmelsberga with Gunilla Petri and Peter Aronsson.",
+              "url": "https://www.annesimonsson.se/news#panel-call",
+              "datePublished": "2020-10-25T13:00:00+01:00",
+              "about": {
+                "@type": "Event",
+                "name": "Panel Call: Memory Portals",
+                "startDate": "2020-10-25",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands Museum Himmelsberga",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Borgholm", "addressCountry": "SE" }
+                },
+                "performer": [
+                  { "@type": "Person", "name": "Gunilla Petri" },
+                  { "@type": "Person", "name": "Peter Aronsson" }
+                ]
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Experimental Heritage - Memory Portals",
+              "description": "Online exhibition 'Memory Portals' exploring heritage and art.",
+              "url": "https://www.annesimonsson.se/news#experimental-heritage-memory-portals",
+              "datePublished": "2020-07-13T19:00:00+02:00",
+              "citation": "http://www.experimentalheritageexhibition.com",
+              "about": {
+                "@type": "Event",
+                "name": "Experimental Heritage - Memory Portals",
+                "startDate": "2020-07-13",
+                "endDate": "2020-12-31",
+                "eventStatus": "https://schema.org/EventPast",
+                "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+                "location": {
+                  "@type": "VirtualLocation",
+                  "url": "http://www.experimentalheritageexhibition.com"
                 }
               },
-              "citation": [
-                "http://www.kalmarkonstmuseum.se/wp-content/uploads/2023/05/orat-mot-marken-och-blicken-utat--anne-hamrin-simonsson.pdf",
-                "http://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat"
-              ],
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Kalmar Konstmuseum",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Kalmar",
-                  "addressCountry": "SE"
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Residency: Black Silo Studios",
+              "description": "Artist residency on Öland in collaboration with Irish multimedia artist Patricia McKenna.",
+              "url": "https://www.annesimonsson.se/news#residency",
+              "datePublished": "2019-09-23T09:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Black Silo Studios Residency",
+                "startDate": "2019-09-23",
+                "endDate": "2019-09-26",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Black Silo Studios",
+                  "address": { "@type": "PostalAddress", "addressRegion": "Öland", "addressCountry": "SE" }
                 }
-              }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Exchange visit: Ireland",
+              "description": "Karum Creevagh Swedish-Irish Experimental Heritage Explorations exchange visit.",
+              "url": "https://www.annesimonsson.se/news#exchange-visit",
+              "datePublished": "2019-06-10T09:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Ireland Exchange Visit",
+                "startDate": "2019-06-10",
+                "endDate": "2019-06-15",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": { "@type": "Place", "address": { "@type": "PostalAddress", "addressCountry": "IE" } },
+                "organizer": { "@type": "Organization", "name": "Experimental Heritage" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Book release: Kon - Samtidskonst och kulturarv",
+              "description": "Book release 'The Cow: Contemporary Art and Rural Cultural Heritage' at Kalmar konstmuseum.",
+              "url": "https://www.annesimonsson.se/news#book-release",
+              "datePublished": "2019-05-04T13:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Book Release: Kon",
+                "startDate": "2019-05-04",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Kalmar Konstmuseum",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                },
+                "performer": [
+                  { "@type": "Person", "name": "Joanna Sandell" },
+                  { "@type": "Person", "name": "Mathieu Vrijman" }
+                ]
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Artists of the month: May 2019",
+              "description": "Selected as 'Artist of the Month' by Konst i Kalmar län.",
+              "url": "https://www.annesimonsson.se/news#artists-of-the-month-in-may",
+              "datePublished": "2019-05-01T09:00:00+02:00",
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 10,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Lecture: Experimental Heritage",
+              "description": "Lecture at Linnaeus University with Anne Hamrin Simonsson and Bodil Magnusson.",
+              "url": "https://www.annesimonsson.se/news#lecture",
+              "datePublished": "2019-04-13T10:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Lecture: Experimental Heritage",
+                "startDate": "2019-04-13",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Linnaeus University",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Växjö/Kalmar", "addressCountry": "SE" }
+                },
+                "organizer": { "@type": "Organization", "name": "Department of Music and Art, Linnaeus University" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 11,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Project Room: Pukeberg",
+              "description": "Residency at Pukeberg Project Room with Helle Kvamme, Bodil Petersson, and others.",
+              "url": "https://www.annesimonsson.se/news#project-room",
+              "datePublished": "2019-03-07T09:00:00+01:00",
+              "about": {
+                "@type": "Event",
+                "name": "Pukeberg Project Room Residency",
+                "startDate": "2019-03-07",
+                "endDate": "2019-03-28",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Pukeberg",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Nybro", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 12,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Experimental Heritage Ireland-Sweden",
+              "description": "Research project exploring new ways of combining art, archaeology, and heritage.",
+              "url": "https://www.annesimonsson.se/news#experimental-heritage-ireland-sweden",
+              "datePublished": "2019-01-01T09:00:00+01:00",
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 13,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Experimentellt kulturarv - avslut en ny början",
+              "description": "Exhibition at Kamerala villan, Mörbylånga.",
+              "url": "https://www.annesimonsson.se/news#experimentellt-kulturarv-avslut-en-ny-borjan",
+              "datePublished": "2018-10-27T19:30:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Experimentellt kulturarv - avslut en ny början",
+                "startDate": "2018-10-27",
+                "endDate": "2018-11-11",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Kamerala villan",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Mörbylånga", "addressCountry": "SE" }
+                },
+                "organizer": { "@type": "Organization", "name": "Experimentellt kulturarv Öland II" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 14,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "LIV no 8 (LIFE no 8)",
+              "description": "Opening ceremonies for the installation LIV no 8 in Algutsrum.",
+              "url": "https://www.annesimonsson.se/news#liv-no-8-life-no-8",
+              "datePublished": "2017-06-14T18:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Opening Ceremony: LIV no 8",
+                "startDate": "2017-06-14",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Algutsrum",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Färjestaden", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 15,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Exchange visit: Ireland at the Burren",
+              "description": "Exchange visit organized by Maria Kerin and Helle Kvamme.",
+              "url": "https://www.annesimonsson.se/news#exchange-visit",
+              "datePublished": "2018-03-05T09:00:00+01:00",
+              "about": {
+                "@type": "Event",
+                "name": "Ireland at the Burren Exchange Visit",
+                "startDate": "2018-03-05",
+                "endDate": "2018-03-10",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": { "@type": "Place", "name": "The Burren", "address": { "@type": "PostalAddress", "addressCountry": "IE" } }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 16,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Du har 2 kor (You have two cows)",
+              "description": "Exhibition at Kalmar konstmuseum curated by Joanna Sandell and Mathieu Vrijman.",
+              "url": "https://www.annesimonsson.se/news#du-har-2-kor-you-have-two-cows",
+              "datePublished": "2017-12-02T14:00:00+01:00",
+              "about": {
+                "@type": "Event",
+                "name": "Du har 2 kor (You have two cows)",
+                "startDate": "2017-12-02",
+                "endDate": "2018-01-28",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Kalmar Konstmuseum",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                },
+                "organizer": { "@type": "Organization", "name": "Kalmar Konstmuseum" }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 17,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Samtidskonstdagarna",
+              "description": "Presentation of LIV no 8 at Samtidskonstdagarna.",
+              "url": "https://www.annesimonsson.se/news#samtidskonstdagarna",
+              "datePublished": "2017-10-06T10:45:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Samtidskonstdagarna 2017",
+                "startDate": "2017-10-05",
+                "endDate": "2017-10-06",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Kalmar Konstmuseum",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 18,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Skissande rum",
+              "description": "Workshop 'How to sketch the future?' at Ölands Museum Himmelsberga.",
+              "url": "https://www.annesimonsson.se/news#skissande-rum",
+              "datePublished": "2017-08-22T11:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Skissande rum Workshop",
+                "startDate": "2017-08-15",
+                "endDate": "2017-08-27",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands Museum Himmelsberga",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Borgholm", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 19,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "World heritage week LIV no 8",
+              "description": "Anne Hamrin Simonsson presents her installation LIV no 8.",
+              "url": "https://www.annesimonsson.se/news#world-heritage-week-liv-no-8-life-no-8",
+              "datePublished": "2017-07-21T17:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "World Heritage Week: LIV no 8 Presentation",
+                "startDate": "2017-07-21",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Algutsrum",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Färjestaden", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 20,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Lecture Källa - Liv - Död",
+              "description": "Lecture with stories, poems, and music at Näsby.",
+              "url": "https://www.annesimonsson.se/news#lecture-kalla-liv-dod",
+              "datePublished": "2017-07-16T15:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Lecture: Källa - Liv - Död",
+                "startDate": "2017-07-16",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Näsby",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Öland", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 21,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Art trip",
+              "description": "Art trip to Algutsrum, Ismantorps borg, and Sättra.",
+              "url": "https://www.annesimonsson.se/news#art-trip",
+              "datePublished": "2017-07-01T12:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Art Trip: Experimental Heritage",
+                "startDate": "2017-07-01",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Kalmar Konstmuseum (Departure)",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 22,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Kulturarv - Källa",
+              "description": "Exhibition at Näsby organized by Kulturföreningen Karneval.",
+              "url": "https://www.annesimonsson.se/news#kulturarv-kalla",
+              "datePublished": "2017-06-24T15:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Kulturarv - Källa Exhibition",
+                "startDate": "2017-06-24",
+                "endDate": "2017-07-19",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Näsby",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Öland", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 23,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "\"Experimental heritage and entrepreneurship\" seminar and workshop",
+              "description": "Kick-off for the project funded by Familjen Kamprads Stiftelse.",
+              "url": "https://www.annesimonsson.se/news#experimental-heritage-and-entrepreneurship-seminar-and-workshop",
+              "datePublished": "2016-10-05T09:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Experimental Heritage Seminar",
+                "startDate": "2016-10-05",
+                "endDate": "2016-10-06",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Yellow Box",
+                  "address": { "@type": "PostalAddress", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 24,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Workshop LIFE - DEATH",
+              "description": "Workshop at Näsby Flätverk with theme 'From swath to grain part 2'.",
+              "url": "https://www.annesimonsson.se/news#workshop-life-death",
+              "datePublished": "2016-07-22T13:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Workshop LIFE - DEATH",
+                "startDate": "2016-07-22",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Näsby",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Öland", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 25,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Flätverk",
+              "description": "Experimental heritage exhibition at Näsby.",
+              "url": "https://www.annesimonsson.se/news#flatverk",
+              "datePublished": "2016-07-09T10:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Flätverk Exhibition",
+                "startDate": "2016-07-09",
+                "endDate": "2016-08-14",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Näsby",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Öland", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 26,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Konst åt alla",
+              "description": "Exhibition at IOGT-NTO Kalmar.",
+              "url": "https://www.annesimonsson.se/news#konst-at-alla",
+              "datePublished": "2016-05-31T10:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Konst åt alla",
+                "startDate": "2016-05-31",
+                "endDate": "2016-06-04",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "IOGT-NTO Kalmar",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 27,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "\"Experimental heritage\" seminar and workshop LIFE - DEATH",
+              "description": "Seminar and workshop at Ölands folkhögskola.",
+              "url": "https://www.annesimonsson.se/news#experimental-heritage-seminar-and-workshop-life-death",
+              "datePublished": "2015-12-03T09:00:00+01:00",
+              "about": {
+                "@type": "Event",
+                "name": "Experimental Heritage Seminar: LIFE - DEATH",
+                "startDate": "2015-12-03",
+                "endDate": "2015-12-04",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands folkhögskola",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Färjestaden", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 28,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Vårsalongen 2015",
+              "description": "Vårsalongen exhibition at Ölands Museum Himmelsberga.",
+              "url": "https://www.annesimonsson.se/news#varsalongen",
+              "datePublished": "2015-05-09T10:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Vårsalongen 2015",
+                "startDate": "2015-05-09",
+                "endDate": "2015-06-07",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands Museum Himmelsberga",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Borgholm", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 29,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "\"Experimental heritage\" seminar and workshop with exhibition",
+              "description": "Seminar and workshop with exhibition at Ölands folkhögskola.",
+              "url": "https://www.annesimonsson.se/news#experimental-heritage-seminar-and-workshop-with-exhibition",
+              "datePublished": "2015-04-23T09:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Experimental Heritage Seminar and Exhibition",
+                "startDate": "2015-04-23",
+                "endDate": "2015-04-24",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands folkhögskola",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Färjestaden", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 30,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Vårsalongen 2014",
+              "description": "Vårsalongen exhibition at Ölands Museum Himmelsberga.",
+              "url": "https://www.annesimonsson.se/news#varsalongen-2014",
+              "datePublished": "2014-05-10T10:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Vårsalongen 2014",
+                "startDate": "2014-05-10",
+                "endDate": "2014-06-08",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands Museum Himmelsberga",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Borgholm", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 31,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "OpenART",
+              "description": "Participation in OpenART at Örebro Konsthall.",
+              "url": "https://www.annesimonsson.se/news#openart",
+              "datePublished": "2011-06-11T10:00:00+02:00",
+              "citation": "http://2011.openart.se/#anne-hamrin-simonsson",
+              "about": {
+                "@type": "Event",
+                "name": "OpenART 2011",
+                "startDate": "2011-06-11",
+                "endDate": "2011-09-11",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Örebro Konsthall",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Örebro", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 32,
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "Jordbruket i konsten - Konsten i jordbruket",
+              "description": "Exhibition at Ölands Museum Himmelsberga.",
+              "url": "https://www.annesimonsson.se/news#jordbruket-i-konsten-konsten-i-jordbruket",
+              "datePublished": "2011-06-25T10:00:00+02:00",
+              "about": {
+                "@type": "Event",
+                "name": "Jordbruket i konsten - Konsten i jordbruket",
+                "startDate": "2011-06-25",
+                "endDate": "2011-10-02",
+                "eventStatus": "https://schema.org/EventPast",
+                "location": {
+                  "@type": "Place",
+                  "name": "Ölands Museum Himmelsberga",
+                  "address": { "@type": "PostalAddress", "addressLocality": "Borgholm", "addressCountry": "SE" }
+                }
+              },
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+                "license": "https://www.annesimonsson.se/license",
+                "acquireLicensePage": "https://www.annesimonsson.se/contact"
+              },
+              "author": { "@id": "https://www.annesimonsson.se/#person" }
             }
           }
         ]
       }
     },
     {
+      "@type": "Person",
+      "@id": "https://www.annesimonsson.se/#person",
+      "name": "Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se",
+      "sameAs": [
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+      ]
+    },
+    {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.annesimonsson.se/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "News",
-          "item": "https://www.annesimonsson.se/news"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
+        { "@type": "ListItem", "position": 2, "name": "News", "item": "https://www.annesimonsson.se/news" }
       ]
     }
   ]

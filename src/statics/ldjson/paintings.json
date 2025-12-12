@@ -20,7 +20,8 @@
               "artform": "Painting",
               "dateCreated": "2009",
               "description": "Acrylic painting on masonite depicting asparagus, inspired by the landscape of Öland.",
-              "material": ["Acrylic", "Masonite"],
+              "artMedium": "Acrylic Paint",
+              "artworkSurface": "Masonite",
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
@@ -49,7 +50,8 @@
               "artform": "Painting",
               "dateCreated": "2006",
               "description": "A contemporary acrylic painting featuring a red and white tractor.",
-              "material": ["Acrylic", "Masonite"],
+              "artMedium": "Acrylic Paint",
+              "artworkSurface": "Masonite",
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
@@ -79,7 +81,8 @@
               "artform": "Painting",
               "dateCreated": "1999",
               "description": "Oil painting on masonite, part of the 'Vi i Villa' series exploring domestic life.",
-              "material": ["Oil Paint", "Masonite"],
+              "artMedium": "Oil Paint",
+              "artworkSurface": "Masonite",
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",

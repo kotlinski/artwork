@@ -18,9 +18,11 @@
               "@id": "https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-rotvaltan",
               "name": "Under_Liv (Root Roll)",
               "artform": "Installation",
+              "genre": "Site-specific Installation Art",
+              "artMedium": "Wood, Roots, Mixed Media, Concrete",
+              "artEdition": "Unique",
               "dateCreated": "2023",
-              "description": "A site-specific installation featuring a root windfall (Rotvälta) and 24 miniature objects, exploring themes of hidden life.",
-              "material": ["Wood", "Roots", "Mixed Media", "Concrete"],
+              "description": "A site-specific installation featuring a root windfall (Rotvälta) and 24 miniature objects.",
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "locationCreated": {
                 "@type": "Place",
@@ -35,10 +37,7 @@
                 "creditText": "Photo: Kalmar Konstmuseum",
                 "license": "https://www.annesimonsson.se/license",
                 "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Organization",
-                  "name": "Kalmar Konstmuseum"
-                },
+                "creator": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
                 "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
               }
@@ -52,9 +51,12 @@
               "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-wheat-oland-soil",
               "name": "LIV no 8",
               "artform": "Installation",
+              "genre": "Land Art",
+              "artMedium": "Wheat, Organic Material",
+              "artworkSurface": "Soil",
+              "artEdition": "Ephemeral",
               "dateCreated": "2017-08",
               "description": "An ephemeral land art installation using organic wheat and Öland soil.",
-              "material": ["Wheat", "Soil", "Organic Material"],
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "locationCreated": {
                 "@type": "Place",
@@ -69,10 +71,7 @@
                 "creditText": "Photo: Jan Engström",
                 "license": "https://www.annesimonsson.se/license",
                 "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Person",
-                  "name": "Jan Engström"
-                },
+                "creator": { "@type": "Person", "name": "Jan Engström" },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
                 "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
               }
@@ -86,9 +85,11 @@
               "@id": "https://www.annesimonsson.se/album/installations/avfallningar-undantaget-klappinge-mirror",
               "name": "Avfällningar (The Mirror)",
               "artform": "Installation",
+              "genre": "Mixed Media Installation",
+              "artMedium": "Mirror, Glass, Light",
+              "artEdition": "Unique",
               "dateCreated": "2024",
               "description": "Mixed media installation playing with reflection, light, and space at Undantaget.",
-              "material": ["Mirror", "Glass", "Light"],
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "locationCreated": {
                 "@type": "Place",
@@ -103,9 +104,7 @@
                 "creditText": "Photo: Anne Hamrin Simonsson",
                 "license": "https://www.annesimonsson.se/license",
                 "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@id": "https://www.annesimonsson.se/#person"
-                },
+                "creator": { "@id": "https://www.annesimonsson.se/#person" },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
                 "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
               }
@@ -130,18 +129,8 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.annesimonsson.se/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Installations",
-          "item": "https://www.annesimonsson.se/album/installations"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
+        { "@type": "ListItem", "position": 2, "name": "Installations", "item": "https://www.annesimonsson.se/album/installations" }
       ]
     }
   ]

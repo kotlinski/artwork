@@ -10,28 +10,21 @@
       "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
       "isPartOf": { "@id": "https://www.annesimonsson.se/#website" },
       "mentions": [
-        {
-          "@type": "Person",
-          "name": "Simon Kotlinski",
-          "jobTitle": "Web Developer",
-          "email": "simon.kotlinski@gmail.com"
-        },
-        {
-          "@type": "Person",
-          "name": "Per Hamrin",
-          "jobTitle": "Photographer",
-          "email": "per.hamrin@netatonce.net"
-        }
+        { "@type": "Person", "name": "Simon Kotlinski", "jobTitle": "Web Developer", "email": "simon.kotlinski@gmail.com" },
+        { "@type": "Person", "name": "Per Hamrin", "jobTitle": "Photographer", "email": "per.hamrin@netatonce.net" }
       ]
     },
-
     {
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
       "url": "https://www.annesimonsson.se",
-      "image": "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg",
+      "image": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
       "jobTitle": ["Konstnär", "Web Graphic Designer"],
+      "hasOccupation": [
+        { "@type": "Occupation", "name": "Konstnär" },
+        { "@type": "Occupation", "name": "Web Graphic Designer" }
+      ],
       "email": "annehsimonsson@gmail.com",
       "telephone": "+46-73-9677447",
       "address": {
@@ -47,7 +40,6 @@
         "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
       ]
     },
-
     {
       "@type": "WebSite",
       "@id": "https://www.annesimonsson.se/#website",
@@ -55,25 +47,13 @@
       "name": "Anne Hamrin Simonsson",
       "publisher": { "@id": "https://www.annesimonsson.se/#person" }
     },
-
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.annesimonsson.se/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Contact",
-          "item": "https://www.annesimonsson.se/contact"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.annesimonsson.se/contact" }
       ]
     },
-
     {
       "@type": "SiteNavigationElement",
       "@id": "https://www.annesimonsson.se/#navigation",

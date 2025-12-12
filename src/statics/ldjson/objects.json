@@ -18,14 +18,20 @@
               "@id": "https://www.annesimonsson.se/album/objects/under-liv-kalmar-konstmuseum-vitt-radjur",
               "name": "Under_Liv (White Deer)",
               "artform": "Sculpture",
+              "artMedium": "Mixed Media",
               "dateCreated": "2023",
               "description": "A mixed media sculpture of a white deer, exhibited as part of the Under_Liv installation.",
-              "material": ["Mixed Media", "Sculpture"],
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
+              "creator": {
+                "@id": "https://www.annesimonsson.se/#person"
+              },
               "locationCreated": {
                 "@type": "Place",
                 "name": "Kalmar Konstmuseum",
-                "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Kalmar",
+                  "addressCountry": "SE"
+                }
               },
               "image": {
                 "@type": "ImageObject",
@@ -40,7 +46,9 @@
                   "name": "Kalmar Konstmuseum"
                 },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+                "copyrightHolder": {
+                  "@id": "https://www.annesimonsson.se/#person"
+                }
               }
             }
           },
@@ -52,14 +60,21 @@
               "@id": "https://www.annesimonsson.se/album/objects/under-liv-kokong",
               "name": "Under_Liv (Cocoon)",
               "artform": "Sculpture",
+              "artMedium": "Mixed Media",
+              "artworkSurface": "Organic Forms",
               "dateCreated": "2023",
               "description": "A sculptural cocoon form, exploring themes of hidden life and metamorphosis.",
-              "material": ["Mixed Media", "Organic Forms"],
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
+              "creator": {
+                "@id": "https://www.annesimonsson.se/#person"
+              },
               "locationCreated": {
                 "@type": "Place",
                 "name": "Kalmar Konstmuseum",
-                "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Kalmar",
+                  "addressCountry": "SE"
+                }
               },
               "image": {
                 "@type": "ImageObject",
@@ -73,7 +88,9 @@
                   "@id": "https://www.annesimonsson.se/#person"
                 },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+                "copyrightHolder": {
+                  "@id": "https://www.annesimonsson.se/#person"
+                }
               }
             }
           },
@@ -85,10 +102,13 @@
               "@id": "https://www.annesimonsson.se/album/objects/embryo-silicon-dandeloin-moon",
               "name": "Embryo (Dandelion Moon)",
               "artform": "Sculpture",
+              "artMedium": "Silicon and Threads",
+              "artworkSurface": "Textile",
               "dateCreated": "2020",
               "description": "A delicate sculpture created from silicon and threads, resembling a dandelion moon.",
-              "material": ["Silicon", "Threads", "Textile"],
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
+              "creator": {
+                "@id": "https://www.annesimonsson.se/#person"
+              },
               "image": {
                 "@type": "ImageObject",
                 "url": "https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-dandeloin-moon.jpg",
@@ -101,13 +121,17 @@
                   "@id": "https://www.annesimonsson.se/#person"
                 },
                 "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+                "copyrightHolder": {
+                  "@id": "https://www.annesimonsson.se/#person"
+                }
               }
             }
           }
         ]
       },
-      "publisher": { "@id": "https://www.annesimonsson.se/#person" }
+      "publisher": {
+        "@id": "https://www.annesimonsson.se/#person"
+      }
     },
     {
       "@type": "Person",
