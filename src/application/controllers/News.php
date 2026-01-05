@@ -157,13 +157,13 @@ class News extends CI_Controller {
 	public function delete($id)
 	{
 		$this->news_model->delete($id);
-		echo "<br /><br /><br /><p>News removed. Uppdater för att se ändringen.</p>";
+		echo "<br /><br /><br /><p>News removed. Refresh browser to see changes.</p>";
 	}
 	public function update($id){
 		$newTitle 	= $this->input->post('title');
 		$newText 	= $this->input->post('text');
 		$this->news_model->update($id, $newTitle, $newText);
-		echo "<br /><br /><br /><p>Your news have been updated.<br />Refresh browser to see chagnes. </p>";
+		echo "<br /><br /><br /><p>Your news have been updated.<br />Refresh browser to see changes.</p>";
 	}
 
 	/**
@@ -186,13 +186,22 @@ class News extends CI_Controller {
 //
 //		return $string;
 //	}
-    function makeLink($post)
-    { // Improved regex to match http, https, and youtu.be links.
-        $post = preg_replace("/([^\w\/])(www\.[a-z0-9\-]+\.[a-z0-9\-]+)/i", "$1http://$2", $post);
-        $pattern = '!(https?://[a-z0-9\-._~\!$&\'()*+,;=:/?#[\]@%]+|https?://youtu\.be/[a-zA-Z0-9_-]+)!i';
-        $replace = '_handle_URL_callback';
-        return preg_replace_callback($pattern, $replace, $post);
-    }
+  function makeLink($post)
+  {
+    // Convert [text](link) to <a href="link">text</a>
+    $post = preg_replace_callback('/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/', function($matches) {
+      $text = htmlspecialchars($matches[1]);
+      $url = htmlspecialchars($matches[2]);
+      return '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $text . '</a>';
+    }, $post);
+
+    // Existing URL handling
+    $post = preg_replace("/([^\w\/])(www\.[a-z0-9\-]+\.[a-z0-9\-]+)/i", "$1http://$2", $post);
+    $pattern = '!(https?://[a-z0-9\-._~\!$&\'()*+,;=:/?#[\]@%]+|https?://youtu\.be/[a-zA-Z0-9_-]+)!i';
+    $replace = '_handle_URL_callback';
+    return preg_replace_callback($pattern, $replace, $post);
+  }
+
 }
 function _handle_URL_callback($matches)
 {

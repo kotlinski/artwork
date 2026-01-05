@@ -30,3 +30,25 @@ RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+
+  # CSS and JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+
+  # Fonts
+  ExpiresByType application/font-woff2 "access plus 1 year"
+
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header set Cache-Control "public, max-age=0, must-revalidate"
+</IfModule>

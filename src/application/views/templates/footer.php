@@ -1,192 +1,262 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Simon
- * Date: 2012-01-05
- * Time: 13:58
- * To change this template use File | Settings | File Templates.
+ * Footer - SEO Optimized (Deep Linking + Figure Support)
+ * Updated: 2025-12-03
  */
-
-/*<strong>&copy; 2011</strong>*/
-
 ?>
 
 <br /><br/>
 </div>
+</div>
+
 <footer id="sFooter">
-	<!--<br /><br /><br /><br /><br /><br /><br /><br />
-	 <br /><br />
-	 <br /><br /><br /><br />
-
- -->
-	<div id="footerspan">
-		<div class="aboutText" style="text-align: center;">
-			<hr />
-			Copyright © Anne Hamrin Simonsson 2012-2025
-			<!-- Place this tag where you want the +1 button to render -->
-			<!--<div class="g-plusone" data-size="small" data-annotation="none"></div>-->
-		</div>
-	</div>
+  <div id="footerspan">
+    <div class="aboutText" style="text-align: center;">
+      <hr />
+      Copyright © Anne Hamrin Simonsson 2012-2025
+    </div>
+  </div>
 </footer>
-</div> <!--! end of #container -->
 
+<script>
+  // Load jQuery only if not already present
+  function loadJQuery(callback) {
+    if (window.jQuery) {
+      callback();
+    } else {
+      var script = document.createElement('script');
+      script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js';
+      script.defer = true;
+      script.onload = callback;
+      document.head.appendChild(script);
+    }
+  }
 
-<!-- JavaScript at the bottom for fast page loading -->
+  window.setImgId = function(id) {
+    imgId = id;
+  };
+  window.setNewsId = function(id) {
+    newsId = id;
+  };
 
-<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="<?=base_url('static/js/libs/jquery-1.6.2.min.js')?>"><\/script>')</script>
+  // All jQuery-dependent code goes inside this callback
+  loadJQuery(function() {
+    // Fancybox
+    var fancyboxScript = document.createElement('script');
+    fancyboxScript.type = 'text/javascript';
+    fancyboxScript.src = '<?=base_url('statics/fancybox/source/jquery.fancybox.pack.js?v=2.0.4')?>';
+    window.closeButton = function(event){
+      event.returnValue = false;
+      if(event.preventDefault){ event.preventDefault(); }
+      $.fancybox.close();
+    };
+    fancyboxScript.onload = function() {
+      $(document).ready(function() {
 
-<script type="text/javascript">
-var imgId = -1;
-var newsId = -1;
+        // --- SEO: Save original state to revert later ---
+        var originalTitle = document.title;
+        var originalPath = window.location.pathname;
+        window.originalDescription = $('meta[name="description"]').attr('content');
+        var $jsonLdScript = $('script[type="application/ld+json"]');
+        window.originalJsonLd = $jsonLdScript.length ? $jsonLdScript.text() : '';
 
-function setImgId(id){
-	imgId = id;
-}
-function setNewsId(id){
-	newsId = id;
-}
+        // --- Main Gallery Settings ---
+        var properties = {
+          prevEffect  : 'fade',
+          nextEffect  : 'fade',
+          openSpeed   : 100,
+          closeSpeed  : 100,
+          nextSpeed   : 100,
+          prevSpeed   : 100,
+          openOpacity : true,
+          closeBtn    : false,
+          closeClick  : true,
+          helpers     : {
+            title  : { type : 'inside'},
+            overlay  : {
+              opacity : 1.0,
+              css : { 'background-color' : '#FFF' },
+              closeClick  : false
+            }
+          },
+          beforeLoad: function() {
+            var el = $(this.element);
+            var caption = el.closest('figure').find('figcaption').text();
+            if (caption && caption.length > 0) {
+              this.title = caption;
+            } else {
+              this.title = $("#fancyboxTitles div").eq(this.index).html();
+            }
+          },
+          afterShow: function() {
+            var imgUrl = this.href;
+            var filename = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
+            var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-simonsson-/, '');
+            var newTitle = "";
+            if (slug) {
+              newTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " | Anne Hamrin Simonsson";
+            } else {
+              newTitle = "Artwork | Anne Hamrin Simonsson";
+            }
+            updateJsonLdForImage(slug)
+            document.title = newTitle;
+            $('meta[name="description"]').attr('content', $(this.element).data('imgtitle') || $(this.element).find('img').data('imgtitle'));
+            if (history.pushState) {
+              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
+              window.history.pushState({image: slug}, newTitle, albumPath + '/' + slug);
+            }
 
-function closeButton(event){
-	event.returnValue = false;
-	if(event.preventDefault){
-		event.preventDefault();
-	}
+            var figCaption = $(this.element).closest('figure').find('figcaption').text();
+            var thumbAlt = $(this.element).find('img').attr('alt');
+            var finalAlt = figCaption ? figCaption : (thumbAlt ? thumbAlt : newTitle);
+            $('.fancybox-image').attr('alt', $.trim(finalAlt));
+            var dbId = $(this.element).data('id') || $(this.element).find('img').data('id');
+            if (dbId) {
+              $('.fancybox-image').attr('id', dbId);
+            }
+          },
+          afterClose: function() {
+            document.title = originalTitle;
+            if (history.pushState) {
+              // Remove the image slug from the path
+              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
+              window.history.pushState({}, originalTitle, albumPath);
+            }
+            // Restore original meta description
+            $('meta[name="description"]').attr('content', window.originalDescription);
+            // Restore original JSON-LD
+            var $jsonLdScript = $('script[type="application/ld+json"]');
+            if ($jsonLdScript.length && window.originalJsonLd) {
+              $jsonLdScript.text(window.originalJsonLd);
+            }
+          }
 
-	$.fancybox.close();
-}
+        };
 
-$(document).ready(function() {
-	var properties = {
-		prevEffect		: 'fade',
-		nextEffect		: 'fade',
-		openSpeed 		: 900,
-		closeSpeed 		: 800,
-		nextSpeed		: 500,
-		prevSpeed		: 500,
-		openOpacity		: true,
-		closeBtn		: false,
-		closeClick		: true,
+        var properties2 = {
+          prevEffect  : 'fade',
+          nextEffect  : 'fade',
+          maxHeight   : '80%',
+          openSpeed   : 100,
+          closeSpeed  : 100,
+          nextSpeed   : 100,
+          prevSpeed   : 100,
+          openOpacity : true,
+          closeBtn    : false,
+          closeClick  : false,
+          helpers     : {
+            title  : { type : 'inside'},
+            overlay  : {
+              opacity : 1.0,
+              css : { 'background-color' : '#FFF' },
+              closeClick  : false
+            }
+          }
+        };
 
-		helpers		: {
-			title	: { type : 'inside'},
-			overlay	: {
-				opacity : 1.0,
-				css : {
-					'background-color' : '#FFF'
-				},
-				closeClick		: false
-			}
-		},
-		afterLoad : function() {
-			this.title = $("#fancyboxTitles div").eq(this.index).html();
-		} // afterload
-	};
+        $(".picture").fancybox(properties);
+        $(".startUpPicture").fancybox(properties2).trigger('click');
 
+        $(".popUpForm").fancybox({
+          'autoDimensions': true,
+          'margin'    : 50,
+          'padding'   : 10,
+          'titleShow' : false,
+          'onClosed'  : function() { $("#login_error").hide(); }
+        });
 
-	var properties2 = {
-		prevEffect		: 'fade',
-		nextEffect		: 'fade',
-		maxHeight		: '80%',
-		openSpeed 		: 900,
-		closeSpeed 		: 800,
-		nextSpeed		: 500,
-		prevSpeed		: 500,
-		openOpacity		: true,
-		closeBtn		: false,
-		closeClick		: false,
-		helpers		: {
-			title	: { type : 'inside'},
-			overlay	: {
-				opacity : 1.0,
-				css : {
-					'background-color' : '#FFF'
-				},
-				closeClick		: false
-			}
-		}
-	};
+        $(".popUpFormImages").fancybox({
+          'scrolling'     : 'yes',
+          'autoDimensions': true,
+          'margin'    : 50,
+          'padding'   : 10,
+          'titleShow' : false,
+          'onClosed'  : function() { $("#login_error").hide(); }
+        });
 
+        $(".fancybox").fancybox({
+          afterLoad : function() {
+            this.title = $("#fancyboxTitles div").eq(this.index).html();
+          }
+        });
 
+/*        var searchParams = new URLSearchParams(window.location.search);
+        var imageTarget = searchParams.get('image');*/
+        var imageTarget = "<?= isset($image_slug) ? addslashes($image_slug) : '' ?>";
 
-	/*
-			   *   Examples - images
-			   */
-	$(".picture").fancybox(properties);
+        if (imageTarget) {
+          var $targetLink = $('a.picture[href*="' + imageTarget + '"]');
+          if ($targetLink.length > 0) {
+            $targetLink.trigger('click');
+          }
+        }
 
-	$(".startUpPicture").fancybox(properties2).trigger('click');
-
-
-	$(".popUpForm").fancybox({
-		'autoDimensions': true,
-		'margin'		: 50,
-		'padding'		: 10,
-		'titleShow'		: false,
-		'onClosed'		: function() {
-			$("#login_error").hide();
-		}
-	});
-	$(".popUpFormImages").fancybox({
-		'scrolling'		: 'yes',
-		'autoDimensions': true,
-		'margin'		: 50,
-		'padding'		: 10,
-		'titleShow'		: false,
-		'onClosed'		: function() {
-			$("#login_error").hide();
-		}
-	});
-
-<?
-	if($this->session->get_userdata('logged_in')){
-		include './././statics/js/adminHandling.php';
-		/*$this->load->helper('file');
-		$string = read_file('./././statics/js/adminHandling.php');
-		echo $string;*/
-	} else {
-
-	}
-?>
-
-	$(".fancybox").fancybox({
-		afterLoad : function() {
-			this.title = $("#fancyboxTitles div").eq(this.index).html();
-		}
-	}); //fancybox
-});
-
-
+        <?php
+        if($this->session->get_userdata('logged_in')){
+          include './././statics/js/adminHandling.php';
+        }
+        ?>
+      });
+    };
+    document.head.appendChild(fancyboxScript);
+  });
 </script>
 
-<!-- scripts concatenated and minified via ant build script-->
-<!--<script defer src="<?=base_url('statics/js/plugins.js')?>"></script>
-<script defer src="<?=base_url('statics/js/script.js')?>"></script>-->
-<!-- end scripts-->
+<script>
+  // After the Fancybox image is shown and slug is available
+  function updateJsonLdForImage(slug) {
+    // Find the image element by slug
+    var $imgLink = $('a.picture[href*="' + slug + '"]');
+    var $img = $imgLink.find('img');
+    if ($img.length === 0) return;
 
-<!-- Google +1 button -->
-<script type="text/javascript">
-	(function() {
-		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-		po.src = 'https://apis.google.com/js/plusone.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	})();
+    // Gather data attributes or fallback to defaults
+    var imgUrl = $img.attr('src');
+    var creatorImg = "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg";
+
+/*    <?php
+      // I would like to load the ldjson template from statics/ldjson/art.json
+     //  $ldjson = file_get_contents('./././statics/ldjson/art.json');
+      // the $ldjson I want to replace some template strings. {{{name}}} {{{album}}} {{{filename}}}
+      // $ldjson = str_replace('{{{album}}}', rtrim($title, 's'), $ldjson);
+     //  print $ldjson;
+      ?>*/
+    var jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " - <?= ucfirst(rtrim($title, 's')) ?> by Anne Hamrin Simonsson",
+      "url": window.location.href.replace(/\?.*$/, '') + "/" + slug,
+      "mainEntity": {
+        "@type": "VisualArtwork",
+        "@id": window.location.href.replace(/\?.*$/, '') + "/" + slug,
+        "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+        "image": "https:" + imgUrl.replace('/thumb', ''),
+        "artform": "<?= ucfirst(rtrim($title, 's')) ?>",
+        "creator": {
+          "@type": "Person",
+          "name": "Anne Hamrin Simonsson",
+          "image": creatorImg
+        }
+      }
+    };
+
+    // Replace the existing JSON-LD script
+    var $jsonLdScript = $('script[type="application/ld+json"]');
+    if ($jsonLdScript.length) {
+      $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));
+    }
+  }
 </script>
 
-
-<!-- Add fancyBox -->
-<script type="text/javascript" src="<?=base_url('statics/fancybox/source/jquery.fancybox.pack.js?v=2.0.4')?>"></script>
-<!-- Optionaly add button and/or thumbnail helpers -->
-<script type="text/javascript" src="<?=base_url('statics/fancybox/source/helpers/jquery.fancybox-buttons.js?v=2.0.4')?>"></script>
-<script type="text/javascript" src="<?=base_url('statics/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.4')?>"></script>
-
-
-<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-chromium.org/developers/how-tos/chrome-frame-getting-started -->
-<!--[if lt IE 7 ]>
-<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-<![endif]-->
+<script>
+  function loadGoogleAPI() {
+    var script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/plusone.js';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+  // Call loadGoogleAPI() only when you need Google Plus features
+</script>
 
 </body>
 </html>

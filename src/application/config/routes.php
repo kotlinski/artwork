@@ -67,9 +67,9 @@ $route['news/update/(:any)'] = 'news/update/$1';
 $route['news/(:any)'] = 'news/view/$1';
 $route['news'] = 'news';
 
+$route['album/(:any)/(:any)'] = 'album/index/$1/$2';
 $route['album/(:any)'] = 'album/index/$1';
 $route['album'] = 'album';
-
 
 $route['about'] = 'about';
 $route['about/create'] = 'about/create';

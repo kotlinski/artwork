@@ -1,3 +1,8 @@
 User-agent: *
+Disallow: /login
+Disallow: /image_admin
+Disallow: /image_admin/delete/
+Disallow: /news/delete/
+Disallow: /news/update/
 Allow: /
-
+Sitemap: https://www.annesimonsson.se/sitemap.xml

@@ -1,0 +1,97 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.annesimonsson.se/#webpage",
+      "url": "https://www.annesimonsson.se/",
+      "name": "Anne Hamrin Simonsson – Konstnär",
+      "headline": "Konceptuell Konstnär Anne Hamrin Simonsson",
+      "description": "Officiell webbplats för den svenska konstnären Anne Hamrin Simonsson. Utforska nyheter, konstverk, biografi och kontakt.",
+      "inLanguage": "sv-SE",
+      "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
+      "primaryImageOfPage": { "@id": "https://www.annesimonsson.se/#mainimage" },
+      "about": { "@id": "https://www.annesimonsson.se/#person" },
+      "author": { "@id": "https://www.annesimonsson.se/#person" },
+      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://www.annesimonsson.se/#mainimage",
+      "url": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+      "contentUrl": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+      "thumbnail": "https://www.annesimonsson.se/konst/medium/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+      "name": "Under_Liv: Rotvälta - Installation view",
+      "description": "Installation view of the artwork 'Rotvälta' at Kalmar Konstmuseum.",
+      "caption": "Part of Under_Liv installation, Kalmar Konstmuseum 2023. Photo © Kalmar Konstmuseum.",
+      "width": 5472,
+      "height": 3648,
+      "encodingFormat": "image/jpeg",
+      "representativeOfPage": true,
+      "datePublished": "2023-10-12",
+      "license": "https://www.annesimonsson.se/license",
+      "copyrightNotice": "© Anne Hamrin Simonsson",
+      "acquireLicensePage": "https://www.annesimonsson.se/contact",
+      "keywords": ["Installation art", "Contemporary art", "Kalmar Konstmuseum", "Swedish Artist", "Sculpture"],
+      "genre": "Installation art",
+      "creditText": "Photo: Kalmar Konstmuseum",
+      "creator": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
+      "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.annesimonsson.se/#person",
+      "name": "Anne Hamrin Simonsson",
+      "alternateName": "Anne Simonsson",
+      "description": "Svensk konstnär och konceptuell artist baserad på Öland. Känd för installationer, måleri och verk som utforskar temat LIV.",
+      "url": "https://www.annesimonsson.se/",
+      "image": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Konstnär",
+        "alternateName": "Artist"
+      },
+      "jobTitle": "Konstnär",
+      "birthDate": "1967-10-11",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Färjestaden",
+        "addressRegion": "Kalmar län",
+        "addressCountry": "SE"
+      },
+      "sameAs": [
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+      ],
+      "knowsAbout": ["installation art", "konceptuell konst", "måleri", "plats-specifika installationer", "samtidskonst"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.annesimonsson.se/#website",
+      "url": "https://www.annesimonsson.se/",
+      "name": "Anne Hamrin Simonsson",
+      "description": "Officiell webbplats för konstnären Anne Hamrin Simonsson.",
+      "publisher": { "@id": "https://www.annesimonsson.se/#person" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://www.annesimonsson.se/?s={search_term_string}" },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://www.annesimonsson.se/#navigation",
+      "name": "Main Navigation",
+      "hasPart": [
+        { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
+        { "@type": "WebPage", "name": "Installations", "url": "https://www.annesimonsson.se/album/installations" },
+        { "@type": "WebPage", "name": "Objects", "url": "https://www.annesimonsson.se/album/objects" },
+        { "@type": "WebPage", "name": "Paintings", "url": "https://www.annesimonsson.se/album/paintings" },
+        { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
+        { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
+      ]
+    }
+  ]
+}

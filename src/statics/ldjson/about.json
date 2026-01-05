@@ -1,0 +1,158 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://www.annesimonsson.se/about",
+      "name": "About Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se/about",
+      "description": "Biography, CV, and artist statement of Anne Hamrin Simonsson.",
+      "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
+      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.annesimonsson.se/#person",
+      "name": "Anne Hamrin Simonsson",
+      "alternateName": "Anne Simonsson",
+      "hasOccupation": [
+        { "@type": "Occupation", "name": "Konstnär" },
+        { "@type": "Occupation", "name": "Conceptual Artist" },
+        { "@type": "Occupation", "name": "Visual Artist" }
+      ],
+      "birthDate": "1967-10-11",
+      "url": "https://www.annesimonsson.se/about",
+      "image": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Färjestaden",
+        "addressRegion": "Kalmar län",
+        "addressCountry": "SE"
+      },
+      "description": "I work with conceptual art in different techniques and materials; it´s the idea which decides how the presentation will be. I find it most interesting working with installations placed on unexpected public areas. Whatever technique characterises my work of time consuming precision and consists of several dimensions with strong feeling for colour, form and material. I have for many years been investigating the theme of 'LIFE'.",
+      "disambiguatingDescription": "Svensk konceptuell konstnär baserad i Färjestaden, känd för installationer och platsspecifika verk.",
+      "worksFor": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
+      "alumniOf": [
+        { "@type": "EducationalOrganization", "name": "Stockholm University", "sameAs": "https://www.su.se/", "description": "Art Science (1993)" },
+        { "@type": "EducationalOrganization", "name": "Ölands Konstskola", "description": "1988-90, 1986-87" },
+        { "@type": "EducationalOrganization", "name": "KV Konstskola", "description": "1987-88" }
+      ],
+      "award": [
+        "Ölandsklubben (2025)",
+        "Smålandstriennalen / Konstfrämjandet Småland (2024)",
+        "Ölandsklubben (2023)",
+        "Konstnärsnämnden (2022)",
+        "Konstnärsnämnden (2021)",
+        "Region Kalmar län (2021)",
+        "Konstnärsnämnden (2020)",
+        "Familjen Kamprads stiftelse Experimentellt kulturarv (2016-18)",
+        "Ölandsklubben (2017)",
+        "Svenska kyrkan (2011)",
+        "EU växtkraft mål 4 Kilen (1997-98)"
+      ],
+      "citation": [
+        "Kalmar läns Tidning Lina Watanen 19/9 2024 (https://www.klt.nu/2024-09-19/ett-nara-samarbete-men-anda-enskilt-resultat/)",
+        "Barometern Gunilla Petri 27/8 2024 (https://www.barometern.se/artikel/glom-sterila-utstallningsrum-har-staller-konstnarerna-ut-i-en-gammal-gard/)",
+        "Under_Liv katalog Kalmar konstmuseum 2023 (https://www.kalmarkonstmuseum.se/wp-content/uploads/2023/05/orat-mot-marken-och-blicken-utat--anne-hamrin-simonsson.pdf)",
+        "Ölandsbladet Anders Marell 10/8 2023",
+        "Barometern Frida Lindström 10/6 2023 (https://www.barometern.se/2023-06-10/nu-ar-smalandstriennalen-igang-over-60-konstnarer-staller-ut/)",
+        "Kalmar Läns Tidning Lina Watanen 1/6 2023 (https://www.klt.nu/artikel/fyra-konstnarer-forenas-kring-tankar-om-gestaltande-livsmiljo/)",
+        "Experimental Heritage as Practice",
+        "Internet Archaeology 55 Petersson, Bodil et al. 2020",
+        "Öland 2050 Linnéuniversitetets Unescoprofessur i Heritage",
+        "Futures Cornelius Holtorf, Gustav Wollentz, Daniel",
+        "Lindskog och Mörbylånga kommun Emma Rydnér 2020",
+        "Policy och riktlinjer för offentlig konst Kalmar län",
+        "Kon: Samtidskonst och kulturarv på landsbygden redaktör Joanna Sandell Kalmar konstmuseum 2018",
+        "Sveriges Radio Kalmar Peter Bressler 7/12 2017",
+        "Ölandsjournalen Walle Dickson nr.5 nov 2017",
+        "Barometern Gunilla Petri 23/8 2017",
+        "Kalmarposten Isabel Mena-Berlin 19/7 2017",
+        "Östra Småland Karin Asmundsson 30/6 2017",
+        "Barometern Mikael Hagner 26/6 2017",
+        "Ölandsbladet Anders Marell 23/6 2017",
+        "Ölandsbladet Anders Marell 13/6 2017",
+        "Ölandsjournalen Walle Dickson nr.2 juni 2017",
+        "Ölandsbladet Malin Edeborg 8/4 2017",
+        "Ölandsbladet Natalia Johansson 25/3 2017",
+        "Barometern/Östra Småland Sofia Hedman 24/3 2017",
+        "Sveriges Radio Kalmar Peter Bressler 21/3 2017",
+        "Barometern Gunilla Petri 9/5 2014",
+        "Örebro OpenART catalogue 2011",
+        "YouTube 11/7 2011",
+        "Barometern Anna Hedelius 24/6 2011",
+        "Ölandsbladet 23/6 2011",
+        "Kalmarposten 16/6 2011",
+        "Knytpunkt Örebro 12/6 2011",
+        "Barometern 10/6 2011",
+        "Östra Småland Karin Asmundsson 8/6 2011",
+        "Ölandsbladet Kenth Jönsson 7/6 2011",
+        "Ölandsbladet Erich Scwandt 28/11 2009",
+        "Östra Småland Rolf Ljung 2/10 2009",
+        "Barometern Mikael Hagner oct 2009",
+        "Ölandsbladet Erich Schwandt oct 2009",
+        "Östra Småland Rolf Ljung 1/12 2007",
+        "Ölandsbladet 24/11 2007",
+        "Sydöstran Margareta Andersson 17/11 2007",
+        "Barometern Gunilla Petri 17/11 2007",
+        "Östra Småland 17/11 2007",
+        "Barometern Gunilla Petri 25/11 2006",
+        "Ölandsbladet Erich Schwandt 25/11 2006",
+        "Ölandsbladet Ragnhild Oxhagen 17/10 2006",
+        "Barometern Gunilla Petri 14/10 2006",
+        "Sydöstran Margareta Andersson 28/1 2006",
+        "Ölandsbladet Tore Simonsson 28/1 2006",
+        "Östra Småland Rolf Ljung 28/1 2006",
+        "Barometern Gunilla Petri 24/11 2005",
+        "Barometern Gunilla Petri 29/9 2001",
+        "Barometern Gunilla Petri 4/12 2000",
+        "Ölandsbladet Ragnhild Oxhagen 12/5 1998",
+        "Östra Småland Gun Nilsson 6/4 1998",
+        "SVT Sydsvenska journalen Mattias Robertsson rec. 5/2 1997",
+        "Barometern Gunilla Petri 7/12 1996",
+        "Ölandsbladet Sylvia Augustinsson 20/7 1996",
+        "Barometern Gunilla Petri 20/7 1996",
+        "Barometern Gunilla Petri 30/8 1993",
+        "Barometern Gunilla Petri 16/2 1989"
+      ],
+      "knowsAbout": [
+        { "@type": "Thing", "name": "Experimental Heritage" },
+        { "@type": "Thing", "name": "Site-specific Installation" },
+        { "@type": "Thing", "name": "Conceptual Art" }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.annesimonsson.se/#website",
+      "url": "https://www.annesimonsson.se/",
+      "name": "Anne Hamrin Simonsson",
+      "publisher": { "@id": "https://www.annesimonsson.se/#person" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.annesimonsson.se/about" }
+      ]
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://www.annesimonsson.se/#navigation",
+      "name": "Main Navigation",
+      "hasPart": [
+        { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
+        { "@type": "WebPage", "name": "Installations", "url": "https://www.annesimonsson.se/album/installations" },
+        { "@type": "WebPage", "name": "Objects", "url": "https://www.annesimonsson.se/album/objects" },
+        { "@type": "WebPage", "name": "Paintings", "url": "https://www.annesimonsson.se/album/paintings" },
+        { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
+        { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
+      ]
+    }
+  ]
+}
