@@ -65,6 +65,13 @@
     </url>
 
     <url>
+        <loc>https://www.annesimonsson.se/license</loc>
+        <lastmod>2025-12-13</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
         <loc>https://www.annesimonsson.se/album/installations/liv-kyrka-orebro-svenska-kyrkan</loc>
         <lastmod>2025-12-05</lastmod>
         <changefreq>monthly</changefreq>

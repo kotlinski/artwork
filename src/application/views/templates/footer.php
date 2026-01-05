@@ -32,6 +32,13 @@
     }
   }
 
+  window.setImgId = function(id) {
+    imgId = id;
+  };
+  window.setNewsId = function(id) {
+    newsId = id;
+  };
+
   // All jQuery-dependent code goes inside this callback
   loadJQuery(function() {
     // Fancybox
@@ -45,11 +52,6 @@
     };
     fancyboxScript.onload = function() {
       $(document).ready(function() {
-        var imgId = -1;
-        var newsId = -1;
-
-        function setImgId(id){ imgId = id; }
-        function setNewsId(id){ newsId = id; }
 
         // --- SEO: Save original state to revert later ---
         var originalTitle = document.title;
