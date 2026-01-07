@@ -26,15 +26,15 @@ class Image_admin extends CI_Controller {
 
     public function index($data = null)
     {
-		$data['error'] = '';
-        $data['title'] = 'Image Admin';
-        $data['menu_item'] = 'image_admin';
-		$data['images'] = $this->images_model->get_images();
-		$data['artwork_filters'] = $this->images_model->get_artwork_filters();
+      $data['error'] = '';
+      $data['title'] = 'Image Admin';
+      $data['menu_item'] = 'image_admin';
+      $data['images'] = $this->images_model->get_images();
+      $data['artwork_filters'] = $this->images_model->get_artwork_filters();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('image_admin/index', $data);
-        $this->load->view('templates/footer');
+      $this->load->view('templates/header', $data);
+      $this->load->view('image_admin/index', $data);
+      $this->load->view('templates/footer');
     }
 
 	function do_upload()
@@ -125,15 +125,27 @@ class Image_admin extends CI_Controller {
 		$this->images_model->delete($id);
 		echo "<br /><br /><br /><p>Your image have been removed. </p>";
 	}
-	public function update($id){
-		$newTitle = $this->input->post('title');
-		echo "new title: " . $this->input->post('title')."<br/>";
-		$data = array(
-			'title' => $newTitle
-		);
-		$this->images_model->update($id, $data);
-		echo "<br /><br /><br /><p>Your image have been renamed. </p>";
-	}
+  public function update($id) {
+    $newTitle = $this->input->post('title');
+    $newFileId = $this->input->post('file_id');
+    $newCaption = $this->input->post('caption');
+
+    if ($newTitle !== null && $newFileId !== null && $newCaption !== null) {
+      $data = array(
+        'title' => $newTitle,
+        'file_id' => $newFileId,
+        'caption' => $newCaption
+      );
+      $this->images_model->update($id, $data);
+      echo "<br /><br /><p>Your image has been updated.</p>";
+    } else {
+      ob_start();
+      var_dump($_POST);
+      $postDump = ob_get_clean();
+      echo $postDump . "<br /><br /><p>Missing title or file ID.</p>";
+    }
+
+  }
 	public function setFilter($imgId){
 		$filter_id = $this->input->post('filter_id');
 		$data = array(

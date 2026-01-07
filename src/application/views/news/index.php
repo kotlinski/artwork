@@ -32,7 +32,7 @@
           <? foreach ($images as $image) { ?>
             <div style="padding:0px 50px;margin:0px 50px;width:150px">
 
-              <img src="<?= base_url('konst/thumb/' . $image->file_name); ?>" alt="<?= $image->title ?>"/>
+              <img src="<?= base_url('konst/thumb/' . $image->file_name); ?>" alt="<?= $image->caption ?>"/>
               <? echo ' ' . $image->id . '.' ?>
 
             </div>

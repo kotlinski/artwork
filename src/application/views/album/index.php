@@ -27,12 +27,12 @@
           class="picture"
           rel="group2"
           href="<?= base_url('konst/' . $image->file_name) ?>"
-          title="<?= $image->title ?>"
+          title="<?= $image->caption ?>"
           style="padding:0px;margin:0px;border:0px;">
           <img
             id="<?= $image->id ?>"
             data-id="<?= $image->id ?>"
-            data-imgtitle="<?= $image->title ?>"
+            data-imgtitle="<?= $image->caption ?>"
             src="<?= base_url('konst/thumb/' . $image->file_name) ?>"
             alt="<?= htmlspecialchars('Art ' . $title . ' av konstnar Anne Hamrin Simonsson: ' . $image->title, ENT_QUOTES, 'UTF-8') ?>"
             style="padding:0px;margin:0px;border:0px;"/>
@@ -43,7 +43,7 @@
       $titles .=
         '<div>' .
         '<span style="float:left;max-width:80%;">' .
-        htmlspecialchars($image->title, ENT_QUOTES) . '<br />' .
+        htmlspecialchars($image->caption, ENT_QUOTES) . '<br />' .
         '<span style="text-align:left;color:#777;font: normal 13px "Helvetica Neue",Helvetica,Arial,sans-serif;">Copyright © Anne Hamrin Simonsson '/*.date("Y")*/ . '</span>' .
 
         '</span>' .

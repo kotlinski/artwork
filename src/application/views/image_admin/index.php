@@ -7,7 +7,19 @@
  * To change this template use File | Settings | File Templates.
  */
 ?>
-
+<script>
+  document.querySelectorAll('.rename_image_form').forEach(form => {
+form.addEventListener('submit', function(e) {
+e.preventDefault(); // Prevent actual submission for debugging
+const data = new FormData(form);
+for (let [key, value] of data.entries()) {
+console.log(key + ':', value);
+}
+// To actually submit after logging, uncomment the next line:
+// form.submit();
+});
+});
+</script>
 
 
 <br/>
@@ -134,7 +146,7 @@ if ($this->session->userdata('logged_in')) {
 					<LI><a class="popUpForm"
 						   href="#rename_image_form_<?=$image->id?>"
 						   onclick="setImgId(<?=$image->id?>)">
-						RENAME
+						EDIT
 					</a></LI>
 					<LI><a class="popUpForm"
 						   href="#filter_image_form_<?=$image->id?>"
@@ -163,20 +175,30 @@ if ($this->session->userdata('logged_in')) {
 					</p>
 				</form>
 			</div>
-			<div style="display:none">
-				<form class="rename_image_form" id="rename_image_form_<?=$image->id?>" method="post" action="">
-					<img src="<?= base_url('konst/medium/' . $image->file_name);?>"
-						 alt="<?=$image->title?>"/>
-
-					<p>
-						Rename image:
-						<input type="text" id="rename_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px"/>
-					</p>
-					<p>
-						<input type="submit" value="Rename" />
-					</p>
-				</form>
-			</div>
+      <div style="display: none;">
+        <form class="rename_image_form" id="rename_image_form_<?=$image->id?>" method="post" action="" style="flex: 1;">
+          <div style="display: flex; align-items: flex-start;">
+            <img src="<?= base_url('konst/medium/' . $image->file_name);?>"
+                 alt="<?=$image->title?>" style="margin-right: 20px; max-width: 200px;"/>
+            <div style="flex: 1;">
+              <label for="rename_image_field_<?=$image->id?>">Titel</label>
+              <br/>
+              <input name="title" type="text" id="rename_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px" disabled />
+              <br/>
+              <label for="rename_image_caption_<?=$image->id?>">Bildtext</label>
+              <br/>
+              <textarea name="caption" id="rename_image_caption_<?=$image->id?>" style="height:50px;resize:vertical;" rows="3"><?=$image->caption?></textarea>
+              <br/>
+              <label for="rename_file_id_field_<?=$image->id?>">Bild ID</label>
+              <br/>
+              <input name="file_id" type="text" id="rename_file_id_field_<?=$image->id?>" value="<?=$image->file_id?>" style="width:250px" disabled />
+              <p>
+                <input type="submit" value="Uppdatera" />
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
 			<div style="display:none">
 				<form class="filter_image_form" id="filter_image_form_<?=$image->id?>"  method="post" action="">
 					<img src="<?= base_url('konst/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />

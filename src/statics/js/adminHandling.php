@@ -23,7 +23,10 @@
 				return false;
 			}
 			var newName = $('#rename_image_field_'+imgId).val();
-			var subName = newName;
+			var newCaption = $('#rename_image_caption_'+imgId).val();
+      var fileId = $('#rename_file_id_field_'+imgId).val();
+
+      var subName = newName;
 			if(subName.length > 16){
 				subName = newName.substr(0, 13)+'...';
 			}
@@ -33,7 +36,7 @@
 				type	: "POST",
 				cache	: false,
 				url		: "<?=base_url('image_admin/update')?>/"+imgId,
-				data	: {title: newName},
+        data	: {title: newName, file_id: fileId, caption: newCaption},
 				success: function(data) {
 					$.fancybox(data);
 				}
