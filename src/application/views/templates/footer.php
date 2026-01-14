@@ -92,15 +92,24 @@
             var imgUrl = this.href;
             var filename = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
             var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-hamrin-simonsson-/, '');
+
+            var $imgLink = $('a.picture[href*="' + slug + '"]');
+            var $img = $imgLink.find('img');
+            if ($img.length === 0) return;
+
+            // Pull data from your SQL-backed attributes
+            var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
+            var title = $img.data('title');
+
             var newTitle = "";
             if (slug) {
-              newTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " | Anne Hamrin Simonsson";
+              newTitle = title + " | Anne Hamrin Simonsson";
             } else {
               newTitle = "Artwork | Anne Hamrin Simonsson";
             }
-            updateJsonLdForImage(slug)
+            updateJsonLdForImage(title, description, filename)
             document.title = newTitle;
-            $('meta[name="description"]').attr('content', $(this.element).data('imgtitle') || $(this.element).find('img').data('imgtitle'));
+            $('meta[name="description"]').attr('content', $(this.element).data('description') || $(this.element).find('img').data('title'));
             if (history.pushState) {
               var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
               window.history.pushState({image: slug}, newTitle, albumPath + '/' + slug);
@@ -203,44 +212,33 @@
 </script>
 
 <script>
-  // After the Fancybox image is shown and slug is available
-  function updateJsonLdForImage(slug) {
-    // Find the image element by slug
-    var $imgLink = $('a.picture[href*="' + slug + '"]');
-    var $img = $imgLink.find('img');
-    if ($img.length === 0) return;
+  function updateJsonLdForImage(title, description, filename) {
+    // Logic to extract year and dimensions from your SQL 'caption' field
+    var yearMatch = description.match(/\b(19|20)\d{2}\b/);
+    var yearCreated = yearMatch ? yearMatch[0] : null;
 
-    // Gather data attributes or fallback to defaults
-    var imgUrl = $img.attr('src');
-    var creatorImg = "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-performance.jpg";
-
-/*    <?php
-      // I would like to load the ldjson template from statics/ldjson/art.json
-     //  $ldjson = file_get_contents('./././statics/ldjson/art.json');
-      // the $ldjson I want to replace some template strings. {{{name}}} {{{album}}} {{{filename}}}
-      // $ldjson = str_replace('{{{album}}}', rtrim($title, 's'), $ldjson);
-     //  print $ldjson;
-      ?>*/
     var jsonLd = {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " - <?= ucfirst(rtrim($title, 's')) ?> by Anne Hamrin Simonsson",
-      "url": window.location.href.replace(/\?.*$/, '') + "/" + slug,
-      "mainEntity": {
-        "@type": "VisualArtwork",
-        "@id": window.location.href.replace(/\?.*$/, '') + "/" + slug,
-        "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-        "image": "https:" + imgUrl.replace('/thumb', ''),
-        "artform": "<?= ucfirst(rtrim($title, 's')) ?>",
-        "creator": {
-          "@type": "Person",
-          "name": "Anne Hamrin Simonsson",
-          "image": creatorImg
-        }
+      "@type": "VisualArtwork",
+      "@id": window.location.href + "#artwork",
+      "name": title,
+      "image": "https://www.annesimonsson.se/konst/" + filename,
+      "dateCreated": yearCreated,
+      "description": description,
+      "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>", // Installations, Objects, or Paintings
+      "creator": {
+        "@type": "Person",
+        "@id": "https://www.annesimonsson.se/#artist",
+        "name": "Anne Hamrin Simonsson",
+        "sameAs": "https://www.annesimonsson.se/about"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
       }
     };
 
-    // Replace the existing JSON-LD script
+    // Inject into script tag
     var $jsonLdScript = $('script[type="application/ld+json"]');
     if ($jsonLdScript.length) {
       $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));
