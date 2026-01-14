@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://www.annesimonsson.se/</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1</priority>
         <image:image>
@@ -21,49 +21,49 @@
     </url>
     <url>
         <loc>https://www.annesimonsson.se/news</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/about</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/contact</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/installations</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/objects</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/paintings</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/license</loc>
-        <lastmod>2026-01-13</lastmod>
+        <lastmod>2026-01-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
@@ -126,11 +126,11 @@
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/sparris-oland2</loc>
+        <loc>https://www.annesimonsson.se/album/paintings/sparris</loc>
         <lastmod>2012-03-12</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-sparris-oland.jpg</image:loc>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-sparris.jpg</image:loc>
             <image:title>Sparris no 2 (Asparagus no 2)</image:title>
             <image:caption>Sparris no 2 (Asparagus no 2) acrylic on masonite 1x1m 2009.</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
@@ -184,11 +184,11 @@
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/rodkal-oland</loc>
+        <loc>https://www.annesimonsson.se/album/paintings/rodkal</loc>
         <lastmod>2012-03-12</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rodkal-oland.jpg</image:loc>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rodkal.jpg</image:loc>
             <image:title>Rödkål no 2 (Red cabbage no 2)</image:title>
             <image:caption>Rödkål no 2 (Red cabbage no 2) acrylic on masonite 1x1m 2009</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
@@ -239,11 +239,11 @@
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/onion-kalmar</loc>
+        <loc>https://www.annesimonsson.se/album/paintings/onion</loc>
         <lastmod>2012-03-12</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-onion-kalmar.jpg</image:loc>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-onion.jpg</image:loc>
             <image:title>Lök no 2 (Onion no 2)</image:title>
             <image:caption>Lök no 2 (Onion no 2) acrylic on masonite 1x1m 2009</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
@@ -297,11 +297,11 @@
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/blue-traktor</loc>
+        <loc>https://www.annesimonsson.se/album/paintings/bla-traktor</loc>
         <lastmod>2012-03-12</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-blue-traktor.png</image:loc>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bla-traktor.png</image:loc>
             <image:title>Blå traktor (Blue tractor)</image:title>
             <image:caption>Blå traktor (Blue tractor) acrylic on masonite 10x10cm 2005</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
@@ -394,11 +394,11 @@
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/red-traktor</loc>
+        <loc>https://www.annesimonsson.se/album/paintings/rod-vit-traktor</loc>
         <lastmod>2012-03-12</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-red-traktor.png</image:loc>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rod-vit-traktor.png</image:loc>
             <image:title>Röd-vit traktor (Red-white tractor)</image:title>
             <image:caption>Röd-vit traktor (Red-white tractor) acrylic on masonite 50x50cm 2006</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>

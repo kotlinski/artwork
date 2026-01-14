@@ -24,7 +24,12 @@ RewriteRule ^startpage/?$ https://www.annesimonsson.se/ [R=301,L]
 RewriteRule ^album/2/?$ /album/installations [R=301,L]
 RewriteRule ^album/3/?$ /album/objects [R=301,L]
 RewriteRule ^album/4/?$ /album/paintings [R=301,L]
-RewriteRule ^album/paintings/sparris-oland2$ /album/paintings/sparris-oland [R=301,L]
+RewriteRule ^album/paintings/red-traktor$ /album/paintings/rod-vit-traktor [R=301,L]
+RewriteRule ^album/paintings/blue-traktor$ /album/paintings/bla-traktor [R=301,L]
+RewriteRule ^album/paintings/sparris-oland$ /album/paintings/sparris [R=301,L]
+RewriteRule ^album/paintings/onion-kalmar$ /album/paintings/onion [R=301,L]
+RewriteRule ^album/paintings/rodkal-oland$ /album/paintings/rodkal [R=301,L]
+
 
 
 # --- APP ROUTING (Do not change) ---

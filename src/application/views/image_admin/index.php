@@ -112,7 +112,7 @@ if ($this->session->userdata('logged_in')) {
         <a class="popUpForm"
            href="#rename_image_form_<?=$image->id?>"
 				   title="<?=$image->caption?>">
-          <?=$image->title?>
+          <?=$image->file_id?>
 				</a><br />
         <?=$image->caption?>
         <div style="display: flex; gap: 20px;">
@@ -165,7 +165,7 @@ if ($this->session->userdata('logged_in')) {
 
               <label for="rename_image_field_<?=$image->id?>">Titel</label>
               <br/>
-              <input name="title" type="text" id="rename_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px" readonly />
+              <input name="title" type="text" id="rename_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px" />
               <br/>
               <label for="rename_image_caption_<?=$image->id?>">Bildtext</label>
               <br/>
@@ -177,7 +177,7 @@ if ($this->session->userdata('logged_in')) {
               <br/>
               <label for="geo_location_<?=$image->id?>">Plats</label>
               <br/>
-              <input name="geo_location" type="text" id="geo_location_<?=$image->id?>" value="<?=$image->geo_location?>" style="width:250px" readonly />
+              <input name="geo_location" type="text" id="geo_location_<?=$image->id?>" value="<?=$image->geo_location?>" style="width:250px" />
               <p>
                 <input type="submit" value="Uppdatera" />
               </p>

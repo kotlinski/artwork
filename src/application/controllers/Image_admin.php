@@ -125,51 +125,78 @@ class Image_admin extends CI_Controller {
 		$this->images_model->delete($id);
 		echo "<br /><br /><br /><p>Your image have been removed. </p>";
 	}
+
   public function update($id) {
     $newTitle = $this->input->post('title');
     $newFileId = $this->input->post('file_id');
     $newCaption = $this->input->post('caption');
 
     if ($newTitle !== null && $newFileId !== null && $newCaption !== null) {
-      $data = array(
+      $old_data = $this->images_model->get_image($id);
+      $oldFileId = $old_data->file_id;
+      $oldFileName = $old_data->file_name;
+
+      // Get file extension
+      $ext = pathinfo($oldFileName, PATHINFO_EXTENSION);
+
+      // Build new file name
+      $newFileName = "anne-hamrin-simonsson-{$newFileId}.{$ext}";
+
+      // If file_id changed, rename files
+      if ($oldFileId !== $newFileId) {
+        $folders = ['konst', 'konst/thumb', 'konst/medium'];
+        define('PUBPATH', str_replace(SELF, '', FCPATH));
+        foreach ($folders as $folder) {
+          $oldPath = PUBPATH . "{$folder}/{$oldFileName}";
+          $newPath = PUBPATH . "{$folder}/{$newFileName}";
+          if (file_exists($oldPath)) {
+            rename($oldPath, $newPath);
+          }
+        }
+        $folder = '';
+        switch ($old_data->artwork_filter) {
+          case "2":
+            $folder = 'installations';
+            break;
+          case "3":
+            $folder = 'objects';
+            break;
+          case "4":
+            $folder = 'paintings';
+            break;
+        }
+
+        // Path to .htaccess
+        $htaccessPath = __DIR__ . '/../../.htaccess';
+        // Build rewrite rule
+        $rule = "RewriteRule ^album/{$folder}/{$oldFileId}$ /album/{$folder}/{$newFileId} [R=301,L]";
+        // Read .htaccess lines
+        $lines = file($htaccessPath, FILE_IGNORE_NEW_LINES);
+        // Insert rule at line 27 (index 26)
+        array_splice($lines, 26, 0, $rule);
+        // Write back to .htaccess
+        file_put_contents($htaccessPath, implode("\n", $lines));
+      }
+
+      // Update database
+      $data = [
         'title' => $newTitle,
         'file_id' => $newFileId,
-        'caption' => $newCaption
-      );
-      $old_data = $this->images_model->get_image($id);
+        'caption' => $newCaption,
+        'file_name' => $newFileName
+      ];
       $this->images_model->update($id, $data);
-      echo "<br /><br /><p>Your image has been updated: " . $newFileId . " -> " . $old_data->file_id . "</p>";
-      if($old_data->file_id == $newFileId) {
-        return;
-      }
-      $folder = '';
-      var_dump($old_data);
-      switch ($old_data->artwork_filter) {
-        case "2":
-          $folder = 'installations';
-          break;
-        case "3":
-          $folder = 'objects';
-          break;
-        case "4":
-          $folder = 'paintings';
-          break;
-      }
-      $htaccessPath = __DIR__ . '/../../.htaccess';
-      $rule = "RewriteRule ^album/{$folder}/{$old_data->file_id}$ /album/{$folder}/{$newFileId} [R=301,L]\n";
-      echo "<br /><br /><p>New Rule: " . $rule . "</p>";
 
-      $lines = file($htaccessPath, FILE_IGNORE_NEW_LINES);
-      array_splice($lines, 26, 0, $rule); // line 27 is index 26
-      file_put_contents($htaccessPath, implode("\n", $lines));
+      echo "<br /><br /><p>Your image has been updated: {$oldFileId} -> {$newFileId}</p>";
+      // ... (rest of your .htaccess logic)
     } else {
       ob_start();
       var_dump($_POST);
       $postDump = ob_get_clean();
       echo $postDump . "<br /><br /><p>Missing title or file ID.</p>";
     }
-
   }
+
 	public function setFilter($imgId){
 		$filter_id = $this->input->post('filter_id');
 		$data = array(
