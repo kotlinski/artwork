@@ -136,8 +136,32 @@ class Image_admin extends CI_Controller {
         'file_id' => $newFileId,
         'caption' => $newCaption
       );
+      $old_data = $this->images_model->get_image($id);
       $this->images_model->update($id, $data);
-      echo "<br /><br /><p>Your image has been updated.</p>";
+      echo "<br /><br /><p>Your image has been updated: " . $newFileId . " -> " . $old_data->file_id . "</p>";
+      if($old_data->file_id == $newFileId) {
+        return;
+      }
+      $folder = '';
+      var_dump($old_data);
+      switch ($old_data->artwork_filter) {
+        case "2":
+          $folder = 'installations';
+          break;
+        case "3":
+          $folder = 'objects';
+          break;
+        case "4":
+          $folder = 'paintings';
+          break;
+      }
+      $htaccessPath = __DIR__ . '/../../.htaccess';
+      $rule = "RewriteRule ^album/{$folder}/{$old_data->file_id}$ /album/{$folder}/{$newFileId} [R=301,L]\n";
+      echo "<br /><br /><p>New Rule: " . $rule . "</p>";
+
+      $lines = file($htaccessPath, FILE_IGNORE_NEW_LINES);
+      array_splice($lines, 26, 0, $rule); // line 27 is index 26
+      file_put_contents($htaccessPath, implode("\n", $lines));
     } else {
       ob_start();
       var_dump($_POST);

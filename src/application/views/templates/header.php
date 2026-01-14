@@ -90,7 +90,7 @@
   <meta property="og:description"
         content="Official website of Swedish artist Anne Hamrin Simonsson. View artwork, news, and contact information.">
   <meta property="og:image"
-        content="https://www.annesimonsson.se/konst/medium/anne-simonsson-konstverk-smalandstrienalen-rotvalta.jpg">
+        content="https://www.annesimonsson.se/konst/medium/anne-hamrin-simonsson-konstverk-smalandstrienalen-rotvalta.jpg">
   <meta property="og:url" content="https://www.annesimonsson.se/">
 
   <meta name="author" content="The website is made by Simon Kotlinski">
@@ -244,10 +244,31 @@
             <a href="<?= base_url('contact'); ?>">Contact administration</a>
           </li>
         </ul>
-
         <br/>
-        <a href="<?= site_url('/login/logout/') ?>">Click here to logout.</a><br/>
-
+        <button id="generate-sitemap">Generate Sitemap</button>
+        <p>Generate a new Sitemap after images has been added or modified.</p>
+        <script>
+          document.getElementById('generate-sitemap').onclick = function() {
+            fetch('<?= base_url('sitemap/generate') ?>', { method: 'POST' })
+              .then(r => {
+                r.text().then( data => {
+                  const { success } = JSON.parse(data);
+                  try {
+                    if (success) alert('Sitemap generated!');
+                    else alert('Failed to generate sitemap.');
+                  } catch (e) {
+                    throw new Error('Invalid JSON response: ' + data);
+                  }
+                });
+              })
+              .catch(err => {
+                alert('Error: ' + err.message);
+              });
+          };
+        </script>
+        <form action="<?= site_url('/login/logout/') ?>" method="post" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
         <br/>
         <hr/>
       <? } ?>

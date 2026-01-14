@@ -19,9 +19,11 @@
 			return false;
 		});
 		$(".rename_image_form").bind("submit", function() {
-			if (imgId < 0 ) {
-				return false;
-			}
+      var imgId = $(this).find('input[name="image_id"]').val(); // Get ID from hidden field
+
+      if (imgId < 0) {
+        return false;
+      }
 			var newName = $('#rename_image_field_'+imgId).val();
 			var newCaption = $('#rename_image_caption_'+imgId).val();
       var fileId = $('#rename_file_id_field_'+imgId).val();
@@ -32,15 +34,16 @@
 			}
 			$('#admin_picture_'+imgId).html(subName);
 
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('image_admin/update')?>/"+imgId,
-        data	: {title: newName, file_id: fileId, caption: newCaption},
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
+      $.ajax({
+        type: "POST",
+        cache: false,
+        url: "<?=base_url('image_admin/update')?>/"+imgId,
+        data: {title: newName, file_id: fileId, caption: newCaption},
+        success: function(data) {
+          window.location.hash = 'container_id_' + imgId;
+          $.fancybox(data);
+        }
+      });
 
 			return false;
 		});

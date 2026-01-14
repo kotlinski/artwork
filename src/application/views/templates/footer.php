@@ -91,7 +91,7 @@
           afterShow: function() {
             var imgUrl = this.href;
             var filename = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
-            var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-simonsson-/, '');
+            var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-hamrin-simonsson-/, '');
             var newTitle = "";
             if (slug) {
               newTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " | Anne Hamrin Simonsson";
@@ -212,7 +212,7 @@
 
     // Gather data attributes or fallback to defaults
     var imgUrl = $img.attr('src');
-    var creatorImg = "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg";
+    var creatorImg = "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-performance.jpg";
 
 /*    <?php
       // I would like to load the ldjson template from statics/ldjson/art.json

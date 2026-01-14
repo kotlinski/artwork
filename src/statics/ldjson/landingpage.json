@@ -18,9 +18,9 @@
     {
       "@type": "ImageObject",
       "@id": "https://www.annesimonsson.se/#mainimage",
-      "url": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
-      "contentUrl": "https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
-      "thumbnail": "https://www.annesimonsson.se/konst/medium/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+      "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+      "contentUrl": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
+      "thumbnail": "https://www.annesimonsson.se/konst/medium/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg",
       "name": "Under_Liv: Rotvälta - Installation view",
       "description": "Installation view of the artwork 'Rotvälta' at Kalmar Konstmuseum.",
       "caption": "Part of Under_Liv installation, Kalmar Konstmuseum 2023. Photo © Kalmar Konstmuseum.",
@@ -45,7 +45,7 @@
       "alternateName": "Anne Simonsson",
       "description": "Svensk konstnär och konceptuell artist baserad på Öland. Känd för installationer, måleri och verk som utforskar temat LIV.",
       "url": "https://www.annesimonsson.se/",
-      "image": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
       "hasOccupation": {
         "@type": "Occupation",
         "name": "Konstnär",

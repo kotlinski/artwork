@@ -57,6 +57,12 @@ class Images_model extends CI_Model {
 		$this->db->update('images', $data);
 	}
 
+  public function get_all_images() {
+    $this->db->select('file_id, file_name, title, caption, geo_location, datum, artwork_filter, updated_at');
+    $this->db->from('images');
+    $this->db->order_by('order', 'ASC'); // Keeps your custom sorting
+    return $this->db->get()->result_array();
+  }
 
 	public function get_artwork_filters()
 	{
@@ -64,4 +70,5 @@ class Images_model extends CI_Model {
 		$query = $this->db->get('artwork_filters');
 		return $query->result();
 	}
+
 }

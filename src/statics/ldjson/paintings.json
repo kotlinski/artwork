@@ -25,7 +25,7 @@
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-sparris-oland.jpg",
                 "width": 2648,
                 "height": 2640,
                 "creditText": "Photo: Anne Hamrin Simonsson",
@@ -55,7 +55,7 @@
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-red-traktor.png",
                 "width": 499,
                 "height": 500,
                 "encodingFormat": "image/png",
@@ -86,7 +86,7 @@
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-4.jpg",
                 "width": 1181,
                 "height": 903,
                 "creditText": "Photo: Anne Hamrin Simonsson",

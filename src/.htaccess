@@ -24,6 +24,8 @@ RewriteRule ^startpage/?$ https://www.annesimonsson.se/ [R=301,L]
 RewriteRule ^album/2/?$ /album/installations [R=301,L]
 RewriteRule ^album/3/?$ /album/objects [R=301,L]
 RewriteRule ^album/4/?$ /album/paintings [R=301,L]
+RewriteRule ^album/paintings/sparris-oland2$ /album/paintings/sparris-oland [R=301,L]
+
 
 # --- APP ROUTING (Do not change) ---
 RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
