@@ -32,6 +32,7 @@
           <img
             id="<?= $image->id ?>"
             data-id="<?= $image->id ?>"
+            data-file-id="<?= $image->file_id ?>"
             data-title="<?= $image->title ?>"
             data-description="<?= $image->caption ?>"
             src="<?= base_url('konst/thumb/' . $image->file_name) ?>"

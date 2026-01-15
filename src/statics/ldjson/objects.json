@@ -15,7 +15,7 @@
             "position": 1,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/objects/under-liv-kalmar-konstmuseum-vitt-radjur",
+              "@id": "https://www.annesimonsson.se/album/objects/under-liv-radjur",
               "name": "Under_Liv (White Deer)",
               "artform": "Sculpture",
               "artMedium": "Mixed Media",
@@ -35,7 +35,7 @@
               },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-vitt-radjur.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-radjur.jpg",
                 "width": 5472,
                 "height": 3648,
                 "creditText": "Photo: Kalmar Konstmuseum",
@@ -99,7 +99,7 @@
             "position": 3,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/objects/embryo-silicon-dandeloin-moon",
+              "@id": "https://www.annesimonsson.se/album/objects/embryo-spheare-2",
               "name": "Embryo (Dandelion Moon)",
               "artform": "Sculpture",
               "artMedium": "Silicon and Threads",
@@ -111,7 +111,7 @@
               },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-silicon-dandeloin-moon.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-spheare-2.jpg",
                 "width": 3840,
                 "height": 2160,
                 "creditText": "Photo: Anne Hamrin Simonsson",

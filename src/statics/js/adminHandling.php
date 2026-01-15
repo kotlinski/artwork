@@ -27,7 +27,11 @@
 			var newName = $('#rename_image_field_'+imgId).val();
 			var newCaption = $('#rename_image_caption_'+imgId).val();
       var fileId = $('#rename_file_id_field_'+imgId).val();
-
+      // Validate fileId: only a-z, numbers and -
+      if (!/^[a-z0-9\-]+$/.test(fileId)) {
+        alert("File ID may only contain lowercase letters a-z, numbers 0-9, and hyphens (-).");
+        return false;
+      }
       var subName = newName;
 			if(subName.length > 16){
 				subName = newName.substr(0, 13)+'...';

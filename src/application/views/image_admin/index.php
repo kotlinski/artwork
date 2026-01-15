@@ -99,11 +99,18 @@ if ($this->session->userdata('logged_in')) {
 
 		<div class="imageListContainer" id="container_id_<?=$image->id?>" style="margin-bottom: 20px;">
 			<div class="imageListElement imageListImage" style="min-width: 85px;">
-				<a class="picture"
+				<a
+          class="picture"
 				   rel="group"
 				   href="<?=base_url('konst/' . $image->file_name)?>"
 				   title="<?=$image->caption?>">
-					<img src="<?= base_url('konst/thumb/' . $image->file_name);?>"
+					<img
+            id="<?= $image->id ?>"
+            data-id="<?= $image->id ?>"
+            data-file-id="<?= $image->file_id ?>"
+            data-title="<?= $image->title ?>"
+            data-description="<?= $image->caption ?>"
+            src="<?= base_url('konst/thumb/' . $image->file_name);?>"
 						 alt="<?=$image->caption?>"/>
 				</a>
 			</div>

@@ -131,16 +131,23 @@ class Image_admin extends CI_Controller {
     $newFileId = $this->input->post('file_id');
     $newCaption = $this->input->post('caption');
 
+    $old_data = $this->images_model->get_image($id);
+    $oldFileName = $old_data->file_name;
+    // Get file extension
+    $ext = pathinfo($oldFileName, PATHINFO_EXTENSION);
+
+    $newFileName = "anne-hamrin-simonsson-{$newFileId}.{$ext}";
+    // Update database
+    $data = [
+      'title' => $newTitle,
+      'file_id' => $newFileId,
+      'caption' => $newCaption,
+      'file_name' => $newFileName
+    ];
+    $this->images_model->update($id, $data);
     if ($newTitle !== null && $newFileId !== null && $newCaption !== null) {
-      $old_data = $this->images_model->get_image($id);
       $oldFileId = $old_data->file_id;
-      $oldFileName = $old_data->file_name;
-
-      // Get file extension
-      $ext = pathinfo($oldFileName, PATHINFO_EXTENSION);
-
       // Build new file name
-      $newFileName = "anne-hamrin-simonsson-{$newFileId}.{$ext}";
 
       // If file_id changed, rename files
       if ($oldFileId !== $newFileId) {
@@ -178,17 +185,7 @@ class Image_admin extends CI_Controller {
         file_put_contents($htaccessPath, implode("\n", $lines));
       }
 
-      // Update database
-      $data = [
-        'title' => $newTitle,
-        'file_id' => $newFileId,
-        'caption' => $newCaption,
-        'file_name' => $newFileName
-      ];
-      $this->images_model->update($id, $data);
-
       echo "<br /><br /><p>Your image has been updated: {$oldFileId} -> {$newFileId}</p>";
-      // ... (rest of your .htaccess logic)
     } else {
       ob_start();
       var_dump($_POST);

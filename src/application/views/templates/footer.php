@@ -100,6 +100,7 @@
             // Pull data from your SQL-backed attributes
             var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
             var title = $img.data('title');
+            var file_id = $img.data('file-id');
 
             var newTitle = "";
             if (slug) {
@@ -107,12 +108,13 @@
             } else {
               newTitle = "Artwork | Anne Hamrin Simonsson";
             }
-            updateJsonLdForImage(title, description, filename)
+            var album_path = window.location.pathname.split('/').slice(0, 3).join('/');
+            album_path = (album_path === '/') ? '' : album_path;
+            updateJsonLdForImage(title, description, filename, file_id, album_path, slug)
             document.title = newTitle;
             $('meta[name="description"]').attr('content', $(this.element).data('description') || $(this.element).find('img').data('title'));
             if (history.pushState) {
-              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
-              window.history.pushState({image: slug}, newTitle, albumPath + '/' + slug);
+              window.history.pushState({image: slug}, newTitle, album_path + '/' + slug);
             }
 
             var figCaption = $(this.element).closest('figure').find('figcaption').text();
@@ -127,13 +129,21 @@
           afterClose: function() {
             document.title = originalTitle;
             if (history.pushState) {
-              // Remove the image slug from the path
-              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
-              window.history.pushState({}, originalTitle, albumPath);
+              var segments = window.location.pathname.split('/').filter(Boolean);
+              if (segments.includes('image_admin')) {
+                // Keep /image_admin and any following segments
+                var idx = segments.indexOf('image_admin');
+                var newPath = '/' + segments.slice(0, idx + 1).join('/');
+                window.history.pushState({}, originalTitle, newPath);
+              } else if (segments.includes('album') && segments.length > 1) {
+                // Remove last segment, keep the rest
+                var newPath = '/' + segments.slice(0, -1).join('/');
+                window.history.pushState({}, originalTitle, newPath);
+              } else {
+                window.history.pushState({}, originalTitle, '/');
+              }
             }
-            // Restore original meta description
             $('meta[name="description"]').attr('content', window.originalDescription);
-            // Restore original JSON-LD
             var $jsonLdScript = $('script[type="application/ld+json"]');
             if ($jsonLdScript.length && window.originalJsonLd) {
               $jsonLdScript.text(window.originalJsonLd);
@@ -205,6 +215,27 @@
           include './././statics/js/adminHandling.php';
         }
         ?>
+        window.onpopstate = function(event) {
+          if (event.state && event.state.image) {
+            // Open the image if navigating to a state with an image
+            var $targetLink = $('a.picture[href*="' + event.state.image + '"]');
+            if ($targetLink.length > 0) {
+              $targetLink.trigger('click');
+            }
+          } else {
+            // Close Fancybox if navigating back to the gallery
+            if ($.fancybox && $.fancybox.isOpen) {
+              $.fancybox.close();
+            }
+            document.title = originalTitle;
+            $('meta[name="description"]').attr('content', window.originalDescription);
+            var $jsonLdScript = $('script[type="application/ld+json"]');
+            if ($jsonLdScript.length && window.originalJsonLd) {
+              $jsonLdScript.text(window.originalJsonLd);
+            }
+          }
+        };
+
       });
     };
     document.head.appendChild(fancyboxScript);
@@ -212,7 +243,7 @@
 </script>
 
 <script>
-  function updateJsonLdForImage(title, description, filename) {
+  function updateJsonLdForImage(title, description, filename, file_id, album_path) {
     // Logic to extract year and dimensions from your SQL 'caption' field
     var yearMatch = description.match(/\b(19|20)\d{2}\b/);
     var yearCreated = yearMatch ? yearMatch[0] : null;
@@ -220,7 +251,7 @@
     var jsonLd = {
       "@context": "https://schema.org",
       "@type": "VisualArtwork",
-      "@id": window.location.href + "#artwork",
+      "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
       "name": title,
       "image": "https://www.annesimonsson.se/konst/" + filename,
       "dateCreated": yearCreated,
@@ -234,7 +265,7 @@
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": window.location.href
+        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id,
       }
     };
 
