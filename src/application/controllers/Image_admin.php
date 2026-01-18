@@ -40,7 +40,7 @@ class Image_admin extends CI_Controller {
 	function do_upload()
 	{
 		$config['upload_path'] = 'konst/';
-		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp|webp';
 		$config['encrypt_name']	= 'TRUE';
 		$config['max_size']	= '250000';
 		$config['max_width']  = '24000';
@@ -99,7 +99,6 @@ class Image_admin extends CI_Controller {
 				'width' => 120,
 				'height' => 70,
 				'master_dim' => 'auto'
-
 			);
 
 			$this->image_lib->initialize($config);
@@ -130,6 +129,8 @@ class Image_admin extends CI_Controller {
     $newTitle = $this->input->post('title');
     $newFileId = $this->input->post('file_id');
     $newCaption = $this->input->post('caption');
+    $geoLocation = $this->input->post('geo_location');
+    $project = $this->input->post('project');
 
     $old_data = $this->images_model->get_image($id);
     $oldFileName = $old_data->file_name;
@@ -142,7 +143,9 @@ class Image_admin extends CI_Controller {
       'title' => $newTitle,
       'file_id' => $newFileId,
       'caption' => $newCaption,
-      'file_name' => $newFileName
+      'file_name' => $newFileName,
+      'geo_location' => $geoLocation,
+      'project' => $project
     ];
     $this->images_model->update($id, $data);
     if ($newTitle !== null && $newFileId !== null && $newCaption !== null) {
@@ -180,7 +183,7 @@ class Image_admin extends CI_Controller {
         // Read .htaccess lines
         $lines = file($htaccessPath, FILE_IGNORE_NEW_LINES);
         // Insert rule at line 27 (index 26)
-        array_splice($lines, 26, 0, $rule);
+        array_splice($lines, 33, 0, $rule);
         // Write back to .htaccess
         file_put_contents($htaccessPath, implode("\n", $lines));
       }

@@ -35,7 +35,7 @@
               },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-radjur.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-radjur.webp",
                 "width": 5472,
                 "height": 3648,
                 "creditText": "Photo: Kalmar Konstmuseum",
@@ -78,7 +78,7 @@
               },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kokong.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kokong.webp",
                 "width": 3472,
                 "height": 4640,
                 "creditText": "Photo: Anne Hamrin Simonsson",
@@ -111,7 +111,7 @@
               },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-spheare-2.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-spheare-2.webp",
                 "width": 3840,
                 "height": 2160,
                 "creditText": "Photo: Anne Hamrin Simonsson",

@@ -8,30 +8,36 @@
       "url": "https://www.annesimonsson.se/about",
       "description": "Biography, CV, and artist statement of Anne Hamrin Simonsson.",
       "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
-      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" }
+      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" },
+      "inLanguage": "en"
     },
     {
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
       "alternateName": "Anne Simonsson",
+      "url": "https://www.annesimonsson.se/about",
+      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "birthDate": "1967-10-11",
+      "description": "I work with conceptual art in different techniques and materials; it´s the idea which decides how the presentation will be. I find it most interesting working with installations placed on unexpected public areas. Whatever technique characterises my work of time consuming precision and consists of several dimensions with strong feeling for colour, form and material. I have for many years been investigating the theme of 'LIFE'.",
+      "disambiguatingDescription": "Svensk konceptuell konstnär baserad i Färjestaden, känd för installationer och platsspecifika verk.",
+      "jobTitle": [
+        "Konstnär",
+        "Conceptual Artist",
+        "Visual Artist",
+        "Installation Artist"
+      ],
       "hasOccupation": [
         { "@type": "Occupation", "name": "Konstnär" },
         { "@type": "Occupation", "name": "Conceptual Artist" },
         { "@type": "Occupation", "name": "Visual Artist" }
       ],
-      "birthDate": "1967-10-11",
-      "url": "https://www.annesimonsson.se/about",
-      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Färjestaden",
         "addressRegion": "Kalmar län",
         "addressCountry": "SE"
       },
-      "description": "I work with conceptual art in different techniques and materials; it´s the idea which decides how the presentation will be. I find it most interesting working with installations placed on unexpected public areas. Whatever technique characterises my work of time consuming precision and consists of several dimensions with strong feeling for colour, form and material. I have for many years been investigating the theme of 'LIFE'.",
-      "disambiguatingDescription": "Svensk konceptuell konstnär baserad i Färjestaden, känd för installationer och platsspecifika verk.",
-      "worksFor": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
       "alumniOf": [
         { "@type": "EducationalOrganization", "name": "Stockholm University", "sameAs": "https://www.su.se/", "description": "Art Science (1993)" },
         { "@type": "EducationalOrganization", "name": "Ölands Konstskola", "description": "1988-90, 1986-87" },
@@ -49,6 +55,55 @@
         "Ölandsklubben (2017)",
         "Svenska kyrkan (2011)",
         "EU växtkraft mål 4 Kilen (1997-98)"
+      ],
+      "knowsAbout": [
+        { "@type": "Thing", "name": "Experimental Heritage" },
+        { "@type": "Thing", "name": "Site-specific Installation" },
+        { "@type": "Thing", "name": "Conceptual Art" }
+      ],
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q137808007",
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/"
+      ],
+      "subjectOf": [
+        {
+          "@type": "CreativeWork",
+          "name": "Med örat mot marken och blicken utåt (Katalog)",
+          "publisher": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
+          "url": "https://www.kalmarkonstmuseum.se/wp-content/uploads/2023/05/orat-mot-marken-och-blicken-utat--anne-hamrin-simonsson.pdf",
+          "encodingFormat": "application/pdf"
+        },
+        {
+          "@type": "NewsArticle",
+          "author": { "@type": "Person", "name": "Lina Watanen", "url": "https://www.klt.nu/skribent/e633dc2a-3579-4ca1-a260-1db3c5690830" },
+          "datePublished": "2024-09-19T08:22:00+02:00",
+          "image": "https://static.bonniernews.se/ba/c650bf6e-f721-58f6-8898-cb3f4d431aaf.jpeg?width=2500&format=pjpg&auto=avif",
+          "headline": "Ett nära samarbete men ändå enskilt resultat",
+          "publisher": { "@type": "Organization", "name": "Kalmar läns Tidning" },
+          "url": "https://www.klt.nu/2024-09-19/ett-nara-samarbete-men-anda-enskilt-resultat/"
+        },
+        {
+          "@type": "NewsArticle",
+          "author": { "@type": "Person", "name": "Gunilla Petri", "url": "https://www.barometern.se/skribent/28fec66e-f2e9-42ff-91c6-2203e1cdd116" },
+          "datePublished": "2024-08-27T18:02:00+02:00",
+          "image": "https://static.bonniernews.se/ba/c1319449-7944-5e85-8de2-7c1bae9a0629.jpeg",
+          "headline": "Glöm sterila utställningsrum – här ställer konstnärerna ut i en gammal gård",
+          "publisher": { "@type": "Organization", "name": "Barometern" },
+          "url": "https://www.barometern.se/artikel/glom-sterila-utstallningsrum-har-staller-konstnarerna-ut-i-en-gammal-gard/"
+        },
+        {
+          "@type": "NewsArticle",
+          "author": { "@type": "Person", "name": "Leif Johansson", "url":  "https://www.sverigesradio.se/artikel/leif-johansson" },
+          "datePublished": "2017-03-21T11:23:00+01:00",
+          "image": "https://static-cdn.sr.se/images/86/10dba2c6-15b3-4572-9c78-5d5b3443bdc9.jpg?preset=1024x576&format=webp",
+          "headline": "Tre bokstäver ska ge Öland liv",
+          "publisher": { "@type": "Organization", "name": "Sveriges Radio" },
+          "url": "https://www.sverigesradio.se/artikel/6656424"
+        }
       ],
       "citation": [
         "Kalmar läns Tidning Lina Watanen 19/9 2024 (https://www.klt.nu/2024-09-19/ett-nara-samarbete-men-anda-enskilt-resultat/)",
@@ -114,17 +169,6 @@
         "Barometern Gunilla Petri 20/7 1996",
         "Barometern Gunilla Petri 30/8 1993",
         "Barometern Gunilla Petri 16/2 1989"
-      ],
-      "knowsAbout": [
-        { "@type": "Thing", "name": "Experimental Heritage" },
-        { "@type": "Thing", "name": "Site-specific Installation" },
-        { "@type": "Thing", "name": "Conceptual Art" }
-      ],
-      "sameAs": [
-        "https://www.instagram.com/ahamrinsimonsson/",
-        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
-        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
       ]
     },
     {
@@ -136,6 +180,7 @@
     },
     {
       "@type": "BreadcrumbList",
+      "@id": "https://www.annesimonsson.se/about#breadcrumb",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
         { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.annesimonsson.se/about" }

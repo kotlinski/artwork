@@ -46,7 +46,7 @@ class Sitemap extends CI_Controller {
       // Feature: Add the "Under_Liv" hero image to the homepage entry as seen in your original
       if ($path === '') {
         $xml .= '<image:image>';
-        $xml .= '<image:loc>' . $base_url . 'konst/anne-hamrin-simonsson-konstverk-smalandstrienalen-rotvalta.jpg</image:loc>';
+        $xml .= '<image:loc>' . $base_url . 'konst/anne-hamrin-simonsson-konstverk-smalandstrienalen-rotvalta.webp</image:loc>';
         $xml .= '<image:title>Installation Under_Liv by Anne Hamrin Simonsson</image:title>';
         $xml .= '<image:caption>Conceptual Artist Anne Hamrin Simonsson, part of Under_Liv root roll with 24 objects installation Kalmar konstmuseum 2023</image:caption>';
         $xml .= '<image:license>' . $base_url . 'license</image:license>';

@@ -24,6 +24,14 @@ RewriteRule ^startpage/?$ https://www.annesimonsson.se/ [R=301,L]
 RewriteRule ^album/2/?$ /album/installations [R=301,L]
 RewriteRule ^album/3/?$ /album/objects [R=301,L]
 RewriteRule ^album/4/?$ /album/paintings [R=301,L]
+
+# Corrected Query String Redirect
+RewriteCond %{REQUEST_URI} ^/album/(paintings|objects|installations)/?$
+RewriteCond %{QUERY_STRING} ^image=([^&]+)$
+RewriteRule ^album/(paintings|objects|installations)/?$ /album/$1/%1? [R=301,L,NE]
+
+# renaming image ids
+RewriteRule ^album/installations/liv-kyrka-orebro-svenska-kyrkan$ /album/installations/liv-nikolaikyrkan-below [R=301,L]
 RewriteRule ^album/installations/nikolaikyrkan-orebro$ /album/installations/liv-nikolaikyrkan-orebro [R=301,L]
 RewriteRule ^album/installations/orat-mot-marken-och-blicken-utat$ /album/installations/under-liv-orat-mot-marken-och-blicken-utat [R=301,L]
 RewriteRule ^album/installations/under-liv-kalmar-konstmuseum-ko$ /album/installations/under-liv-rotvalta-broccoli-closeup [R=301,L]
@@ -94,6 +102,9 @@ RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+
+# Redirect /index.php or /index.php/ to root
+RewriteRule ^index\.php/?$ / [R=301,L]
 
 <IfModule mod_expires.c>
   ExpiresActive On

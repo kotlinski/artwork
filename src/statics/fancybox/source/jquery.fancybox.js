@@ -456,7 +456,7 @@
 		},
 
 		isImage: function (str) {
-			return str && str.match(/\.(jpg|gif|png|bmp|jpeg)(.*)?$/i);
+			return str && str.match(/\.(jpg|gif|png|bmp|jpeg|webp)(.*)?$/i);
 		},
 
 		isSWF: function (str) {

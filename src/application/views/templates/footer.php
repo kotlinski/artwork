@@ -101,6 +101,10 @@
             var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
             var title = $img.data('title');
             var file_id = $img.data('file-id');
+            var project = $img.data('project');
+            var geo_location = $img.data('geo-location');
+            var height_px = $img.data('height-px');
+            var width_px = $img.data('width-px');
 
             var newTitle = "";
             if (slug) {
@@ -110,7 +114,7 @@
             }
             var album_path = window.location.pathname.split('/').slice(0, 3).join('/');
             album_path = (album_path === '/') ? '' : album_path;
-            updateJsonLdForImage(title, description, filename, file_id, album_path, slug)
+            updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px)
             document.title = newTitle;
             $('meta[name="description"]').attr('content', $(this.element).data('description') || $(this.element).find('img').data('title'));
             if (history.pushState) {
@@ -243,9 +247,9 @@
 </script>
 
 <script>
-  function updateJsonLdForImage(title, description, filename, file_id, album_path) {
-    // Logic to extract year and dimensions from your SQL 'caption' field
-    var yearMatch = description.match(/\b(19|20)\d{2}\b/);
+  function updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px) {
+    // Extrahera år precis som tidigare
+    var yearMatch = description?.match(/\b(19|20)\d{2}\b/);
     var yearCreated = yearMatch ? yearMatch[0] : null;
 
     var jsonLd = {
@@ -253,10 +257,16 @@
       "@type": "VisualArtwork",
       "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
       "name": title,
-      "image": "https://www.annesimonsson.se/konst/" + filename,
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://www.annesimonsson.se/konst/original/" + filename,
+        "width": width_px,
+        "height": height_px,
+        "encodingFormat": "image/webp"
+      },
       "dateCreated": yearCreated,
       "description": description,
-      "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>", // Installations, Objects, or Paintings
+      "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>",
       "creator": {
         "@type": "Person",
         "@id": "https://www.annesimonsson.se/#artist",
@@ -265,11 +275,29 @@
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id,
+        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id
       }
     };
 
-    // Inject into script tag
+    if (geo_location && geo_location.trim() !== "") {
+      jsonLd["locationCreated"] = {
+        "@type": "Place",
+        "name": geo_location
+      };
+    }
+
+    if (project && project.trim() !== "") {
+      jsonLd["isPartOf"] = {
+        "@type": "VisualArtwork",
+        "name": project,
+        "creator": {
+          "@type": "Person",
+          "name": "Anne Hamrin Simonsson"
+        }
+      };
+    }
+
+    // Injicera i script-taggen
     var $jsonLdScript = $('script[type="application/ld+json"]');
     if ($jsonLdScript.length) {
       $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));

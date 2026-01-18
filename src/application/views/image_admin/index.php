@@ -182,6 +182,10 @@ if ($this->session->userdata('logged_in')) {
               <br/>
               <input name="file_id" type="text" id="rename_file_id_field_<?=$image->id?>" value="<?=$image->file_id?>" style="width:250px" />
               <br/>
+              <label for="project_<?=$image->id?>">Project</label>
+              <br/>
+              <input name="project" type="text" id="project_<?=$image->id?>" value="<?=$image->project?>" style="width:250px" />
+              <br/>
               <label for="geo_location_<?=$image->id?>">Plats</label>
               <br/>
               <input name="geo_location" type="text" id="geo_location_<?=$image->id?>" value="<?=$image->geo_location?>" style="width:250px" />
