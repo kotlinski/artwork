@@ -8,8 +8,6 @@
  */
 ?>
 
-
-
 <br/>
 <?
 if ($this->session->userdata('logged_in')) {
@@ -80,9 +78,6 @@ if ($this->session->userdata('logged_in')) {
 <div class="aboutText">
 
 
-	<div class="aboutHeader">All images</div>
-	<br/>
-
 	<?
 	$previousFilter = 0;
 
@@ -93,62 +88,66 @@ if ($this->session->userdata('logged_in')) {
 
 		if ($image->artwork_filter != $previousFilter) {
 			?>
-			<div class="aboutHeader" style="text-align: center"><?=$image->name?></div><br/>
-			<?
+      <br />
+      <br />
+      <h2 class="aboutHeader" style="text-align: center; font-size: 1.2em; font-weight: bold; margin-bottom: 0.5em;"><?=$image->name?></h2>
+      <hr style="margin: 0 0 1em 0;"/>
+      <?
 			$previousFilter = $image->artwork_filter;
 		}
 		?>
 
-		<div class="imageListContainer" id="container_id_<?=$image->id?>">
-			<div class="imageListElement imageListImage">
-				<a class="picture"
+		<div class="imageListContainer" id="container_id_<?=$image->id?>" style="margin-bottom: 20px;">
+			<div class="imageListElement imageListImage" style="min-width: 85px;">
+				<a
+          class="picture"
 				   rel="group"
 				   href="<?=base_url('konst/' . $image->file_name)?>"
-				   title="<?=$image->title?>">
-					<img src="<?= base_url('konst/thumb/' . $image->file_name);?>"
-						 alt="<?=$image->title?>"/>
+				   title="<?=$image->caption?>">
+					<img
+            id="<?= $image->id ?>"
+            data-id="<?= $image->id ?>"
+            data-file-id="<?= $image->file_id ?>"
+            data-title="<?= $image->title ?>"
+            data-description="<?= $image->caption ?>"
+            src="<?= base_url('konst/thumb/' . $image->file_name);?>"
+						 alt="<?=$image->caption?>"/>
 				</a>
 			</div>
 			<div class="imageListElement imageListText">
-
 				<?echo $image->id . '. '?>
-				<a class="picture"
-				   id="admin_picture_<?=$image->id?>"
-				   rel="group2"
-				   href="<?=base_url('konst/' . $image->file_name)?>"
-				   title="<?=$image->title?>">
-					<?=strlen($image->title) > 16 ? substr($image->title, 0, 13) . '...' : $image->title;?>
-				</a>
-
+        <a class="popUpForm"
+           href="#rename_image_form_<?=$image->id?>"
+				   title="<?=$image->caption?>">
+          <?=$image->file_id?>
+				</a><br />
+        <?=$image->caption?>
+        <div style="display: flex; gap: 20px;">
+          <ul style="margin: 5px; display: flex; flex-direction: row; gap: 20px; padding: 0;">
+            <li><a class="popUpForm"
+                   href="#filter_image_form_<?=$image->id?>"
+                   onclick="setImgId(<?=$image->id?>)">
+                FILTER
+              </a></li>
+            <li><a class="popUpForm"
+                   href="#order_image_form_<?=$image->id?>"
+                   onclick="setImgId(<?=$image->id?>)">
+                ORDER</a>
+              (<?=$image->order?>)
+            </li>
+            <li style="margin-left:150px;">
+              <a class="popUpForm"
+                 href="#delete_image_form_<?=$image->id?>"
+                 onclick="setImgId(<?=$image->id?>)">
+                DELETE
+              </a>
+            </li>
+          </ul>
+        </div>
 			</div>
-			<div class="imageListElement imageListAdminStuff">
-				<UL>
-					<!--<LI><a href="<?=base_url('image_admin' . $image->file_name)?>">DELETE</a><br /></LI>-->
-					<LI>
-						<a class="popUpForm"
-						   href="#delete_image_form_<?=$image->id?>"
-						   onclick="setImgId(<?=$image->id?>)">
-							DELETE
-						</a>
-					</LI>
-					<LI><a class="popUpForm"
-						   href="#rename_image_form_<?=$image->id?>"
-						   onclick="setImgId(<?=$image->id?>)">
-						RENAME
-					</a></LI>
-					<LI><a class="popUpForm"
-						   href="#filter_image_form_<?=$image->id?>"
-						   onclick="setImgId(<?=$image->id?>)">
-						FILTER
-					</a></LI>
-					<LI><a class="popUpForm"
-						   href="#order_image_form_<?=$image->id?>"
-						   onclick="setImgId(<?=$image->id?>)">
-						ORDER</a>
-						(<?=$image->order?>)
-					</LI>
-				</UL>
 
+			<div class="imageListElement imageListAdminStuff">
+        <!-- clean out div -->
 			</div>
 			<div style="display:none">
 				<form class="delete_image_form" id="delete_image_form_<?=$image->id?>" method="post" action="">
@@ -163,20 +162,40 @@ if ($this->session->userdata('logged_in')) {
 					</p>
 				</form>
 			</div>
-			<div style="display:none">
-				<form class="rename_image_form" id="rename_image_form_<?=$image->id?>" method="post" action="">
-					<img src="<?= base_url('konst/medium/' . $image->file_name);?>"
-						 alt="<?=$image->title?>"/>
+      <div style="display: none;">
+        <form class="rename_image_form" id="rename_image_form_<?=$image->id?>" method="post" action="" style="flex: 1;">
+          <div style="display: flex; align-items: flex-start;">
+            <img src="<?= base_url('konst/medium/' . $image->file_name);?>"
+                 alt="<?=$image->caption?>" style="margin-right: 20px; max-width: 200px;"/>
+            <div style="flex: 1;">
+              <input type="hidden" name="image_id" value="<?=$image->id?>" />
 
-					<p>
-						Rename image:
-						<input type="text" id="rename_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px"/>
-					</p>
-					<p>
-						<input type="submit" value="Rename" />
-					</p>
-				</form>
-			</div>
+              <label for="rename_image_field_<?=$image->id?>">Titel</label>
+              <br/>
+              <input name="title" type="text" id="rename_image_field_<?=$image->id?>" value="<?=$image->title?>" style="width:250px" />
+              <br/>
+              <label for="rename_image_caption_<?=$image->id?>">Bildtext</label>
+              <br/>
+              <textarea name="caption" id="rename_image_caption_<?=$image->id?>" style="height:50px;resize:vertical;" rows="3"><?=$image->caption?></textarea>
+              <br/>
+              <label for="rename_file_id_field_<?=$image->id?>">Bild ID</label>
+              <br/>
+              <input name="file_id" type="text" id="rename_file_id_field_<?=$image->id?>" value="<?=$image->file_id?>" style="width:250px" />
+              <br/>
+              <label for="project_<?=$image->id?>">Project</label>
+              <br/>
+              <input name="project" type="text" id="project_<?=$image->id?>" value="<?=$image->project?>" style="width:250px" />
+              <br/>
+              <label for="geo_location_<?=$image->id?>">Plats</label>
+              <br/>
+              <input name="geo_location" type="text" id="geo_location_<?=$image->id?>" value="<?=$image->geo_location?>" style="width:250px" />
+              <p>
+                <input type="submit" value="Uppdatera" />
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
 			<div style="display:none">
 				<form class="filter_image_form" id="filter_image_form_<?=$image->id?>"  method="post" action="">
 					<img src="<?= base_url('konst/medium/'.$image->file_name);?>" alt="<?=$image->title?>" />

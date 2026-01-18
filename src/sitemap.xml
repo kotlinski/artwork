@@ -1,1170 +1,447 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
     <url>
-        <loc>https://www.annesimonsson.se</loc>
-        <lastmod>2025-12-05</lastmod>
+        <loc>https://www.annesimonsson.se/</loc>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
+        <priority>1</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-konstverk-smalandstrienalen-rotvalta.jpg</image:loc>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-konstverk-smalandstrienalen-rotvalta.jpg
+            </image:loc>
             <image:title>Installation Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Conceptual Artist Anne Hamrin Simonsson, part of Under_Liv root roll with 24 objects installation Kalmar konstmuseum 2023</image:caption>
+            <image:caption>Conceptual Artist Anne Hamrin Simonsson, part of Under_Liv root roll with 24 objects
+                installation Kalmar konstmuseum 2023
+            </image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/news</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/album</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/about</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/contact</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/album/installations</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/album/objects</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/album/paintings</loc>
-        <lastmod>2025-12-05</lastmod>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
-
     <url>
         <loc>https://www.annesimonsson.se/license</loc>
-        <lastmod>2025-12-13</lastmod>
+        <lastmod>2026-01-17</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
-
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-kyrka-orebro-svenska-kyrkan</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/avfallningar-horn-on-wall</loc>
+        <lastmod>2024-11-19</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-kyrka-orebro-svenska-kyrkan.jpg</image:loc>
-            <image:title>LIV (LIFE) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-led-display</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-led-display.jpg</image:loc>
-            <image:title>LIV (LIFE) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/nikolaikyrkan-orebro</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-nikolaikyrkan-orebro.jpg</image:loc>
-            <image:title>LIV (LIFE) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-orebro-kyrka</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-orebro-kyrka.jpg</image:loc>
-            <image:title>LIV (LIFE) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-spin-signs</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-5-spin-signs.jpg</image:loc>
-            <image:title>Sketch project LIV no 5 (LIFE no 5) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign painted aluminium plate 175x474cm 2013 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-spin-sign-liv-dod</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-5-spin-sign-liv-dod.jpg</image:loc>
-            <image:title>Sketch project LIV no 5 (LIFE no 5) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign painted aluminium plate 175x474cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-ld</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-5-ld.jpg</image:loc>
-            <image:title>Sketch project LIV no 5 (LIFE no 5) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign front-back folie on painted aluminium plate 175x118,5cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-lo-signs</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-5-lo-signs.jpg</image:loc>
-            <image:title>Sketch project LIV no 5 (LIFE no 5) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign front-back folie on painted aluminiumplate 175x118,5cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-VD</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-5-VD.jpg</image:loc>
-            <image:title>Sketch project LIV no 5 (LIFE no 5) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign front-back folie on painted aluminiumplate 175x118,5cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/avfallningar-undantaget-horn-pa-vagg</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-horn-pa-vagg.jpg</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET 2024 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-horn-on-wall.webp
+            </image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget 2024</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kläppinge, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-model-wheat-soil</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/avfallningar-room</loc>
+        <lastmod>2024-11-19</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-model-wheat-soil.JPG</image:loc>
-            <image:title>Sketch project LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 8 (LIFE no 8) model with wheat and soil 2016 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-performance-aurea-romero-alvarez</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance-aurea-romero-alvarez.JPG</image:loc>
-            <image:title>Performance Aurea Romero Alvarez LIV no 8 (LIFE no 8) Algutsrum 2017 photo Nils Hamrin by Anne Simonsson</image:title>
-            <image:caption>Performance Aurea Romero Alvarez LIV no 8 (LIFE no 8) Algutsrum 2017 photo Nils Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-details</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-details.jpg</image:loc>
-            <image:title>Detail from sketch project LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Detail from sketch project LIV no 8 (LIFE no 8) model with plastic grass/paste/plastic figures 2014 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-9</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-9.jpg</image:loc>
-            <image:title>Sketch project LIV no 9 (LIFE no 9) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 9 (LIFE no 9) model with plastic grass/paste/aquasonic/plastic figures 2014 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/vitkal-skulptur</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-vitkal-skulptur.jpg</image:loc>
-            <image:title>Vitkål by Anne Hamrin Simonsson</image:title>
-            <image:caption>Vitkål sculpture in concrete 2009 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-kalmar-konstmuseum</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-kalmar-konstmuseum.jpg</image:loc>
-            <image:title>LIV (LIFE) paintings in acrylic and sculptures in concrete Rotundan Kalmar konstmuseum 2009 by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV (LIFE) paintings in acrylic and sculptures in concrete Rotundan Kalmar konstmuseum 2009 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/avfallningar-undantaget-kokong-stuga</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-kokong-stuga.jpg</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET 2024 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-room.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget 2024</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kläppinge, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/avfallningar-undantaget-klappinge-mirror</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/paintings/under-liv-flaska-i-rotvalta</loc>
+        <lastmod>2023-08-15</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-mirror.jpg</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET O 90cm 2024 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-flaska-i-rotvalta.webp
+            </image:loc>
+            <image:title>Part of Under_Liv installation Kalmar konstmuseum 2023</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/avfallningar-horn</loc>
+        <lastmod>2024-11-19</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-horn.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget Horn with 7 objects h 28cm w 66cm 2024 photo Per
+                Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Undantaget, Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/sparris-no-2</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-sparris-no-2.jpg</image:loc>
+            <image:title>Sparris no 2 (Asparagus no 2)</image:title>
+            <image:caption>Sparris no 2 (Asparagus no 2) acrylic on masonite 1x1m 2009.</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/avfallningar-mirror</loc>
+        <lastmod>2024-11-19</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-mirror.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget O 90cm 2024</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kläppinge, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-10-moss-sketch</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/avfallningar-membran</loc>
+        <lastmod>2024-11-19</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-10-moss-sketch.jpg</image:loc>
-            <image:title>Sketch project LIV no 10 (LIFE no 10) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 10 (LIFE no 10) object in moss 2016 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-membran.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget h 5cm w 38x68cm 2024 photo Per Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/avfallningar-horn-closeup</loc>
+        <lastmod>2024-11-21</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-horn-closeup.webp
+            </image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget h 3cm w 7x5cm 2024 photo Per Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Undantaget, Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/rodkal-no-2</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rodkal-no-2.webp</image:loc>
+            <image:title>Rödkål no 2 (Red cabbage no 2)</image:title>
+            <image:caption>Rödkål no 2 (Red cabbage no 2) acrylic on masonite 1x1m 2009</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-10-1-sketch</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/avfallningar-figure-in-wall</loc>
+        <lastmod>2024-11-19</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-10-1-sketch.jpg</image:loc>
-            <image:title>Sketch project LIV no 10/1 (LIFE no 10/1) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sketch project LIV no 10/1 (LIFE no 10/1) object in moss 2,5x5x0,5m 2016 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-figure-in-wall.webp
+            </image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget h 5cm w 4x3cm 2024 photo Per Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/avfallningar-basket</loc>
+        <lastmod>2024-11-21</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-basket.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget 2024</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/avfallningar-blomkal</loc>
+        <lastmod>2024-11-21</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-blomkal.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget h 5cm w 5cm 2024</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/lok-no-2</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-lok-no-2.webp</image:loc>
+            <image:title>Lök no 2 (Onion no 2)</image:title>
+            <image:caption>Lök no 2 (Onion no 2) acrylic on masonite 1x1m 2009</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/algutsrum-life-no-8</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-radjur</loc>
+        <lastmod>2023-10-13</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-algutsrum-life-no-8.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017 photo Helle Kvamme - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-algutsrum</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-algutsrum.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017 photo Nils Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-oland-soil-nils-vete</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-oland-soil-nils-vete.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017 photo Nils Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-performance</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg</image:loc>
-            <image:title>Performance Anne Hamrin Simonsson LIV no 8 (LIFE no 8) Algutsrum 2017 photo Per Hamrin by Anne Simonsson</image:title>
-            <image:caption>Performance Anne Hamrin Simonsson LIV no 8 (LIFE no 8) Algutsrum 2017 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-oland-wheat-nils</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-oland-wheat-nils.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017 photo Nils Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-wheat-oland-soil</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-wheat-oland-soil.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017 photo Jan Engström - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-rotundan-kalmar-konstmuseum</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-rotundan-kalmar-konstmuseum.jpg</image:loc>
-            <image:title>LIV (LIFE) sculptures in concrete and paintings in acrylic Rotundan Kalmar konstmuseum 2009 by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV (LIFE) sculptures in concrete and paintings in acrylic Rotundan Kalmar konstmuseum 2009 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-radjur.webp</image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 8cm w 7x5cm 2023 photo Kalmar
+                konstmuseum
+            </image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-algutsrum-installation</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/avfallningar-window</loc>
+        <lastmod>2024-11-21</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-algutsrum-installation.JPG</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017 photo Jan Engström - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-window.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget 2024</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-reminiscence</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/avfallningar-object-on-mirror</loc>
+        <lastmod>2024-11-22</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-reminiscence.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) reminiscence 2021 by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) reminiscence 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-object-on-mirror.webp
+            </image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar installation Undantaget h 15cm w 7cm 2024 photo Per Hamrin
+            </image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-sheeps</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/paintings/bla-traktor</loc>
+        <lastmod>2012-03-12</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-sheeps.jpg</image:loc>
-            <image:title>LIV no 8 (LIFE no 8) the sheeps takes over Algutsrum 2021 by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 8 (LIFE no 8) the sheeps takes over Algutsrum 2021 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bla-traktor.webp</image:loc>
+            <image:title>Blå traktor (Blue tractor)</image:title>
+            <image:caption>Blå traktor (Blue tractor) acrylic on masonite 10x10cm 2005</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/orat-mot-marken-och-blicken-utat</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-miniatyr</loc>
+        <lastmod>2024-02-20</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-orat-mot-marken-och-blicken-utat.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-miniatyr.webp</image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 4cm w 8x5cm 2023 photo Per Hamrin
+            </image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-rotvalta</loc>
+        <lastmod>2023-10-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta.webp</image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2x2m 2023 photo Kalmar konstmuseum
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/avfallningar-wall</loc>
+        <lastmod>2024-11-21</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-wall.webp</image:loc>
+            <image:title>Part of Avfällningar</image:title>
+            <image:caption>Part of Avfällningar Undantaget 2024</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kläppinge, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/gul-traktor</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-gul-traktor.webp</image:loc>
+            <image:title>Gul traktor (Yellow tractor)</image:title>
+            <image:caption>Gul traktor (Yellow tractor) acrylic on masonite 10x10cm 2005</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-rotvalta-closeup</loc>
+        <lastmod>2023-08-15</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta-closeup.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-rotvalta-broccoli-closeup</loc>
+        <lastmod>2024-02-20</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta-broccoli-closeup.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 photo Per Hamrin</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/rod-vit-traktor</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rod-vit-traktor.webp</image:loc>
+            <image:title>Röd-vit traktor (Red-white tractor)</image:title>
+            <image:caption>Röd-vit traktor (Red-white tractor) acrylic on masonite 50x50cm 2006</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-installation</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <lastmod>2023-06-16</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-installation.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-installation.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 photo Per Hamrin</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-gran</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-hanging-object</loc>
+        <lastmod>2023-11-20</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-gran.JPG</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 10m w 2m 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-hanging-object.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum l 65cm w 12x10cm 2023 photo Per Hamrin
+            </image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/installations/under-liv-kokonger-korrg-kalmar-konstmuseum</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-1</loc>
+        <lastmod>2012-05-24</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kokonger-korrg-kalmar-konstmuseum.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-gran-tree</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-gran-tree.JPG</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 10m w 2m 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/kalmar-konstmuseum-under-liv-gran</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-kalmar-konstmuseum-under-liv-gran.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 10m w 2m 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-rotvaltan</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-rotvaltan.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2x2m 2023 photo Kalmar konstmuseum - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-ko</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-ko.JPG</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/avfallningar-dorr-korg</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-dorr-korg.jpg</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET 2024 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/avfallningar-undantaget-fonster</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-fonster.jpg</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET 2024 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/installations/avfallningar-undantaget-klappinge</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge.jpg</image:loc>
-            <image:title>Part of Avfällningar UNDANTAGET 2024 by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar UNDANTAGET 2024 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/liv-no-2-pearls</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-2-pearls.jpg</image:loc>
-            <image:title>LIV no 2 (LIFE no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 2 (LIFE no 2) pearls-acrylic glass 15x15cm 2011 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-1.webp</image:loc>
+            <image:title>Vi i Villa del II no 1</image:title>
+            <image:caption>Vi i Villa del II no 1 oil on masonite 90x70cm 1997</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/objects/red-traktor-grass</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-orat-mot-marken-och-blicken-utat</loc>
+        <lastmod>2023-06-28</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-red-traktor-grass.png</image:loc>
-            <image:title>Röd-vit traktor no 2 (Red-white tractor no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Röd-vit traktor no 2 (Red-white tractor no 2) grass-soil-wood 1x1m 2007 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/traktor-no-2-gras</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-traktor-no-2-gras.png</image:loc>
-            <image:title>Röd traktor no 2 (Red tractor no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Röd traktor no 2 (Red tractor no 2) grass-soil-wood 1x1m 2007 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bla-traktor-no-2-gras</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bla-traktor-no-2-gras.png</image:loc>
-            <image:title>Blå traktor no 2 (Blue tractor no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Blå traktor no 2 (Blue tractor no 2) grass-soil-wood 1x1m 2007 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/liv-no-3-plastic-grass</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-3-plastic-grass.jpg</image:loc>
-            <image:title>LIV no 3 (LIFE no 3) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 3 (LIFE no 3) plastic grass 58x38cm 2010 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/liv-no-3-plastic-grass-inverted</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-3-plastic-grass-inverted.jpg</image:loc>
-            <image:title>LIV no 3 (LIFE no 3) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 3 (LIFE no 3) plastic grass 58x38cm 2010 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/liv-no-4-dil</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-4-dil.jpg</image:loc>
-            <image:title>LIV no 4 (LIFE no 4) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 4 (LIFE no 4) spin sign acrylic on masonite 74x23x7cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/liv-no-7</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-7.jpg</image:loc>
-            <image:title>LIV no 7 (LIFE no 7) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 7 (LIFE no 7) plastic grass on masonite 58x38cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/liv-no-4-vol</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-liv-no-4-vol.jpg</image:loc>
-            <image:title>LIV no 4 (LIFE no 4) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIV no 4 (LIFE no 4) spin sign acrylic on masonite 74x23x7cm 2013 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/embruo-silicon-feather</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-embruo-silicon-feather.jpg</image:loc>
-            <image:title>Embryo by Anne Hamrin Simonsson</image:title>
-            <image:caption>Embryo silicon with feather O 7cm 2020 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bacteria-clay-work-in-pukeberg</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bacteria-clay-work-in-pukeberg.JPG</image:loc>
-            <image:title>bacteria clay work in progress Pukeberg 2019 by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria clay work in progress Pukeberg 2019 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/livspiral-3</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-livspiral-3.jpg</image:loc>
-            <image:title>LIVSPIRAL 3 (SPIRAL OF LIFE 3) by Anne Hamrin Simonsson</image:title>
-            <image:caption>LIVSPIRAL 3 (SPIRAL OF LIFE 3) siliconcoated sculptured chewing gum with plastic grass on glass O 90x2cm 2015 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-vax-glass</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-vax-glass.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 15x9x6cm 2020 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-lov-tryck</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-lov-tryck.jpg</image:loc>
-            <image:title>bacteria I by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria I silicon on acrylic glass 25x8x1,1cm 2016 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bacteria-II-siliconcoated-sculpture</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bacteria-II-siliconcoated-sculpture.jpg</image:loc>
-            <image:title>bacteria II by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria II siliconcoated sculptured chewing gum/silicon with plastic grass on acrylic glass 25x8x1,7cm 2016 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-tuggumi-isberg</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-tuggumi-isberg.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 11x11x6cm 2020 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bacteria-chweinggum</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bacteria-chweinggum.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria chewinggum-silicon-led-gum 20x3x3cm 2019 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-dam-med-handvaska</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-dam-med-handvaska.JPG</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 4cm w 8x5cm 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-brollop</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-brollop.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 2022 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-hjarna-alien</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-hjarna-alien.png</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 4x4x3cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-igloo</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-igloo.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material O 8x4cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/embryo-silicon-dandeloin-moon</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-dandeloin-moon.jpg</image:loc>
-            <image:title>Embryo by Anne Hamrin Simonsson</image:title>
-            <image:caption>Embryo silicon with threads O 7cm 2020 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/embryo-silicon-alien-threads</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-embryo-silicon-alien-threads.jpg</image:loc>
-            <image:title>Embryo by Anne Hamrin Simonsson</image:title>
-            <image:caption>Embryo silicon with threads O 7cm 2020 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bacteria-green-lady</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bacteria-green-lady.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 6,5x5,5x6cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-kvinna-ljus</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-kvinna-ljus.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material O 1,5x7cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-geting-har-ora</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-geting-har-ora.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 7x5x5 cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-kvinnor</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-kvinnor.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 20x15x5,5cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-human-spheare</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-human-spheare.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material O 3x2,5cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-harboll</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-harboll.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 2022 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bakterie-spermie</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bakterie-spermie.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 12,5x13,5x3cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/bacteria-egg</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-bacteria-egg.jpg</image:loc>
-            <image:title>bacteria by Anne Hamrin Simonsson</image:title>
-            <image:caption>bacteria mixed material 11x13,5x4cm 2021 - Artwork by Anne Hamrin Simonsson</image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-agg-bo-kokosnot</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-agg-bo-kokosnot.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 23cm w 51x23cm 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-rod-flaska-rotvalta</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-rod-flaska-rotvalta.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/rotvalta-kalmar-konstmuseum-fjong</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-rotvalta-kalmar-konstmuseum-fjong.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-foster-korg</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-foster-korg.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 13cm w 21x23cm 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-kalmar-konstmuseum-lungor</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-lungor.JPG</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum l 65cm w 12x10cm 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-kalmar-konstmuseum-vitt-radjur</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-vitt-radjur.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 8cm w 7x5cm 2023 photo Kalmar konstmuseum - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/under-liv-kalmar-konstmuseum-broccoli</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kalmar-konstmuseum-broccoli.JPG</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 17cm w 20x20cm 2023 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-orat-mot-marken-och-blicken-utat.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
@@ -1172,258 +449,963 @@
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/objects/under-liv-kokong</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <lastmod>2024-02-20</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-under-liv-kokong.jpg</image:loc>
-            <image:title>Part of Under_Liv by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Under_Liv installation Kalmar konstmuseum l 93cm w 19x15cm 2023 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kokong.webp</image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum l 93cm w 19x15cm 2023</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/objects/avfallningar-horn</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-horn.JPG</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET Horn with 7 objects h 28cm w 66cm 2024 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/avfallningar-undantaget-klappinge-hud</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-klappinge-hud.JPG</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET h 5cm w 38x68cm 2024 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/avfallningar-undantaget-harboll</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-harboll.JPG</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET h 5cm w 4x3cm 2024 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/avfallningar-undantaget-broccoli-cow</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-broccoli-cow.jpg</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET h 5cm w 5cm 2024 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/avfallningar-undantaget-skinn-horn</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-undantaget-skinn-horn.JPG</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET h 3cm w 7x5cm 2024 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/objects/avfallningar-klappinge-undantaget</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-avfallningar-klappinge-undantaget.JPG</image:loc>
-            <image:title>Part of Avfällningar by Anne Hamrin Simonsson</image:title>
-            <image:caption>Part of Avfällningar installation UNDANTAGET h 15cm w 7cm 2024 photo Per Hamrin - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:geo_location>Kläppinge, Sweden</image:geo_location>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-
-    <url>
-        <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg</image:loc>
-            <image:title>Vi i Villa del II no 4 by Anne Hamrin Simonsson</image:title>
-            <image:caption>Vi i Villa del II no 4 oil on masonite 90x70cm 1999 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
         <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-2</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <lastmod>2012-05-24</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-2.JPG</image:loc>
-            <image:title>Vi i Villa del II no 2 by Anne Hamrin Simonsson</image:title>
-            <image:caption>Vi i Villa del II no 2 oil on masonite 90x70cm 1997 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-2.webp</image:loc>
+            <image:title>Vi i Villa del II no 2</image:title>
+            <image:caption>Vi i Villa del II no 2 oil on masonite 90x70cm 1997</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-5</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-kokonger-korrg-kalmar-konstmuseum</loc>
+        <lastmod>2023-06-16</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-5.JPG</image:loc>
-            <image:title>Vi i Villa del II no 5 by Anne Hamrin Simonsson</image:title>
-            <image:caption>Vi i Villa del II no 5 oil on masonite 90x70cm 2000 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kokonger-korrg-kalmar-konstmuseum.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-1</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-rotvalta-detail</loc>
+        <lastmod>2023-08-15</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-1.jpg</image:loc>
-            <image:title>Vi i Villa del II no 1 by Anne Hamrin Simonsson</image:title>
-            <image:caption>Vi i Villa del II no 1 oil on masonite 90x70cm 1997 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta-detail.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-3</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <lastmod>2012-05-25</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-3.jpg</image:loc>
-            <image:title>Vi i Villa del II no 3 by Anne Hamrin Simonsson</image:title>
-            <image:caption>Vi i Villa del II no 3 oil on masonite 90x70cm 1998 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-3.webp</image:loc>
+            <image:title>Vi i Villa del II no 3</image:title>
+            <image:caption>Vi i Villa del II no 3 oil on masonite 90x70cm 1998</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/red-traktor</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum</loc>
+        <lastmod>2023-08-15</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png</image:loc>
-            <image:title>Röd-vit traktor (Red-white tractor) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Röd-vit traktor (Red-white tractor) acrylic on masonite 50x50cm 2006 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum 2023</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-concrete-floor</loc>
+        <lastmod>2024-02-20</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-concrete-floor.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 17cm w 20x20cm 2023 photo Per Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4</loc>
+        <lastmod>2012-05-25</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-4.webp</image:loc>
+            <image:title>Vi i Villa del II no 4</image:title>
+            <image:caption>Vi i Villa del II no 4 oil on masonite 90x70cm 1999</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/sparris-oland</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-outside</loc>
+        <lastmod>2023-06-19</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg</image:loc>
-            <image:title>Sparris no 2 (Asparagus no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Sparris no 2 (Asparagus no 2) acrylic on masonite 1x1m 2009 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-outside.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 10m w 2m 2023</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-core</loc>
+        <lastmod>2023-08-15</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-core.webp</image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 13cm w 21x23cm 2023</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/paintings/vi-i-villa-no-5</loc>
+        <lastmod>2012-05-24</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-5.webp</image:loc>
+            <image:title>Vi i Villa del II no 5</image:title>
+            <image:caption>Vi i Villa del II no 5 oil on masonite 90x70cm 2000</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/rodkal-oland</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-sky</loc>
+        <lastmod>2023-06-19</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-rodkal-oland.jpg</image:loc>
-            <image:title>Rödkål no 2 (Red cabbage no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Rödkål no 2 (Red cabbage no 2) acrylic on masonite 1x1m 2009 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-sky.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 10m w 2m 2023 photo Per Hamrin
+            </image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
-        <loc>https://www.annesimonsson.se/album/paintings/onion-kalmar</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.annesimonsson.se/album/objects/under-liv-nest</loc>
+        <lastmod>2023-10-13</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-onion-kalmar.jpg</image:loc>
-            <image:title>Lök no 2 (Onion no 2) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Lök no 2 (Onion no 2) acrylic on masonite 1x1m 2009 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-nest.webp</image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 23cm w 51x23cm 2023</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/paintings/gul-traktor</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-gul-traktor.png</image:loc>
-            <image:title>Gul traktor (Yellow tractor) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Gul traktor (Yellow tractor) acrylic on masonite 10x10cm 2005 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
-            <image:author>Anne Hamrin Simonsson</image:author>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://www.annesimonsson.se/album/paintings/blue-traktor</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-        <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-blue-traktor.png</image:loc>
-            <image:title>Blå traktor (Blue tractor) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Blå traktor (Blue tractor) acrylic on masonite 10x10cm 2005 - Artwork by Anne Hamrin Simonsson </image:caption>
-            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
     <url>
         <loc>https://www.annesimonsson.se/album/paintings/scener-ur-ett</loc>
-        <lastmod>2025-12-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <lastmod>2016-02-05</lastmod>
         <priority>0.6</priority>
         <image:image>
-            <image:loc>https://www.annesimonsson.se/konst/anne-simonsson-scener-ur-ett.jpg</image:loc>
-            <image:title>Scener ur ett ... 3 (Scenes from a ... 3) by Anne Hamrin Simonsson</image:title>
-            <image:caption>Scener ur ett ... 3 (Scenes from a ... 3) acrylic on masonite 10x10cm 2001 - Artwork by Anne Hamrin Simonsson </image:caption>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-scener-ur-ett.webp</image:loc>
+            <image:title>Scener ur ett ... 3 (Scenes from a ... 3)</image:title>
+            <image:caption>Scener ur ett ... 3 (Scenes from a ... 3) acrylic on masonite 10x10cm 2001</image:caption>
             <image:license>https://www.annesimonsson.se/license</image:license>
             <image:author>Anne Hamrin Simonsson</image:author>
         </image:image>
     </url>
-
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-encapsulated-miniature</loc>
+        <lastmod>2021-06-17</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-encapsulated-miniature.webp
+            </image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 6,5x5,5x6cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/under-liv-kalmar-konstmuseum-side</loc>
+        <lastmod>2023-06-19</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kalmar-konstmuseum-side.webp
+            </image:loc>
+            <image:title>Part of Under_Liv</image:title>
+            <image:caption>Part of Under_Liv installation Kalmar konstmuseum h 10m w 2m 2023 photo Per Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-couple</loc>
+        <lastmod>2023-01-16</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-couple.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 2022</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-sheep</loc>
+        <lastmod>2021-11-08</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-sheep.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) the sheep takes over Algutsrum 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-miniature-on-top</loc>
+        <lastmod>2021-06-17</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-miniature-on-top.webp
+            </image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material O 1,5x7cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-reminiscence</loc>
+        <lastmod>2021-11-08</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-reminiscence.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) reminiscence 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-performance</loc>
+        <lastmod>2018-04-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-performance.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>Performance Anne Hamrin Simonsson LIV no 8 (LIFE no 8) Algutsrum 2017 photo Per Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-far-above</loc>
+        <lastmod>2017-09-05</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-far-above.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017
+                photo Jan Engström
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-above</loc>
+        <lastmod>2017-08-28</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-above.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017
+                photo Jan Engström
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-performance-aurea-romero-alvarez</loc>
+        <lastmod>2018-04-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-performance-aurea-romero-alvarez.webp
+            </image:loc>
+            <image:title>Performance Aurea Romero Alvarez LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>Performance Aurea Romero Alvarez LIV no 8 (LIFE no 8) Algutsrum 2017 photo Nils Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-miniatures</loc>
+        <lastmod>2021-10-11</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-miniatures.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 20x15x5,5cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-side</loc>
+        <lastmod>2017-07-18</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-side.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017
+                photo Nils Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-spheare</loc>
+        <lastmod>2021-10-11</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-spheare.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material O 3x2,5cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-algutsrum</loc>
+        <lastmod>2017-07-18</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-algutsrum.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017
+                photo Nils Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-igloo</loc>
+        <lastmod>2021-03-15</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-igloo.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material O 8x4cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-above-2</loc>
+        <lastmod>2017-08-28</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-above-2.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017
+                photo Nils Hamrin
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-blob</loc>
+        <lastmod>2021-11-09</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-blob.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 12,5x13,5x3cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/life-no-8-construction</loc>
+        <lastmod>2017-05-08</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-life-no-8-construction.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>LIV no 8 (LIFE no 8) installation with wheat from Öland and soil 20x55x2m Algutsrum 2017
+                photo Helle Kvamme
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-egg</loc>
+        <lastmod>2021-11-09</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-egg.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 11x13,5x4cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-model</loc>
+        <lastmod>2016-10-07</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-model.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>Sketch project LIV no 8 (LIFE no 8) model with wheat and soil 2016</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-ball</loc>
+        <lastmod>2022-02-07</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-ball.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 2022</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-8-details</loc>
+        <lastmod>2015-10-19</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-details.webp</image:loc>
+            <image:title>LIV no 8 (LIFE no 8)</image:title>
+            <image:caption>Detail from sketch project LIV no 8 (LIFE no 8) model with plastic grass/paste/plastic
+                figures 2014
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Algutsrum, Öland, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-wax</loc>
+        <lastmod>2020-11-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-wax.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 15x9x6cm 2020</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-composition</loc>
+        <lastmod>2020-11-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-composition.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 11x11x6cm 2020</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-10-1-sketch</loc>
+        <lastmod>2016-11-14</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-10-1-sketch.webp</image:loc>
+            <image:title>Sketch project LIV no 10 (LIFE no 10)</image:title>
+            <image:caption>Sketch project LIV no 10/1 (LIFE no 10/1) object in moss 2,5x5x0,5m 2016</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-10-moss-sketch</loc>
+        <lastmod>2016-11-14</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-10-moss-sketch.webp</image:loc>
+            <image:title>Sketch project LIV no 10 (LIFE no 10)</image:title>
+            <image:caption>Sketch project LIV no 10 (LIFE no 10) object in moss 2016</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-entangled</loc>
+        <lastmod>2021-03-11</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-entangled.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 4x4x3cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-9</loc>
+        <lastmod>2015-10-19</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-9.webp</image:loc>
+            <image:title>Sketch project LIV no 9 (LIFE no 9)</image:title>
+            <image:caption>Sketch project LIV no 9 (LIFE no 9) model with plastic grass/paste/aquasonic/plastic figures
+                2014
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/embryo-sphere-1</loc>
+        <lastmod>2020-07-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-sphere-1.webp</image:loc>
+            <image:title>Embryo</image:title>
+            <image:caption>Embryo silicon with threads O 7cm 2020</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-ld</loc>
+        <lastmod>2013-11-27</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-5-ld.webp</image:loc>
+            <image:title>Sketch project LIV no 5 (LIFE no 5)</image:title>
+            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign front-back folie on painted aluminium plate
+                175x118,5cm 2013
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/embryo-sphere-2</loc>
+        <lastmod>2020-07-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-sphere-2.webp</image:loc>
+            <image:title>Embryo</image:title>
+            <image:caption>Embryo silicon with threads O 7cm 2020</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-lo-signs</loc>
+        <lastmod>2014-02-10</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-5-lo-signs.webp</image:loc>
+            <image:title>Sketch project LIV no 5 (LIFE no 5)</image:title>
+            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign front-back folie on painted aluminiumplate
+                175x118,5cm 2013
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/embryo-sphere-3</loc>
+        <lastmod>2020-07-13</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-sphere-3.webp</image:loc>
+            <image:title>Embryo</image:title>
+            <image:caption>Embryo silicon with feather O 7cm 2020</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-VD</loc>
+        <lastmod>2014-02-10</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-5-VD.webp</image:loc>
+            <image:title>Sketch project LIV no 5 (LIFE no 5)</image:title>
+            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign front-back folie on painted aluminiumplate
+                175x118,5cm 2013
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-fly</loc>
+        <lastmod>2021-06-17</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-fly.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria mixed material 7x5x5 cm 2021</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-led-display</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-led-display.webp</image:loc>
+            <image:title>LIV (LIFE)</image:title>
+            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-led-gum</loc>
+        <lastmod>2020-11-18</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-led-gum.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria chewinggum-silicon-led-gum 20x3x3cm 2019</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-spin-sign-liv-dod</loc>
+        <lastmod>2013-03-20</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-5-spin-sign-liv-dod.webp
+            </image:loc>
+            <image:title>Sketch project LIV no 5 (LIFE no 5)</image:title>
+            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign painted aluminium plate 175x474cm 2013
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-clay-work</loc>
+        <lastmod>2021-03-11</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-clay-work.webp</image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria clay work in progress Pukeberg 2019</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-acrylic-silicon</loc>
+        <lastmod>2016-09-22</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-acrylic-silicon.webp
+            </image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria I silicon on acrylic glass 25x8x1,1cm 2016</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-no-5-spin-signs</loc>
+        <lastmod>2013-03-20</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-5-spin-signs.webp</image:loc>
+            <image:title>Sketch project LIV no 5 (LIFE no 5)</image:title>
+            <image:caption>Sketch project LIV no 5 (LIFE no 5) spin sign painted aluminium plate 175x474cm 2013
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bacteria-II-siliconcoated-sculpture</loc>
+        <lastmod>2016-09-22</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>
+                https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-II-siliconcoated-sculpture.webp
+            </image:loc>
+            <image:title>bacteria</image:title>
+            <image:caption>bacteria II siliconcoated sculptured chewing gum/silicon with plastic grass on acrylic glass
+                25x8x1,7cm 2016
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Kalmar Konstmuseum, Kalmar, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-nikolaikyrkan-orebro</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-nikolaikyrkan-orebro.webp
+            </image:loc>
+            <image:title>LIV (LIFE)</image:title>
+            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-orebro-kyrka</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-orebro-kyrka.webp</image:loc>
+            <image:title>LIV (LIFE)</image:title>
+            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/livspiral-3</loc>
+        <lastmod>2015-12-08</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-livspiral-3.webp</image:loc>
+            <image:title>LIVSPIRAL 3 (SPIRAL OF LIFE 3)</image:title>
+            <image:caption>LIVSPIRAL 3 (SPIRAL OF LIFE 3) siliconcoated sculptured chewing gum with plastic grass on
+                glass O 90x2cm 2015
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-nikolaikyrkan-below</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-nikolaikyrkan-below.webp</image:loc>
+            <image:title>LIV (LIFE)</image:title>
+            <image:caption>LIV (LIFE) electronic LED display 48x280x5cm Nikolaikyrkan Örebro 2011</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:geo_location>Nikolaikyrkan, Örebro, Sweden</image:geo_location>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/liv-no-2-pearls</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-2-pearls.webp</image:loc>
+            <image:title>LIV no 2 (LIFE no 2)</image:title>
+            <image:caption>LIV no 2 (LIFE no 2) pearls-acrylic glass 15x15cm 2011</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/liv-no-4-dil</loc>
+        <lastmod>2013-11-25</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-4-dil.webp</image:loc>
+            <image:title>LIV no 4 (LIFE no 4)</image:title>
+            <image:caption>LIV no 4 (LIFE no 4) spin sign acrylic on masonite 74x23x7cm 2013</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-kalmar-konstmuseum</loc>
+        <lastmod>2016-02-05</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-kalmar-konstmuseum.webp</image:loc>
+            <image:title>LIV (LIFE)</image:title>
+            <image:caption>LIV (LIFE) paintings in acrylic and sculptures in concrete Rotundan Kalmar konstmuseum 2009
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/liv-no-4-vol</loc>
+        <lastmod>2014-02-10</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-4-vol.webp</image:loc>
+            <image:title>LIV no 4 (LIFE no 4)</image:title>
+            <image:caption>LIV no 4 (LIFE no 4) spin sign acrylic on masonite 74x23x7cm 2013</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/liv-rotundan-kalmar-konstmuseum</loc>
+        <lastmod>2017-09-05</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-rotundan-kalmar-konstmuseum.webp
+            </image:loc>
+            <image:title>LIV (LIFE)</image:title>
+            <image:caption>LIV (LIFE) sculptures in concrete and paintings in acrylic Rotundan Kalmar konstmuseum 2009
+            </image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/liv-no-3-plastic-grass-inverted</loc>
+        <lastmod>2013-02-25</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-3-plastic-grass-inverted.webp
+            </image:loc>
+            <image:title>LIV no 3 (LIFE no 3)</image:title>
+            <image:caption>LIV no 3 (LIFE no 3) plastic grass 58x38cm 2010</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/installations/vitkal-skulptur</loc>
+        <lastmod>2017-09-06</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vitkal-skulptur.webp</image:loc>
+            <image:title>Vitkål</image:title>
+            <image:caption>Vitkål sculpture in concrete 2009</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/liv-no-3-plastic-grass</loc>
+        <lastmod>2013-02-25</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-3-plastic-grass.webp</image:loc>
+            <image:title>LIV no 3 (LIFE no 3)</image:title>
+            <image:caption>LIV no 3 (LIFE no 3) plastic grass 58x38cm 2010</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/liv-no-7</loc>
+        <lastmod>2014-01-29</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-7.webp</image:loc>
+            <image:title>LIV no 7 (LIFE no 7)</image:title>
+            <image:caption>LIV no 7 (LIFE no 7) plastic grass on masonite 58x38cm 2013</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/bla-traktor-no-2-gras</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bla-traktor-no-2-gras.webp</image:loc>
+            <image:title>Blå traktor (Blue tractor)</image:title>
+            <image:caption>Blå traktor no 2 (Blue tractor no 2) grass-soil-wood 1x1m 2007</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/traktor-no-2-gras</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-traktor-no-2-gras.webp</image:loc>
+            <image:title>Röd traktor (Red tractor)</image:title>
+            <image:caption>Röd traktor no 2 (Red tractor no 2) grass-soil-wood 1x1m 2007</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://www.annesimonsson.se/album/objects/red-traktor-grass</loc>
+        <lastmod>2012-03-12</lastmod>
+        <priority>0.6</priority>
+        <image:image>
+            <image:loc>https://www.annesimonsson.se/konst/anne-hamrin-simonsson-red-traktor-grass.webp</image:loc>
+            <image:title>Röd-vit traktor (Red-white tractor)</image:title>
+            <image:caption>Röd-vit traktor no 2 (Red-white tractor no 2) grass-soil-wood 1x1m 2007</image:caption>
+            <image:license>https://www.annesimonsson.se/license</image:license>
+            <image:author>Anne Hamrin Simonsson</image:author>
+        </image:image>
+    </url>
 </urlset>

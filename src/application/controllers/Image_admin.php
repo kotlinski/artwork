@@ -26,21 +26,21 @@ class Image_admin extends CI_Controller {
 
     public function index($data = null)
     {
-		$data['error'] = '';
-        $data['title'] = 'Image Admin';
-        $data['menu_item'] = 'image_admin';
-		$data['images'] = $this->images_model->get_images();
-		$data['artwork_filters'] = $this->images_model->get_artwork_filters();
+      $data['error'] = '';
+      $data['title'] = 'Image Admin';
+      $data['menu_item'] = 'image_admin';
+      $data['images'] = $this->images_model->get_images();
+      $data['artwork_filters'] = $this->images_model->get_artwork_filters();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('image_admin/index', $data);
-        $this->load->view('templates/footer');
+      $this->load->view('templates/header', $data);
+      $this->load->view('image_admin/index', $data);
+      $this->load->view('templates/footer');
     }
 
 	function do_upload()
 	{
 		$config['upload_path'] = 'konst/';
-		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp|webp';
 		$config['encrypt_name']	= 'TRUE';
 		$config['max_size']	= '250000';
 		$config['max_width']  = '24000';
@@ -99,7 +99,6 @@ class Image_admin extends CI_Controller {
 				'width' => 120,
 				'height' => 70,
 				'master_dim' => 'auto'
-
 			);
 
 			$this->image_lib->initialize($config);
@@ -125,15 +124,79 @@ class Image_admin extends CI_Controller {
 		$this->images_model->delete($id);
 		echo "<br /><br /><br /><p>Your image have been removed. </p>";
 	}
-	public function update($id){
-		$newTitle = $this->input->post('title');
-		echo "new title: " . $this->input->post('title')."<br/>";
-		$data = array(
-			'title' => $newTitle
-		);
-		$this->images_model->update($id, $data);
-		echo "<br /><br /><br /><p>Your image have been renamed. </p>";
-	}
+
+  public function update($id) {
+    $newTitle = $this->input->post('title');
+    $newFileId = $this->input->post('file_id');
+    $newCaption = $this->input->post('caption');
+    $geoLocation = $this->input->post('geo_location');
+    $project = $this->input->post('project');
+
+    $old_data = $this->images_model->get_image($id);
+    $oldFileName = $old_data->file_name;
+    // Get file extension
+    $ext = pathinfo($oldFileName, PATHINFO_EXTENSION);
+
+    $newFileName = "anne-hamrin-simonsson-{$newFileId}.{$ext}";
+    // Update database
+    $data = [
+      'title' => $newTitle,
+      'file_id' => $newFileId,
+      'caption' => $newCaption,
+      'file_name' => $newFileName,
+      'geo_location' => $geoLocation,
+      'project' => $project
+    ];
+    $this->images_model->update($id, $data);
+    if ($newTitle !== null && $newFileId !== null && $newCaption !== null) {
+      $oldFileId = $old_data->file_id;
+      // Build new file name
+
+      // If file_id changed, rename files
+      if ($oldFileId !== $newFileId) {
+        $folders = ['konst', 'konst/thumb', 'konst/medium'];
+        define('PUBPATH', str_replace(SELF, '', FCPATH));
+        foreach ($folders as $folder) {
+          $oldPath = PUBPATH . "{$folder}/{$oldFileName}";
+          $newPath = PUBPATH . "{$folder}/{$newFileName}";
+          if (file_exists($oldPath)) {
+            rename($oldPath, $newPath);
+          }
+        }
+        $folder = '';
+        switch ($old_data->artwork_filter) {
+          case "2":
+            $folder = 'installations';
+            break;
+          case "3":
+            $folder = 'objects';
+            break;
+          case "4":
+            $folder = 'paintings';
+            break;
+        }
+
+        // Path to .htaccess
+        $htaccessPath = __DIR__ . '/../../.htaccess';
+        // Build rewrite rule
+        $rule = "RewriteRule ^album/{$folder}/{$oldFileId}$ /album/{$folder}/{$newFileId} [R=301,L]";
+        // Read .htaccess lines
+        $lines = file($htaccessPath, FILE_IGNORE_NEW_LINES);
+        // Insert rule at line 27 (index 26)
+        array_splice($lines, 33, 0, $rule);
+        // Write back to .htaccess
+        file_put_contents($htaccessPath, implode("\n", $lines));
+      }
+
+      echo "<br /><br /><p>Your image has been updated: {$oldFileId} -> {$newFileId}</p>";
+    } else {
+      ob_start();
+      var_dump($_POST);
+      $postDump = ob_get_clean();
+      echo $postDump . "<br /><br /><p>Missing title or file ID.</p>";
+    }
+  }
+
 	public function setFilter($imgId){
 		$filter_id = $this->input->post('filter_id');
 		$data = array(

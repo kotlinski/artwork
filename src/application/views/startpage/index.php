@@ -11,20 +11,23 @@
     <div style="margin-top:1.25cm;">
         <a class="picture"
            data-fancybox="gallery"
-           data-id='<?= $image->id ?>'
-           data-caption="Verk av konstnär Anne Hamrin Simonsson: <?= htmlspecialchars($image->title, ENT_QUOTES) ?>"
            href="<?= base_url('konst/' . $image->file_name) ?>"
            title="<?= $image->title ?>">
           <img class="newsImg"
-               src="<?= base_url('konst/medium/' . $image->file_name); ?>"
-               alt="Verk av konstnär Anne Hamrin Simonsson: <?= htmlspecialchars($image->title, ENT_QUOTES) ?>"
-               fetchpriority="high"/>
+             id='<?= $image->id ?>'
+             data-id='<?= $image->id ?>'
+             data-file-id="<?= $image->file_id ?>"
+             data-title="<?= $image->title ?>"
+             data-description="Verk av konstnär Anne Hamrin Simonsson: <?= htmlspecialchars($image->caption, ENT_QUOTES) ?>"
+             src="<?= base_url('konst/medium/' . $image->file_name); ?>"
+             alt="Verk av konstnär Anne Hamrin Simonsson: <?= htmlspecialchars($image->title, ENT_QUOTES) ?>"
+             fetchpriority="high"/>
         </a>
         <div class="startpageText"><?php echo $text ?></div>
     </div>
     <div id="fancyboxTitles" style="display: none;">
       <div>
-        <span style="float:left;max-width:80%;"><?= htmlspecialchars($image->title, ENT_QUOTES) ?></span>
+        <span style="float:left;max-width:80%;"><?= htmlspecialchars($image->caption, ENT_QUOTES) ?></span>
         <span style="float:right;" title="close">
         <a href="#" onclick="closeButton(event);">close</a>
       </span>

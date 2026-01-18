@@ -91,19 +91,34 @@
           afterShow: function() {
             var imgUrl = this.href;
             var filename = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
-            var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-simonsson-/, '');
+            var slug = filename.substring(0, filename.lastIndexOf('.')).replace(/^anne-hamrin-simonsson-/, '');
+
+            var $imgLink = $('a.picture[href*="' + slug + '"]');
+            var $img = $imgLink.find('img');
+            if ($img.length === 0) return;
+
+            // Pull data from your SQL-backed attributes
+            var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
+            var title = $img.data('title');
+            var file_id = $img.data('file-id');
+            var project = $img.data('project');
+            var geo_location = $img.data('geo-location');
+            var height_px = $img.data('height-px');
+            var width_px = $img.data('width-px');
+
             var newTitle = "";
             if (slug) {
-              newTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " | Anne Hamrin Simonsson";
+              newTitle = title + " | Anne Hamrin Simonsson";
             } else {
               newTitle = "Artwork | Anne Hamrin Simonsson";
             }
-            updateJsonLdForImage(slug)
+            var album_path = window.location.pathname.split('/').slice(0, 3).join('/');
+            album_path = (album_path === '/') ? '' : album_path;
+            updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px)
             document.title = newTitle;
-            $('meta[name="description"]').attr('content', $(this.element).data('imgtitle') || $(this.element).find('img').data('imgtitle'));
+            $('meta[name="description"]').attr('content', $(this.element).data('description') || $(this.element).find('img').data('title'));
             if (history.pushState) {
-              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
-              window.history.pushState({image: slug}, newTitle, albumPath + '/' + slug);
+              window.history.pushState({image: slug}, newTitle, album_path + '/' + slug);
             }
 
             var figCaption = $(this.element).closest('figure').find('figcaption').text();
@@ -118,13 +133,21 @@
           afterClose: function() {
             document.title = originalTitle;
             if (history.pushState) {
-              // Remove the image slug from the path
-              var albumPath = window.location.pathname.split('/').slice(0, 3).join('/');
-              window.history.pushState({}, originalTitle, albumPath);
+              var segments = window.location.pathname.split('/').filter(Boolean);
+              if (segments.includes('image_admin')) {
+                // Keep /image_admin and any following segments
+                var idx = segments.indexOf('image_admin');
+                var newPath = '/' + segments.slice(0, idx + 1).join('/');
+                window.history.pushState({}, originalTitle, newPath);
+              } else if (segments.includes('album') && segments.length > 1) {
+                // Remove last segment, keep the rest
+                var newPath = '/' + segments.slice(0, -1).join('/');
+                window.history.pushState({}, originalTitle, newPath);
+              } else {
+                window.history.pushState({}, originalTitle, '/');
+              }
             }
-            // Restore original meta description
             $('meta[name="description"]').attr('content', window.originalDescription);
-            // Restore original JSON-LD
             var $jsonLdScript = $('script[type="application/ld+json"]');
             if ($jsonLdScript.length && window.originalJsonLd) {
               $jsonLdScript.text(window.originalJsonLd);
@@ -196,6 +219,27 @@
           include './././statics/js/adminHandling.php';
         }
         ?>
+        window.onpopstate = function(event) {
+          if (event.state && event.state.image) {
+            // Open the image if navigating to a state with an image
+            var $targetLink = $('a.picture[href*="' + event.state.image + '"]');
+            if ($targetLink.length > 0) {
+              $targetLink.trigger('click');
+            }
+          } else {
+            // Close Fancybox if navigating back to the gallery
+            if ($.fancybox && $.fancybox.isOpen) {
+              $.fancybox.close();
+            }
+            document.title = originalTitle;
+            $('meta[name="description"]').attr('content', window.originalDescription);
+            var $jsonLdScript = $('script[type="application/ld+json"]');
+            if ($jsonLdScript.length && window.originalJsonLd) {
+              $jsonLdScript.text(window.originalJsonLd);
+            }
+          }
+        };
+
       });
     };
     document.head.appendChild(fancyboxScript);
@@ -203,44 +247,57 @@
 </script>
 
 <script>
-  // After the Fancybox image is shown and slug is available
-  function updateJsonLdForImage(slug) {
-    // Find the image element by slug
-    var $imgLink = $('a.picture[href*="' + slug + '"]');
-    var $img = $imgLink.find('img');
-    if ($img.length === 0) return;
+  function updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px) {
+    // Extrahera år precis som tidigare
+    var yearMatch = description?.match(/\b(19|20)\d{2}\b/);
+    var yearCreated = yearMatch ? yearMatch[0] : null;
 
-    // Gather data attributes or fallback to defaults
-    var imgUrl = $img.attr('src');
-    var creatorImg = "https://www.annesimonsson.se/konst/anne-simonsson-liv-no-8-performance.jpg";
-
-/*    <?php
-      // I would like to load the ldjson template from statics/ldjson/art.json
-     //  $ldjson = file_get_contents('./././statics/ldjson/art.json');
-      // the $ldjson I want to replace some template strings. {{{name}}} {{{album}}} {{{filename}}}
-      // $ldjson = str_replace('{{{album}}}', rtrim($title, 's'), $ldjson);
-     //  print $ldjson;
-      ?>*/
     var jsonLd = {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + " - <?= ucfirst(rtrim($title, 's')) ?> by Anne Hamrin Simonsson",
-      "url": window.location.href.replace(/\?.*$/, '') + "/" + slug,
-      "mainEntity": {
-        "@type": "VisualArtwork",
-        "@id": window.location.href.replace(/\?.*$/, '') + "/" + slug,
-        "name": slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-        "image": "https:" + imgUrl.replace('/thumb', ''),
-        "artform": "<?= ucfirst(rtrim($title, 's')) ?>",
-        "creator": {
-          "@type": "Person",
-          "name": "Anne Hamrin Simonsson",
-          "image": creatorImg
-        }
+      "@type": "VisualArtwork",
+      "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
+      "name": title,
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://www.annesimonsson.se/konst/original/" + filename,
+        "width": width_px,
+        "height": height_px,
+        "encodingFormat": "image/webp"
+      },
+      "dateCreated": yearCreated,
+      "description": description,
+      "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>",
+      "creator": {
+        "@type": "Person",
+        "@id": "https://www.annesimonsson.se/#artist",
+        "name": "Anne Hamrin Simonsson",
+        "sameAs": "https://www.annesimonsson.se/about"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id
       }
     };
 
-    // Replace the existing JSON-LD script
+    if (geo_location && geo_location.trim() !== "") {
+      jsonLd["locationCreated"] = {
+        "@type": "Place",
+        "name": geo_location
+      };
+    }
+
+    if (project && project.trim() !== "") {
+      jsonLd["isPartOf"] = {
+        "@type": "VisualArtwork",
+        "name": project,
+        "creator": {
+          "@type": "Person",
+          "name": "Anne Hamrin Simonsson"
+        }
+      };
+    }
+
+    // Injicera i script-taggen
     var $jsonLdScript = $('script[type="application/ld+json"]');
     if ($jsonLdScript.length) {
       $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));

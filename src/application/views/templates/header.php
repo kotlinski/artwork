@@ -49,36 +49,36 @@
   switch (strtolower($title)) {
     case 'news':
       $page_title = 'News | Anne Hamrin Simonsson';
-      $page_description = 'Latest news and updates from Swedish artist Anne Hamrin Simonsson.';
+      $page_description = 'Keep up with Anne Hamrin Simonsson’s latest news, from Swedish Arts Grants Committee awards to current exhibitions at Kalmar Konstmuseum and more.';
       break;
     case 'about':
       $page_title = 'About | Anne Hamrin Simonsson';
-      $page_description = 'Learn more about Swedish conceptual artist Anne Hamrin Simonsson.';
+      $page_description = 'Biography and artist statement of Anne Hamrin Simonsson, a Swedish conceptual artist based on Öland, known for her site-specific installations and objects.';
       break;
     case 'contact':
       $page_title = 'Contact | Anne Hamrin Simonsson';
-      $page_description = 'Contact Anne Hamrin Simonsson, Swedish conceptual artist, for inquiries and collaborations.';
+      $page_description = 'Get in touch with Anne Hamrin Simonsson for inquiries, collaborations, or information regarding her conceptual art installations and paintings in Sweden.';
       break;
     case 'installations':
       $page_title = 'Installations | Anne Hamrin Simonsson';
-      $page_description = 'Explore installations by Anne Hamrin Simonsson, Swedish conceptual artist.';
+      $page_description = 'Discover conceptual installation art by Anne Hamrin Simonsson. Explore site-specific works like Under_Liv at Kalmar Konstmuseum and Avfällningar at Undantaget.';
       break;
     case 'objects':
       $page_title = 'Objects | Anne Hamrin Simonsson';
-      $page_description = 'Discover objects created by Anne Hamrin Simonsson, Swedish conceptual artist.';
+      $page_description = 'View contemporary objects and sculptures by Anne Hamrin Simonsson. Unique conceptual art created with precision using diverse materials and techniques.';
       break;
     case 'paintings':
       $page_title = 'Paintings | Anne Hamrin Simonsson';
-      $page_description = 'View paintings by Anne Hamrin Simonsson, Swedish conceptual artist.';
+      $page_description = 'Browse acrylic and oil paintings on masonite by Anne Hamrin Simonsson. Conceptual works inspired by the landscape of Öland and the themes of life and growth.';
       break;
     default:
       $page_title = empty($title)
-        ? 'Anne Hamrin Simonsson – Swedish Conceptual Artist, Paintings, Installations, Objects'
+        ? 'Anne Hamrin Simonsson – Swedish Conceptual Artist, Paintings, Installations'
         : 'Anne Hamrin Simonsson';
       if (empty($title)) {
-        $page_description = 'Discover the official website of Anne Hamrin Simonsson, a Swedish conceptual artist. Explore her paintings, installations, objects, news, and contact information. All images and texts belong to Anne Hamrin Simonsson.';
+        $page_description = 'Official website of Anne Hamrin Simonsson, a Swedish conceptual artist. Explore her paintings, installations, objects, and news. Discover her unique work today.';
       } else {
-        $page_description = 'Official website of Swedish artist Anne Hamrin Simonsson; ' . $title . '. All images and texts belong to Anne Hamrin Simonsson.';
+        $page_description = 'Official website of Swedish artist Anne Hamrin Simonsson; ' . $title . '. Discover conceptual art, paintings, and installations with unique artist insights.';
       }
       break;
   }
@@ -90,7 +90,7 @@
   <meta property="og:description"
         content="Official website of Swedish artist Anne Hamrin Simonsson. View artwork, news, and contact information.">
   <meta property="og:image"
-        content="https://www.annesimonsson.se/konst/medium/anne-simonsson-konstverk-smalandstrienalen-rotvalta.jpg">
+        content="https://www.annesimonsson.se/konst/medium/anne-hamrin-simonsson-konstverk-smalandstrienalen-rotvalta.jpg">
   <meta property="og:url" content="https://www.annesimonsson.se/">
 
   <meta name="author" content="The website is made by Simon Kotlinski">
@@ -244,10 +244,31 @@
             <a href="<?= base_url('contact'); ?>">Contact administration</a>
           </li>
         </ul>
-
         <br/>
-        <a href="<?= site_url('/login/logout/') ?>">Click here to logout.</a><br/>
-
+        <button id="generate-sitemap">Generate Sitemap</button>
+        <p>Generate a new Sitemap after images has been added or modified.</p>
+        <script>
+          document.getElementById('generate-sitemap').onclick = function() {
+            fetch('<?= base_url('sitemap/generate') ?>', { method: 'POST' })
+              .then(r => {
+                r.text().then( data => {
+                  const { success } = JSON.parse(data);
+                  try {
+                    if (success) alert('Sitemap generated!');
+                    else alert('Failed to generate sitemap.');
+                  } catch (e) {
+                    throw new Error('Invalid JSON response: ' + data);
+                  }
+                });
+              })
+              .catch(err => {
+                alert('Error: ' + err.message);
+              });
+          };
+        </script>
+        <form action="<?= site_url('/login/logout/') ?>" method="post" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
         <br/>
         <hr/>
       <? } ?>

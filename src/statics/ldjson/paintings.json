@@ -15,7 +15,7 @@
             "position": 1,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/paintings/sparris-oland",
+              "@id": "https://www.annesimonsson.se/album/paintings/sparris",
               "name": "Sparris no 2 (Asparagus)",
               "artform": "Painting",
               "dateCreated": "2009",
@@ -25,7 +25,7 @@
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-simonsson-sparris-oland.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-sparris.webp",
                 "width": 2648,
                 "height": 2640,
                 "creditText": "Photo: Anne Hamrin Simonsson",
@@ -45,7 +45,7 @@
             "position": 2,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/paintings/red-traktor",
+              "@id": "https://www.annesimonsson.se/album/paintings/rod-vit-traktor",
               "name": "Röd-vit Traktor (Red Tractor)",
               "artform": "Painting",
               "dateCreated": "2006",
@@ -55,10 +55,10 @@
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-simonsson-red-traktor.png",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rod-vit-traktor.webp",
                 "width": 499,
                 "height": 500,
-                "encodingFormat": "image/png",
+                "encodingFormat": "image/webp",
                 "creditText": "Photo: Anne Hamrin Simonsson",
                 "license": "https://www.annesimonsson.se/license",
                 "acquireLicensePage": "https://www.annesimonsson.se/contact",
@@ -86,7 +86,7 @@
               "creator": { "@id": "https://www.annesimonsson.se/#person" },
               "image": {
                 "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-simonsson-vi-i-villa-no-4.jpg",
+                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-4.webp",
                 "width": 1181,
                 "height": 903,
                 "creditText": "Photo: Anne Hamrin Simonsson",

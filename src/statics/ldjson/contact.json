@@ -19,7 +19,7 @@
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
       "url": "https://www.annesimonsson.se",
-      "image": "https://www.annesimonsson.se/anne-simonsson-portrait.jpg",
+      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
       "jobTitle": ["Konstnär", "Web Graphic Designer"],
       "hasOccupation": [
         { "@type": "Occupation", "name": "Konstnär" },

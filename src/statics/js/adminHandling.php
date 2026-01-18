@@ -19,25 +19,37 @@
 			return false;
 		});
 		$(".rename_image_form").bind("submit", function() {
-			if (imgId < 0 ) {
-				return false;
-			}
-			var newName = $('#rename_image_field_'+imgId).val();
-			var subName = newName;
+      var imgId = $(this).find('input[name="image_id"]').val(); // Get ID from hidden field
+
+      if (imgId < 0) {
+        return false;
+      }
+			var title = $('#rename_image_field_'+imgId).val();
+			var caption = $('#rename_image_caption_'+imgId).val();
+			var project = $('#project_'+imgId).val();
+			var geo_location = $('#geo_location_'+imgId).val();
+      var file_id = $('#rename_file_id_field_'+imgId).val();
+      // Validate fileId: only a-z, numbers and -
+      if (!/^[a-z0-9\-]+$/.test(file_id)) {
+        alert("File ID may only contain lowercase letters a-z, numbers 0-9, and hyphens (-).");
+        return false;
+      }
+      var subName = title;
 			if(subName.length > 16){
-				subName = newName.substr(0, 13)+'...';
+				subName = title.substr(0, 13)+'...';
 			}
 			$('#admin_picture_'+imgId).html(subName);
 
-			$.ajax({
-				type	: "POST",
-				cache	: false,
-				url		: "<?=base_url('image_admin/update')?>/"+imgId,
-				data	: {title: newName},
-				success: function(data) {
-					$.fancybox(data);
-				}
-			});
+      $.ajax({
+        type: "POST",
+        cache: false,
+        url: "<?=base_url('image_admin/update')?>/"+imgId,
+        data: { title, file_id, caption, project, geo_location },
+        success: function(data) {
+          window.location.hash = 'container_id_' + imgId;
+          $.fancybox(data);
+        }
+      });
 
 			return false;
 		});

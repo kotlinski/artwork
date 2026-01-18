@@ -25,11 +25,86 @@ RewriteRule ^album/2/?$ /album/installations [R=301,L]
 RewriteRule ^album/3/?$ /album/objects [R=301,L]
 RewriteRule ^album/4/?$ /album/paintings [R=301,L]
 
+# Corrected Query String Redirect
+RewriteCond %{REQUEST_URI} ^/album/(paintings|objects|installations)/?$
+RewriteCond %{QUERY_STRING} ^image=([^&]+)$
+RewriteRule ^album/(paintings|objects|installations)/?$ /album/$1/%1? [R=301,L,NE]
+
+# renaming image ids
+RewriteRule ^album/installations/liv-kyrka-orebro-svenska-kyrkan$ /album/installations/liv-nikolaikyrkan-below [R=301,L]
+RewriteRule ^album/installations/nikolaikyrkan-orebro$ /album/installations/liv-nikolaikyrkan-orebro [R=301,L]
+RewriteRule ^album/installations/orat-mot-marken-och-blicken-utat$ /album/installations/under-liv-orat-mot-marken-och-blicken-utat [R=301,L]
+RewriteRule ^album/installations/under-liv-kalmar-konstmuseum-ko$ /album/installations/under-liv-rotvalta-broccoli-closeup [R=301,L]
+RewriteRule ^album/installations/avfallningar-fonster$ /album/installations/avfallningar-window [R=301,L]
+RewriteRule ^album/installations/liv-no-8-model-wheat-soil$ /album/installations/liv-no-8-model [R=301,L]
+RewriteRule ^album/installations/liv-no-8-algutsrum-installation$ /album/installations/liv-no-8-far-above [R=301,L]
+RewriteRule ^album/installations/algutsrum-life-no-8$ /album/installations/life-no-8-construction [R=301,L]
+RewriteRule ^album/installations/liv-no-8-oland-soil-nils-vete$ /album/installations/liv-no-8-side [R=301,L]
+RewriteRule ^album/installations/liv-no-8-oland-wheat-nils$ /album/installations/liv-no-8-above-2 [R=301,L]
+RewriteRule ^album/installations/liv-no-8-wheat-oland-soil$ /album/installations/liv-no-8-above [R=301,L]
+RewriteRule ^album/installations/liv-no-8-sheeps$ /album/installations/liv-no-8-sheep [R=301,L]
+RewriteRule ^album/installations/under-liv-kalmar-konstmuseum-gran$ /album/installations/under-liv-kalmar-konstmuseum-side [R=301,L]
+RewriteRule ^album/installations/under-liv-kalmar-konstmuseum-gran-tree$ /album/installations/under-liv-kalmar-konstmuseum-sky [R=301,L]
+RewriteRule ^album/installations/kalmar-konstmuseum-under-liv-gran$ /album/installations/under-liv-kalmar-konstmuseum-outside [R=301,L]
+RewriteRule ^album/installations/avfallningar-undantaget-klappinge$ /album/installations/avfallningar-wall [R=301,L]
+RewriteRule ^album/installations/avfallningar-undantaget-fonster$ /album/installations/avfallningar-fonster [R=301,L]
+RewriteRule ^album/installations/under-liv-kalmar-konstmuseum-rotvaltan$ /album/installations/under-liv-rotvalta [R=301,L]
+RewriteRule ^album/installations/avfallningar-dorr-korg$ /album/installations/avfallningar-basket [R=301,L]
+RewriteRule ^album/installations/avfallningar-undantaget-klappinge-mirror$ /album/installations/avfallningar-mirror [R=301,L]
+RewriteRule ^album/installations/avfallningar-undantaget-kokong-stuga$ /album/installations/avfallningar-room [R=301,L]
+RewriteRule ^album/installations/avfallningar-undantaget-horn-pa-vagg$ /album/installations/avfallningar-horn-on-wall [R=301,L]
+RewriteRule ^album/objects/bakterie-lov-tryck$ /album/objects/bacteria-acrylic-silicon [R=301,L]
+RewriteRule ^album/objects/bacteria-clay-work-in-pukeberg$ /album/objects/bacteria-clay-work [R=301,L]
+RewriteRule ^album/objects/bacteria-chweinggum$ /album/objects/bacteria-led-gum [R=301,L]
+RewriteRule ^album/objects/bakterie-geting-har-ora$ /album/objects/bacteria-fly [R=301,L]
+RewriteRule ^album/objects/embruo-silicon-feather$ /album/objects/embryo-sphere-3 [R=301,L]
+RewriteRule ^album/objects/embryo-silicon-dandeloin-moon$ /album/objects/embryo-sphere-2 [R=301,L]
+RewriteRule ^album/objects/embryo-silicon-alien-threads$ /album/objects/embryo-sphere-1 [R=301,L]
+RewriteRule ^album/objects/bakterie-igloo$ /album/objects/bacteria-igloo [R=301,L]
+RewriteRule ^album/objects/bakterie-spermie$ /album/objects/bacteria-blob [R=301,L]
+RewriteRule ^album/objects/bakterie-hjarna-alien$ /album/objects/bacteria-entangled [R=301,L]
+RewriteRule ^album/objects/bakterie-tuggumi-isberg$ /album/objects/bacteria-composition [R=301,L]
+RewriteRule ^album/objects/bacteria-vax$ /album/objects/bacteria-wax [R=301,L]
+RewriteRule ^album/objects/bakterie-vax-glass$ /album/objects/bacteria-vax [R=301,L]
+RewriteRule ^album/objects/bakterie-harboll$ /album/objects/bacteria-ball [R=301,L]
+RewriteRule ^album/objects/bakterie-human-spheare$ /album/objects/bacteria-spheare [R=301,L]
+RewriteRule ^album/objects/bakterie-kvinnor$ /album/objects/bacteria-miniatures [R=301,L]
+RewriteRule ^album/objects/bakterie-kvinna-ljus$ /album/objects/bacteria-miniature-on-top [R=301,L]
+RewriteRule ^album/objects/bakterie-couple$ /album/objects/bacteria-couple [R=301,L]
+RewriteRule ^album/objects/bakterie-brollop$ /album/objects/bakterie-couple [R=301,L]
+RewriteRule ^album/objects/bacteria-green-lady$ /album/objects/bacteria-encapsulated-miniature [R=301,L]
+RewriteRule ^album/objects/under-liv-agg-bo-kokosnot$ /album/objects/under-liv-nest [R=301,L]
+RewriteRule ^album/objects/under-liv-foster-korg$ /album/objects/under-liv-core [R=301,L]
+RewriteRule ^album/objects/under-liv-kalmar-konstmuseum-broccoli$ /album/objects/under-liv-concrete-floor [R=301,L]
+RewriteRule ^album/objects/rotvalta-kalmar-konstmuseum-fjong$ /album/objects/under-liv-rotvalta-detail [R=301,L]
+RewriteRule ^album/objects/under-liv-kalmar-konstmuseum-lungor$ /album/objects/under-liv-hanging-object [R=301,L]
+RewriteRule ^album/objects/under-liv-rod-flaska-rotvalta$ /album/objects/under-liv-rotvalta-closeup [R=301,L]
+RewriteRule ^album/objects/under-liv-dam-med-handvaska$ /album/objects/under-liv-miniatyr [R=301,L]
+RewriteRule ^album/objects/under-liv-kalmar-konstmuseum-vitt-radjur$ /album/objects/under-liv-radjur [R=301,L]
+RewriteRule ^album/objects/avfallningar-klappinge-undantaget$ /album/objects/avfallningar-object-on-mirror [R=301,L]
+RewriteRule ^album/objects/avfallningar-undantaget-harboll$ /album/objects/avfallningar-figure-in-wall [R=301,L]
+RewriteRule ^album/objects/avfallningar-undantaget-klappinge-hud$ /album/objects/avfallningar-membran [R=301,L]
+RewriteRule ^album/objects/avfallningar-undantaget-broccoli-cow$ /album/objects/avfallningar-blomkal [R=301,L]
+RewriteRule ^album/objects/avfallningar-undantaget-skinn-horn$ /album/objects/avfallningar-horn-closeup [R=301,L]
+RewriteRule ^album/paintings/sparris$ /album/paintings/sparris-no-2 [R=301,L]
+RewriteRule ^album/paintings/rodkal$ /album/paintings/rodkal-no-2 [R=301,L]
+RewriteRule ^album/paintings/onion$ /album/paintings/lok-no-2 [R=301,L]
+RewriteRule ^album/paintings/red-traktor$ /album/paintings/rod-vit-traktor [R=301,L]
+RewriteRule ^album/paintings/blue-traktor$ /album/paintings/bla-traktor [R=301,L]
+RewriteRule ^album/paintings/sparris-oland$ /album/paintings/sparris [R=301,L]
+RewriteRule ^album/paintings/onion-kalmar$ /album/paintings/onion [R=301,L]
+RewriteRule ^album/paintings/rodkal-oland$ /album/paintings/rodkal [R=301,L]
+
+
+
 # --- APP ROUTING (Do not change) ---
 RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+
+# Redirect /index.php or /index.php/ to root
+RewriteRule ^index\.php/?$ / [R=301,L]
 
 <IfModule mod_expires.c>
   ExpiresActive On

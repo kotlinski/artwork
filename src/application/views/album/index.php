@@ -22,7 +22,7 @@
       <? if ($counter % 3 == 0) {
         echo '</tr><tr>';
       } ?>
-      <td valign="middle" align="center" style="padding-bottom:10px;margin:0px;">
+      <td valign="middle" align="center" style="padding-bottom:10px;margin:0px;min-width: 120px;">
         <a
           class="picture"
           rel="group2"
@@ -32,7 +32,13 @@
           <img
             id="<?= $image->id ?>"
             data-id="<?= $image->id ?>"
-            data-imgtitle="<?= $image->title ?>"
+            data-file-id="<?= $image->file_id ?>"
+            data-title="<?= $image->title ?>"
+            data-description="<?= $image->caption ?>"
+            data-geo-location="<?= $image->geo_location ?>"
+            data-project="<?= $image->project ?>"
+            data-width-px="<?= $image->width_px ?>"
+            data-height-px="<?= $image->height_px ?>"
             src="<?= base_url('konst/thumb/' . $image->file_name) ?>"
             alt="<?= htmlspecialchars('Art ' . $title . ' av konstnar Anne Hamrin Simonsson: ' . $image->title, ENT_QUOTES, 'UTF-8') ?>"
             style="padding:0px;margin:0px;border:0px;"/>
@@ -43,7 +49,7 @@
       $titles .=
         '<div>' .
         '<span style="float:left;max-width:80%;">' .
-        htmlspecialchars($image->title, ENT_QUOTES) . '<br />' .
+        htmlspecialchars($image->caption, ENT_QUOTES) . '<br />' .
         '<span style="text-align:left;color:#777;font: normal 13px "Helvetica Neue",Helvetica,Arial,sans-serif;">Copyright © Anne Hamrin Simonsson '/*.date("Y")*/ . '</span>' .
 
         '</span>' .
