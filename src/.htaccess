@@ -31,6 +31,7 @@ RewriteCond %{QUERY_STRING} ^image=([^&]+)$
 RewriteRule ^album/(paintings|objects|installations)/?$ /album/$1/%1? [R=301,L,NE]
 
 # renaming image ids
+RewriteRule ^album/installations/under-liv-rotvalta$ /album/installations/under-liv-rotvaltan [R=301,L]
 RewriteRule ^album/installations/liv-kyrka-orebro-svenska-kyrkan$ /album/installations/liv-nikolaikyrkan-below [R=301,L]
 RewriteRule ^album/installations/nikolaikyrkan-orebro$ /album/installations/liv-nikolaikyrkan-orebro [R=301,L]
 RewriteRule ^album/installations/orat-mot-marken-och-blicken-utat$ /album/installations/under-liv-orat-mot-marken-och-blicken-utat [R=301,L]

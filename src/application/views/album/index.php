@@ -39,6 +39,7 @@
             data-project="<?= $image->project ?>"
             data-width-px="<?= $image->width_px ?>"
             data-height-px="<?= $image->height_px ?>"
+            data-filename="<?= $image->file_name ?>"
             src="<?= base_url('konst/thumb/' . $image->file_name) ?>"
             alt="<?= htmlspecialchars('Art ' . $title . ' av konstnar Anne Hamrin Simonsson: ' . $image->title, ENT_QUOTES, 'UTF-8') ?>"
             style="padding:0px;margin:0px;border:0px;"/>

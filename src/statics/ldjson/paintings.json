@@ -2,6 +2,22 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "ImageGallery",
+      "@id": "https://www.annesimonsson.se/album/paintings#gallery",
+      "name": "Painting Archive - Anne Hamrin Simonsson",
+      "description": "A comprehensive gallery featuring paintings in acrylic and oil by Anne Hamrin Simonsson.",
+      "url": "https://www.annesimonsson.se/album/paintings",
+      "creator": { "@id": "https://www.annesimonsson.se/#person" },
+      "about": [
+        { "@id": "https://www.annesimonsson.se/album/paintings/sparris#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/paintings/rod-vit-traktor#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/paintings/scener-ur-ett#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/paintings/rodkal-no-2#artwork" }
+
+      ]
+    },
+    {
       "@type": "CollectionPage",
       "@id": "https://www.annesimonsson.se/album/paintings",
       "name": "Paintings by Anne Hamrin Simonsson",
@@ -15,29 +31,9 @@
             "position": 1,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/paintings/sparris",
-              "name": "Sparris no 2 (Asparagus)",
-              "artform": "Painting",
-              "dateCreated": "2009",
-              "description": "Acrylic painting on masonite depicting asparagus, inspired by the landscape of Öland.",
-              "artMedium": "Acrylic Paint",
-              "artworkSurface": "Masonite",
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-sparris.webp",
-                "width": 2648,
-                "height": 2640,
-                "creditText": "Photo: Anne Hamrin Simonsson",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Person",
-                  "name": "Anne Hamrin Simonsson"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
-              }
+              "@id": "https://www.annesimonsson.se/album/paintings/sparris#artwork",
+              "name": "Sparris no 2",
+              "url": "https://www.annesimonsson.se/album/paintings/sparris"
             }
           },
           {
@@ -45,30 +41,9 @@
             "position": 2,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/paintings/rod-vit-traktor",
-              "name": "Röd-vit Traktor (Red Tractor)",
-              "artform": "Painting",
-              "dateCreated": "2006",
-              "description": "A contemporary acrylic painting featuring a red and white tractor.",
-              "artMedium": "Acrylic Paint",
-              "artworkSurface": "Masonite",
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-rod-vit-traktor.webp",
-                "width": 499,
-                "height": 500,
-                "encodingFormat": "image/webp",
-                "creditText": "Photo: Anne Hamrin Simonsson",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Person",
-                  "name": "Anne Hamrin Simonsson"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
-              }
+              "@id": "https://www.annesimonsson.se/album/paintings/rod-vit-traktor#artwork",
+              "name": "Röd-vit traktor",
+              "url": "https://www.annesimonsson.se/album/paintings/rod-vit-traktor"
             }
           },
           {
@@ -76,29 +51,29 @@
             "position": 3,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4",
-              "name": "Vi i Villa no 4",
-              "artform": "Painting",
-              "dateCreated": "1999",
-              "description": "Oil painting on masonite, part of the 'Vi i Villa' series exploring domestic life.",
-              "artMedium": "Oil Paint",
-              "artworkSurface": "Masonite",
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-vi-i-villa-no-4.webp",
-                "width": 1181,
-                "height": 903,
-                "creditText": "Photo: Anne Hamrin Simonsson",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Person",
-                  "name": "Anne Hamrin Simonsson"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
-              }
+              "@id": "https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4#artwork",
+              "name": "Vi i Villa del II no 4",
+              "url": "https://www.annesimonsson.se/album/paintings/vi-i-villa-no-4"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/paintings/scener-ur-ett#artwork",
+              "name": "Scener ur ett ... 3",
+              "url": "https://www.annesimonsson.se/album/paintings/scener-ur-ett"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/paintings/rodkal-no-2#artwork",
+              "name": "Rödkål no 2",
+              "url": "https://www.annesimonsson.se/album/paintings/rodkal-no-2"
             }
           }
         ]
@@ -109,12 +84,9 @@
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se",
+      "url": "https://www.annesimonsson.se/about",
       "sameAs": [
-        "https://www.instagram.com/ahamrinsimonsson/",
-        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
-        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+        "https://www.wikidata.org/wiki/Q137808007"
       ]
     },
     {

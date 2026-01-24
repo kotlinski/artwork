@@ -66,7 +66,7 @@ class Sitemap extends CI_Controller {
 
       $xml .= '<url>';
       $xml .= '<loc>' . htmlspecialchars($page_url) . '</loc>';
-      $xml .= '<lastmod>' . date('Y-m-d', strtotime($img['datum'])) . '</lastmod>';
+      $xml .= '<lastmod>' . date('Y-m-d', strtotime($img['updated_at'])) . '</lastmod>';
       $xml .= '<priority>0.6</priority>';
 
       $xml .= '<image:image>';

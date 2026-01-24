@@ -2,6 +2,21 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "ImageGallery",
+      "@id": "https://www.annesimonsson.se/album/installations#gallery",
+      "name": "Installation Art Archive - Anne Hamrin Simonsson",
+      "description": "A comprehensive gallery featuring over 30 images of site-specific installations, land art, and conceptual works.",
+      "url": "https://www.annesimonsson.se/album/installations",
+      "creator": { "@id": "https://www.annesimonsson.se/#person" },
+      "about": [
+        { "@id": "https://www.annesimonsson.se/album/installations/under-liv-rotvaltan#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-above#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/installations/avfallningar-mirror#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/installations/liv-kalmar-konstmuseum#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/installations/liv-no-10-moss-sketch#artwork" }
+      ]
+    },
+    {
       "@type": "CollectionPage",
       "@id": "https://www.annesimonsson.se/album/installations",
       "name": "Installation Art by Anne Hamrin Simonsson",
@@ -15,32 +30,9 @@
             "position": 1,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/installations/under-liv-rotvalta",
-              "name": "Under_Liv (Root Roll)",
-              "artform": "Installation",
-              "genre": "Site-specific Installation Art",
-              "artMedium": "Wood, Roots, Mixed Media, Concrete",
-              "artEdition": "Unique",
-              "dateCreated": "2023",
-              "description": "A site-specific installation featuring a root windfall (Rotvälta) and 24 miniature objects.",
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Kalmar Konstmuseum",
-                "address": { "@type": "PostalAddress", "addressLocality": "Kalmar", "addressCountry": "SE" }
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta.webp",
-                "width": 5472,
-                "height": 3648,
-                "creditText": "Photo: Kalmar Konstmuseum",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
-              }
+              "@id": "https://www.annesimonsson.se/album/installations/under-liv-rotvaltan#artwork",
+              "name": "Part of Under_Liv",
+              "url": "https://www.annesimonsson.se/album/installations/under-liv-rotvaltan"
             }
           },
           {
@@ -48,66 +40,39 @@
             "position": 2,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-above",
+              "@id": "https://www.annesimonsson.se/album/installations/liv-no-8-above#artwork",
               "name": "LIV no 8",
-              "artform": "Installation",
-              "genre": "Land Art",
-              "artMedium": "Wheat, Organic Material",
-              "artworkSurface": "Soil",
-              "artEdition": "Ephemeral",
-              "dateCreated": "2017-08",
-              "description": "An ephemeral land art installation using organic wheat and Öland soil.",
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Algutsrum",
-                "address": { "@type": "PostalAddress", "addressLocality": "Färjestaden", "addressRegion": "Öland", "addressCountry": "SE" }
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-above.webp",
-                "width": 3997,
-                "height": 2998,
-                "creditText": "Photo: Jan Engström",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": { "@type": "Person", "name": "Jan Engström" },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
-              }
+              "url": "https://www.annesimonsson.se/album/installations/liv-no-8-above"
             }
           },
           {
             "@type": "ListItem",
             "position": 3,
             "item": {
+            "@type": "VisualArtwork",
+            "@id": "https://www.annesimonsson.se/album/installations/avfallningar-mirror#artwork",
+            "name": "Part of Avfällningar",
+            "url": "https://www.annesimonsson.se/album/installations/avfallningar-mirror"
+          }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/installations/avfallningar-mirror",
-              "name": "Avfällningar (The Mirror)",
-              "artform": "Installation",
-              "genre": "Mixed Media Installation",
-              "artMedium": "Mirror, Glass, Light",
-              "artEdition": "Unique",
-              "dateCreated": "2024",
-              "description": "Mixed media installation playing with reflection, light, and space at Undantaget.",
-              "creator": { "@id": "https://www.annesimonsson.se/#person" },
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Undantaget",
-                "address": { "@type": "PostalAddress", "addressLocality": "Kläppinge", "addressCountry": "SE" }
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-avfallningar-mirror.webp",
-                "width": 4640,
-                "height": 3472,
-                "creditText": "Photo: Anne Hamrin Simonsson",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": { "@id": "https://www.annesimonsson.se/#person" },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": { "@id": "https://www.annesimonsson.se/#person" }
-              }
+              "@id": "https://www.annesimonsson.se/album/installations/liv-kalmar-konstmuseum#artwork",
+              "name": "LIV",
+              "url": "https://www.annesimonsson.se/album/installations/liv-kalmar-konstmuseum"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/installations/liv-no-10-moss-sketch#artwork",
+              "name": "LIV no 10",
+              "url": "https://www.annesimonsson.se/album/installations/liv-no-10-moss-sketch"
             }
           }
         ]
@@ -118,12 +83,9 @@
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se",
+      "url": "https://www.annesimonsson.se/about",
       "sameAs": [
-        "https://www.instagram.com/ahamrinsimonsson/",
-        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
-        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+        "https://www.wikidata.org/wiki/Q137808007"
       ]
     },
     {

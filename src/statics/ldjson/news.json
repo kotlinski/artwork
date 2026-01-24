@@ -1203,12 +1203,9 @@
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se",
+      "url": "https://www.annesimonsson.se/about",
       "sameAs": [
-        "https://www.instagram.com/ahamrinsimonsson/",
-        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
-        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+        "https://www.wikidata.org/wiki/Q137808007"
       ]
     },
     {

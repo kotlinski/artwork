@@ -18,26 +18,9 @@
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se",
-      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
-      "jobTitle": ["Konstnär", "Web Graphic Designer"],
-      "hasOccupation": [
-        { "@type": "Occupation", "name": "Konstnär" },
-        { "@type": "Occupation", "name": "Web Graphic Designer" }
-      ],
-      "email": "annehsimonsson@gmail.com",
-      "telephone": "+46-73-9677447",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Färjestaden",
-        "addressRegion": "Kalmar län",
-        "addressCountry": "SE"
-      },
+      "url": "https://www.annesimonsson.se/about",
       "sameAs": [
-        "https://www.instagram.com/ahamrinsimonsson/",
-        "http://www.konstikalmarlan.se/konstnar/anne-hamrin-simonsson",
-        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+        "https://www.wikidata.org/wiki/Q137808007"
       ]
     },
     {

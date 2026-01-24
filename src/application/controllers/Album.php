@@ -70,13 +70,13 @@ class Album extends CI_Controller
       }
       $data['images'] = array_merge($lastHalf, $firstHalf);
       $data['images'] = array_merge($data['images'], $specialPic);
+      $data['image'] = $specialPic;
       $data['title'] = 'Album';
       $data['menu_item'] = 'album';
 
       if (empty($data['album_item'])) {
         show_404();
       }
-
       $data['title'] = $data['album_item']['title'];
 
       $this->load->view('templates/header', $data);
