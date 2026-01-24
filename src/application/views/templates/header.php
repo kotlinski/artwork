@@ -16,6 +16,7 @@ function generateEnhancedJsonLd($row, $album_path) {
         "@type" => "VisualArtwork",
         "@id" => "https://www.annesimonsson.se" . $album_path . "/" . $row['file_id'] . "#artwork",
         "name" => $row['title'],
+        "alternateName" => $row['alternate_name'],
         "description" => $row['caption'],
         "dateCreated" => $yearCreated,
         "artform" => $row['artform'] ?? "Visual Artwork",
@@ -274,79 +275,87 @@ if (count($parts) === 3 && $parts[0] === 'album' && in_array($parts[1], ['instal
   </script>
 
   <script>
-    function updateJsonLdFromSlug(slug) {
-      var $imgLink = $('a.picture[href*="' + slug + '"]');
-      var $img = $imgLink.find('img');
-      if ($img.length === 0) return;
-
-      // Pull data from your SQL-backed attributes
-      var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
-      var title = $img.data('title');
-      var file_id = $img.data('file-id');
-      var project = $img.data('project');
-      var geo_location = $img.data('geo-location');
-      var height_px = $img.data('height-px');
-      var width_px = $img.data('width-px');
-      var filename = $img.data('filename');
-      var album_path = window.location.pathname.split('/').slice(0, 3).join('/');
-
-      updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px);
-    }
-    function updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px) {
-      // Extrahera år precis som tidigare
+    function updateJsonLdForImage(
+      title, description, filename, file_id, album_path, project, geo_location,
+      width_px, height_px, alternate_name, artform, art_medium, artwork_surface, art_edition,
+      height_cm, width_cm, depth_cm, map_url, address_locality, address_region, address_country, photographer_name
+    ) {
+      // Extract year from description if not provided
       var yearMatch = description?.match(/\b(19|20)\d{2}\b/);
       var yearCreated = yearMatch ? yearMatch[0] : null;
 
       var jsonLd = {
         "@context": "https://schema.org",
-        "@type": "VisualArtwork",
-        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
-        "name": title,
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://www.annesimonsson.se/konst/" + filename,
-          "contentUrl": "https://www.annesimonsson.se/konst/" + filename,
-          "thumbnail": "https://www.annesimonsson.se/konst/thumb/" + filename,
-          "width": width_px,
-          "height": height_px,
-          "encodingFormat": "image/webp"
-        },
-        "dateCreated": yearCreated,
-        "description": description,
-        "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>",
-        "creator": {
-          "@type": "Person",
-          "@id": "https://www.annesimonsson.se/#person",
-          "name": "Anne Hamrin Simonsson",
-          "url": "https://www.annesimonsson.se/about",
-          "sameAs": [
-            "https://www.wikidata.org/wiki/Q137808007"
-          ]
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id
-        }
+        "@graph": [
+          {
+            "@type": "VisualArtwork",
+            "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
+            "name": title,
+            "alternateName": alternate_name || "",
+            "description": description,
+            "dateCreated": yearCreated,
+            "artform": artform || "Visual Artwork",
+            "artMedium": art_medium || "",
+            "artworkSurface": artwork_surface || "",
+            "artEdition": art_edition || "",
+            "creator": {
+              "@type": "Person",
+              "@id": "https://www.annesimonsson.se/#person",
+              "name": "Anne Hamrin Simonsson",
+              "sameAs": ["https://www.wikidata.org/wiki/Q137808007"]
+            }
+          },
+          {
+            "@type": "ImageObject",
+            "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#image",
+            "url": "https://www.annesimonsson.se/konst/" + filename,
+            "contentUrl": "https://www.annesimonsson.se/konst/" + filename,
+            "thumbnail": "https://www.annesimonsson.se/konst/thumb/" + filename,
+            "width": width_px,
+            "height": height_px,
+            "encodingFormat": "image/webp",
+            "creator": {
+              "@type": "Person",
+              "name": photographer_name || "Anne Hamrin Simonsson"
+            }
+          }
+        ]
       };
 
-      if (geo_location && geo_location.trim() !== "") {
-        jsonLd["locationCreated"] = {
-          "@type": "Place",
-          "name": geo_location
-        };
+      // Add physical dimensions if available
+      if (height_cm) {
+        jsonLd["@graph"][0]["height"] = { "@type": "Distance", "name": height_cm + " cm" };
+        jsonLd["@graph"][0]["width"] = { "@type": "Distance", "name": width_cm + " cm" };
+        if (depth_cm) {
+          jsonLd["@graph"][0]["depth"] = { "@type": "Distance", "name": depth_cm + " cm" };
+        }
       }
 
-      if (project && project.trim() !== "") {
-        jsonLd["isPartOf"] = {
-          "@type": "VisualArtwork",
-          "name": project,
-          "creator": {
-            "@id": "https://www.annesimonsson.se/#person"
+      // Add advanced location info if available
+      if (geo_location) {
+        jsonLd["@graph"][0]["locationCreated"] = {
+          "@type": "Place",
+          "name": geo_location,
+          "hasMap": map_url || null,
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": address_locality || "",
+            "addressRegion": address_region || "",
+            "addressCountry": address_country || ""
           }
         };
       }
 
-      // Injicera i script-taggen
+      // Add project info if available
+      if (project) {
+        jsonLd["@graph"][0]["isPartOf"] = {
+          "@type": "CreativeWorkSeries",
+          "name": project,
+          "creator": { "@id": "https://www.annesimonsson.se/#person" }
+        };
+      }
+
+      // Inject into script tag
       var $jsonLdScript = $('script[type="application/ld+json"]');
       if ($jsonLdScript.length) {
         $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));

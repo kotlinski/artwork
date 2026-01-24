@@ -98,13 +98,27 @@
             if ($img.length === 0) return;
 
             // Pull data from your SQL-backed attributes
-            var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
+            var description = $img.data('description');
             var title = $img.data('title');
             var file_id = $img.data('file-id');
             var project = $img.data('project');
             var geo_location = $img.data('geo-location');
-            var height_px = $img.data('height-px');
             var width_px = $img.data('width-px');
+            var height_px = $img.data('height-px');
+            var alternate_name = $img.data('alternate-name');
+            var artform = $img.data('artform');
+            var art_medium = $img.data('art-medium');
+            var artwork_surface = $img.data('artwork-surface');
+            var art_edition = $img.data('art-edition');
+            var height_cm = $img.data('height-cm');
+            var width_cm = $img.data('width-cm');
+            var depth_cm = $img.data('depth-cm');
+            var map_url = $img.data('map-url');
+            var address_locality = $img.data('address-locality');
+            var address_region = $img.data('address-region');
+            var address_country = $img.data('address-country');
+            var photographer_name = $img.data('photographer-name');
+
 
             // Save original canonical href
             var $canonical = $('link[rel="canonical"]');
@@ -129,7 +143,11 @@
             }
             var album_path = window.location.pathname.split('/').slice(0, 3).join('/');
             album_path = (album_path === '/') ? '' : album_path;
-            updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px)
+            updateJsonLdForImage(
+              title, description, filename, file_id, album_path, project, geo_location,
+              width_px, height_px, alternate_name, artform, art_medium, artwork_surface, art_edition,
+              height_cm, width_cm, depth_cm, map_url, address_locality, address_region, address_country, photographer_name
+            );
             document.title = newTitle;
             if (history.pushState) {
               window.history.pushState({image: slug}, newTitle, album_path + '/' + slug);
@@ -217,8 +235,22 @@
           'autoDimensions': true,
           'margin'    : 50,
           'padding'   : 10,
-          'titleShow' : false,
-          'onClosed'  : function() { $("#login_error").hide(); }
+          'arrows'    : false,
+          'openEffect': 'none',
+          'closeEffect': 'none',
+          prevEffect  : 'none',
+          nextEffect  : 'none',
+          afterShow: function(instance, current) {
+            // Use .fancybox-inner to scope to the modal content
+            $('.fancybox-inner').find('#my-custom-next-btn').unbind('click').bind('click', function(e) {
+              e.preventDefault();
+              $.fancybox.next();
+            });
+            $('.fancybox-inner').find('#my-custom-prev-btn').unbind('click').bind('click', function(e) {
+              e.preventDefault();
+              $.fancybox.next();
+            });
+          }
         });
 
         $(".popUpFormImages").fancybox({
@@ -241,7 +273,6 @@
         var imageTarget = "<?= isset($image_slug) ? addslashes($image_slug) : '' ?>";
 
         if (imageTarget) {
-          updateJsonLdFromSlug(imageTarget);
           var $targetLink = $('a.picture[href*="' + imageTarget + '"]');
           if ($targetLink.length > 0) {
             $targetLink.trigger('click');
