@@ -2,6 +2,8 @@ User-agent: *
 Disallow: /login
 Disallow: /image_admin
 Disallow: /image_admin/delete/
+Disallow: /image_admin/update/
+Disallow: /image_admin/setOrder/
 Disallow: /news/delete/
 Disallow: /news/update/
 Allow: /

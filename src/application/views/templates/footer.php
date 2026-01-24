@@ -106,6 +106,21 @@
             var height_px = $img.data('height-px');
             var width_px = $img.data('width-px');
 
+            // Save original canonical href
+            var $canonical = $('link[rel="canonical"]');
+            window.originalCanonical = $canonical.length ? $canonical.attr('href') : null;
+            window.originalDescription = $('meta[property="og:description"]').attr('content');
+            window.originalTitle = $('meta[property="og:title"]').attr('content');
+            window.originalImage = $('meta[property="og:image"]').attr('content');
+            window.originalImageWidth = $('meta[property="og:image:width"]').attr('content');
+            window.originalImageHeight = $('meta[property="og:image:height"]').attr('content');
+            $('meta[name="description"]').attr('content', description);
+            $('meta[property="og:description"]').attr('content', description);
+            $('meta[property="og:title"]').attr('content', title);
+            $('meta[property="og:image"]').attr('content', "https://www.annesimonsson.se/konst/" + filename);
+            $('meta[property="og:image:width"]').attr('content', width_px);
+            $('meta[property="og:image:height"]').attr('content', height_px);
+
             var newTitle = "";
             if (slug) {
               newTitle = title + " | Anne Hamrin Simonsson";
@@ -116,7 +131,6 @@
             album_path = (album_path === '/') ? '' : album_path;
             updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px)
             document.title = newTitle;
-            $('meta[name="description"]').attr('content', $(this.element).data('description') || $(this.element).find('img').data('title'));
             if (history.pushState) {
               window.history.pushState({image: slug}, newTitle, album_path + '/' + slug);
             }
@@ -128,6 +142,15 @@
             var dbId = $(this.element).data('id') || $(this.element).find('img').data('id');
             if (dbId) {
               $('.fancybox-image').attr('id', dbId);
+            }
+            var canonicalUrl = "https://www.annesimonsson.se/album" + album_path + "/" + slug;
+            var $canonical = $('link[rel="canonical"]');
+            if ($canonical.length) {
+              $canonical.attr('href', canonicalUrl);
+              $('meta[property="og:url"]').attr('content', canonicalUrl);
+            } else {
+              $('<link rel="canonical" href="' + canonicalUrl + '">').appendTo('head');
+              $('meta[property="og:url"]').attr('content', canonicalUrl);
             }
           },
           afterClose: function() {
@@ -148,9 +171,19 @@
               }
             }
             $('meta[name="description"]').attr('content', window.originalDescription);
+            $('meta[property="og:description"]').attr('content', window.originalDescription);
+            $('meta[property="og:title"]').attr('content', window.originalTitle);
+            $('meta[property="og:image"]').attr('content', window.originalImage);
+            $('meta[property="og:image:width"]').attr('content', window.originalImageWidth);
+            $('meta[property="og:image:height"]').attr('content', window.originalImageHeight);
             var $jsonLdScript = $('script[type="application/ld+json"]');
             if ($jsonLdScript.length && window.originalJsonLd) {
               $jsonLdScript.text(window.originalJsonLd);
+            }
+            var $canonical = $('link[rel="canonical"]');
+            if (window.originalCanonical) {
+              $canonical.attr('href', window.originalCanonical);
+              $('meta[property="og:url"]').attr('content', window.originalCanonical);
             }
           }
 
@@ -208,6 +241,7 @@
         var imageTarget = "<?= isset($image_slug) ? addslashes($image_slug) : '' ?>";
 
         if (imageTarget) {
+          updateJsonLdFromSlug(imageTarget);
           var $targetLink = $('a.picture[href*="' + imageTarget + '"]');
           if ($targetLink.length > 0) {
             $targetLink.trigger('click');
@@ -246,64 +280,6 @@
   });
 </script>
 
-<script>
-  function updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px) {
-    // Extrahera år precis som tidigare
-    var yearMatch = description?.match(/\b(19|20)\d{2}\b/);
-    var yearCreated = yearMatch ? yearMatch[0] : null;
-
-    var jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "VisualArtwork",
-      "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
-      "name": title,
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://www.annesimonsson.se/konst/original/" + filename,
-        "width": width_px,
-        "height": height_px,
-        "encodingFormat": "image/webp"
-      },
-      "dateCreated": yearCreated,
-      "description": description,
-      "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>",
-      "creator": {
-        "@type": "Person",
-        "@id": "https://www.annesimonsson.se/#artist",
-        "name": "Anne Hamrin Simonsson",
-        "sameAs": "https://www.annesimonsson.se/about"
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id
-      }
-    };
-
-    if (geo_location && geo_location.trim() !== "") {
-      jsonLd["locationCreated"] = {
-        "@type": "Place",
-        "name": geo_location
-      };
-    }
-
-    if (project && project.trim() !== "") {
-      jsonLd["isPartOf"] = {
-        "@type": "VisualArtwork",
-        "name": project,
-        "creator": {
-          "@type": "Person",
-          "name": "Anne Hamrin Simonsson"
-        }
-      };
-    }
-
-    // Injicera i script-taggen
-    var $jsonLdScript = $('script[type="application/ld+json"]');
-    if ($jsonLdScript.length) {
-      $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));
-    }
-  }
-</script>
 
 <script>
   function loadGoogleAPI() {

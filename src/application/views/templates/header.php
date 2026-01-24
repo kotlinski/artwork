@@ -1,6 +1,104 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" >
 
+<?php
+function generateEnhancedJsonLd($row, $album_path) {
+  // Vi använder nu databasens 'date_created' men faller tillbaka på regex om det saknas
+  $yearCreated = !empty($row['date_created']) ? $row['date_created'] : null;
+  if (!$yearCreated && preg_match('/\b(19|20)\d{2}\b/', $row['caption'], $matches)) {
+    $yearCreated = $matches[0];
+  }
+
+  $jsonLd = [
+    "@context" => "https://schema.org",
+    "@graph" => [
+      [
+        "@type" => "VisualArtwork",
+        "@id" => "https://www.annesimonsson.se" . $album_path . "/" . $row['file_id'] . "#artwork",
+        "name" => $row['title'],
+        "description" => $row['caption'],
+        "dateCreated" => $yearCreated,
+        "artform" => $row['artform'] ?? "Visual Artwork",
+        "artMedium" => $row['art_medium'],
+        "artworkSurface" => $row['artwork_surface'],
+        "artEdition" => $row['art_edition'],
+        "creator" => [
+          "@type" => "Person",
+          "@id" => "https://www.annesimonsson.se/#person",
+          "name" => "Anne Hamrin Simonsson",
+          "sameAs" => ["https://www.wikidata.org/wiki/Q137808007"]
+        ]
+      ],
+      [
+        "@type" => "ImageObject",
+        "@id" => "https://www.annesimonsson.se" . $album_path . "/" . $row['file_id'] . "#image",
+        "url" => "https://www.annesimonsson.se/konst/" . $row['file_name'],
+        "contentUrl" => "https://www.annesimonsson.se/konst/" . $row['file_name'],
+        "thumbnail" => "https://www.annesimonsson.se/konst/thumb/" . $row['file_name'],
+        "width" => $row['width_px'],
+        "height" => $row['height_px'],
+        "encodingFormat" => "image/webp",
+        "creator" => [
+          "@type" => "Person",
+          "name" => $row['photographer_name'] ?? "Anne Hamrin Simonsson"
+        ]
+      ]
+    ]
+  ];
+
+  // Lägg till fysiska mått om de finns
+  if (!empty($row['height_cm'])) {
+    $jsonLd["@graph"][0]["height"] = ["@type" => "Distance", "name" => $row['height_cm'] . " cm"];
+    $jsonLd["@graph"][0]["width"] = ["@type" => "Distance", "name" => $row['width_cm'] . " cm"];
+    if (!empty($row['depth_cm'])) {
+      $jsonLd["@graph"][0]["depth"] = ["@type" => "Distance", "name" => $row['depth_cm'] . " cm"];
+    }
+  }
+
+  // Avancerad platsinformation (din nya data + din hasMap/geo logik)
+  if (!empty($row['geo_location'])) {
+    $jsonLd["@graph"][0]["locationCreated"] = [
+      "@type" => "Place",
+      "name" => $row['geo_location'],
+      "hasMap" => $row['map_url'] ?? null,
+      "address" => [
+        "@type" => "PostalAddress",
+        "addressLocality" => $row['address_locality'],
+        "addressRegion" => $row['address_region'],
+        "addressCountry" => $row['address_country']
+      ]
+    ];
+  }
+
+  // Koppling till projekt
+  if (!empty($row['project'])) {
+    $jsonLd["@graph"][0]["isPartOf"] = [
+      "@type" => "CreativeWorkSeries",
+      "name" => $row['project'],
+      "creator" => ["@id" => "https://www.annesimonsson.se/#person"]
+    ];
+  }
+
+  return json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+?>
+
+<?php
+$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$parts = explode('/', $uri);
+if (count($parts) === 3 && $parts[0] === 'album' && in_array($parts[1], ['installations', 'paintings', 'objects'])) {
+    $category = $parts[1];
+    $file_id = $parts[2];
+    $image = null;
+    foreach ($images as $img) {
+      if ($img->file_id == $file_id) {
+        $image = $img;
+        break;
+      }
+    }
+}
+?>
+
 <head>
   <meta charset="utf-8">
   <?php
@@ -24,54 +122,70 @@
     case 'objects':
     case 'installations':
     case 'paintings':
-      $slug = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+      $ldslug = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
       // album/installations
-      $json = get_ld_json($page_title);
+      $ldjson = get_ld_json($page_title);
       break;
     case 'startpage':
     case 'about':
     case 'contact':
     case 'news':
-      $json = get_ld_json($page_title);
+      $ldjson = get_ld_json($page_title);
       break;
     default:
-      $json = get_ld_json('default');
+      $ldjson = get_ld_json('default');
       break;
   }
   ?>
-  <?php if (isset($json) && $json): ?>
-    <script type="application/ld+json">
-      <?= $json ?>
-    </script>
-  <?php endif; ?>
 
   <?php
   switch (strtolower($title)) {
     case 'news':
       $page_title = 'News | Anne Hamrin Simonsson';
       $page_description = 'Keep up with Anne Hamrin Simonsson’s latest news, from Swedish Arts Grants Committee awards to current exhibitions at Kalmar Konstmuseum and more.';
+      $og_image = "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-liv-no-8-performance.webp";
+      $og_image_width = "2971";
+      $og_image_height = "1964";
       break;
     case 'about':
       $page_title = 'About | Anne Hamrin Simonsson';
       $page_description = 'Biography and artist statement of Anne Hamrin Simonsson, a Swedish conceptual artist based on Öland, known for her site-specific installations and objects.';
+      $og_image = "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg";
+      $og_image_width = "320";
+      $og_image_height = "320";
       break;
     case 'contact':
       $page_title = 'Contact | Anne Hamrin Simonsson';
       $page_description = 'Get in touch with Anne Hamrin Simonsson for inquiries, collaborations, or information regarding her conceptual art installations and paintings in Sweden.';
+      $og_image = "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg";
+      $og_image_width = "320";
+      $og_image_height = "320";
       break;
     case 'installations':
       $page_title = 'Installations | Anne Hamrin Simonsson';
       $page_description = 'Discover conceptual installation art by Anne Hamrin Simonsson. Explore site-specific works like Under_Liv at Kalmar Konstmuseum and Avfällningar at Undantaget.';
+      $og_image = "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta.webp";
+      $og_image_width = "5472";
+      $og_image_height = "3648";
       break;
     case 'objects':
       $page_title = 'Objects | Anne Hamrin Simonsson';
       $page_description = 'View contemporary objects and sculptures by Anne Hamrin Simonsson. Unique conceptual art created with precision using diverse materials and techniques.';
+      $og_image = "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-bacteria-fly.webp";
+      $og_image_width = "2592";
+      $og_image_height = "1944";
       break;
     case 'paintings':
       $page_title = 'Paintings | Anne Hamrin Simonsson';
       $page_description = 'Browse acrylic and oil paintings on masonite by Anne Hamrin Simonsson. Conceptual works inspired by the landscape of Öland and the themes of life and growth.';
+      $og_image = "https://www.annesimonsson.se/album/paintings/sparris-no-2";
+      $og_image_width = "2648";
+      $og_image_height = "2640";
       break;
     default:
+      $og_image = "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-rotvalta.webp";
+      $og_image_width = "5472";
+      $og_image_height = "3648";
       $page_title = empty($title)
         ? 'Anne Hamrin Simonsson – Swedish Conceptual Artist, Paintings, Installations'
         : 'Anne Hamrin Simonsson';
@@ -82,22 +196,42 @@
       }
       break;
   }
+  if (isset($image) && !is_null($image) && $title !== "Startpage") {
+    $page_title = $image->title . " | Anne Hamrin Simonsson";
+    $page_description = $image->caption;
+    $og_image = "https://www.annesimonsson.se/konst/" . $image->file_name;
+    $og_image_width = $image->width_px;
+    $og_image_height = $image->height_px;
+    $ldjson = generateEnhancedJsonLd(
+      (array)$image,
+      $album_path ?? ''
+    );
+  }
   ?>
+  
   <title><?= $page_title ?></title>
   <meta name="description" content="<?= $page_description ?>">
   <meta name="format-detection" content="telephone=no, date=no">
-  <meta property="og:title" content="Anne Hamrin Simonsson - Artwork">
+  <meta property="og:title" content="<?= $page_title ?>">
   <meta property="og:description"
-        content="Official website of Swedish artist Anne Hamrin Simonsson. View artwork, news, and contact information.">
+        content="<?= $page_description ?>">
   <meta property="og:image"
-        content="https://www.annesimonsson.se/konst/medium/anne-hamrin-simonsson-konstverk-smalandstrienalen-rotvalta.jpg">
-  <meta property="og:url" content="https://www.annesimonsson.se/">
+        content="<?= $og_image ?>">
+  <meta property="og:image:width" content="<?= $og_image_width ?>">
+  <meta property="og:image:height" content="<?= $og_image_height ?>">
+
+  <meta property="og:url" content="https://www.annesimonsson.se<?= $_SERVER['REQUEST_URI'] ?>">
+  <link rel="canonical" href="https://www.annesimonsson.se<?= $_SERVER['REQUEST_URI'] ?>"/>
+  <?php if (isset($ldjson) && $ldjson): ?>
+    <script type="application/ld+json">
+      <?= $ldjson ?>
+    </script>
+  <?php endif; ?>
 
   <meta name="author" content="The website is made by Simon Kotlinski">
   <meta name="robots" content="index,follow">
 
 
-  <link rel="canonical" href="https://www.annesimonsson.se<?= $_SERVER['REQUEST_URI'] ?>"/>
 
   <!-- Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -139,6 +273,86 @@
     gtag('config', 'G-Q81HEN1V5E');
   </script>
 
+  <script>
+    function updateJsonLdFromSlug(slug) {
+      var $imgLink = $('a.picture[href*="' + slug + '"]');
+      var $img = $imgLink.find('img');
+      if ($img.length === 0) return;
+
+      // Pull data from your SQL-backed attributes
+      var description = $img.data('description'); // e.g., "Lök no 2 acrylic on masonite 1x1m 2009"
+      var title = $img.data('title');
+      var file_id = $img.data('file-id');
+      var project = $img.data('project');
+      var geo_location = $img.data('geo-location');
+      var height_px = $img.data('height-px');
+      var width_px = $img.data('width-px');
+      var filename = $img.data('filename');
+      var album_path = window.location.pathname.split('/').slice(0, 3).join('/');
+
+      updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px);
+    }
+    function updateJsonLdForImage(title, description, filename, file_id, album_path, project, geo_location, width_px, height_px) {
+      // Extrahera år precis som tidigare
+      var yearMatch = description?.match(/\b(19|20)\d{2}\b/);
+      var yearCreated = yearMatch ? yearMatch[0] : null;
+
+      var jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "VisualArtwork",
+        "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id + "#artwork",
+        "name": title,
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.annesimonsson.se/konst/" + filename,
+          "contentUrl": "https://www.annesimonsson.se/konst/" + filename,
+          "thumbnail": "https://www.annesimonsson.se/konst/thumb/" + filename,
+          "width": width_px,
+          "height": height_px,
+          "encodingFormat": "image/webp"
+        },
+        "dateCreated": yearCreated,
+        "description": description,
+        "artform": "<?php echo ucfirst(rtrim($title, 's')); ?>",
+        "creator": {
+          "@type": "Person",
+          "@id": "https://www.annesimonsson.se/#person",
+          "name": "Anne Hamrin Simonsson",
+          "url": "https://www.annesimonsson.se/about",
+          "sameAs": [
+            "https://www.wikidata.org/wiki/Q137808007"
+          ]
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://www.annesimonsson.se" + album_path + "/" + file_id
+        }
+      };
+
+      if (geo_location && geo_location.trim() !== "") {
+        jsonLd["locationCreated"] = {
+          "@type": "Place",
+          "name": geo_location
+        };
+      }
+
+      if (project && project.trim() !== "") {
+        jsonLd["isPartOf"] = {
+          "@type": "VisualArtwork",
+          "name": project,
+          "creator": {
+            "@id": "https://www.annesimonsson.se/#person"
+          }
+        };
+      }
+
+      // Injicera i script-taggen
+      var $jsonLdScript = $('script[type="application/ld+json"]');
+      if ($jsonLdScript.length) {
+        $jsonLdScript.text(JSON.stringify(jsonLd, null, 2));
+      }
+    }
+  </script>
 </head>
 
 <body>

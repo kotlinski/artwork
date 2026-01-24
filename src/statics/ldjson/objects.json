@@ -2,6 +2,21 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "ImageGallery",
+      "@id": "https://www.annesimonsson.se/album/objects#gallery",
+      "name": "Sculptures and Objects Archive - Anne Hamrin Simonsson",
+      "description": "A comprehensive gallery featuring sculptures and mixed media objects by Anne Hamrin Simonsson.",
+      "url": "https://www.annesimonsson.se/album/objects",
+      "creator": { "@id": "https://www.annesimonsson.se/#person" },
+      "about": [
+        { "@id": "https://www.annesimonsson.se/album/objects/under-liv-radjur#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/objects/under-liv-kokong#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/objects/embryo-sphere-2#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/objects/bacteria-fly#artwork" },
+        { "@id": "https://www.annesimonsson.se/album/objects/traktor-no-2-gras#artwork" }
+      ]
+    },
+    {
       "@type": "CollectionPage",
       "@id": "https://www.annesimonsson.se/album/objects",
       "name": "Sculptures and Objects by Anne Hamrin Simonsson",
@@ -15,41 +30,9 @@
             "position": 1,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/objects/under-liv-radjur",
-              "name": "Under_Liv (White Deer)",
-              "artform": "Sculpture",
-              "artMedium": "Mixed Media",
-              "dateCreated": "2023",
-              "description": "A mixed media sculpture of a white deer, exhibited as part of the Under_Liv installation.",
-              "creator": {
-                "@id": "https://www.annesimonsson.se/#person"
-              },
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Kalmar Konstmuseum",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Kalmar",
-                  "addressCountry": "SE"
-                }
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-radjur.webp",
-                "width": 5472,
-                "height": 3648,
-                "creditText": "Photo: Kalmar Konstmuseum",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@type": "Organization",
-                  "name": "Kalmar Konstmuseum"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": {
-                  "@id": "https://www.annesimonsson.se/#person"
-                }
-              }
+              "@id": "https://www.annesimonsson.se/album/objects/under-liv-radjur#artwork",
+              "name": "Part of Under_Liv",
+              "url": "https://www.annesimonsson.se/album/objects/under-liv-radjur"
             }
           },
           {
@@ -57,41 +40,9 @@
             "position": 2,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/objects/under-liv-kokong",
-              "name": "Under_Liv (Cocoon)",
-              "artform": "Sculpture",
-              "artMedium": "Mixed Media",
-              "artworkSurface": "Organic Forms",
-              "dateCreated": "2023",
-              "description": "A sculptural cocoon form, exploring themes of hidden life and metamorphosis.",
-              "creator": {
-                "@id": "https://www.annesimonsson.se/#person"
-              },
-              "locationCreated": {
-                "@type": "Place",
-                "name": "Kalmar Konstmuseum",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Kalmar",
-                  "addressCountry": "SE"
-                }
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-under-liv-kokong.webp",
-                "width": 3472,
-                "height": 4640,
-                "creditText": "Photo: Anne Hamrin Simonsson",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@id": "https://www.annesimonsson.se/#person"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": {
-                  "@id": "https://www.annesimonsson.se/#person"
-                }
-              }
+              "@id": "https://www.annesimonsson.se/album/objects/under-liv-kokong#artwork",
+              "name": "Part of Under_Liv",
+              "url": "https://www.annesimonsson.se/album/objects/under-liv-kokong"
             }
           },
           {
@@ -99,32 +50,29 @@
             "position": 3,
             "item": {
               "@type": "VisualArtwork",
-              "@id": "https://www.annesimonsson.se/album/objects/embryo-spheare-2",
-              "name": "Embryo (Dandelion Moon)",
-              "artform": "Sculpture",
-              "artMedium": "Silicon and Threads",
-              "artworkSurface": "Textile",
-              "dateCreated": "2020",
-              "description": "A delicate sculpture created from silicon and threads, resembling a dandelion moon.",
-              "creator": {
-                "@id": "https://www.annesimonsson.se/#person"
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": "https://www.annesimonsson.se/konst/anne-hamrin-simonsson-embryo-spheare-2.webp",
-                "width": 3840,
-                "height": 2160,
-                "creditText": "Photo: Anne Hamrin Simonsson",
-                "license": "https://www.annesimonsson.se/license",
-                "acquireLicensePage": "https://www.annesimonsson.se/contact",
-                "creator": {
-                  "@id": "https://www.annesimonsson.se/#person"
-                },
-                "copyrightNotice": "© Anne Hamrin Simonsson",
-                "copyrightHolder": {
-                  "@id": "https://www.annesimonsson.se/#person"
-                }
-              }
+              "@id": "https://www.annesimonsson.se/album/objects/embryo-sphere-2#artwork",
+              "name": "Embryo",
+              "url": "https://www.annesimonsson.se/album/objects/embryo-sphere-2"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/objects/bacteria-fly#artwork",
+              "name": "Bacteria",
+              "url": "https://www.annesimonsson.se/album/objects/bacteria-fly"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "VisualArtwork",
+              "@id": "https://www.annesimonsson.se/album/objects/traktor-no-2-gras#artwork",
+              "name": "Röd traktor no 2",
+              "url": "https://www.annesimonsson.se/album/objects/traktor-no-2-gras"
             }
           }
         ]
@@ -137,12 +85,9 @@
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se",
+      "url": "https://www.annesimonsson.se/about",
       "sameAs": [
-        "https://www.instagram.com/ahamrinsimonsson/",
-        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
-        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
-        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/"
+        "https://www.wikidata.org/wiki/Q137808007"
       ]
     },
     {
