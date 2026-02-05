@@ -1,0 +1,167 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+    color: #767676;
+    font-family: "Courier New", sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.content {
+    position: relative;
+    left: 0;
+    width: max-content;
+    max-width: none;
+    display: block;
+    padding-bottom: 40px;
+}
+
+@media (max-width: 600px) {
+    .content {
+        /* Force the container to ignore parent padding and hit screen edges */
+        width: 100vw !important;
+        margin-left: -10px !important; /* Match this to your body/parent padding */
+        margin-right: -10px !important; /* Match this to your body/parent padding */
+
+        /* Keep these from before */
+        max-width: none !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        display: block !important;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;     /* Firefox */
+
+        /* Add internal padding so the text doesn't look 'stuck' to the glass */
+        box-sizing: border-box;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .content::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.content .contained,
+.content .contained p {
+    white-space: normal !important;
+    width: auto !important;
+    max-width: 380px !important;
+}
+
+textarea {
+    font-family: "Courier New", sans-serif;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+img, table, div {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    font-size: inherit;
+    display: inline-block;
+    margin: 0;
+}
+
+h1 {
+    color: #000;
+}
+
+h2 {
+    color: #333;
+}
+
+h3 {
+    color: #555;
+}
+
+p {
+    margin: 0 0 10px 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: nowrap !important;
+    width: max-content !important;
+}
+
+button, input[type="button"], input[type="submit"], input[type="file"] {
+    padding: 4px 18px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+hr {
+    height: 1px;
+    color: #767676;
+    background-color: #767676;
+    border: 0;
+}
+
+hr.light {
+    color: #ccc;
+    background-color: #ccc;
+}
+
+a {
+    color: #767676;
+    transition: color 0.3s ease;
+    line-height: 1.4;
+}
+
+a:hover {
+    color: #333;
+}
+
+@media (pointer: coarse) {
+    a {
+        margin: 3px 0;
+        display: inline-block;
+    }
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+.social-icon:hover {
+    color: #333;
+}

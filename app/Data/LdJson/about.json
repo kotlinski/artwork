@@ -1,0 +1,213 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://www.annesimonsson.se/about",
+      "name": "About Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se/about",
+      "description": "Biography, CV, and artist statement of Anne Hamrin Simonsson.",
+      "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
+      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.annesimonsson.se/#person",
+      "name": "Anne Hamrin Simonsson",
+      "alternateName": "Anne Simonsson",
+      "url": "https://www.annesimonsson.se/about",
+      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "birthDate": "1967-10-11",
+      "email": "annehsimonsson@gmail.com",
+      "telephone": "+46-73-9677447",
+      "description": "I work with conceptual art in different techniques and materials; it´s the idea which decides how the presentation will be. I find it most interesting working with installations placed on unexpected public areas. Whatever technique characterises my work of time consuming precision and consists of several dimensions with strong feeling for colour, form and material. I have for many years been investigating the theme of 'LIFE'.",
+      "disambiguatingDescription": "Svensk konceptuell konstnär baserad i Färjestaden, känd för installationer och platsspecifika verk.",
+      "jobTitle": [
+        "Konstnär",
+        "Conceptual Artist",
+        "Visual Artist",
+        "Installation Artist"
+      ],
+      "hasOccupation": [
+        { "@type": "Occupation", "name": "Konstnär" },
+        { "@type": "Occupation", "name": "Conceptual Artist" },
+        { "@type": "Occupation", "name": "Visual Artist" }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Färjestaden",
+        "addressRegion": "Kalmar län",
+        "addressCountry": "SE"
+      },
+      "alumniOf": [
+        { "@type": "EducationalOrganization", "name": "Stockholm University", "sameAs": "https://www.su.se/", "description": "Art Science (1993)" },
+        { "@type": "EducationalOrganization", "name": "Ölands Konstskola", "description": "1988-90, 1986-87" },
+        { "@type": "EducationalOrganization", "name": "KV Konstskola", "description": "1987-88" }
+      ],
+      "award": [
+        "Ölandsklubben (2025)",
+        "Smålandstriennalen / Konstfrämjandet Småland (2024)",
+        "Ölandsklubben (2023)",
+        "Konstnärsnämnden (2022)",
+        "Konstnärsnämnden (2021)",
+        "Region Kalmar län (2021)",
+        "Konstnärsnämnden (2020)",
+        "Familjen Kamprads stiftelse Experimentellt kulturarv (2016-18)",
+        "Ölandsklubben (2017)",
+        "Svenska kyrkan (2011)",
+        "EU växtkraft mål 4 Kilen (1997-98)"
+      ],
+      "knowsAbout": [
+        { "@type": "Thing", "name": "Experimental Heritage" },
+        { "@type": "Thing", "name": "Site-specific Installation" },
+        { "@type": "Thing", "name": "Conceptual Art" }
+      ],
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q137808007",
+        "https://www.instagram.com/ahamrinsimonsson/",
+        "https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/",
+        "https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/",
+        "https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson",
+        "https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/"
+      ],
+      "subjectOf": [
+        {
+          "@type": "CreativeWork",
+          "name": "Med örat mot marken och blicken utåt (Katalog)",
+          "publisher": { "@type": "Organization", "name": "Kalmar Konstmuseum" },
+          "url": "https://www.kalmarkonstmuseum.se/wp-content/uploads/2023/05/orat-mot-marken-och-blicken-utat--anne-hamrin-simonsson.pdf",
+          "encodingFormat": "application/pdf"
+        },
+        {
+          "@type": "NewsArticle",
+          "author": { "@type": "Person", "name": "Lina Watanen", "url": "https://www.klt.nu/skribent/e633dc2a-3579-4ca1-a260-1db3c5690830" },
+          "datePublished": "2024-09-19T08:22:00+02:00",
+          "image": "https://static.bonniernews.se/ba/c650bf6e-f721-58f6-8898-cb3f4d431aaf.jpeg?width=2500&format=pjpg&auto=avif",
+          "headline": "Ett nära samarbete men ändå enskilt resultat",
+          "publisher": { "@type": "Organization", "name": "Kalmar läns Tidning" },
+          "url": "https://www.klt.nu/2024-09-19/ett-nara-samarbete-men-anda-enskilt-resultat/"
+        },
+        {
+          "@type": "NewsArticle",
+          "author": { "@type": "Person", "name": "Gunilla Petri", "url": "https://www.barometern.se/skribent/28fec66e-f2e9-42ff-91c6-2203e1cdd116" },
+          "datePublished": "2024-08-27T18:02:00+02:00",
+          "image": "https://static.bonniernews.se/ba/c1319449-7944-5e85-8de2-7c1bae9a0629.jpeg",
+          "headline": "Glöm sterila utställningsrum – här ställer konstnärerna ut i en gammal gård",
+          "publisher": { "@type": "Organization", "name": "Barometern" },
+          "url": "https://www.barometern.se/artikel/glom-sterila-utstallningsrum-har-staller-konstnarerna-ut-i-en-gammal-gard/"
+        },
+        {
+          "@type": "NewsArticle",
+          "author": { "@type": "Person", "name": "Leif Johansson", "url":  "https://www.sverigesradio.se/artikel/leif-johansson" },
+          "datePublished": "2017-03-21T11:23:00+01:00",
+          "image": "https://static-cdn.sr.se/images/86/10dba2c6-15b3-4572-9c78-5d5b3443bdc9.jpg?preset=1024x576&format=webp",
+          "headline": "Tre bokstäver ska ge Öland liv",
+          "publisher": { "@type": "Organization", "name": "Sveriges Radio" },
+          "url": "https://www.sverigesradio.se/artikel/6656424"
+        },
+        { "@type": "CreativeWork", "name": "Experimental Heritage as Practice" },
+        { "@type": "CreativeWork", "name": "Internet Archaeology 55 Petersson, Bodil et al. 2020" },
+        { "@type": "CreativeWork", "name": "Öland 2050 Linnéuniversitetets Unescoprofessur i Heritage" },
+        { "@type": "CreativeWork", "name": "Futures Cornelius Holtorf, Gustav Wollentz, Daniel Lindskog och Mörbylånga kommun Emma Rydnér 2020" },
+        { "@type": "CreativeWork", "name": "Policy och riktlinjer för offentlig konst Kalmar län" },
+        { "@type": "CreativeWork", "name": "Kon: Samtidskonst och kulturarv på landsbygden redaktör Joanna Sandell Kalmar konstmuseum 2018" },
+        { "@type": "CreativeWork", "name": "Sveriges Radio Kalmar Peter Bressler 7/12 2017" },
+        { "@type": "CreativeWork", "name": "Ölandsjournalen Walle Dickson nr.5 nov 2017" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 23/8 2017" },
+        { "@type": "CreativeWork", "name": "Kalmarposten Isabel Mena-Berlin 19/7 2017" },
+        { "@type": "CreativeWork", "name": "Östra Småland Karin Asmundsson 30/6 2017" },
+        { "@type": "CreativeWork", "name": "Barometern Mikael Hagner 26/6 2017" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Anders Marell 23/6 2017" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Anders Marell 13/6 2017" },
+        { "@type": "CreativeWork", "name": "Ölandsjournalen Walle Dickson nr.2 juni 2017" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Malin Edeborg 8/4 2017" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Natalia Johansson 25/3 2017" },
+        { "@type": "CreativeWork", "name": "Barometern/Östra Småland Sofia Hedman 24/3 2017" },
+        { "@type": "CreativeWork", "name": "Sveriges Radio Kalmar Peter Bressler 21/3 2017" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 9/5 2014" },
+        { "@type": "CreativeWork", "name": "Örebro OpenART catalogue 2011" },
+        { "@type": "CreativeWork", "name": "YouTube 11/7 2011" },
+        { "@type": "CreativeWork", "name": "Barometern Anna Hedelius 24/6 2011" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet 23/6 2011" },
+        { "@type": "CreativeWork", "name": "Kalmarposten 16/6 2011" },
+        { "@type": "CreativeWork", "name": "Knytpunkt Örebro 12/6 2011" },
+        { "@type": "CreativeWork", "name": "Barometern 10/6 2011" },
+        { "@type": "CreativeWork", "name": "Östra Småland Karin Asmundsson 8/6 2011" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Kenth Jönsson 7/6 2011" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Erich Scwandt 28/11 2009" },
+        { "@type": "CreativeWork", "name": "Östra Småland Rolf Ljung 2/10 2009" },
+        { "@type": "CreativeWork", "name": "Barometern Mikael Hagner oct 2009" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Erich Schwandt oct 2009" },
+        { "@type": "CreativeWork", "name": "Östra Småland Rolf Ljung 1/12 2007" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet 24/11 2007" },
+        { "@type": "CreativeWork", "name": "Sydöstran Margareta Andersson 17/11 2007" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 17/11 2007" },
+        { "@type": "CreativeWork", "name": "Östra Småland 17/11 2007" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 25/11 2006" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Erich Schwandt 25/11 2006" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Ragnhild Oxhagen 17/10 2006" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 14/10 2006" },
+        { "@type": "CreativeWork", "name": "Sydöstran Margareta Andersson 28/1 2006" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Tore Simonsson 28/1 2006" },
+        { "@type": "CreativeWork", "name": "Östra Småland Rolf Ljung 28/1 2006" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 24/11 2005" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 29/9 2001" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 4/12 2000" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Ragnhild Oxhagen 12/5 1998" },
+        { "@type": "CreativeWork", "name": "Östra Småland Gun Nilsson 6/4 1998" },
+        { "@type": "CreativeWork", "name": "SVT Sydsvenska journalen Mattias Robertsson rec. 5/2 1997" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 7/12 1996" },
+        { "@type": "CreativeWork", "name": "Ölandsbladet Sylvia Augustinsson 20/7 1996" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 20/7 1996" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 30/8 1993" },
+        { "@type": "CreativeWork", "name": "Barometern Gunilla Petri 16/2 1989" }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.annesimonsson.se/#website",
+      "url": "https://www.annesimonsson.se/",
+      "name": "Anne Hamrin Simonsson",
+      "publisher": { "@id": "https://www.annesimonsson.se/#person" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.annesimonsson.se/about#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.annesimonsson.se/about" }
+      ]
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://www.annesimonsson.se/#navigation",
+      "name": "Main Navigation",
+      "hasPart": [
+        { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
+        { "@type": "WebPage", "name": "Installations", "url": "https://www.annesimonsson.se/album/installations" },
+        { "@type": "WebPage", "name": "Objects", "url": "https://www.annesimonsson.se/album/objects" },
+        { "@type": "WebPage", "name": "Paintings", "url": "https://www.annesimonsson.se/album/paintings" },
+        { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
+        { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
+      ]
+    },
+    {
+      "@type": "VisualArtwork",
+      "@id": "https://www.annesimonsson.se/album/installations/liv-no-8#artwork",
+      "name": "LIV no 8",
+      "creator": { "@id": "https://www.annesimonsson.se/#person" },
+      "locationCreated": {
+        "@type": "Place",
+        "name": "LIV no 8 Position",
+        "hasMap": "https://maps.app.goo.gl/eJzcgNMny4rWkv277",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Algutsrum",
+          "addressRegion": "Kalmar län",
+          "addressCountry": "SE"
+        }
+      }
+    }
+  ]
+}
