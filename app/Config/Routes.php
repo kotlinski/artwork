@@ -21,3 +21,14 @@ $routes->post('contact/update', 'Contact::update', ['filter' => 'auth']);
 $routes->get('about', 'About::index');
 $routes->post('about/update', 'About::update', ['filter' => 'auth']);
 
+$routes->get('artwork', 'Artwork::index');
+$routes->group('artwork', ['filter' => 'auth'], function ($routes) {
+  $routes->get('admin', 'Artwork::admin');
+  $routes->post('store', 'Artwork::store');
+  $routes->get('edit/(:num)', 'Artwork::edit/$1');
+  $routes->post('update/(:num)', 'Artwork::update/$1');
+  $routes->get('delete/(:num)', 'Artwork::delete/$1');
+  $routes->get('move-up/(:num)', 'Artwork::moveUp/$1');
+  $routes->get('move-down/(:num)', 'Artwork::moveDown/$1');
+});
+

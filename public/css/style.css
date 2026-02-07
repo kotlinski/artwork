@@ -42,6 +42,7 @@ body {
     max-width: none;
     display: block;
     padding-bottom: 40px;
+    min-width: 100%;
 }
 
 @media (max-width: 600px) {
@@ -67,6 +68,9 @@ body {
     }
     .content::-webkit-scrollbar {
         display: none;
+    }
+    .content p {
+        padding-right: 10px;
     }
 }
 
@@ -141,17 +145,12 @@ a {
     color: #767676;
     transition: color 0.3s ease;
     line-height: 1.4;
+    margin: 1px 0 3px 0;
+    display: inline-block;
 }
 
 a:hover {
     color: #333;
-}
-
-@media (pointer: coarse) {
-    a {
-        margin: 3px 0;
-        display: inline-block;
-    }
 }
 
 .social-links {
@@ -164,4 +163,18 @@ a:hover {
 
 .social-icon:hover {
     color: #333;
+}
+
+/* Center login form horizontally only */
+.login-horizontal-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.login-horizontal-center form {
+    max-width: 300px;
+    width: 100%;
 }

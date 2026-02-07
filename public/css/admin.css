@@ -30,6 +30,10 @@ textarea.admin-editor {
     padding: 10px;
     box-sizing: border-box;
     resize: vertical;
+    background: linear-gradient(to right, #fff 0px, #fff 380px, #f2f2f2 380px, #f2f2f2 100%);
+    /* Optional: add a subtle border at 380px */
+    border-right: 1px solid #ccc;
+    background-clip: padding-box;
 }
 
 .admin-editor h2 { margin-top: 0; }
@@ -53,4 +57,117 @@ textarea.admin-editor {
 .md-toolbar button {
     padding: 4px 8px;
     cursor: pointer;
+}
+
+/* Manage Projects Section */
+.manage-projects {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.manage-projects > form {
+    display: flex;
+    justify-content: center;
+    margin: 2px 0;
+}
+
+.new-project-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto 0;
+    max-width: 300px;
+}
+
+.new-project-form > div {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.new-project-form label {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.new-project-form input[type="text"] {
+    width: 100%;
+    padding: 2px;
+    border: 1px solid #333;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.new-project-form .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.manage-projects table.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.manage-projects table.projects-table th,
+.manage-projects table.projects-table td {
+    padding: 2px 4px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.manage-projects table.projects-table th {
+    background: #f5f5f5;
+}
+
+/* Restrict the projects table width and allow horizontal scroll if needed */
+.projects-table-wrapper {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+.projects-table {
+    width: 400px;
+    table-layout: auto;
+}
+
+/* Order controls */
+.order-controls {
+    white-space: nowrap;
+}
+
+.order-btn {
+    display: inline-block;
+    padding: 2px 4px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+.order-btn:hover {
+    background: #eee;
+}
+
+.order-btn.disabled {
+    color: #ccc;
+    cursor: default;
+}
+
+.order-btn.disabled:hover {
+    background: transparent;
+}
+
+/* Delete link styling */
+.delete-link {
+    color: #c00;
+    text-decoration: none;
+}
+
+.delete-link:hover {
+    color: #900;
+    text-decoration: underline;
 }
