@@ -10,7 +10,9 @@ $title = $title ?? 'Edit Content (Markdown)';
 $editorId = $editorId ?? 'md-editor-' . uniqid();
 ?>
 <section class="admin-editor">
-  <h2><?= esc($title) ?></h2>
+  <div class='contained'>
+    <h2><?= esc($title) ?></h2>
+  </div>
   <form action="<?= $formAction ?>" method="post">
     <input type="hidden" name="id" value="<?= esc($id) ?>">
     <div class="md-toolbar">
@@ -23,10 +25,16 @@ $editorId = $editorId ?? 'md-editor-' . uniqid();
       <button type="button" onclick="mdInsert('<?= $editorId ?>', '  \n')" title="Line Break">↵</button>
       <button type="button" onclick="mdWrap('<?= $editorId ?>', '`', '`')" title="Code">&lt;/&gt;</button>
     </div>
-    <textarea id="<?= $editorId ?>" name="<?= esc($fieldName) ?>" class="admin-editor"><?= esc($fieldValue) ?></textarea>
-    <div>💡 Tip: "↵" adds a soft line break (2 spaces + enter). Use a blank line for a new paragraph.</div>
-    <div class="form-actions">
-      <button type="submit">Save</button>
+    <textarea id="<?= $editorId ?>" name="<?= esc($fieldName) ?>"
+              class="admin-editor"><?= esc($fieldValue) ?></textarea>
+    <div class='contained'>
+      <div>💡 Tip: "↵" adds a "soft line break"</div>
+      <div>Soft line break: 2 spaces + new line</div>
+      <div>New Paragraph: Use a blank line</div>
+      <div style='margin-top:3px'>To add a link: Type the text you want to display in [square brackets], then immediately after, put the web address in (parentheses).<br>Example: <code>[My Website](https://www.annesimonsson.se)</code></div>
+      <div class="form-actions">
+        <button type="submit">Save</button>
+      </div>
     </div>
   </form>
 </section>

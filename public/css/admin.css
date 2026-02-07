@@ -13,31 +13,35 @@ section.admin-editor {
     padding: 15px;
     border: 1px dashed #ccc;
     margin-bottom: 30px;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     text-align: center;
-    width: 840px;
-    position: relative;
-    left: 50%;
-    margin-left: -420px;
+    margin-left: -28px;
     box-sizing: border-box;
 }
 
 textarea.admin-editor {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    height: 220px;
+    width: 800px;
+    min-width: 400px;
+    max-width: 840px;
+    height: 320px;
     padding: 10px;
     box-sizing: border-box;
-    resize: vertical;
-    background: linear-gradient(to right, #fff 0px, #fff 380px, #f2f2f2 380px, #f2f2f2 100%);
-    /* Optional: add a subtle border at 380px */
+    resize: both;
+    background: linear-gradient(to right, #fff 0px, #fff 390px, #fff2f2 380px, #f2f2f2 100%);
     border-right: 1px solid #ccc;
     background-clip: padding-box;
 }
 
-.admin-editor h2 { margin-top: 0; }
-.admin-editor form { text-align: left; }
+.admin-editor h2 {
+    margin-top: 0;
+}
+
+.admin-editor form {
+    text-align: left;
+}
+
 .admin-editor .form-actions {
     margin-top: 10px;
     display: flex;
@@ -170,4 +174,23 @@ textarea.admin-editor {
 .delete-link:hover {
     color: #900;
     text-decoration: underline;
+}
+
+/* Responsive markdown editor for smartphones */
+@media (max-width: 600px) {
+    section.admin-editor {
+        min-width: 100vw;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    textarea.admin-editor {
+        min-width: 100%;
+        width: 100%;
+        height: 220px;
+    }
+
+    .md-toolbar {
+        width: 100%;
+    }
 }
