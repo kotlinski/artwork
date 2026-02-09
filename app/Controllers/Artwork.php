@@ -16,7 +16,6 @@ class Artwork extends BaseController
   public function index()
   {
     $data['projects'] = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
-    
     $required = [
       'title' => 'Artwork | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
@@ -25,16 +24,14 @@ class Artwork extends BaseController
       'og_image_width' => '320',
       'og_image_height' => '320',
     ];
-    
-    return $this->renderView('artwork_view', $required, $data);
+    return $this->renderView('artwork/artwork_view', $required, $data);
   }
-  
+
   public function admin()
   {
     $data['projects'] = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
     $data['title'] = 'Artwork Admin';
-
-    return $this->renderNonPublicView('artwork_admin', $data);
+    return $this->renderNonPublicView('artwork/artwork_admin', $data);
   }
   
   public function store()
@@ -82,7 +79,7 @@ class Artwork extends BaseController
       return redirect()->to('/artwork')->with('error', 'Project not found.');
     }
     
-    return $this->renderNonPublicView('artwork_form', ['project' => $project, 'title' => 'Edit Project']);
+    return $this->renderNonPublicView('artwork/artwork_form', ['project' => $project, 'title' => 'Edit Project']);
   }
   
   public function update($id)

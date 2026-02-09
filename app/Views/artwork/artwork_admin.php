@@ -1,3 +1,6 @@
+<?= $this->extend('layouts/main') ?>
+<?= $this->section('content') ?>
+
 <div class="manage-projects contained">
   <h2>Manage Projects</h2>
 
@@ -71,4 +74,7 @@
       </form>
     </div>
   </div>
+  <hr class='light'
 </div>
+
+<?= $this->endSection() ?>

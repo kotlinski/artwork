@@ -34,6 +34,7 @@
 </head>
 <body>
 
+<?php if (!isset($hide_main_header) || !$hide_main_header): ?>
 <header class="main-header">
   <div class="site-branding">ANNE HAMRIN SIMONSSON</div>
   <nav class="main-nav">
@@ -44,6 +45,7 @@
     <?php endforeach; ?>
   </nav>
 </header>
+<?php endif; ?>
 
 
 <main class="content">

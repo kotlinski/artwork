@@ -32,3 +32,10 @@ $routes->group('artwork', ['filter' => 'auth'], function ($routes) {
   $routes->get('move-down/(:num)', 'Artwork::moveDown/$1');
 });
 
+$routes->group('image', ['filter' => 'auth'], function ($routes) {
+    $routes->get('admin', 'ImageAdmin::admin');
+    $routes->post('update/(:num)', 'ImageAdmin::update/$1');
+});
+
+$routes->get('(:segment)/(:segment)', 'Project::imageDetail/$1/$2');
+$routes->get('(:segment)', 'Project::detail/$1');
