@@ -36,9 +36,6 @@ class Project extends BaseController
 
   public function imageDetail($projectSlug, $imageSlug)
   {
-    // DEBUG: Confirm this method is triggered
-    log_message('debug', 'imageDetail triggered for ' . $projectSlug . ' / ' . $imageSlug);
-
     $model = new \App\Models\Project();
     $project = $model->where('slug', $projectSlug)->first();
     if (!$project) {
@@ -60,19 +57,19 @@ class Project extends BaseController
       log_message('debug', 'no image found ' . $projectSlug . ' / ' . $imageSlug);
       return redirect()->to(base_url($projectSlug));
     }
-    $prevIndex = $currentIndex > 0 ? $currentIndex - 1 : null;
-    $nextIndex = $currentIndex < count($images) - 1 ? $currentIndex + 1 : null;
-    $prevSlug = $prevIndex !== null ? (isset($images[$prevIndex]['file_id']) ? $images[$prevIndex]['file_id'] : (isset($images[$prevIndex]['file_name']) ? pathinfo($images[$prevIndex]['file_name'], PATHINFO_FILENAME) : '')) : null;
-    $nextSlug = $nextIndex !== null ? (isset($images[$nextIndex]['file_id']) ? $images[$nextIndex]['file_id'] : (isset($images[$nextIndex]['file_name']) ? pathinfo($images[$nextIndex]['file_name'], PATHINFO_FILENAME) : '')) : null;
-    
+    // Carousel wrap-around logic
+    $imagesCount = count($images);
+    $prevIndex = $imagesCount > 0 ? (($currentIndex - 1 + $imagesCount) % $imagesCount) : null;
+    $nextIndex = $imagesCount > 0 ? (($currentIndex + 1) % $imagesCount) : null;
+    $prevSlug = $prevIndex !== null && isset($images[$prevIndex]) ? (isset($images[$prevIndex]['file_id']) ? $images[$prevIndex]['file_id'] : (isset($images[$prevIndex]['file_name']) ? pathinfo($images[$prevIndex]['file_name'], PATHINFO_FILENAME) : '')) : null;
+    $nextSlug = $nextIndex !== null && isset($images[$nextIndex]) ? (isset($images[$nextIndex]['file_id']) ? $images[$nextIndex]['file_id'] : (isset($images[$nextIndex]['file_name']) ? pathinfo($images[$nextIndex]['file_name'], PATHINFO_FILENAME) : '')) : null;
     $required = [
-      'title' => $project['title'] .
-        (isset($project['start_year']) ? ' (' . $project['start_year'] . (isset($project['end_year']) && $project['end_year'] ? '–' . $project['end_year'] : '') . ')' : ''),
+      'title' => $image['title'] . ' | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
-      'description' => $project['description'] ?? '',
-      'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'og_image_width' => '320',
-      'og_image_height' => '320',
+      'description' => $image['caption'],
+      'og_image' => base_url('konst/' . $image['file_name']),
+      'og_image_width' => $image['width_px'],
+      'og_image_height' => $image['height_px'],
     ];
     return $this->renderView('artwork/image_detail', $required, [
       'project' => $project,
@@ -80,7 +77,7 @@ class Project extends BaseController
       'currentIndex' => $currentIndex,
       'prevSlug' => $prevSlug,
       'nextSlug' => $nextSlug,
-      'imagesCount' => count($images),
+      'imagesCount' => $imagesCount,
       'hide_main_header' => true
     ]);
   }

@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?>
+<?= $this->extend('layouts/fullscreen') ?>
 
 <?php $hide_main_header = true; ?>
 
@@ -10,44 +10,83 @@ $image = $image ?? null;
 $prevSlug = $prevSlug ?? null;
 $nextSlug = $nextSlug ?? null;
 ?>
-<div id="image-detail-container"
-     style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh;">
-  <div style="position: relative; width: 100%; max-width: 600px;">
-    <?php if ($prevSlug): ?>
-      <a href="<?= base_url($project['slug'] . '/' . $prevSlug) ?>" class="carousel-arrow left-arrow"
-         style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 2em; text-decoration: none; background: rgba(255,255,255,0.7); border-radius: 50%; padding: 0 12px;">&#8592;</a>
-    <?php endif; ?>
-    <img id="carousel-image" src="<?= base_url('konst/medium/' . $image['file_name']) ?>"
-         alt="<?= esc($image['title'] ?? '') ?>"
-         style="width: 100%; max-height: 60vh; object-fit: contain; border-radius: 8px; transition: opacity 0.4s;"/>
-    <?php if ($nextSlug): ?>
-      <a href="<?= base_url($project['slug'] . '/' . $nextSlug) ?>" class="carousel-arrow right-arrow"
-         style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 2em; text-decoration: none; background: rgba(255,255,255,0.7); border-radius: 50%; padding: 0 12px;">&#8594;</a>
-    <?php endif; ?>
-  </div>
-  <div style="margin-top: 18px; display: flex; align-items: center;">
-    <div style="flex: 1;">
-      <div style="font-size: 1.1em; color: #333; margin-bottom: 8px;">
-        <?= esc($image['title'] ?? '') ?>
+<div class="fullscreen-center-container">
+  <?php if ($prevSlug): ?>
+    <a
+      href="<?= base_url($project['slug'] . '/' . $prevSlug) ?>"
+      onclick="window.location.replace(this.href); return false;"
+      class="carousel-arrow left-arrow">
+      <span>&#x2039;</span>
+    </a>
+  <?php endif; ?>
+  <div>
+    <div class="image-caption-container">
+      <div class="image-arrow-wrapper">
+        <img id="carousel-image" src="<?= base_url('konst/' . $image['file_name']) ?>"
+             alt="<?= esc($image['title'] ?? '') ?>"
+             width="<?= $image['width_px'] ?>"
+             height="<?= $image['height_px'] ?>"
+             fetchpriority="high"
+             loading="eager"/>
       </div>
-      <div style="font-size: 1em; color: #666;">
-        <?= esc($image['caption'] ?? '') ?>
+      <div id="caption-row">
+        <div id="caption-text">
+          <?= esc($image['caption'] ?? '') ?>
+        </div>
+        <a
+          href="#"
+          onclick="handleClose(); return false;"
+          id="close-btn">close</a>
       </div>
     </div>
-    <a href="<?= base_url($project['slug']) ?>"
-       style="margin-left: 24px; background: #eee; border-radius: 4px; padding: 8px 16px; font-size: 1em; text-decoration: none; color: #333;">Stäng</a>
   </div>
+  <?php if ($nextSlug): ?>
+    <a
+      href="<?= base_url($project['slug'] . '/' . $nextSlug) ?>"
+      onclick="window.location.replace(this.href); return false;"
+      class="carousel-arrow right-arrow">
+      <span>&#x203A;</span>
+    </a>
+  <?php endif; ?>
 </div>
+
 <script>
-  document.querySelectorAll('.carousel-arrow').forEach(function (arrow) {
-    arrow.addEventListener('click', function (e) {
-      var img = document.getElementById('carousel-image');
-      img.style.opacity = 0;
-      setTimeout(function () {
-        window.location = arrow.href;
-      }, 400);
+  function handleClose() {
+    // If there is a referrer and it is from the same origin, go back. Otherwise, go to project page.
+    var referrer = document.referrer;
+    var same_origin = referrer && referrer.indexOf(window.location.origin) === 0;
+    if (window.history.length > 1 && same_origin) {
+      window.history.back();
+    } else {
+      window.location.replace('<?= base_url($project["slug"]) ?>');
+    }
+  }
+
+  document.addEventListener('keydown', function (e) {
+    var active = document.activeElement;
+    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
+      return;
+    }
+
+    if (e.key === 'ArrowLeft') {
       e.preventDefault();
-    });
+      var leftArrow = document.querySelector('.carousel-arrow.left-arrow');
+      if (leftArrow && leftArrow.href) {
+        window.location.replace(leftArrow.href);
+      }
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      var rightArrow = document.querySelector('.carousel-arrow.right-arrow');
+      if (rightArrow && rightArrow.href) {
+        window.location.replace(rightArrow.href);
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      handleClose();
+    }
+  });
+  document.getElementById('carousel-image').addEventListener('load', function () {
+    document.getElementById('caption-row').style.display = 'flex';
   });
 </script>
 <?= $this->endSection() ?>

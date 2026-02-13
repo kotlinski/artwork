@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
   <link rel="stylesheet" href="<?= base_url('css/layout.css') ?>">
   <?php if (session()->get('isLoggedIn')): ?>
-    <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>" media="print" onload="this.media='all'">
   <?php endif; ?>
 
 </head>
@@ -68,8 +68,11 @@
   <div>Copyright &copy; Anne Hamrin Simonsson 2012-<?= date('Y') ?></div>
 </footer>
 
+<?php if (isset($lcp_image_url)): ?>
+  <link rel="preload" as="image" href="<?= $lcp_image_url ?>">
+<?php endif; ?>
 <?php if (session()->get('isLoggedIn')): ?>
-  <script src="<?= base_url('js/markdown-editor.js') ?>"></script>
+  <script src="<?= base_url('js/markdown-editor.js') ?>" defer></script>
 <?php endif; ?>
 </body>
 </html>

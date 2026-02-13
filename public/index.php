@@ -1,5 +1,19 @@
 <?php
 
+// Set long cache headers for static assets in /css/, /js/, and /konst/
+if (
+  (isset($_SERVER['REQUEST_URI']) && (
+      strpos($_SERVER['REQUEST_URI'], '/css/') === 0 ||
+      strpos($_SERVER['REQUEST_URI'], '/js/') === 0 ||
+      strpos($_SERVER['REQUEST_URI'], '/konst/') === 0
+    )) &&
+  isset($_SERVER['SCRIPT_NAME']) && basename($_SERVER['SCRIPT_NAME']) === 'index.php'
+) {
+  header('Cache-Control: public, max-age=31536000, immutable');
+  // Optionally set Expires header for older browsers
+  header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 31536000) . ' GMT');
+}
+
 use CodeIgniter\Boot;
 use Config\Paths;
 
@@ -11,16 +25,16 @@ use Config\Paths;
 
 $minPhpVersion = '8.1'; // If you update this, don't forget to update `spark`.
 if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
-    $message = sprintf(
-        'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
-        $minPhpVersion,
-        PHP_VERSION,
-    );
-
-    header('HTTP/1.1 503 Service Unavailable.', true, 503);
-    echo $message;
-
-    exit(1);
+  $message = sprintf(
+    'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
+    $minPhpVersion,
+    PHP_VERSION,
+  );
+  
+  header('HTTP/1.1 503 Service Unavailable.', true, 503);
+  echo $message;
+  
+  exit(1);
 }
 
 /*
@@ -34,7 +48,7 @@ define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 // Ensure the current directory is pointing to the front controller's directory
 if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
-    chdir(FCPATH);
+  chdir(FCPATH);
 }
 
 /*

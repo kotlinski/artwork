@@ -1,0 +1,133 @@
+/* fullscreen.css: Ensures content is truly fullscreen and not width-restricted */
+
+.fullscreen-content {
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+body, html {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #fff;
+}
+a {
+  color: #767676;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+a:hover {
+  color: #333;
+}
+
+.carousel-arrow {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  width: 48px;
+  height: auto;
+  text-decoration: none;
+  background: none;
+  z-index: 10;
+  color: #767676;
+  cursor: pointer;
+}
+.carousel-arrow span {
+  font-size: 3em;
+  font-family: monospace;
+}
+.carousel-arrow.left-arrow {
+  justify-content: flex-start;
+  left: 0;
+}
+.carousel-arrow.right-arrow {
+  right: 0;
+  justify-content: flex-end;
+}
+
+@media (min-width: 500px) {
+  .carousel-arrow {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .carousel-arrow.left-arrow {
+    padding-right: 0;
+  }
+  .carousel-arrow.right-arrow {
+    padding-left: 0;
+  }
+}
+
+
+.fullscreen-center-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.image-caption-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 90vw;
+  margin: 0 auto;
+  position: relative;
+}
+
+.image-arrow-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+#carousel-image {
+  display: block;
+  width: 100%;
+  max-width: 90vw;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  transition: opacity 1s;
+  z-index: 1;
+}
+
+#caption-row {
+  display: none;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 12px;
+  width: 100%;
+}
+
+#caption-text {
+  font-size: 1em;
+  color: #767676;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  text-align: left;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+#close-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 18px;
+}

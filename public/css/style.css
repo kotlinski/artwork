@@ -3,18 +3,7 @@ html, body {
     margin: 0;
 }
 
-html {
-    -webkit-text-size-adjust: 100%;
-    scrollbar-gutter: stable;
-}
-
 body {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 0 10px;
-    box-sizing: border-box;
     color: #767676;
     font-family: "Courier New", sans-serif;
     font-size: 12px;

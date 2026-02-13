@@ -1,5 +1,4 @@
 <?= $this->extend('layouts/main') ?>
-
 <?= $this->section('content') ?>
 <div id="bodyspan" class='contained'>
   <?php if (isset($error)): ?>

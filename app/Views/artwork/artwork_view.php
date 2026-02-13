@@ -37,7 +37,7 @@
             (<?= $yearRange ?>)
           </a>
         </h2>
-        <div class="hero-container" style="display: flex; gap: 10px; margin-top: 6px;">
+        <div class="hero-container" style="display: flex; gap: 10px; margin-top: 12px;">
           <?php
           $heroImgs = [
             $project->hero_left ?? $project['hero_left'] ?? null,
@@ -64,7 +64,7 @@
                 <a href="<?= $projectUrl ?>">
                   <img src="<?= base_url('konst/medium/anne-hamrin-simonsson-' . $imgFile . '.webp') ?>"
                        alt="<?= esc($imgTitle) ?>"
-                       style="width: 100%; height: 250px; object-fit: cover;">
+                       style="width: 100%; height: 200px; object-fit: cover;">
                 </a>
               </div>
             <?php endif; endforeach; ?>
@@ -77,6 +77,7 @@
             om <?= isset($project->title) ? esc($project->title) : esc($project['title']) ?> </a>
         </div>
       </div>
+
     <?php endforeach; ?>
   <?php endif; ?>
 </div>
