@@ -1,32 +1,191 @@
 /* fullscreen.css: Ensures content is truly fullscreen and not width-restricted */
 
 .fullscreen-content {
-  min-height: 100vh;
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0;
-  padding: 0;
-  background: #fff;
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    background: #fff;
 }
 
 body, html {
-  width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background: #fff;
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #fff;
+    white-space: wrap;
 }
+
 a {
-  color: #767676;
-  transition: color 0.3s ease;
-  display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: #767676;
+    transition: color 0.3s ease;
+    display: inline-block;
 }
 
 a:hover {
-  color: #333;
+    color: #333;
 }
 
+.carousel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+}
+
+.media-wrapper {
+    position: relative;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stack image and caption vertically */
+    align-items: center;
+
+    /* Define geometry */
+    aspect-ratio: var(--w) / var(--h);
+
+    /* WIDTH LOGIC:
+       We limit width based on 90vw OR the width needed to leave room
+       for a ~60px caption area within the 90vh screen limit. */
+    width: min(var(--img-w), 90vw, calc(var(--w) / var(--h) * (90vh - 40px)));
+
+    max-height: 90vh;
+    background-color: transparent; /* No background here to keep it clean */
+}
+
+.media-wrapper img {
+    width: 100%;
+    height: auto; /* Let height follow the calculated width */
+    max-height: calc(90vh - 40px); /* Strictly reserve space for text */
+    object-fit: contain;
+    display: block;
+    background-color: #f9f9f9; /* Placeholder color on the img instead */
+
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.media-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent);
+    animation: shimmer 1.5s infinite;
+    z-index: 1;
+}
+.media-wrapper:has(img.loaded) {
+    background-color: transparent;
+}
+.media-wrapper:has(img.loaded)::before {
+    display: none;
+}
+.media-wrapper img.loaded {
+    opacity: 1;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+/* This targets the image once it is fully loaded */
+.media-wrapper img.loaded {
+    opacity: 1;
+}
+
+.media-wrapper figcaption {
+    /* REMOVE position: absolute */
+    width: 100%;
+    padding-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    color: #444;
+    font-size: 12px;
+}
+
+.copyright-line {
+    flex-basis: 100%;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.caption-text {
+    /* This prevents the caption from overlapping the close text */
+    flex: 1;
+    padding-right: 10px;
+}
+
+/* --- BUTTONS (Positioned to NOT affect center) --- */
+.close-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 15px;
+    margin: 1px;
+    font-size: 30px;
+    color: #999;
+    cursor: pointer;
+    background: none;
+    border: none;
+    z-index: 1010;
+}
+
+@media (max-width: 500px) {
+    .close-btn {
+        background: #fff;
+        padding: 0 2px;
+        margin: 0 2px;
+    }
+}
+
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(76, 76, 76, 0);
+    border: none;
+    text-decoration: none;
+    color: #999;
+    padding: 20px 10px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 1;
+}
+
+@media (max-width: 500px) {
+    .nav-btn {
+        background: #fff;
+        padding: 0 1px;
+        margin: 0;
+    }
+}
+
+
+.nav-btn:hover {
+    background: rgba(76, 76, 76, 0.1);
+}
+
+.prev-btn {
+    left: 1px;
+}
+
+.next-btn {
+    right: 1px;
+}
+
+/*
 .carousel-arrow {
   position: fixed;
   display: flex;
@@ -131,3 +290,4 @@ a:hover {
   flex-shrink: 0;
   margin-left: 18px;
 }
+*/

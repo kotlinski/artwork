@@ -10,46 +10,52 @@ $image = $image ?? null;
 $prevSlug = $prevSlug ?? null;
 $nextSlug = $nextSlug ?? null;
 ?>
-<div class="fullscreen-center-container">
-  <?php if ($prevSlug): ?>
-    <a
-      href="<?= base_url($project['slug'] . '/' . $prevSlug) ?>"
-      onclick="window.location.replace(this.href); return false;"
-      class="carousel-arrow left-arrow">
-      <span>&#x2039;</span>
-    </a>
-  <?php endif; ?>
-  <div>
-    <div class="image-caption-container">
-      <div class="image-arrow-wrapper">
-        <img id="carousel-image" src="<?= base_url('konst/' . $image['file_name']) ?>"
-             alt="<?= esc($image['title'] ?? '') ?>"
-             width="<?= $image['width_px'] ?>"
-             height="<?= $image['height_px'] ?>"
-             fetchpriority="high"
-             loading="eager"/>
-      </div>
-      <div id="caption-row">
-        <div id="caption-text">
-          <?= esc($image['caption'] ?? '') ?>
-        </div>
-        <a
-          href="#"
-          onclick="handleClose(); return false;"
-          id="close-btn">close</a>
-      </div>
-    </div>
-  </div>
-  <?php if ($nextSlug): ?>
-    <a
-      href="<?= base_url($project['slug'] . '/' . $nextSlug) ?>"
-      onclick="window.location.replace(this.href); return false;"
-      class="carousel-arrow right-arrow">
-      <span>&#x203A;</span>
-    </a>
-  <?php endif; ?>
-</div>
+<div class="container">
+  <div class="carousel-overlay">
+    <button
+      class="close-btn"
+      onclick="handleClose(); return false;">
+      &times;
+    </button>
 
+    <?php if ($prevSlug): ?>
+      <a
+        href="<?= base_url($project['slug'] . '/' . $prevSlug) ?>"
+        onclick="window.location.replace(this.href); return false;"
+        class="nav-btn prev-btn">
+        <span>&#10094;</span>
+      </a>
+    <?php endif ?>
+    <?php if ($nextSlug): ?>
+      <a
+        href="<?= base_url($project['slug'] . '/' . $nextSlug) ?>"
+        onclick="window.location.replace(this.href); return false;"
+        class="nav-btn next-btn">
+        <span>&#10095;</span>
+      </a>
+    <?php endif ?>
+    <figure
+      class="media-wrapper"
+      style="--w: <?= $image['width_px'] ?>; --h: <?= $image['height_px'] ?>; --img-w: <?= $image['width_px'] ?>px;"
+    >
+      <img
+        src="<?= base_url('konst/' . $image['file_name']) ?>"
+        alt="<?= esc($image['title'] ?? '') ?>"
+        width="<?= $image['width_px'] ?>"
+        height="<?= $image['height_px'] ?>"
+        fetchpriority="high"
+        loading="eager"
+        onload="this.classList.add('loaded')"
+      >
+
+      <figcaption>
+        <span class="caption-text"><?= esc($image['caption'] ?? '') ?></span>
+        <a href="#" onclick="handleClose(); return false;" id="close-btn">close</a>
+        <span class="copyright-line">Copyright © Anne Hamrin Simonsson</span>
+      </figcaption>
+    </figure>
+  </div>
+</div>
 <script>
   function handleClose() {
     // If there is a referrer and it is from the same origin, go back. Otherwise, go to project page.
@@ -70,13 +76,13 @@ $nextSlug = $nextSlug ?? null;
 
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      var leftArrow = document.querySelector('.carousel-arrow.left-arrow');
+      var leftArrow = document.querySelector('.nav-btn.prev-btn');
       if (leftArrow && leftArrow.href) {
         window.location.replace(leftArrow.href);
       }
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      var rightArrow = document.querySelector('.carousel-arrow.right-arrow');
+      var rightArrow = document.querySelector('.nav-btn.next-btn');
       if (rightArrow && rightArrow.href) {
         window.location.replace(rightArrow.href);
       }
@@ -84,9 +90,6 @@ $nextSlug = $nextSlug ?? null;
       e.preventDefault();
       handleClose();
     }
-  });
-  document.getElementById('carousel-image').addEventListener('load', function () {
-    document.getElementById('caption-row').style.display = 'flex';
   });
 </script>
 <?= $this->endSection() ?>
