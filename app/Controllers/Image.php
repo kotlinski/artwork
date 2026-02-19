@@ -41,4 +41,3 @@ class Image extends BaseController
     return redirect()->to('/image/admin')->with('success', 'Image updated.');
   }
 }
-

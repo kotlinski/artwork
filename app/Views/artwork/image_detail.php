@@ -1,15 +1,20 @@
-<?= $this->extend('layouts/fullscreen') ?>
+<?= $this->extend('layouts/image-fullscreen') ?>
 
-<?php $hide_main_header = true; ?>
+<?= $this->section('ldjson') ?>
+<script type="application/ld+json">
+<?= $jsonld ?>
+</script>
+<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <?php
 // Ensure all variables are available
 $project = $project ?? null;
 $image = $image ?? null;
-$prevSlug = $prevSlug ?? null;
-$nextSlug = $nextSlug ?? null;
+$prev_slug = $prev_slug ?? null;
+$next_slug = $next_slug ?? null;
 ?>
+<h1 class="visually-hidden"><?= $image['title'] ?></h1>
 <div class="container">
   <div class="carousel-overlay">
     <button
@@ -18,17 +23,21 @@ $nextSlug = $nextSlug ?? null;
       &times;
     </button>
 
-    <?php if ($prevSlug): ?>
+    <div class="image-counter">
+      <?= $current_index+1 ?>/<?= $images_count ?>
+    </div>
+
+    <?php if ($prev_slug): ?>
       <a
-        href="<?= base_url($project['slug'] . '/' . $prevSlug) ?>"
+        href="<?= base_url($project['slug'] . '/' . $prev_slug) ?>"
         onclick="window.location.replace(this.href); return false;"
         class="nav-btn prev-btn">
         <span>&#10094;</span>
       </a>
     <?php endif ?>
-    <?php if ($nextSlug): ?>
+    <?php if ($next_slug): ?>
       <a
-        href="<?= base_url($project['slug'] . '/' . $nextSlug) ?>"
+        href="<?= base_url($project['slug'] . '/' . $next_slug) ?>"
         onclick="window.location.replace(this.href); return false;"
         class="nav-btn next-btn">
         <span>&#10095;</span>
@@ -40,7 +49,7 @@ $nextSlug = $nextSlug ?? null;
     >
       <img
         src="<?= base_url('konst/' . $image['file_name']) ?>"
-        alt="<?= esc($image['title'] ?? '') ?>"
+        alt="<?= esc($image['caption'] ?? '') ?>"
         width="<?= $image['width_px'] ?>"
         height="<?= $image['height_px'] ?>"
         fetchpriority="high"
@@ -58,10 +67,9 @@ $nextSlug = $nextSlug ?? null;
 </div>
 <script>
   function handleClose() {
-    // If there is a referrer and it is from the same origin, go back. Otherwise, go to project page.
     var referrer = document.referrer;
     var same_origin = referrer && referrer.indexOf(window.location.origin) === 0;
-    if (window.history.length > 1 && same_origin) {
+    if (window.history.length > 1 && same_origin && referrer !== '' && referrer !== 'about:blank') {
       window.history.back();
     } else {
       window.location.replace('<?= base_url($project["slug"]) ?>');
@@ -76,15 +84,15 @@ $nextSlug = $nextSlug ?? null;
 
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      var leftArrow = document.querySelector('.nav-btn.prev-btn');
-      if (leftArrow && leftArrow.href) {
-        window.location.replace(leftArrow.href);
+      var left_arrow = document.querySelector('.nav-btn.prev-btn');
+      if (left_arrow && left_arrow.href) {
+        window.location.replace(left_arrow.href);
       }
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      var rightArrow = document.querySelector('.nav-btn.next-btn');
-      if (rightArrow && rightArrow.href) {
-        window.location.replace(rightArrow.href);
+      var right_arrow = document.querySelector('.nav-btn.next-btn');
+      if (right_arrow && right_arrow.href) {
+        window.location.replace(right_arrow.href);
       }
     } else if (e.key === 'Escape') {
       e.preventDefault();

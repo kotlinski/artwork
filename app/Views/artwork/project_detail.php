@@ -10,7 +10,7 @@
         (<?= esc($project['start_year']) ?><?php if (!empty($project['end_year'])): ?>–<?= esc($project['end_year']) ?><?php endif; ?>)
       <?php endif; ?>
     </h2>
-    <hr class="light" />
+    <hr class="light"/>
     <div class="project-text">
       <?php
       // Render project text as markdown if available
@@ -26,33 +26,43 @@
       }
       ?>
     </div>
-    <hr class="light" />
+    <hr class="light"/>
     <?php if (!empty($images)): ?>
       <table class="tableview">
         <tr>
-          <?php foreach ($images as $i => $img): ?>
-            <?php if ($i > 0 && $i % 3 == 0): ?>
-              </tr><tr>
-            <?php endif; ?>
-            <td valign="middle" align="center" style="padding-bottom:10px;margin:0;min-width: 120px;">
-              <a href="<?= base_url(($project['slug'] ?? '') . '/' . $img['file_id']) ?>">
-                <img
-                  src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
-                  alt="<?= esc($img['title'] ?? '') ?>"
-                  style="padding:0;margin:0;border:0;"
-                />
-              </a>
-            </td>
+          <?php foreach ($images
+
+          as $i => $img): ?>
+          <?php if ($i > 0 && $i % 3 == 0): ?>
+        </tr>
+        <tr>
+          <?php endif; ?>
+          <td valign="middle" align="center" style="padding-bottom:10px;margin:0;min-width: 120px;">
+            <a href="<?= base_url(($project['slug'] ?? '') . '/' . $img['file_id']) ?>">
+              <img
+                src="<?= base_url('konst/mini/' . $img['file_name']) ?>"
+                srcset="<?= base_url('konst/mini/' . $img['file_name']) ?> 1x,
+                <?= base_url('konst/thumb/' . $img['file_name']) ?> 2x,
+                <?= base_url('konst/medium/' . $img['file_name']) ?> 4x,
+                <?= base_url('konst/large/' . $img['file_name']) ?> 8x"
+                width="auto"
+                height="70"
+                alt="<?= esc($img['title'] ?? '') ?>"
+                loading="lazy"
+                style="padding:0;margin:0;border:0;"
+              />
+            </a>
+          </td>
           <?php endforeach; ?>
         </tr>
       </table>
     <?php endif; ?>
-    <hr class="light" />
+    <hr class="light"/>
     <div class="project-news">
       <!-- TODO: Render news connected to the project when available -->
       <em>Nyheter kopplade till projektet kommer här.</em>
     </div>
-    <hr class="light" />
+    <hr class="light"/>
   <?php endif; ?>
 </div>
 <?= $this->endSection() ?>

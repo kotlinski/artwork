@@ -19,17 +19,17 @@
     <?php foreach ($projects as $project): ?>
       <div class="project-card" style="margin-bottom: 20px;">
         <?php
-          // Build year range string for project
-          $startYear = isset($project->start_year) ? $project->start_year : $project['start_year'];
-          $endYear = $project->end_year ?? $project['end_year'] ?? null;
-          if (!empty($endYear)) {
-            $yearRange = esc($startYear) . '–' . esc($endYear);
-          } else {
-            $yearRange = esc($startYear);
-          }
-          // Ensure all project links use base-url/slug
-          $slug = isset($project->slug) ? $project->slug : ($project['slug'] ?? null);
-          $projectUrl = $slug ? base_url($slug) : '#';
+        // Build year range string for project
+        $startYear = isset($project->start_year) ? $project->start_year : $project['start_year'];
+        $endYear = $project->end_year ?? $project['end_year'] ?? null;
+        if (!empty($endYear)) {
+          $yearRange = esc($startYear) . '–' . esc($endYear);
+        } else {
+          $yearRange = esc($startYear);
+        }
+        // Ensure all project links use base-url/slug
+        $slug = isset($project->slug) ? $project->slug : ($project['slug'] ?? null);
+        $projectUrl = $slug ? base_url($slug) : '#';
         ?>
         <h2 class="aboutHeader">
           <a href="<?= $projectUrl ?>">
@@ -37,7 +37,7 @@
             (<?= $yearRange ?>)
           </a>
         </h2>
-        <div class="hero-container" style="display: flex; gap: 10px; margin-top: 12px;">
+        <div class="hero-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; width: 100%;">
           <?php
           $heroImgs = [
             $project->hero_left ?? $project['hero_left'] ?? null,
@@ -60,14 +60,18 @@
             }
             if ($imgFile):
               ?>
-              <div style="flex: 1;">
-                <a href="<?= $projectUrl ?>">
-                  <img src="<?= base_url('konst/medium/anne-hamrin-simonsson-' . $imgFile . '.webp') ?>"
-                       alt="<?= esc($imgTitle) ?>"
-                       style="width: 100%; height: 200px; object-fit: cover;">
-                </a>
-              </div>
-            <?php endif; endforeach; ?>
+              <a href="<?= $projectUrl ?>" style="display: block; width: 100%; height: 280px;">
+                <img
+                  src="<?= base_url('konst/medium/anne-hamrin-simonsson-' . $imgFile . '.webp') ?>"
+                  srcset="<?= base_url('konst/medium/anne-hamrin-simonsson-' . $imgFile . '.webp') ?> 1x,
+                  <?= base_url('konst/large/anne-hamrin-simonsson-' . $imgFile . '.webp') ?> 2x"
+                  alt="<?= esc($imgTitle) ?>"
+                  height="280"
+                  loading="lazy"
+                  style="width: 100%; height: 280px; object-fit: cover; display: block;"/>
+              </a>
+            <?php endif;
+          endforeach; ?>
         </div>
         <p style="margin:3px 0; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
           <?= isset($project->description) ? esc($project->description) : esc($project['description']) ?>

@@ -23,7 +23,7 @@
 
   <?= $this->renderSection('ldjson') ?>
 
-  <meta name="author" content="The website is made by Simon Kotlinski">
+  <meta name="author" content="Simon Kotlinski">
   <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
   <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
   <link rel="stylesheet" href="<?= base_url('css/layout.css') ?>">
