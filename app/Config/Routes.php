@@ -39,3 +39,5 @@ $routes->group('image', ['filter' => 'auth'], function ($routes) {
 
 $routes->get('(:segment)/(:segment)', 'Project::imageDetail/$1/$2');
 $routes->get('(:segment)', 'Project::detail/$1');
+
+$routes->post('project/update', 'Project::update', ['filter' => 'auth']);

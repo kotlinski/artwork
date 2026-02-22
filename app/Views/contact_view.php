@@ -3,19 +3,18 @@
 <?= $this->section('ldjson') ?>
 <script type="application/ld+json">
 <?= file_get_contents(APPPATH . 'Data/LdJson/contact.json') ?>
+
 </script>
 <?= $this->endSection() ?>
 
 <?= $this->section('adminContent') ?>
-<?php if (session()->get('isLoggedIn')): ?>
-  <?= view('partials/markdown_editor', [
-    'formAction' => base_url('contact/update'),
-    'id' => $contact['id'],
-    'fieldName' => 'contact_text',
-    'fieldValue' => $contact['text'],
-    'title' => 'Edit Contact Info (Markdown)'
-  ]) ?>
-<?php endif; ?>
+<?= view('partials/markdown_editor', [
+  'formAction' => base_url('contact/update'),
+  'id' => $contact['id'],
+  'fieldName' => 'contact_text',
+  'fieldValue' => $contact['text'],
+  'title' => 'Edit Contact Info (Markdown)'
+]) ?>
 <?= $this->endSection() ?>
 
 

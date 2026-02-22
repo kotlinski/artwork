@@ -1,6 +1,3 @@
-<?= $this->extend('layouts/main') ?>
-<?= $this->section('content') ?>
-
 <div class="manage-projects contained">
   <h2>Manage Projects</h2>
 
@@ -11,8 +8,7 @@
         <th>Order</th>
         <th>Title</th>
         <th>Slug</th>
-        <th>Year</th>
-        <th>Actions</th>
+        <th colspan="2">Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -32,7 +28,8 @@
           </td>
           <td><?= esc($project['title']) ?></td>
           <td><?= esc($project['slug']) ?></td>
-          <td><?= esc($project['start_year']) ?></td>
+          <td>
+            <a href="/<?= $project['slug'] ?>">edit</a></td>
           <td>
             <a href="/artwork/delete/<?= $project['id'] ?>" class="delete-link"
                onclick="return confirm('Are you sure you want to delete this project?')">delete</a>
@@ -69,7 +66,7 @@
           <input type="text" name="slug" id="slug" required value="<?= old('slug') ?>">
         </div>
         <div class="form-actions">
-          <button type="submit" class="button">Create</button>
+          <button type="submit" class="button">Add new Project</button>
         </div>
       </form>
     </div>
@@ -77,4 +74,3 @@
   <hr class='light'
 </div>
 
-<?= $this->endSection() ?>

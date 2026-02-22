@@ -17,7 +17,23 @@ class Project extends BaseController
     // Fetch all images connected to the project (by project id or slug)
     $imageModel = new Image();
     $images = $imageModel->where('project', $project['slug'])->orderBy('`order`', 'ASC')->findAll();
-    // TODO: Fetch news connected to the project when model is available
+
+    // Fetch next project by sort_order (wrap to first if at end)
+    $projectModel = new \App\Models\Project();
+    $currentSortOrder = $project['sort_order'] ?? null;
+    $nextProject = null;
+    if ($currentSortOrder !== null) {
+      $nextProject = $projectModel
+        ->where('sort_order >', $currentSortOrder)
+        ->orderBy('sort_order', 'ASC')
+        ->first();
+      if (!$nextProject) {
+        // Wrap to first project if at end
+        $nextProject = $projectModel->orderBy('sort_order', 'ASC')->first();
+      }
+    }
+    $nextProjectSlug = $nextProject['slug'] ?? null;
+    $nextProjectTitle = $nextProject['title'] ?? null;
     $required = [
       'title' => $project['title'] .
         (isset($project['start_year']) ? ' (' . $project['start_year'] . (isset($project['end_year']) && $project['end_year'] ? '–' . $project['end_year'] : '') . ')' : ''),
@@ -30,6 +46,8 @@ class Project extends BaseController
     return $this->renderView('artwork/project_detail', $required, [
       'project' => $project,
       'images' => $images,
+      'next_project_slug' => $nextProjectSlug,
+      'next_project_title' => $nextProjectTitle,
       // 'news' => $news // Add when news model is available
     ]);
   }
@@ -62,7 +80,7 @@ class Project extends BaseController
     $prev_index = $images_count > 0 ? (($current_index - 1 + $images_count) % $images_count) : null;
     $next_index = $images_count > 0 ? (($current_index + 1) % $images_count) : null;
     $prev_slug = $prev_index !== null && isset($images[$prev_index]) ? (isset($images[$prev_index]['file_id']) ? $images[$prev_index]['file_id'] : (isset($images[$prev_index]['file_name']) ? pathinfo($images[$prev_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
-    $next_slug = $next_index !== null && isset($images[$next_index]) ? (isset($images[$next_index]['file_id']) ? $images[$next_index]['file_id'] : (isset($images[$next_index]['file_name']) ? pathinfo($images[$next_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
+    $next_slug = $next_index !== null && isset($images[$next_index]) ? (isset($images[$next_index]['file_id']) ? $images[$nextIndex]['file_id'] : (isset($images[$next_index]['file_name']) ? pathinfo($images[$next_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
     $required = [
       'title' => $image['title'] . ' | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
@@ -81,6 +99,24 @@ class Project extends BaseController
       'hide_main_header' => true,
       'jsonld' => generateImageJsonLd($image, '/' . $project['slug'])
     ]);
+  }
+  
+  public function update()
+  {
+    $request = service('request');
+    $id = $request->getPost('id');
+    $text = $request->getPost('text');
+    if (!$id || $text === null) {
+      return redirect()->back()->with('error', 'Missing project id or text');
+    }
+    $model = new \App\Models\Project();
+    $project = $model->find($id);
+    if (!$project) {
+      return redirect()->back()->with('error', 'Project not found');
+    }
+    $model->update($id, ['text' => $text]);
+    // Redirect to project detail page
+    return redirect()->to(base_url('/' . $project['slug']))->with('success', 'Project info updated');
   }
 }
 
@@ -164,6 +200,10 @@ function generateImageJsonLd($image, $album_path)
   
   return json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
+
+
+
+
 
 
 

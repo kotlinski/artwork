@@ -33,6 +33,14 @@ textarea.admin-editor {
     border-right: 1px solid #ccc;
     background-clip: padding-box;
 }
+textarea.fixed-width {
+    width: 400px;
+    height: 600px;
+    background: white;
+    resize: vertical;
+    overflow-y: auto;
+    /* Optional: auto-resize with JS, but CSS limits here */
+}
 
 .admin-editor h2 {
     margin-top: 0;
@@ -374,4 +382,8 @@ textarea.admin-editor {
     .md-toolbar {
         width: 100%;
     }
+}
+
+code {
+    font-size: 10px;
 }
