@@ -15,14 +15,16 @@ class ImageAdmin extends BaseController
     $projects = $projectModel->orderBy('title', 'ASC')->findAll();
     
     // Group images by project
-    $grouped = [];
-    foreach ($images as $img) {
-      $grouped[$img['project']][] = $img;
+    foreach ($projects as &$project) {
+      $project['images'] = [];
+      foreach ($images as $img) {
+        if ($img['project'] == $project['id']) {
+          $project['images'][] = $img;
+        }
+      }
     }
-    
     return $this->renderNonPublicView('artwork/image_admin', [
       'title' => 'Image Admin',
-      'groupedImages' => $grouped,
       'projects' => $projects
     ]);
   }

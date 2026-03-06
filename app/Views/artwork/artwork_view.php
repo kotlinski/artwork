@@ -1,6 +1,8 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('adminContent') ?>
+<?php if (session()->get('isLoggedIn')): ?>
+
 <h2>Image Administration</h2>
 <p>Add new, reorder or edit images.</p>
 <ul>
@@ -75,6 +77,7 @@
     <?php endif; ?>
   <?php endforeach; ?>
 </div>
+<?php endif; ?>
 <?= $this->endSection() ?>
 
 

@@ -186,7 +186,7 @@ textarea.fixed-width {
 
 /* Image Admin List Styles */
 .image-admin-list {
-    max-width: 900px;
+    max-width: 400px;
     margin: 0 auto;
     font-family: "Courier New", Courier, monospace;
 }
@@ -217,14 +217,13 @@ textarea.fixed-width {
     flex: 1;
 }
 .image-list-title {
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 12px;
     margin-bottom: 2px;
 }
 .image-list-id {
     color: #888;
-    font-size: 13px;
-    margin-right: 4px;
+    font-size: 12px;
+    margin-right: 2px;
 }
 .image-list-caption {
     color: #444;
@@ -285,13 +284,12 @@ textarea.fixed-width {
 }
 .image-edit-modal-body {
     display: flex;
-    flex-direction: row;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
 }
 .image-edit-modal-img {
-    flex: 0 0 220px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 }
 .image-edit-modal-fields {

@@ -38,11 +38,12 @@ class Artwork extends BaseController
         'right' => $indexed_images[(int)$project['image_right']] ?? null
       ];
     }
-    
+    /*
     foreach ($projects as &$project) {
       $project_images = $image_model->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
       $project['images'] = $project_images;
     }
+    */
     $data['projects'] = $projects;
     $required = [
       'title' => 'Artwork | Anne Hamrin Simonsson',

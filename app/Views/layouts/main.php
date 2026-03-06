@@ -58,8 +58,9 @@
       </div>
     <hr class="light admin-divider"/>
     </div>
-  <?= $this->renderSection('adminContent') ?>
+    <?= $this->renderSection('adminContent') ?>
   <?php endif; ?>
+
   <?= $this->renderSection('content') ?>
 </main>
 
