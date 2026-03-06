@@ -16,7 +16,7 @@ class Project extends BaseController
     }
     // Fetch all images connected to the project (by project id or slug)
     $imageModel = new Image();
-    $images = $imageModel->where('project', $project['slug'])->orderBy('`order`', 'ASC')->findAll();
+    $images = $imageModel->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
 
     // Fetch next project by sort_order (wrap to first if at end)
     $projectModel = new \App\Models\Project();
@@ -32,8 +32,8 @@ class Project extends BaseController
         $nextProject = $projectModel->orderBy('sort_order', 'ASC')->first();
       }
     }
-    $nextProjectSlug = $nextProject['slug'] ?? null;
-    $nextProjectTitle = $nextProject['title'] ?? null;
+    $next_project_slug = $nextProject['slug'] ?? null;
+    $next_project_title = $nextProject['title'] ?? null;
     $required = [
       'title' => $project['title'] .
         (isset($project['start_year']) ? ' (' . $project['start_year'] . (isset($project['end_year']) && $project['end_year'] ? '–' . $project['end_year'] : '') . ')' : ''),
@@ -46,41 +46,41 @@ class Project extends BaseController
     return $this->renderView('artwork/project_detail', $required, [
       'project' => $project,
       'images' => $images,
-      'next_project_slug' => $nextProjectSlug,
-      'next_project_title' => $nextProjectTitle,
+      'next_project_slug' => $next_project_slug,
+      'next_project_title' => $next_project_title,
       // 'news' => $news // Add when news model is available
     ]);
   }
   
-  public function imageDetail($projectSlug, $imageSlug)
+  public function imageDetail($project_slug, $image_slug)
   {
     $model = new \App\Models\Project();
-    $project = $model->where('slug', $projectSlug)->first();
+    $project = $model->where('slug', $project_slug)->first();
     if (!$project) {
-      log_message('debug', 'no project found ' . $projectSlug . ' / ' . $imageSlug);
+      log_message('debug', 'no project found ' . $project_slug . ' / ' . $image_slug);
       return redirect()->to('/artwork');
     }
     $imageModel = new \App\Models\Image();
-    $images = $imageModel->where('project', $project['slug'])->orderBy('`order`', 'ASC')->findAll();
+    $images = $imageModel->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
     $image = null;
     $current_index = null;
     foreach ($images as $i => $img) {
-      if ($img['file_id'] === $imageSlug) {
+      if ($img['file_id'] === $image_slug) {
         $image = $img;
         $current_index = $i;
         break;
       }
     }
     if (!$image) {
-      log_message('debug', 'no image found ' . $projectSlug . ' / ' . $imageSlug);
-      return redirect()->to(base_url($projectSlug));
+      log_message('debug', 'no image found ' . $project_slug . ' / ' . $image_slug);
+      return redirect()->to(base_url($project_slug));
     }
     // Carousel wrap-around logic
     $images_count = count($images);
     $prev_index = $images_count > 0 ? (($current_index - 1 + $images_count) % $images_count) : null;
     $next_index = $images_count > 0 ? (($current_index + 1) % $images_count) : null;
     $prev_slug = $prev_index !== null && isset($images[$prev_index]) ? (isset($images[$prev_index]['file_id']) ? $images[$prev_index]['file_id'] : (isset($images[$prev_index]['file_name']) ? pathinfo($images[$prev_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
-    $next_slug = $next_index !== null && isset($images[$next_index]) ? (isset($images[$next_index]['file_id']) ? $images[$nextIndex]['file_id'] : (isset($images[$next_index]['file_name']) ? pathinfo($images[$next_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
+    $next_slug = $next_index !== null && isset($images[$next_index]) ? (isset($images[$next_index]['file_id']) ? $images[$next_index]['file_id'] : (isset($images[$next_index]['file_name']) ? pathinfo($images[$next_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
     $required = [
       'title' => $image['title'] . ' | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',

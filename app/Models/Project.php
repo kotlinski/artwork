@@ -23,9 +23,9 @@ class Project extends Model
     'location',
     'map_url',
     'external_links',
-    'hero_left',
-    'hero_mid',
-    'hero_right',
+    'image_left',
+    'image_mid',
+    'image_right',
     'sort_order'
   ];
   
@@ -34,10 +34,13 @@ class Project extends Model
   protected $updatedField = 'updated_at';
   
   protected $validationRules = [
-    'slug' => 'required|max_length[110]|is_unique[projects.slug,id,{id}]',
-    'title' => 'required|max_length[255]',
-    'hero_mid' => 'required|max_length[150]',
-    'hero_right' => 'required|max_length[150]'
+    // Add this line so the placeholder {id} becomes valid
+    'id'          => 'permit_empty|integer',
+    'slug'        => 'required|max_length[110]|is_unique[projects.slug,id,{id}]',
+    'title'       => 'required|max_length[255]',
+    'image_left'  => 'permit_empty|integer',
+    'image_mid'   => 'required|integer',
+    'image_right' => 'required|integer'
   ];
   
   protected $validationMessages = [

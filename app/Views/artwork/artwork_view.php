@@ -9,13 +9,80 @@
 
 <hr/ class="light admin-divider"/>
 <?= view('artwork/artwork_admin') ?>
+
+<div class='contained'>
+  <?php foreach ($projects as $project): ?>
+    <form method="post" action="<?= base_url('artwork/update/' . $project['id']) ?>" class="project-card"
+          id="project-form-<?= $project['slug'] ?>" style="margin-bottom: 20px;">
+      <div style="display: flex; gap: 1em; align-items: center;">
+        <label>Title: <input type="text" name="title" value="<?= esc($project['title']) ?>" required
+                             style="width: 220px;"></label>
+        <label>Slug: <input type="text" name="slug" value="<?= esc($project['slug']) ?>" required style="width: 140px;"></label>
+      </div>
+      <div style="display: flex; gap: 1em; align-items: center; margin-top: 8px;">
+        <label>From Year: <input type="number" name="start_year" value="<?= esc($project['start_year']) ?>" min="1900"
+                                 max="2100" style="width: 80px;"></label>
+        <label>To Year: <input type="number" name="end_year" value="<?= esc($project['end_year']) ?>" min="1900"
+                               max="2100" style="width: 80px;"></label>
+      </div>
+      <div style="display: flex; gap: 1em; align-items: center; margin-top: 8px;">
+        <label>Image Left:
+          <select name="image_left" style="width: 122px;">
+            <option value="">-- Select --</option>
+            <?php foreach ($project['images'] as $image): ?>
+              <option
+                value="<?= esc($image['id']) ?>" <?= ($project['image_left'] == $image['id']) ? 'selected' : '' ?>>
+                <?= esc($image['file_id']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </label>
+        <label>Image Mid:
+          <select name="image_mid" style="width: 122px;">
+            <option value="">-- Select --</option>
+            <?php foreach ($project['images'] as $image): ?>
+              <option value="<?= esc($image['id']) ?>" <?= ($project['image_mid'] == $image['id']) ? 'selected' : '' ?>>
+                <?= esc($image['file_id']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </label>
+        <label>Image Right:
+          <select name="image_right" style="width: 122px;">
+            <option value="">-- Select --</option>
+            <?php foreach ($project['images'] as $image): ?>
+              <option
+                value="<?= esc($image['id']) ?>"
+                <?= ($project['image_right'] == $image['id']) ? 'selected' : '' ?>>
+                <?= esc($image['file_id']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </label>
+      </div>
+      <div style="margin-top: 8px;">
+        <label>Description:<br>
+          <textarea name="description" rows="5"
+                    style="width: 100%; max-width: 600px;"><?= esc($project['description']) ?></textarea>
+        </label>
+      </div>
+      <div style="margin-top: 10px; text-align: right;">
+        <button type="submit">Update Project</button>
+      </div>
+    </form>
+    <?php if ($project !== end($projects)): ?>
+      <hr class="light" style="margin: 16px 0 22px 0;">
+    <?php endif; ?>
+  <?php endforeach; ?>
+</div>
 <?= $this->endSection() ?>
+
+
 
 <?= $this->section('content') ?>
 <div class='contained'>
-
   <?php foreach ($projects as $project): ?>
-    <div class="project-card" id="<?= $project['slug'] ?>" distyle="margin-bottom: 20px;">
+    <div class="project-card" id="<?= $project['slug'] ?>" style="margin-bottom: 20px;">
       <?php
       // Build year range string for project
       $startYear = isset($project->start_year) ? $project->start_year : $project['start_year'];
@@ -38,39 +105,21 @@
       <div class="hero-container"
            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 5px; width: 100%;">
         <?php
-        $heroImgs = [
-          $project->hero_left ?? $project['hero_left'] ?? null,
-          $project->hero_mid ?? $project['hero_mid'] ?? null,
-          $project->hero_right ?? $project['hero_right'] ?? null
-        ];
-        foreach ($heroImgs as $img):
-          if (is_array($img) && isset($img['file_name'])) {
-            $imgFile = $img['file_name'];
-            $imgTitle = $img['title'] ?? '';
-          } elseif (is_object($img) && isset($img->file_name)) {
-            $imgFile = $img->file_name;
-            $imgTitle = $img->title ?? '';
-          } elseif (is_string($img)) {
-            $imgFile = $img;
-            $imgTitle = '';
-          } else {
-            $imgFile = null;
-            $imgTitle = '';
-          }
-          if ($imgFile):
-            ?>
-            <a href="<?= $projectUrl ?>" style="display: block; width: 100%; height: 280px;">
-              <img
-                src="<?= base_url('konst/medium/anne-hamrin-simonsson-' . $imgFile . '.webp') ?>"
-                srcset="<?= base_url('konst/medium/anne-hamrin-simonsson-' . $imgFile . '.webp') ?> 1x,
-                  <?= base_url('konst/large/anne-hamrin-simonsson-' . $imgFile . '.webp') ?> 2x"
-                alt="<?= esc($imgTitle) ?>"
-                height="280"
-                loading="lazy"
-                style="width: 100%; height: 280px; object-fit: cover; display: block;"/>
-            </a>
-          <?php endif;
-        endforeach; ?>
+        foreach ($project['preview'] as $image):
+          $image_file_name = $image['file_name'];
+          $image_title = $image['title'];
+          ?>
+          <a href="<?= $projectUrl ?>" style="display: block; width: 100%; height: 280px;">
+            <img
+              src="<?= base_url('konst/medium/' . $image_file_name) ?>"
+              srcset="<?= base_url('konst/medium/' . $image_file_name) ?> 1x,
+                  <?= base_url('konst/large/' . $image_file_name) ?> 2x"
+              alt="<?= esc($image_title) ?>"
+              height="280"
+              loading="lazy"
+              style="width: 100%; height: 280px; object-fit: cover; display: block;"/>
+          </a>
+        <?php endforeach; ?>
       </div>
       <p style="margin:7px 0 4px 0; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
         <?= isset($project->description) ? esc($project->description) : esc($project['description']) ?>

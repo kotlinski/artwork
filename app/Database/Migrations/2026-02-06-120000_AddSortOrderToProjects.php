@@ -13,7 +13,7 @@ class AddSortOrderToProjects extends Migration
                 'type' => 'INT',
                 'constraint' => 11,
                 'default' => 0,
-                'after' => 'hero_right'
+                'after' => 'image_right'
             ]
         ]);
         

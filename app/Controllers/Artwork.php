@@ -15,7 +15,35 @@ class Artwork extends BaseController
   
   public function index()
   {
-    $data['projects'] = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
+    $projects = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
+    $image_ids = array_unique(array_filter(array_merge(
+      array_column($projects, 'image_left'),
+      array_column($projects, 'image_mid'),
+      array_column($projects, 'image_right')
+    )));
+    $image_model = new \App\Models\Image();
+    
+    $clean_ids = array_map('intval', array_filter($image_ids));
+    $images_data = !empty($clean_ids) ? $image_model->whereIn('id', $clean_ids)->findAll() : [];
+    $indexed_images = array_column($images_data, null, 'id');
+    
+    foreach ($projects as &$project) {
+      if (session()->get('isLoggedIn')) {
+        $project['images'] = $image_model->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
+      }
+      // 3. Cast the project values to (int) when looking them up
+      $project['preview'] = [
+        'left' => $indexed_images[(int)$project['image_left']] ?? null,
+        'mid' => $indexed_images[(int)$project['image_mid']] ?? null,
+        'right' => $indexed_images[(int)$project['image_right']] ?? null
+      ];
+    }
+    
+    foreach ($projects as &$project) {
+      $project_images = $image_model->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
+      $project['images'] = $project_images;
+    }
+    $data['projects'] = $projects;
     $required = [
       'title' => 'Artwork | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
@@ -26,7 +54,7 @@ class Artwork extends BaseController
     ];
     return $this->renderView('artwork/artwork_view', $required, $data);
   }
-
+  
   public function admin()
   {
     $data['projects'] = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
@@ -59,8 +87,8 @@ class Artwork extends BaseController
     $data = [
       'title' => $this->request->getPost('title'),
       'slug' => $this->request->getPost('slug'),
-      'hero_mid' => 'placeholder.jpg',
-      'hero_right' => 'placeholder.jpg',
+      'image_mid' => 'placeholder.jpg',
+      'image_right' => 'placeholder.jpg',
       'sort_order' => $newOrder
     ];
     
@@ -84,11 +112,12 @@ class Artwork extends BaseController
   
   public function update($id)
   {
-    if (!$this->validate($this->projectModel->getValidationRules())) {
+    $data = $this->request->getPost();
+    $data['id'] = $id;
+    
+    if (!$this->validateData($data, $this->projectModel->getValidationRules())) {
       return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
     }
-    
-    $data = $this->request->getPost();
     
     if ($this->projectModel->update($id, $data)) {
       return redirect()->to('/artwork')->with('success', 'Project updated successfully.');
