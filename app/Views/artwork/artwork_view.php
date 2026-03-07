@@ -10,7 +10,7 @@
 </ul>
 
 <hr/ class="light admin-divider"/>
-<?= view('artwork/artwork_admin') ?>
+<?= view('artwork/manage_projects') ?>
 
 <div class='contained'>
   <?php foreach ($projects as $project): ?>

@@ -167,10 +167,16 @@ textarea.fixed-width {
 .order-btn.disabled {
     color: #ccc;
     cursor: default;
+    pointer-events: none;
 }
 
 .order-btn.disabled:hover {
     background: transparent;
+}
+
+.order-btn.is-busy {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 /* Delete link styling */
@@ -193,6 +199,21 @@ textarea.fixed-width {
 .image-project-group {
     margin-bottom: 40px;
 }
+.project-toggle {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+    padding: 4px 0;
+}
+.project-toggle:hover {
+    background-color: #f5f5f5;
+}
+.toggle-icon {
+    display: inline-block;
+    width: 16px;
+    font-size: 12px;
+    margin-right: 6px;
+}
 .image-list {
     list-style: none;
     padding: 0;
@@ -204,9 +225,22 @@ textarea.fixed-width {
     border-bottom: 1px solid #ccc;
     padding: 10px 0 10px 0;
     font-size: 15px;
+    gap: 8px;
+}
+.image-list-order-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    min-width: 22px;
+    margin-top: 0;
+}
+.image-list-order-controls .order-btn {
+    padding: 1px 4px;
 }
 .image-list-thumb {
-    margin-right: 18px;
+    margin-right: 10px;
     min-width: 90px;
     min-height: 60px;
     display: flex;
@@ -238,6 +272,9 @@ textarea.fixed-width {
     font-size: 13px;
     color: #888;
     margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .image-list-filter, .image-list-order {
     font-weight: bold;
@@ -246,6 +283,12 @@ textarea.fixed-width {
 .image-delete-link {
     color: #c00;
     text-decoration: underline;
+    margin-left: auto;
+    margin-right: 0;
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
     cursor: pointer;
 }
 .image-edit-link {

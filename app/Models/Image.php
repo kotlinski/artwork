@@ -18,7 +18,7 @@ class Image extends Model
         'caption',
         'project',
         'artwork_filter',
-        '`order`',
+        'order',
         'width_px',
         'height_px',
         'artform',

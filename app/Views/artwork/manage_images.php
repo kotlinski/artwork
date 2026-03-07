@@ -7,10 +7,29 @@
   <?php foreach ($projects as $project): ?>
     <?php $images = $project['images'] ?? []; ?>
     <div class="image-project-group">
-      <h3 style='font-size: 16px'><?= esc($project['title'] ?? 'No Project') ?></h3>
-      <ul class="image-list">
+      <h3 style='font-size: 14px; cursor: pointer; user-select: none;'
+          class="project-toggle"
+          onclick="toggleProject(<?= $project['id'] ?>)">
+        <span class="toggle-icon" id="toggle-icon-<?= $project['id'] ?>">▶</span>
+        <?= esc($project['title']) ?> (<?= count($images) ?> images)
+      </h3>
+      <ul class="image-list" id="project-list-<?= $project['id'] ?>" style="display: none;">
         <?php foreach ($images as $img): ?>
-          <li class="image-list-item">
+          <li class="image-list-item" data-image-id="<?= esc($img['id']) ?>">
+            <?php $isFirst = ((int) $img['order'] <= 1); ?>
+            <?php $isLast = ($img === end($images)); ?>
+            <span class="order-controls image-list-order-controls">
+              <a href="/image/move-up/<?= $img['id'] ?>"
+                 class="order-btn js-image-move<?= $isFirst ? ' disabled' : '' ?>"
+                 data-direction="up"
+                 aria-disabled="<?= $isFirst ? 'true' : 'false' ?>"
+                 title="Move up">▲</a>
+              <a href="/image/move-down/<?= $img['id'] ?>"
+                 class="order-btn js-image-move<?= $isLast ? ' disabled' : '' ?>"
+                 data-direction="down"
+                 aria-disabled="<?= $isLast ? 'true' : 'false' ?>"
+                 title="Move down">▼</a>
+            </span>
             <a href="#" class="image-edit-link" onclick="openImageEditModal(<?= $img['id'] ?>); return false;">
               <div class="image-list-thumb">
                 <img src="/konst/thumb/<?= esc($img['file_name']) ?>" alt="<?= esc($img['title']) ?>"
@@ -31,8 +50,6 @@
                 <?php endif; ?>
               </div>
               <div class="image-list-meta">
-                • <span class="image-list-order">ORDER (<?= esc($img['order']) ?>)</span>
-                • <a href="#" class="image-delete-link" onclick="return confirm('Delete image?')">DELETE</a>
               </div>
             </div>
           </li>
@@ -113,6 +130,7 @@
                     </div>
                   </div>
                   <div class="image-edit-modal-actions">
+                    <button type="button" class="image-delete-link" onclick="return confirm('Delete image?')">DELETE</button>
                     <button type="button" onclick="closeImageEditModal(<?= $img['id'] ?>)">← Prev</button>
                     <button type="submit">Uppdatera</button>
                     <button type="button" onclick="closeImageEditModal(<?= $img['id'] ?>);">Next →</button>
@@ -127,6 +145,19 @@
   <?php endforeach; ?>
 </div>
 <script>
+  function toggleProject(projectId) {
+    const list = document.getElementById('project-list-' + projectId);
+    const icon = document.getElementById('toggle-icon-' + projectId);
+
+    if (list.style.display === 'none') {
+      list.style.display = 'block';
+      icon.textContent = '▼';
+    } else {
+      list.style.display = 'none';
+      icon.textContent = '▶';
+    }
+  }
+
   function openImageEditModal(id) {
     document.getElementById('image-edit-modal-' + id).style.display = 'block';
   }
@@ -134,5 +165,82 @@
   function closeImageEditModal(id) {
     document.getElementById('image-edit-modal-' + id).style.display = 'none';
   }
+
+  function setMoveButtonState(button, isDisabled) {
+    if (!button) return;
+    button.classList.toggle('disabled', isDisabled);
+    button.setAttribute('aria-disabled', isDisabled ? 'true' : 'false');
+  }
+
+  function refreshListMoveButtons(listEl) {
+    const items = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
+    items.forEach((item, index) => {
+      const upBtn = item.querySelector('.js-image-move[data-direction="up"]');
+      const downBtn = item.querySelector('.js-image-move[data-direction="down"]');
+      setMoveButtonState(upBtn, index === 0);
+      setMoveButtonState(downBtn, index === items.length - 1);
+    });
+  }
+
+  document.addEventListener('click', async function (event) {
+    const moveBtn = event.target.closest('.js-image-move');
+    if (!moveBtn) return;
+
+    event.preventDefault();
+    if (moveBtn.classList.contains('disabled') || moveBtn.classList.contains('is-busy')) {
+      return;
+    }
+
+    const itemEl = moveBtn.closest('.image-list-item');
+    const listEl = itemEl ? itemEl.parentElement : null;
+    const moveUrl = moveBtn.getAttribute('href');
+    const direction = moveBtn.dataset.direction;
+
+    if (!itemEl || !listEl || !moveUrl || !direction) {
+      return;
+    }
+
+    moveBtn.classList.add('is-busy');
+
+    try {
+      const response = await fetch(moveUrl, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const payload = await response.json();
+      if (!payload.success || !payload.moved) {
+        refreshListMoveButtons(listEl);
+        return;
+      }
+
+      const scrollTop = window.scrollY;
+      const orderedItems = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
+      const currentIndex = orderedItems.indexOf(itemEl);
+
+      if (direction === 'up' && currentIndex > 0) {
+        const prevItem = orderedItems[currentIndex - 1];
+        listEl.insertBefore(itemEl, prevItem);
+      } else if (direction === 'down' && currentIndex !== -1 && currentIndex < orderedItems.length - 1) {
+        const nextItem = orderedItems[currentIndex + 1];
+        listEl.insertBefore(nextItem, itemEl);
+      }
+
+      refreshListMoveButtons(listEl);
+      window.scrollTo(0, scrollTop);
+    } catch (err) {
+      // Fallback to normal navigation if async request fails.
+      window.location.href = moveUrl;
+    } finally {
+      moveBtn.classList.remove('is-busy');
+    }
+  });
 </script>
 <?= $this->endSection() ?>

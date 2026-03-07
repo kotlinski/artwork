@@ -35,6 +35,8 @@ $routes->group('artwork', ['filter' => 'auth'], function ($routes) {
 $routes->group('image', ['filter' => 'auth'], function ($routes) {
     $routes->get('admin', 'ImageAdmin::admin');
     $routes->post('update/(:num)', 'ImageAdmin::update/$1');
+    $routes->get('move-up/(:num)', 'ImageAdmin::moveUp/$1');
+    $routes->get('move-down/(:num)', 'ImageAdmin::moveDown/$1');
 });
 
 $routes->get('(:segment)/(:segment)', 'Project::imageDetail/$1/$2');

@@ -23,7 +23,7 @@ class ImageAdmin extends BaseController
         }
       }
     }
-    return $this->renderNonPublicView('artwork/image_admin', [
+    return $this->renderNonPublicView('artwork/manage_images', [
       'title' => 'Image Admin',
       'projects' => $projects
     ]);
@@ -36,5 +36,68 @@ class ImageAdmin extends BaseController
     $imageModel->update($id, $data);
     return redirect()->to('/image/admin')->with('success', 'Image updated.');
   }
-}
 
+  public function moveUp($id)
+  {
+    $imageModel = new Image();
+    $image = $imageModel->find($id);
+
+    if (!$image) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setStatusCode(404)->setJSON(['success' => false, 'moved' => false]);
+      }
+      return redirect()->to('/image/admin');
+    }
+
+    $imageAbove = $imageModel
+      ->where('project', $image['project'])
+      ->where('order <', $image['order'])
+      ->orderBy('order', 'DESC')
+      ->first();
+
+    $moved = false;
+    if ($imageAbove) {
+      $imageModel->update($id, ['order' => $imageAbove['order']]);
+      $imageModel->update($imageAbove['id'], ['order' => $image['order']]);
+      $moved = true;
+    }
+
+    if ($this->request->isAJAX()) {
+      return $this->response->setJSON(['success' => true, 'moved' => $moved]);
+    }
+
+    return redirect()->to('/image/admin');
+  }
+
+  public function moveDown($id)
+  {
+    $imageModel = new Image();
+    $image = $imageModel->find($id);
+
+    if (!$image) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setStatusCode(404)->setJSON(['success' => false, 'moved' => false]);
+      }
+      return redirect()->to('/image/admin');
+    }
+
+    $imageBelow = $imageModel
+      ->where('project', $image['project'])
+      ->where('order >', $image['order'])
+      ->orderBy('order', 'ASC')
+      ->first();
+
+    $moved = false;
+    if ($imageBelow) {
+      $imageModel->update($id, ['order' => $imageBelow['order']]);
+      $imageModel->update($imageBelow['id'], ['order' => $image['order']]);
+      $moved = true;
+    }
+
+    if ($this->request->isAJAX()) {
+      return $this->response->setJSON(['success' => true, 'moved' => $moved]);
+    }
+
+    return redirect()->to('/image/admin');
+  }
+}

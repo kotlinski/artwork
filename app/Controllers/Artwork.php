@@ -60,7 +60,7 @@ class Artwork extends BaseController
   {
     $data['projects'] = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
     $data['title'] = 'Artwork Admin';
-    return $this->renderNonPublicView('artwork/artwork_admin', $data);
+    return $this->renderNonPublicView('artwork/manage_projects', $data);
   }
   
   public function store()

@@ -1,14 +1,23 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('adminContent') ?>
-<?= view('partials/markdown_editor', [
-  'formAction' => base_url('project/update'),
-  'id' => $project['id'],
-  'fieldName' => 'text',
-  'fieldValue' => $project['text'],
-  'title' => 'Edit text about '. $project['title'] . ' (Markdown)',
-  'fixed_width' => true
-]) ?>
+<?php if (session()->get('isLoggedIn')): ?>
+  <h2>Image Administration</h2>
+  <p>Add new, reorder or edit images.</p>
+  <ul>
+    <li><a href='<?= base_url('image/admin') ?>'>Image Admin</a></li>
+  </ul>
+
+  <?= view('partials/markdown_editor', [
+    'formAction' => base_url('project/update'),
+    'id' => $project['id'],
+    'fieldName' => 'text',
+    'fieldValue' => $project['text'],
+    'title' => 'Edit text about ' . $project['title'] . ' (Markdown)',
+    'fixed_width' => true
+  ]) ?>
+<?php endif; ?>
+
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
