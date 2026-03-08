@@ -33,10 +33,66 @@ $fixed_width = $fixed_width ?? false;
       <div>💡 Tip: "↵" adds a "soft line break"</div>
       <div>Soft line break: 2 spaces + new line</div>
       <div>New Paragraph: Use a blank line</div>
-      <div style='margin-top:3px'>To add a link: Type the text you want to display in [square brackets], then immediately after, put the web address in (parentheses).<br>Example: <code>[My Website](https://www.annesimonsson.se)</code></div>
+      <div style='margin-top:3px'>To add a link: Type the text you want to display in [square brackets], then
+        immediately after, put the web address in (parentheses).<br>Example: <code>[My
+          Website](https://www.annesimonsson.se)</code></div>
       <div class="form-actions">
+        <button
+          id="<?= $editorId ?>-preview-btn"
+          type="button"
+        >Preview</button>
         <button type="submit">Save</button>
       </div>
     </div>
+
   </form>
 </section>
+
+<!-- Modal for preview -->
+<div id="<?= $editorId ?>-preview-modal" class="preview-modal"
+     style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:2000;align-items:center;justify-content:center;">
+  <div class="preview-modal-content"
+       style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:416px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
+    <button type="button" id="<?= $editorId ?>-preview-close"
+            style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">
+      &times;
+    </button>
+    <div id="<?= $editorId ?>-preview-content" class="<?= $fixed_width ? 'contained':'' ?>"
+         style="word-break:break-word;overflow-wrap:anywhere;"></div>
+  </div>
+</div>
+<script src="/js/marked.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var editorId = '<?= $editorId ?>';
+    var textarea = document.getElementById(editorId);
+    var previewBtn = document.getElementById(editorId + '-preview-btn');
+    var previewModal = document.getElementById(editorId + '-preview-modal');
+    var previewContent = document.getElementById(editorId + '-preview-content');
+    var previewClose = document.getElementById(editorId + '-preview-close');
+
+    if (previewBtn && previewModal && previewContent && textarea) {
+      previewBtn.addEventListener('click', function () {
+        if (window.marked) {
+          previewContent.innerHTML = window.marked(textarea.value);
+        } else {
+          previewContent.textContent = textarea.value;
+        }
+        previewModal.style.display = 'flex';
+      });
+      previewClose.addEventListener('click', function () {
+        previewModal.style.display = 'none';
+      });
+      previewModal.addEventListener('click', function (e) {
+        if (e.target === previewModal) {
+          previewModal.style.display = 'none';
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (previewModal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) {
+          previewModal.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>

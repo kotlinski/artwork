@@ -38,12 +38,6 @@ class Artwork extends BaseController
         'right' => $indexed_images[(int)$project['image_right']] ?? null
       ];
     }
-    /*
-    foreach ($projects as &$project) {
-      $project_images = $image_model->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
-      $project['images'] = $project_images;
-    }
-    */
     $data['projects'] = $projects;
     $required = [
       'title' => 'Artwork | Anne Hamrin Simonsson',
@@ -53,51 +47,79 @@ class Artwork extends BaseController
       'og_image_width' => '320',
       'og_image_height' => '320',
     ];
-    return $this->renderView('artwork/artwork_view', $required, $data);
+    return $this->renderView('artwork/projects.php', $required, $data);
   }
   
   public function admin()
   {
-    $data['projects'] = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
+    $data['projects'] = $this->projectModel->orderBy('sort_order', 'DESC')->findAll(); // Newest first
     $data['title'] = 'Artwork Admin';
-    return $this->renderNonPublicView('artwork/manage_projects', $data);
+    return $this->renderNonPublicView('artwork/manage-projects', $data);
   }
   
   public function store()
   {
-    $rules = [
-      'title' => 'required|max_length[255]',
-      'slug' => [
-        'label' => 'Slug',
-        'rules' => 'required|max_length[110]|regex_match[/^[a-z0-9\-]+$/]|is_unique[projects.slug]'
-      ]
-    ];
-    $messages = [
-      'slug' => [
-        'regex_match' => 'The slug may only contain lowercase letters, numbers, and hyphens.'
-      ]
-    ];
-    if (!$this->validate($rules, $messages)) {
-      return redirect()->to('/artwork')->withInput()->with('errors', $this->validator->getErrors());
+    try {
+      $rules = [
+        'title' => 'required|max_length[255]',
+        'slug' => [
+          'label' => 'Slug',
+          'rules' => 'required|max_length[110]|regex_match[/^[a-z0-9\-]+$/]|is_unique[projects.slug]'
+        ]
+      ];
+      $messages = [
+        'slug' => [
+          'regex_match' => 'The slug may only contain lowercase letters, numbers, and hyphens.'
+        ]
+      ];
+      if (!$this->validate($rules, $messages)) {
+        if ($this->request->isAJAX()) {
+          return $this->response->setStatusCode(422)->setJSON([
+            'success' => false,
+            'errors' => $this->validator->getErrors()
+          ]);
+        }
+        return redirect()->to('/artwork')->withInput()->with('errors', $this->validator->getErrors());
+      }
+
+      // Move all existing projects down by incrementing sort_order
+      $this->projectModel->builder()->set('sort_order', 'sort_order + 1', false)->update();
+      $data = [
+        'title' => $this->request->getPost('title'),
+        'slug' => $this->request->getPost('slug'),
+      ];
+
+      if ($this->projectModel->insert($data)) {
+        if ($this->request->isAJAX()) {
+          return $this->response->setJSON([
+            'success' => true,
+            'project' => [
+              'id' => $this->projectModel->getInsertID(),
+              'title' => $data['title'],
+              'slug' => $data['slug'],
+              'order' => 1
+            ]
+          ]);
+        }
+        return redirect()->to('/artwork')->with('success', 'Project created successfully.');
+      }
+
+      if ($this->request->isAJAX()) {
+        return $this->response->setStatusCode(500)->setJSON([
+          'success' => false,
+          'error' => 'Failed to create project.'
+        ]);
+      }
+      return redirect()->to('/artwork')->withInput()->with('error', 'Failed to create project.');
+    } catch (\Throwable $e) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setStatusCode(500)->setJSON([
+          'success' => false,
+          'error' => 'Exception: ' . $e->getMessage()
+        ]);
+      }
+      throw $e;
     }
-    
-    // Get the highest sort_order and add 1 for new project
-    $maxOrder = $this->projectModel->selectMax('sort_order')->first();
-    $newOrder = ($maxOrder['sort_order'] ?? 0) + 1;
-    
-    $data = [
-      'title' => $this->request->getPost('title'),
-      'slug' => $this->request->getPost('slug'),
-      'image_mid' => 'placeholder.jpg',
-      'image_right' => 'placeholder.jpg',
-      'sort_order' => $newOrder
-    ];
-    
-    if ($this->projectModel->insert($data)) {
-      return redirect()->to('/artwork')->with('success', 'Project created successfully.');
-    }
-    
-    return redirect()->to('/artwork')->withInput()->with('error', 'Failed to create project.');
   }
   
   public function edit($id)
@@ -129,56 +151,66 @@ class Artwork extends BaseController
   
   public function delete($id)
   {
-    if ($this->projectModel->delete($id)) {
+    $success = $this->projectModel->delete($id);
+    if ($this->request->isAJAX()) {
+      return $this->response->setJSON([
+        'success' => $success,
+        'error' => $success ? null : 'Failed to delete project.'
+      ]);
+    }
+    if ($success) {
       return redirect()->to('/artwork')->with('success', 'Project deleted successfully.');
     }
-    
     return redirect()->back()->with('error', 'Failed to delete project.');
   }
   
   public function moveUp($id)
   {
     $project = $this->projectModel->find($id);
-    
     if (!$project) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setJSON(['success' => false, 'error' => 'Project not found']);
+      }
       return redirect()->to('/artwork')->with('error', 'Project not found.');
     }
-    
-    // Find the project with the next lower sort_order (the one above)
     $projectAbove = $this->projectModel
       ->where('sort_order <', $project['sort_order'])
       ->orderBy('sort_order', 'DESC')
       ->first();
-    
+    $moved = false;
     if ($projectAbove) {
-      // Swap sort_order values
       $this->projectModel->update($id, ['sort_order' => $projectAbove['sort_order']]);
       $this->projectModel->update($projectAbove['id'], ['sort_order' => $project['sort_order']]);
+      $moved = true;
     }
-    
+    if ($this->request->isAJAX()) {
+      return $this->response->setJSON(['success' => true, 'moved' => $moved]);
+    }
     return redirect()->to('/artwork');
   }
-  
+
   public function moveDown($id)
   {
     $project = $this->projectModel->find($id);
-    
     if (!$project) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setJSON(['success' => false, 'error' => 'Project not found']);
+      }
       return redirect()->to('/artwork')->with('error', 'Project not found.');
     }
-    
-    // Find the project with the next higher sort_order (the one below)
     $projectBelow = $this->projectModel
       ->where('sort_order >', $project['sort_order'])
       ->orderBy('sort_order', 'ASC')
       ->first();
-    
+    $moved = false;
     if ($projectBelow) {
-      // Swap sort_order values
       $this->projectModel->update($id, ['sort_order' => $projectBelow['sort_order']]);
       $this->projectModel->update($projectBelow['id'], ['sort_order' => $project['sort_order']]);
+      $moved = true;
     }
-    
+    if ($this->request->isAJAX()) {
+      return $this->response->setJSON(['success' => true, 'moved' => $moved]);
+    }
     return redirect()->to('/artwork');
   }
 }

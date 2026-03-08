@@ -2,8 +2,66 @@
 <?= $this->section('content') ?>
 <div class="contained">
   <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert success">Image updated.</div>
+    <div class="alert success"><?= esc(session()->getFlashdata('success')) ?></div>
   <?php endif; ?>
+  <?php if (session()->getFlashdata('upload_error')): ?>
+    <div class="alert error"><?= esc(session()->getFlashdata('upload_error')) ?></div>
+  <?php endif; ?>
+  <?php $uploadErrors = session()->getFlashdata('upload_errors'); ?>
+  <?php if (!empty($uploadErrors)): ?>
+    <div class="alert error">
+      <ul style="margin:0;padding-left:18px;">
+        <?php foreach ($uploadErrors as $err): ?>
+          <li><?= esc($err) ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+
+  <!-- Upload Image Button -->
+  <div style="margin-bottom: 18px;">
+    <button type="button" onclick="openUploadModal()" class="btn-upload-image">⬆ Upload Image</button>
+  </div>
+
+  <!-- Upload Image Modal -->
+  <div id="upload-image-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:#fff; padding:28px 32px; border-radius:6px; min-width:360px; max-width:480px; width:100%; position:relative;">
+      <span onclick="closeUploadModal()" style="position:absolute; top:10px; right:16px; font-size:22px; cursor:pointer; line-height:1;">&times;</span>
+      <h3 style="margin-top:0;">Upload Image</h3>
+      <form method="post" action="/image/upload" enctype="multipart/form-data">
+        <?= csrf_field() ?>
+        <label style="display:block; margin-bottom:12px;">
+          Project
+          <select name="project_id" required style="display:block; width:100%; margin-top:4px;">
+            <option value="">-- Select project --</option>
+            <?php foreach ($projects as $proj): ?>
+              <option value="<?= esc($proj['id']) ?>"
+                <?= (string)(session()->getFlashdata('upload_project_id') ?? '') === (string)$proj['id'] ? ' selected' : '' ?>>
+                <?= esc($proj['title']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </label>
+        <label style="display:block; margin-bottom:12px;">
+          File ID <span style="color:#888; font-size:12px;">(slug, e.g. <em>basket-closeup</em>)</span>
+          <input type="text" name="file_id" required
+                 placeholder="e.g. basket-closeup"
+                 pattern="[a-z0-9\-]+"
+                 title="Lowercase letters, numbers and hyphens only"
+                 value="<?= esc(session()->getFlashdata('upload_file_id') ?? '') ?>"
+                 style="display:block; width:100%; margin-top:4px; box-sizing:border-box;">
+        </label>
+        <label style="display:block; margin-bottom:18px;">
+          Image file <span style="color:#888; font-size:12px;">(jpg, jpeg, png, webp — max 20 MB)</span>
+          <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" required style="display:block; margin-top:4px;">
+        </label>
+        <div style="text-align:right;">
+          <button type="button" onclick="closeUploadModal()" style="margin-right:8px;">Cancel</button>
+          <button type="submit">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <?php foreach ($projects as $project): ?>
     <?php $images = $project['images'] ?? []; ?>
     <div class="image-project-group">
@@ -22,11 +80,13 @@
               <a href="/image/move-up/<?= $img['id'] ?>"
                  class="order-btn js-image-move<?= $isFirst ? ' disabled' : '' ?>"
                  data-direction="up"
+                 data-method="PATCH"
                  aria-disabled="<?= $isFirst ? 'true' : 'false' ?>"
                  title="Move up">▲</a>
               <a href="/image/move-down/<?= $img['id'] ?>"
                  class="order-btn js-image-move<?= $isLast ? ' disabled' : '' ?>"
                  data-direction="down"
+                 data-method="PATCH"
                  aria-disabled="<?= $isLast ? 'true' : 'false' ?>"
                  title="Move down">▼</a>
             </span>
@@ -145,6 +205,25 @@
   <?php endforeach; ?>
 </div>
 <script>
+  function openUploadModal() {
+    const modal = document.getElementById('upload-image-modal');
+    modal.style.display = 'flex';
+  }
+
+  function closeUploadModal() {
+    const modal = document.getElementById('upload-image-modal');
+    modal.style.display = 'none';
+  }
+
+  // Close modal when clicking the backdrop
+  document.getElementById('upload-image-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeUploadModal();
+  });
+
+  <?php if (!empty($uploadErrors) || session()->getFlashdata('upload_error')): ?>
+  openUploadModal();
+  <?php endif; ?>
+
   function toggleProject(projectId) {
     const list = document.getElementById('project-list-' + projectId);
     const icon = document.getElementById('toggle-icon-' + projectId);
@@ -203,8 +282,9 @@
     moveBtn.classList.add('is-busy');
 
     try {
+      const method = moveBtn.dataset.method || 'PATCH';
       const response = await fetch(moveUrl, {
-        method: 'GET',
+        method: method,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Accept': 'application/json'

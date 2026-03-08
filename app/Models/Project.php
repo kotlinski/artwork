@@ -39,8 +39,8 @@ class Project extends Model
     'slug'        => 'required|max_length[110]|is_unique[projects.slug,id,{id}]',
     'title'       => 'required|max_length[255]',
     'image_left'  => 'permit_empty|integer',
-    'image_mid'   => 'required|integer',
-    'image_right' => 'required|integer'
+    'image_mid'   => 'permit_empty|integer',
+    'image_right' => 'permit_empty|integer'
   ];
   
   protected $validationMessages = [
@@ -51,4 +51,3 @@ class Project extends Model
   
   protected $skipValidation = false;
 }
-

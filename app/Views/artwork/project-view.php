@@ -10,10 +10,10 @@
 
   <?= view('partials/markdown_editor', [
     'formAction' => base_url('project/update'),
-    'id' => $project['id'],
+    'id' => $project['id'] ?? '',
     'fieldName' => 'text',
-    'fieldValue' => $project['text'],
-    'title' => 'Edit text about ' . $project['title'] . ' (Markdown)',
+    'fieldValue' => $project['text'] ?? '',
+    'title' => 'Edit text about ' . ($project['title'] ?? 'Projekt'),
     'fixed_width' => true
   ]) ?>
 <?php endif; ?>
@@ -44,25 +44,25 @@
       }
       ?>
     </div>
-    <?php if (!empty($images)): ?>
+    <?php if (!empty($images) && is_array($images)): ?>
       <div style="display: grid;grid-template-columns: repeat(3, 122px);gap: 7px;width: 380px;margin: 12px auto;">
         <?php foreach ($images as $img): ?>
-          <a href="<?= base_url(($project['slug'] ?? '') . '/' . $img['file_id']) ?>" style="display: block;">
+          <?php if (!isset($img['file_name'])) continue; ?>
+          <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>" style="display: block;">
             <img
               src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
               srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x,
-                <?= base_url('konst/medium/' . $img['file_name']) ?> 2x" ,
-              <?= base_url('konst/large/' . $img['file_name']) ?> 4x"
-            alt="<?= esc($img['title'] ?? '') ?>"
-            loading="lazy"
-            style="
-            display: block;
-            width: 122px;
-            height: 122px;
-            object-fit: cover;
-            object-position: center;
-            border: 0;
-            "
+                <?= base_url('konst/medium/' . $img['file_name']) ?> 2x"
+              alt="<?= esc($img['title'] ?? '') ?>"
+              loading="lazy"
+              style="
+              display: block;
+              width: 122px;
+              height: 122px;
+              object-fit: cover;
+              object-position: center;
+              border: 0;
+              "
             />
           </a>
         <?php endforeach; ?>
@@ -70,7 +70,7 @@
     <?php endif; ?>
     <div class="back-to-overview-row"
          style="display: flex; justify-content: space-between; align-items: center; margin: 1em 0;">
-      <a href="<?= base_url('artwork') . '#' . $project['slug'] ?>">back to artworks</a>
+      <a href="<?= base_url('artwork') . '#' . ($project['slug'] ?? '') ?>">back to artworks</a>
       <?php if (!empty($next_project_slug) && !empty($next_project_title)): ?>
         <a href="<?= base_url('/' . $next_project_slug) ?>"
            class="btn btn-primary d-inline-flex align-items-center">next: <?= esc($next_project_title) ?>
@@ -87,4 +87,24 @@
     <hr class="light"/>
   <?php endif; ?>
 </div>
+<script src="/js/marked.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var textarea = document.querySelector('textarea.admin-editor');
+  if (!textarea) return;
+  var previewId = textarea.id + '-preview';
+  var preview = document.getElementById(previewId);
+  if (!preview) return;
+
+  function updatePreview() {
+    if (window.marked) {
+      preview.innerHTML = window.marked(textarea.value);
+    } else {
+      preview.textContent = textarea.value;
+    }
+  }
+  textarea.addEventListener('input', updatePreview);
+  updatePreview(); // Initial render
+});
+</script>
 <?= $this->endSection() ?>

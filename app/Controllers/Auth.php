@@ -36,7 +36,7 @@ class Auth extends BaseController
       }
       if ($isValid) {
         $session->set(['isLoggedIn' => true, 'user_id' => $user['id']]);
-        return redirect()->to('/contact');
+        return redirect()->to('/artwork');
       }
       print("Didn't verify password.");
       die();

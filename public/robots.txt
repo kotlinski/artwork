@@ -1,2 +1,6 @@
 User-agent: *
-Disallow: 
+Disallow: /login
+Disallow: /admin
+Disallow: /image/admin
+Allow: /
+Sitemap: https://www.annesimonsson.se/sitemap.xml

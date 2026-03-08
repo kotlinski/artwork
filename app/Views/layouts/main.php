@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
   <link rel="stylesheet" href="<?= base_url('css/layout.css') ?>">
   <?php if (session()->get('isLoggedIn')): ?>
-    <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>">
   <?php endif; ?>
 
 </head>

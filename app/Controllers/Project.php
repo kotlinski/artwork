@@ -43,7 +43,28 @@ class Project extends BaseController
       'og_image_width' => '320',
       'og_image_height' => '320',
     ];
-    return $this->renderView('artwork/project_detail', $required, [
+    // Ensure all fields are set with safe defaults
+    $project = array_merge([
+      'id' => '',
+      'slug' => '',
+      'title' => '',
+      'alternate_name' => '',
+      'description' => '',
+      'text' => '',
+      'start_year' => '',
+      'end_year' => '',
+      'location' => '',
+      'map_url' => '',
+      'external_links' => '',
+      'image_left' => 0,
+      'image_mid' => 0,
+      'image_right' => 0,
+      'sort_order' => 0
+    ], $project);
+    if (!isset($images) || !is_array($images)) $images = [];
+    $next_project_slug = $next_project_slug ?? '';
+    $next_project_title = $next_project_title ?? '';
+    return $this->renderView('artwork/project-view', $required, [
       'project' => $project,
       'images' => $images,
       'next_project_slug' => $next_project_slug,
@@ -84,12 +105,12 @@ class Project extends BaseController
     $required = [
       'title' => $image['title'] . ' | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
-      'description' => $image['caption'],
+      'description' => !empty($image['caption']) ? $image['caption'] : 'Artwork by Anne Hamrin Simonsson',
       'og_image' => base_url('konst/' . $image['file_name']),
       'og_image_width' => $image['width_px'],
       'og_image_height' => $image['height_px'],
     ];
-    return $this->renderView('artwork/image_detail', $required, [
+    return $this->renderView('artwork/image-view', $required, [
       'project' => $project,
       'image' => $image,
       'current_index' => $current_index,
@@ -117,6 +138,18 @@ class Project extends BaseController
     $model->update($id, ['text' => $text]);
     // Redirect to project detail page
     return redirect()->to(base_url('/' . $project['slug']))->with('success', 'Project info updated');
+  }
+  
+  // Fetch all projects for overview (for artwork page, admin, etc.)
+  public function index()
+  {
+      $model = new \App\Models\Project();
+      // Order by sort_order DESC so newest projects appear first
+      $projects = $model->orderBy('sort_order', 'DESC')->findAll();
+      return $this->renderView('artwork/project_overview', [
+          'projects' => $projects,
+          'selected_menu_item' => 'artwork',
+      ]);
   }
 }
 
@@ -200,10 +233,4 @@ function generateImageJsonLd($image, $album_path)
   
   return json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
-
-
-
-
-
-
 
