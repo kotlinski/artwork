@@ -70,11 +70,11 @@
     <?php endif; ?>
     <div class="back-to-overview-row"
          style="display: flex; justify-content: space-between; align-items: center; margin: 1em 0;">
-      <a href="<?= base_url('artwork') . '#' . ($project['slug'] ?? '') ?>">back to artworks</a>
+      <a href="<?= base_url('artwork') . '#' . ($project['slug'] ?? '') ?>">Back to Artworks</a>
       <?php if (!empty($next_project_slug) && !empty($next_project_title)): ?>
-        <a href="<?= base_url('/' . $next_project_slug) ?>"
-           class="btn btn-primary d-inline-flex align-items-center">next: <?= esc($next_project_title) ?>
-        </a>
+        <span>Next project: <a href="<?= base_url('/' . $next_project_slug) ?>"
+                               class="btn btn-primary d-inline-flex align-items-center"><?= esc($next_project_title) ?>
+        </a></span>
       <?php else: ?>
         <span></span>
       <?php endif; ?>
@@ -89,22 +89,23 @@
 </div>
 <script src="/js/marked.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var textarea = document.querySelector('textarea.admin-editor');
-  if (!textarea) return;
-  var previewId = textarea.id + '-preview';
-  var preview = document.getElementById(previewId);
-  if (!preview) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    var textarea = document.querySelector('textarea.admin-editor');
+    if (!textarea) return;
+    var previewId = textarea.id + '-preview';
+    var preview = document.getElementById(previewId);
+    if (!preview) return;
 
-  function updatePreview() {
-    if (window.marked) {
-      preview.innerHTML = window.marked(textarea.value);
-    } else {
-      preview.textContent = textarea.value;
+    function updatePreview() {
+      if (window.marked) {
+        preview.innerHTML = window.marked(textarea.value);
+      } else {
+        preview.textContent = textarea.value;
+      }
     }
-  }
-  textarea.addEventListener('input', updatePreview);
-  updatePreview(); // Initial render
-});
+
+    textarea.addEventListener('input', updatePreview);
+    updatePreview(); // Initial render
+  });
 </script>
 <?= $this->endSection() ?>

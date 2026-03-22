@@ -39,6 +39,7 @@ $routes->group('image', ['filter' => 'auth'], function ($routes) {
     $routes->patch('move-up/(:num)', 'ImageAdmin::moveUp/$1');
     $routes->patch('move-down/(:num)', 'ImageAdmin::moveDown/$1');
     $routes->post('upload', 'ImageAdmin::upload');
+    $routes->post('delete/(:num)', 'ImageAdmin::delete/$1');
 });
 
 $routes->get('(:segment)/(:segment)', 'Project::imageDetail/$1/$2');

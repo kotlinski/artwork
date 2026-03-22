@@ -7,6 +7,30 @@ use App\Models\Project;
 
 class ImageAdmin extends BaseController
 {
+  public function delete($id)
+  {
+    $imageModel = new Image();
+    $image = $imageModel->find($id);
+    if (!$image) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setStatusCode(404)->setJSON(['success' => false, 'error' => 'Image not found.']);
+      }
+      return redirect()->to('/image/admin')->with('error', 'Image not found.');
+    }
+    $success = $imageModel->delete($id);
+    if ($this->request->isAJAX()) {
+      if ($success) {
+        return $this->response->setJSON(['success' => true]);
+      } else {
+        return $this->response->setStatusCode(400)->setJSON(['success' => false, 'error' => 'Delete failed.']);
+      }
+    }
+    if ($success) {
+      return redirect()->to('/image/admin')->with('success', 'Image deleted.');
+    } else {
+      return redirect()->to('/image/admin')->with('error', 'Delete failed.');
+    }
+  }
   public function admin()
   {
     $imageModel = new Image();
@@ -33,7 +57,34 @@ class ImageAdmin extends BaseController
   {
     $imageModel = new Image();
     $data = $this->request->getPost();
-    $imageModel->update($id, $data);
+    // Ensure blank dimensions are saved as NULL, not 0.00, and integers are stored as integer strings
+    foreach (['height_cm', 'width_cm', 'depth_cm'] as $dim) {
+      if (isset($data[$dim])) {
+        $val = trim($data[$dim]);
+        if ($val === '') {
+          $data[$dim] = null;
+        } elseif (is_numeric($val)) {
+          // If integer, store as int string; if decimal, store as trimmed string
+          if ((float)$val == (int)$val) {
+            $data[$dim] = (string)(int)$val;
+          } else {
+            $data[$dim] = rtrim(rtrim($val, '0'), '.');
+          }
+        } else {
+          $data[$dim] = null;
+        }
+      }
+    }
+    $success = $imageModel->update($id, $data);
+    if ($this->request->isAJAX()) {
+      if ($success) {
+        // Fetch the updated image from the database
+        $updatedImage = $imageModel->find($id);
+        return $this->response->setJSON(['success' => true, 'image' => $updatedImage]);
+      } else {
+        return $this->response->setStatusCode(400)->setJSON(['success' => false, 'error' => 'Update failed.']);
+      }
+    }
     return redirect()->to('/image/admin')->with('success', 'Image updated.');
   }
   

@@ -209,7 +209,7 @@ textarea.fixed-width {
 }
 
 .image-project-group {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .project-toggle {
@@ -310,7 +310,6 @@ textarea.fixed-width {
 
 .image-delete-link {
     color: #c00;
-    text-decoration: underline;
     margin-left: auto;
     margin-right: 0;
     background: none;
@@ -376,6 +375,7 @@ textarea.fixed-width {
     display: flex;
     flex-direction: row;
     gap: 24px;
+    width: 100%;
     flex: 1;
 }
 
@@ -383,8 +383,9 @@ textarea.fixed-width {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    min-width: 180px;
-    max-width: 220px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
 }
 
 .image-edit-modal-col h4 {
@@ -394,7 +395,7 @@ textarea.fixed-width {
 }
 
 .image-edit-modal-col label {
-    font-size: 13px;
+    font-size: 12px;
     color: #222;
     margin-bottom: 2px;
     display: flex;
@@ -405,7 +406,7 @@ textarea.fixed-width {
 .image-edit-modal-col input,
 .image-edit-modal-col textarea,
 .image-edit-modal-col select {
-    font-size: 14px;
+    font-size: 12px;
     padding: 3px 6px;
     border: 1px solid #bbb;
     border-radius: 3px;
@@ -415,14 +416,14 @@ textarea.fixed-width {
 
 .image-edit-modal-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 10px;
     margin-top: 18px;
 }
 
 .image-edit-modal-actions button {
     padding: 6px 18px;
-    font-size: 15px;
+    font-size: 14px;
     border-radius: 4px;
     border: 1px solid #bbb;
     background: #f5f5f5;
@@ -430,11 +431,6 @@ textarea.fixed-width {
     margin-left: 0;
 }
 
-.image-edit-modal-actions button[type="submit"] {
-    background: #223344;
-    color: #fff;
-    border: 1px solid #223344;
-}
 
 @media (max-width: 900px) {
     .image-edit-modal-content {
@@ -450,6 +446,10 @@ textarea.fixed-width {
     .image-edit-modal-fields {
         flex-direction: column;
         gap: 10px;
+    }
+    .image-edit-modal-col {
+        width: 100%;
+        gap: 8px;
     }
 }
 
@@ -531,21 +531,6 @@ code {
     margin-top: 4px;
     color: #c00;
     font-size: 12px;
-}
-
-.btn-upload-image {
-    background: #2a6496;
-    color: #fff;
-    border: none;
-    padding: 8px 18px;
-    font-size: 14px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-.btn-upload-image:hover {
-    background: #1e4d72;
 }
 
 .alert.error {

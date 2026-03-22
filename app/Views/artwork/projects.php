@@ -97,9 +97,9 @@
         <div style="text-align: right;">
           <a href="<?= $projectUrl ?>">read more</a>
         </div>
-        <?php if ($project !== end($projects)): ?>
+<!--        <?php /*if ($project !== end($projects)): */?>
           <hr class="light" style="margin: 16px 0 22px 0;">
-        <?php endif; ?>
+        --><?php /*endif; */?>
       </div>
 
     <?php endforeach; ?>
