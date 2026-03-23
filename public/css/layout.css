@@ -42,6 +42,12 @@ html {
     margin: 0 calc(50% - 50vw);
     padding: 0;
 }
+@media (max-width: 399.98px) {
+    .main-nav {
+        padding: 0 10px 0 10px;
+        width: auto;
+    }
+}
 
 .main-nav-inner {
     max-width: 380px;
@@ -63,8 +69,14 @@ html {
     color: #767676;
     letter-spacing: 0;
 }
-.main-nav a.current { color: #000; }
-.main-nav a.current:hover { color: #333; }
+
+.main-nav a.current {
+    color: #000;
+}
+
+.main-nav a.current:hover {
+    color: #333;
+}
 
 footer {
     width: 100%;
@@ -86,4 +98,26 @@ footer div {
     padding-bottom: 2px;
 }
 
-footer hr { margin: 0; }
+footer hr {
+    margin: 0;
+}
+
+.project-header-inner {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0.5em 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.project-header-inner h1 {
+    margin: 0;
+    font-size: 1.6em;
+    background: none;
+}
+
+@media (max-width: 420px) {
+    .project-header-inner, .main-nav-inner {
+        max-width: 100%;
+    }
+}
