@@ -32,6 +32,7 @@ body {
     display: block;
     padding-bottom: 60px;
     min-width: 100%;
+    padding-top: 20px;
 }
 
 @media (max-width: 600px) {

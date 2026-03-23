@@ -34,17 +34,20 @@
 </head>
 <body>
 
+<div class="site-wrapper">
 <?php if (!isset($hide_main_header) || !$hide_main_header): ?>
-<header class="main-header">
-  <div class="site-branding">ANNE HAMRIN SIMONSSON</div>
+  <header class="main-header">
+    <div class="site-branding">ANNE HAMRIN SIMONSSON</div>
+  </header>
   <nav class="main-nav">
+    <div class="main-nav-inner">
     <?php
     $menu_items = ['news', 'artwork', 'about', 'contact'];
     foreach ($menu_items as $item): ?>
       <a href="<?= base_url($item) ?>"<?= $item === $selected_menu_item ? ' class="current"' : '' ?>><?= $item ?></a>
     <?php endforeach; ?>
+    </div>
   </nav>
-</header>
 <?php endif; ?>
 
 
@@ -56,7 +59,7 @@
       <div class="admin-notice">
         <button onclick="window.location.href='<?= base_url('logout') ?>'">Log out</button>
       </div>
-    <hr class="light admin-divider"/>
+      <hr class="light admin-divider"/>
     </div>
     <?= $this->renderSection('adminContent') ?>
   <?php endif; ?>
@@ -68,6 +71,7 @@
   <hr/>
   <div>Copyright &copy; Anne Hamrin Simonsson 2012-<?= date('Y') ?></div>
 </footer>
+</div>
 
 <?php if (isset($lcp_image_url)): ?>
   <link rel="preload" as="image" href="<?= $lcp_image_url ?>">
