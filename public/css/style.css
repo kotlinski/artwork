@@ -30,18 +30,23 @@ body {
     width: max-content;
     max-width: none;
     display: block;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
     min-width: 100%;
     padding-top: 20px;
+    --content-inline-start: max(0px, calc((100vw - var(--content-column-max-width)) / 2));
+}
+
+.content > :not(.contained) {
+    margin-left: var(--content-inline-start);
 }
 
 @media (max-width: 600px) {
     .content {
         /* Force the container to ignore parent padding and hit screen edges */
         width: 100vw !important;
-        margin-left: -10px !important; /* Match this to your body/parent padding */
-        margin-right: -10px !important; /* Match this to your body/parent padding */
-
+        /*margin-left: -10px !important; !* Match this to your body/parent padding *!
+        margin-right: -10px !important; !* Match this to your body/parent padding *!
+*/
         /* Keep these from before */
         max-width: none !important;
         overflow-x: auto !important;
@@ -55,6 +60,10 @@ body {
         box-sizing: border-box;
         padding-left: 10px;
         padding-right: 10px;
+    }
+
+    .content > :not(.contained) {
+        margin-left: max(0px, calc(var(--content-inline-start) - 10px));
     }
 
     .content::-webkit-scrollbar {
@@ -78,7 +87,8 @@ body {
 .content .contained p {
     white-space: normal !important;
     /*width: 380px !important;*/
-    max-width: 380px !important;
+    max-width: var(--content-column-max-width) !important;
+    margin: 0 auto;
 }
 
 textarea {
@@ -115,7 +125,7 @@ h1 {
     position: sticky;
     top: 30px;
     background-color: #fff;
-    z-index: 100;
+    z-index: 99;
     padding: 4px 0;
 }
 

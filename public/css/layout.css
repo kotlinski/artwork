@@ -5,14 +5,24 @@ body {
     box-sizing: border-box;
 }
 
+:root {
+    --content-column-max-width: 380px;
+}
+
 .site-wrapper {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 0 10px;
-    box-sizing: border-box;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    /*padding: 0 10px;*/
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+@supports (min-height: 100dvh) {
+    .site-wrapper {
+        min-height: 100dvh;
+    }
 }
 
 html {
@@ -35,22 +45,21 @@ html {
 .main-nav {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 9999; /* Higher than everything else */
     background-color: #ffffff;
     width: 100vw;
-    max-width: none;
     margin: 0 calc(50% - 50vw);
-    padding: 0;
+    align-self: flex-start;
 }
 @media (max-width: 399.98px) {
     .main-nav {
         padding: 0 10px 0 10px;
-        width: auto;
+        width: calc(100vw - 20px);
     }
 }
 
 .main-nav-inner {
-    max-width: 380px;
+    max-width: var(--content-column-max-width);
     width: 100%;
     margin: 0 auto 0 auto;
     display: flex;
@@ -80,11 +89,14 @@ html {
 
 footer {
     width: 100%;
+    max-width: var(--content-column-max-width);
+    margin-top: auto;
+    margin-right: auto;
+    margin-left: auto;
     text-align: center;
     min-height: 40px;
     display: flex;
     flex-direction: column;
-    margin-top: 0;
 }
 
 footer div {
