@@ -1,8 +1,55 @@
+html {
+    scrollbar-gutter: stable; /* Keeps the content width consistent */
+    overflow-y: scroll; /* Forces the vertical scrollbar so it never "pops" in */
+}
+/* This defines the width of the scrollbar area */
+::-webkit-scrollbar {
+    width: 8px; /* Vertical scrollbar width */
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+/* This is the "track" (the background) */
+::-webkit-scrollbar-track {
+    background: #ffffff; /* Matches your site background */
+}
+
+/* This is the actual draggable "thumb" */
+::-webkit-scrollbar-thumb {
+    background: #d1d1d1; /* A light grey that fits your aesthetic */
+    border-radius: 10px; /* Rounded for a modern look */
+    border: 2px solid #ffffff; /* Creates a "padding" effect around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #767676; /* Darkens slightly on hover to match your link colors */
+}
 body {
+
+    width: 100%;
+    -webkit-overflow-scrolling: touch; /* Smooth inertia scrolling for iOS */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
     display: block;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.content::-webkit-scrollbar,
+.site-wrapper::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent; /* Extra safety */
+}
+/* Subtle, thin scrollbar for Safari */
+.content::-webkit-scrollbar {
+    height: 3px; /* Very thin for horizontal scroll */
+}
+.content::-webkit-scrollbar-thumb {
+    background: #eeeeee; /* Light grey that fades into your white background */
+    border-radius: 10px;
 }
 
 :root {
@@ -31,9 +78,9 @@ html {
 }
 
 .main-header {
-    width: 100vw;
+    width: 100%;
     max-width: none;
-    margin: 0 calc(50% - 50vw);
+    margin: 0;
     text-align: center;
     line-height: 155%;
     padding: 33px 0 20px 0;
@@ -47,8 +94,8 @@ html {
     top: 0;
     z-index: 9999; /* Higher than everything else */
     background-color: #ffffff;
-    width: 100vw;
-    margin: 0 calc(50% - 50vw);
+    width: 100%;
+    margin: 0;
     align-self: flex-start;
 }
 @media (max-width: 399.98px) {

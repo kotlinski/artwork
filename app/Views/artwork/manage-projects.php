@@ -107,7 +107,7 @@
   <p>This is the overview for the projects. Pick three images, write a short summary per project.</p>
   <?php foreach ($projects as $project): ?>
   <div class="project-edit-expandable" data-project-id="<?= $project['id'] ?>"
-       style="border:1px solid #ddd; border-radius:6px; margin-bottom:10px;">
+       style="border:1px solid #ddd; border-radius:6px; margin:10px 0 10px 0;">
     <button type="button" class="project-expand-toggle" aria-expanded="false"
             aria-controls="project-form-<?= $project['slug'] ?>"
             style="width:100%; text-align:left; background:none; border:none; padding:12px 16px; font-family:'Courier New',sans-serif; font-size:12px; color:#767676; white-space:nowrap; letter-spacing:-0.5px; line-height:1.3; cursor:pointer; display:flex; align-items:center; gap:0.7em;">
@@ -177,16 +177,16 @@
     </label>
   </div>
   <div style="margin-top: 10px; text-align: right;">
-    <button type="submit">Update Project Overview</button>
+    <button type="submit">Update</button>
   </div>
   </form>
 </div>
 <?php if ($project !== end($projects)): ?>
 <?php endif; ?>
 <?php endforeach; ?>
+<hr style="margin: 30px 0">
 </div>
 
-<hr style="margin: 30px 0">
 <script>
   // ...existing code for modal, move, delete...
   function openProjectCreateModal() {

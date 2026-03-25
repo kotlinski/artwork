@@ -10,6 +10,9 @@ $routes->get('users', 'Home::index');
 $routes->get('user/(:num)', 'Home::profile/$1');
 // above was initial setup
 
+$routes->get('news', 'News::index');
+
+
 $routes->get('login', 'Auth::index');
 $routes->post('login/auth', 'Auth::login');
 $routes->get('logout', 'Auth::logout');
@@ -46,3 +49,4 @@ $routes->get('(:segment)/(:segment)', 'Project::imageDetail/$1/$2');
 $routes->get('(:segment)', 'Project::detail/$1');
 
 $routes->post('project/update', 'Project::update', ['filter' => 'auth']);
+

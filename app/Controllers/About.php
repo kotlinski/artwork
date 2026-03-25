@@ -28,6 +28,7 @@ class About extends BaseController
     
     return $this->renderView('about_view', $required, $page_specific);
   }
+  
   public function update()
   {
     // Security check: ensure only logged in users can post here

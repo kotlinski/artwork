@@ -11,11 +11,25 @@ $title = $title ?? 'Edit Content (Markdown)';
 $editorId = $editorId ?? 'md-editor-' . uniqid();
 $fixed_width = $fixed_width ?? false;
 ?>
-<section class="admin-editor">
-  <div class='contained'>
+<!-- Modal for preview -->
+<div id="<?= $editorId ?>-preview-modal" class="preview-modal"
+     style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:2000;align-items:center;justify-content:center;">
+  <div class="preview-modal-content"
+       style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:416px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
+    <button type="button" id="<?= $editorId ?>-preview-close"
+            style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">
+      &times;
+    </button>
+    <div id="<?= $editorId ?>-preview-content" class="<?= $fixed_width ? 'contained':'' ?>"
+         style="word-break:break-word;overflow-wrap:anywhere;"></div>
+  </div>
+</div>
+
+<section class="admin-editor contained">
+  <div>
     <h2><?= esc($title) ?></h2>
   </div>
-  <form action="<?= $formAction ?>" method="post">
+  <form class="contained" action="<?= $formAction ?>" method="post">
     <input type="hidden" name="id" value="<?= esc($id) ?>">
     <div class="md-toolbar">
       <button type="button" onclick="mdWrap('<?= $editorId ?>', '**', '**')" title="Bold">B</button>
@@ -48,19 +62,7 @@ $fixed_width = $fixed_width ?? false;
   </form>
 </section>
 
-<!-- Modal for preview -->
-<div id="<?= $editorId ?>-preview-modal" class="preview-modal"
-     style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:2000;align-items:center;justify-content:center;">
-  <div class="preview-modal-content"
-       style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:416px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
-    <button type="button" id="<?= $editorId ?>-preview-close"
-            style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">
-      &times;
-    </button>
-    <div id="<?= $editorId ?>-preview-content" class="<?= $fixed_width ? 'contained':'' ?>"
-         style="word-break:break-word;overflow-wrap:anywhere;"></div>
-  </div>
-</div>
+
 <script src="/js/marked.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {

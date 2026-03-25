@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<div style="justify-items: center;padding-top: 20px">
+<div class="contained" style="justify-items: center;padding-top: 20px">
   <div style="width: 50%;">
     <form class="login-form" action="<?= base_url('login/auth') ?>" method="post"
           style="display:flex; flex-direction:column; gap:10px;">
