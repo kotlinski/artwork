@@ -15,8 +15,8 @@
   'fieldValue' => $about['text'],
   'title' => 'Edit About Info (Markdown)'
 ]) ?>
+<hr class="light admin-divider"/>
 <?= $this->endSection() ?>
-
 
 <?= $this->section('content') ?>
 <h1 class="visually-hidden">About</h1>

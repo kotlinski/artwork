@@ -45,7 +45,7 @@
       ?>
     </div>
     <?php if (!empty($images) && is_array($images)): ?>
-      <div style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));gap: 7px;width: calc(min(100vw, 380px) - 14px);/*margin: 12px auto;*/">
+      <div style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 12px 0;">
         <?php foreach ($images as $img): ?>
           <?php if (!isset($img['file_name'])) continue; ?>
           <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>" style="display: block;">

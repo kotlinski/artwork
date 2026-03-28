@@ -5,13 +5,12 @@
 
 .admin-divider {
     margin: 15px 0 20px 0;
+    width: 380px;
 }
 
 section.admin-editor {
-    background: #f9f9f9;
     color: #222222;
     padding: 0;
-    border: 1px dashed #ccc;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
@@ -26,12 +25,13 @@ textarea.admin-editor {
     min-width: 380px;
     max-width: 840px;
     height: 320px;
-    padding: 6px 0;
+    padding: 6px 6px;
     box-sizing: border-box;
     resize: both;
-    background: linear-gradient(to right, #fff 0px, #fff 380px, #fff2f2 380px, #f2f2f2 100%);
+    background: linear-gradient(to right, #fff 0px, #fff 382px, #f2f2f2 380px, #ffffff 100%);
     border-right: 1px solid #ccc;
     background-clip: padding-box;
+    margin-left: -4px
 }
 
 textarea.fixed-width {
@@ -55,14 +55,14 @@ textarea.fixed-width {
 }
 
 .admin-editor .form-actions {
-    margin-top: 10px;
+    margin: 10px;
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
 .md-toolbar {
-    background: #eee;
+    background: #efefef;
     padding: 5px;
     border: 1px solid #ccc;
     border-bottom: none;
@@ -563,6 +563,7 @@ code {
     z-index: 2000;
     align-items: center;
     justify-content: center;
+    margin-left: 0; /* Prevent m offset from shifting the modal */
 }
 .preview-modal-content {
     background: #fff;

@@ -43,7 +43,7 @@ $fixed_width = $fixed_width ?? false;
     </div>
     <textarea id="<?= $editorId ?>" name="<?= esc($fieldName) ?>"
               class="admin-editor<?= $fixed_width ? ' fixed-width' : '' ?>"><?= esc($fieldValue) ?></textarea>
-    <div class='contained'>
+    <div style='padding: 0 4px'>
       <div>💡 Tip: "↵" adds a "soft line break"</div>
       <div>Soft line break: 2 spaces + new line</div>
       <div>New Paragraph: Use a blank line</div>

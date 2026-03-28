@@ -15,8 +15,8 @@
   'fieldValue' => $contact['text'],
   'title' => 'Edit Contact Info (Markdown)'
 ]) ?>
+<hr class="light admin-divider"/>
 <?= $this->endSection() ?>
-
 
 <?= $this->section('content') ?>
 <h1 class="visually-hidden">Contact</h1>
