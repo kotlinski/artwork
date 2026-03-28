@@ -9,13 +9,93 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('adminContent') ?>
-<?php /*= view('partials/markdown_editor', [
-  'formAction' => base_url('about/update'),
-  'id' => $about['id'],
-  'fieldName' => 'about_text',
-  'fieldValue' => $about['text'],
-  'title' => 'Edit About Info (Markdown)'
-]) */?>
+<div class="contained news-admin">
+  <h2>News Administration</h2>
+  <p>Expand a news title to update its markdown content.</p>
+
+  <?php if (session()->getFlashdata('success')): ?>
+    <div class="alert success"><?= esc(session()->getFlashdata('success')) ?></div>
+  <?php endif; ?>
+  <?php if (session()->getFlashdata('error')): ?>
+    <div class="alert error"><?= esc(session()->getFlashdata('error')) ?></div>
+  <?php endif; ?>
+
+  <?php foreach (($news_items ?? []) as $item): ?>
+    <?php $newsId = (int) ($item['id'] ?? 0); ?>
+    <div class="news-edit-expandable" id="news-admin-item-<?= $newsId ?>" data-news-id="<?= $newsId ?>">
+      <button type="button"
+              class="news-expand-toggle"
+              aria-expanded="false"
+              aria-controls="news-form-<?= $newsId ?>">
+        <span class="news-chevron">▶</span>
+        <span><?= esc($item['title'] ?? 'Untitled news item') ?></span>
+      </button>
+      <div class="news-edit-form" id="news-form-<?= $newsId ?>" style="display:none;">
+        <?= view('partials/markdown_editor', [
+          'formAction' => base_url('news/update'),
+          'id' => $newsId,
+          'fieldName' => 'content',
+          'fieldValue' => $item['content'] ?? '',
+          'title' => '',
+          'editorId' => 'news-md-editor-' . $newsId,
+          'fixed_width' => true,
+          'titleField' => [
+            'name'  => 'title',
+            'label' => 'Title',
+            'value' => $item['title'] ?? '',
+          ],
+        ]) ?>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const expandToggles = document.querySelectorAll('.news-expand-toggle');
+
+    expandToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        const parent = toggle.closest('.news-edit-expandable');
+        const form = parent.querySelector('.news-edit-form');
+        const chevron = toggle.querySelector('.news-chevron');
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        document.querySelectorAll('.news-edit-form').forEach(function (section) {
+          section.style.display = 'none';
+        });
+        document.querySelectorAll('.news-expand-toggle').forEach(function (button) {
+          button.setAttribute('aria-expanded', 'false');
+          const icon = button.querySelector('.news-chevron');
+          if (icon) icon.style.transform = '';
+        });
+
+        if (!isExpanded) {
+          form.style.display = 'block';
+          toggle.setAttribute('aria-expanded', 'true');
+          if (chevron) chevron.style.transform = 'rotate(90deg)';
+        }
+      });
+
+      toggle.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggle.click();
+        }
+      });
+    });
+
+    // Re-expand the item that was just saved, based on URL hash
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#news-admin-item-')) {
+      const expandable = document.querySelector(hash);
+      if (expandable) {
+        const toggle = expandable.querySelector('.news-expand-toggle');
+        if (toggle) toggle.click();
+      }
+    }
+  });
+</script>
 <?= $this->endSection() ?>
 
 

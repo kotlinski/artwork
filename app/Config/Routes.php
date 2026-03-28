@@ -11,6 +11,7 @@ $routes->get('user/(:num)', 'Home::profile/$1');
 // above was initial setup
 
 $routes->get('news', 'News::index');
+$routes->post('news/update', 'News::update', ['filter' => 'auth']);
 
 
 $routes->get('login', 'Auth::index');

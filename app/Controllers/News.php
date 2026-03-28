@@ -40,4 +40,33 @@ class News extends BaseController
     }, $news_items);
   }
   
+  public function update()
+  {
+    if (!session()->get('isLoggedIn')) {
+      return redirect()->to('/login');
+    }
+
+    $id = (int) $this->request->getPost('id');
+    if ($id <= 0) {
+      return redirect()->to('/news')->with('error', 'Invalid news item.');
+    }
+
+    $data = [];
+    $title = $this->request->getPost('title');
+    $content = $this->request->getPost('content');
+
+    if ($title !== null) {
+      $data['title'] = $title;
+    }
+    if ($content !== null) {
+      $data['content'] = $content;
+    }
+
+    if (!empty($data)) {
+      $model = new \App\Models\NewsModel();
+      $model->update($id, $data);
+    }
+
+    return redirect()->to('/news#news-admin-item-' . $id)->with('success', 'News updated.');
+  }
 }

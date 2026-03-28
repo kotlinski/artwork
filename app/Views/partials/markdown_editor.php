@@ -6,10 +6,12 @@
  * @var string $fieldValue - The current markdown content
  * @var string $title - The editor title (optional)
  * @var string $fixed_width - If the text is allowed to overflow or not.
+ * @var array|null $titleField - Optional title field: ['name' => '...', 'value' => '...', 'label' => '...']
  */
 $title = $title ?? 'Edit Content (Markdown)';
 $editorId = $editorId ?? 'md-editor-' . uniqid();
 $fixed_width = $fixed_width ?? false;
+$titleField = $titleField ?? null;
 ?>
 <!-- Modal for preview -->
 <div id="<?= $editorId ?>-preview-modal" class="preview-modal"
@@ -31,6 +33,12 @@ $fixed_width = $fixed_width ?? false;
   </div>
   <form class="contained" action="<?= $formAction ?>" method="post">
     <input type="hidden" name="id" value="<?= esc($id) ?>">
+    <?php if ($titleField): ?>
+    <label class="md-title-field">
+      <?= esc($titleField['label'] ?? 'Title') ?>
+      <input type="text" name="<?= esc($titleField['name']) ?>" value="<?= esc($titleField['value'] ?? '') ?>">
+    </label>
+    <?php endif; ?>
     <div class="md-toolbar">
       <button type="button" onclick="mdWrap('<?= $editorId ?>', '**', '**')" title="Bold">B</button>
       <button type="button" onclick="mdWrap('<?= $editorId ?>', '*', '*')" title="Italic"><em>I</em></button>

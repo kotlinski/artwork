@@ -347,17 +347,33 @@
   openUploadModal();
   <?php endif; ?>
 
-  function toggleProject(projectId) {
+  let expandedProjectId = null;
+
+  function setProjectExpanded(projectId, isExpanded) {
     const list = document.getElementById('project-list-' + projectId);
     const icon = document.getElementById('toggle-icon-' + projectId);
+    if (!list || !icon) return;
 
-    if (list.style.display === 'none') {
-      list.style.display = 'block';
-      icon.textContent = '▼';
-    } else {
-      list.style.display = 'none';
-      icon.textContent = '▶';
+    list.style.display = isExpanded ? 'block' : 'none';
+    icon.textContent = isExpanded ? '▼' : '▶';
+  }
+
+  function toggleProject(projectId) {
+    const targetProjectId = String(projectId);
+    const isSameProject = String(expandedProjectId) === targetProjectId;
+
+    if (expandedProjectId !== null && !isSameProject) {
+      setProjectExpanded(expandedProjectId, false);
     }
+
+    if (isSameProject) {
+      setProjectExpanded(targetProjectId, false);
+      expandedProjectId = null;
+      return;
+    }
+
+    setProjectExpanded(targetProjectId, true);
+    expandedProjectId = targetProjectId;
   }
 
   let currentProjectId = null;
