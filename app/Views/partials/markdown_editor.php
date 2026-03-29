@@ -41,8 +41,10 @@ $extraFields = $extraFields ?? [];
       <input type="text" name="<?= esc($titleField['name']) ?>" value="<?= esc($titleField['value'] ?? '') ?>">
     </label>
     <?php endif; ?>
-    <?php foreach ($extraFields as $field): ?>
-      <?php if (($field['type'] ?? 'text') === 'select'): ?>
+    <?php foreach (($extraFields ?? []) as $field): ?>
+      <?php if ($field['type'] === 'hidden'): ?>
+        <input type="hidden" name="<?= esc($field['name']) ?>" value="<?= esc($field['value']) ?>">
+      <?php elseif ($field['type'] === 'select'): ?>
       <label class="md-extra-field">
         <?= esc($field['label'] ?? '') ?>
         <select name="<?= esc($field['name']) ?>">
@@ -76,12 +78,6 @@ $extraFields = $extraFields ?? [];
     <textarea id="<?= $editorId ?>" name="<?= esc($fieldName) ?>"
               class="admin-editor<?= $fixed_width ? ' fixed-width' : '' ?>"><?= esc($fieldValue) ?></textarea>
     <div style='padding: 0 4px'>
-      <div>💡 Tip: "↵" adds a "soft line break"</div>
-      <div>Soft line break: 2 spaces + new line</div>
-      <div>New Paragraph: Use a blank line</div>
-      <div style='margin-top:3px'>To add a link: Type the text you want to display in [square brackets], then
-        immediately after, put the web address in (parentheses).<br>Example: <code>[My
-          Website](https://www.annesimonsson.se)</code></div>
       <div class="form-actions">
         <button
           id="<?= $editorId ?>-preview-btn"
@@ -89,6 +85,12 @@ $extraFields = $extraFields ?? [];
         >Preview</button>
         <button type="submit">Save</button>
       </div>
+      <div>💡 Tip: "↵" adds a "soft line break"</div>
+      <div>Soft line break: 2 spaces + new line</div>
+      <div>New Paragraph: Use a blank line</div>
+      <div style='margin-top:3px'>To add a link: Type the text you want to display in [square brackets], then
+        immediately after, put the web address in (parentheses).<br>Example: <code>[My
+          Website](https://www.annesimonsson.se)</code></div>
     </div>
 
   </form>

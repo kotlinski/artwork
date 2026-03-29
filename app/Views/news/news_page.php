@@ -17,54 +17,88 @@
     <div class="alert error"><?= esc(session()->getFlashdata('error')) ?></div>
   <?php endif; ?>
 
-  <div class="news-edit-form" id="news-admin-new">
-    <?php if (session()->getFlashdata('create_errors')): ?>
-      <div class="alert error" style="margin: 8px 0 0 0;">
-        <?php foreach ((array) session()->getFlashdata('create_errors') as $err): ?>
-          <div><?= esc($err) ?></div>
-        <?php endforeach; ?>
+  <button type="button" id="open-news-create-modal" class="button" style="margin-bottom:16px;">Add News</button>
+
+  <!-- News Create Modal -->
+  <div id="news-create-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
+    <div class="modal-content" style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:520px;width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
+      <button type="button" id="close-news-create-modal" style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">&times;</button>
+      <div class="news-edit-form" id="news-admin-new-modal-form">
+        <?php if (session()->getFlashdata('create_errors')): ?>
+          <div class="alert error" style="margin: 8px 0 0 0;">
+            <?php foreach ((array) session()->getFlashdata('create_errors') as $err): ?>
+              <div><?= esc($err) ?></div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+        <?php
+        // Patch the extraFields array to make slug hidden
+        $extraFields = [
+          [
+            'type'  => 'hidden',
+            'name'  => 'slug',
+            'label' => 'Slug',
+            'value' => session()->getFlashdata('create_slug') ?? '',
+          ],
+          [
+            'type'         => 'select',
+            'name'         => 'project_id',
+            'label'        => 'Project',
+            'value'        => '',
+            'empty_option' => '— No project —',
+            'options'      => array_map(fn($p) => [
+              'value' => $p['id'],
+              'label' => $p['title'],
+            ], $projects ?? []),
+          ],
+        ];
+        ?>
+        <?= view('partials/markdown_editor', [
+          'formAction'   => base_url('news/store'),
+          'id'           => 0,
+          'fieldName'    => 'content',
+          'fieldValue'   => session()->getFlashdata('create_content') ?? '',
+          'editor_title' => 'New Article',
+          'editorId'     => 'news-md-editor-new',
+          'fixed_width'  => true,
+          'titleField'   => [
+            'name'  => 'title',
+            'label' => 'Title',
+            'value' => session()->getFlashdata('create_title') ?? '',
+          ],
+          'extraFields'  => $extraFields,
+        ]) ?>
       </div>
-    <?php endif; ?>
-    <?= view('partials/markdown_editor', [
-      'formAction'   => base_url('news/store'),
-      'id'           => 0,
-      'fieldName'    => 'content',
-      'fieldValue'   => session()->getFlashdata('create_content') ?? '',
-      'editor_title' => 'New Article',
-      'editorId'     => 'news-md-editor-new',
-      'fixed_width'  => true,
-      'titleField'   => [
-        'name'  => 'title',
-        'label' => 'Title',
-        'value' => session()->getFlashdata('create_title') ?? '',
-      ],
-      'extraFields'  => [
-        [
-          'type'  => 'text',
-          'name'  => 'slug',
-          'label' => 'Slug',
-          'value' => session()->getFlashdata('create_slug') ?? '',
-        ],
-        [
-          'type'         => 'select',
-          'name'         => 'project_id',
-          'label'        => 'Project',
-          'value'        => '',
-          'empty_option' => '— No project —',
-          'options'      => array_map(fn($p) => [
-            'value' => $p['id'],
-            'label' => $p['title'],
-          ], $projects ?? []),
-        ],
-      ],
-    ]) ?>
+    </div>
   </div>
+
   <hr class='light'/>
   <h2>News Administration</h2>
   <p>Expand a news title to update its markdown content.</p>
 
   <?php foreach (($news_items ?? []) as $item): ?>
     <?php $newsId = (int) ($item['id'] ?? 0); ?>
+    <?php
+    $extraFields = [
+      [
+        'type'         => 'select',
+        'name'         => 'project_id',
+        'label'        => 'Project',
+        'value'        => $item['project_id'] ?? '',
+        'empty_option' => '— No project —',
+        'options'      => array_map(fn($p) => [
+          'value' => $p['id'],
+          'label' => $p['title'],
+        ], $projects ?? []),
+      ],
+      [
+        'type'  => 'hidden',
+        'name'  => 'slug',
+        'label' => 'Slug',
+        'value' => $item['slug'] ?? '',
+      ],
+    ];
+    ?>
     <div class="news-edit-expandable" id="news-admin-item-<?= $newsId ?>" data-news-id="<?= $newsId ?>">
       <button type="button"
               class="news-expand-toggle"
@@ -87,19 +121,7 @@
             'label' => 'Title',
             'value' => $item['title'] ?? '',
           ],
-          'extraFields' => [
-            [
-              'type'         => 'select',
-              'name'         => 'project_id',
-              'label'        => 'Project',
-              'value'        => $item['project_id'] ?? '',
-              'empty_option' => '— No project —',
-              'options'      => array_map(fn($p) => [
-                'value' => $p['id'],
-                'label' => $p['title'],
-              ], $projects ?? []),
-            ],
-          ],
+          'extraFields' => $extraFields,
         ]) ?>
       </div>
     </div>
@@ -152,16 +174,65 @@
     }
 
     // Auto-generate slug from title in the New Article form
+    function generateSlug(str) {
+      return str.toLowerCase()
+        .replace(/[åä]/g, 'a').replace(/ö/g, 'o')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .replace(/--+/g, '-');
+    }
+    // New Article form
     const createTitleInput = document.querySelector('#news-form-new input[name="title"]');
     const createSlugInput  = document.querySelector('#news-form-new input[name="slug"]');
     if (createTitleInput && createSlugInput) {
       createTitleInput.addEventListener('input', function () {
-        createSlugInput.value = this.value.toLowerCase()
-          .replace(/[åä]/g, 'a').replace(/ö/g, 'o')
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-+|-+$/g, '');
+        createSlugInput.value = generateSlug(this.value);
+      });
+      // Initial fill
+      createSlugInput.value = generateSlug(createTitleInput.value);
+    }
+    // Edit forms
+    document.querySelectorAll('.news-edit-form').forEach(function(form) {
+      const titleInput = form.querySelector('input[name="title"]');
+      const slugInput = form.querySelector('input[name="slug"]');
+      if (titleInput && slugInput) {
+        titleInput.addEventListener('input', function () {
+          slugInput.value = generateSlug(this.value);
+        });
+        // Initial fill
+        slugInput.value = generateSlug(titleInput.value);
+      }
+    });
+
+    // Modal logic for news create
+    const openNewsCreateBtn = document.getElementById('open-news-create-modal');
+    const newsCreateModal = document.getElementById('news-create-modal');
+    const closeNewsCreateBtn = document.getElementById('close-news-create-modal');
+    if (openNewsCreateBtn && newsCreateModal && closeNewsCreateBtn) {
+      openNewsCreateBtn.addEventListener('click', function() {
+        newsCreateModal.style.display = 'flex';
+        // Focus the title field
+        setTimeout(function() {
+          const titleInput = newsCreateModal.querySelector('input[name="title"]');
+          if (titleInput) titleInput.focus();
+        }, 100);
+      });
+      closeNewsCreateBtn.addEventListener('click', function() {
+        newsCreateModal.style.display = 'none';
+      });
+      newsCreateModal.addEventListener('click', function(e) {
+        if (e.target === newsCreateModal) newsCreateModal.style.display = 'none';
+      });
+      document.addEventListener('keydown', function(e) {
+        if (newsCreateModal.style.display === 'flex' && e.key === 'Escape') {
+          newsCreateModal.style.display = 'none';
+        }
       });
     }
+    // If there were create errors, open the modal automatically
+    <?php if (session()->getFlashdata('create_errors')): ?>
+    newsCreateModal.style.display = 'flex';
+    <?php endif; ?>
   });
 </script>
 <?= $this->endSection() ?>
@@ -173,24 +244,8 @@
 <?php $news_items = $news_items ?? []; ?>
 <div class='contained'>
   <?php foreach ($news_items as $item): ?>
-    <?php
-      $createdTs = strtotime($item['created_at']);
-      if ($createdTs !== false) {
-        $svMonths = [
-          1 => 'januari', 2 => 'februari', 3 => 'mars', 4 => 'april',
-          5 => 'maj', 6 => 'juni', 7 => 'juli', 8 => 'augusti',
-          9 => 'september', 10 => 'oktober', 11 => 'november', 12 => 'december',
-        ];
-        $createdLabel = date('j', $createdTs) . ' ' . $svMonths[(int) date('n', $createdTs)] . ' ' . date('Y', $createdTs);
-      } else {
-        $createdLabel = esc($item['created_at']);
-      }
-    ?>
     <article id="<?= $item['slug'] ?>" class="news-item">
       <h2><?= esc($item['title']) ?></h2>
-<!--      <div class="date">
-        <?php /*= $createdLabel */?>
-      </div>-->
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
       </div>
@@ -242,3 +297,4 @@
 ]
 }
 </script>
+
