@@ -13,13 +13,14 @@
   'id' => $contact['id'],
   'fieldName' => 'contact_text',
   'fieldValue' => $contact['text'],
-  'title' => 'Edit Contact Info (Markdown)'
+  'editor_title' => 'Edit Contact Info (Markdown)'
 ]) ?>
 <hr class="light admin-divider"/>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<h1 class="visually-hidden">Contact</h1>
+<!--class="visually-hidden"-->
+<h1>Contact</h1>
 <div>
   <?= $contact_text ?>
 </div>

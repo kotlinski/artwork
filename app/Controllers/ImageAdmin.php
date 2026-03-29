@@ -151,7 +151,44 @@ class ImageAdmin extends BaseController
     
     return redirect()->to('/image/admin');
   }
-  
+
+  public function reorder($id)
+  {
+    $imageModel = new Image();
+    $image = $imageModel->find($id);
+
+    if (!$image) {
+      return $this->response->setStatusCode(404)->setJSON(['success' => false, 'error' => 'Image not found.']);
+    }
+
+    $body     = $this->request->getJSON(true);
+    $newOrder = isset($body['order']) ? (int) $body['order'] : null;
+
+    if ($newOrder === null || $newOrder < 1) {
+      return $this->response->setStatusCode(400)->setJSON(['success' => false, 'error' => 'Invalid order value.']);
+    }
+
+    // Fetch all images for this project sorted by current order
+    $siblings = $imageModel
+      ->where('project', $image['project'])
+      ->orderBy('`order`', 'ASC')
+      ->findAll();
+
+    $count = count($siblings);
+    $newOrder = min($newOrder, $count);
+
+    // Remove the target from the list, then re-insert at the new position
+    $reordered = array_values(array_filter($siblings, fn($s) => $s['id'] != $id));
+    array_splice($reordered, $newOrder - 1, 0, [$image]);
+
+    // Write sequential order values back
+    foreach ($reordered as $position => $img) {
+      $imageModel->update($img['id'], ['order' => $position + 1]);
+    }
+
+    return $this->response->setJSON(['success' => true]);
+  }
+
   public function upload()
   {
     $projectModel = new Project();
@@ -169,8 +206,10 @@ class ImageAdmin extends BaseController
       ],
     ];
     
+    $returnTo = $this->request->getPost('return_to') ?: '/image/admin';
+
     if (!$this->validate($rules, $messages)) {
-      return redirect()->to('/image/admin')
+      return redirect()->to($returnTo)
         ->with('upload_errors', $this->validator->getErrors())
         ->with('upload_project_id', $this->request->getPost('project_id'))
         ->with('upload_file_id', $this->request->getPost('file_id'));
@@ -181,7 +220,7 @@ class ImageAdmin extends BaseController
     $project = $projectModel->find($projectId);
     
     if (!$project) {
-      return redirect()->to('/image/admin')->with('upload_error', 'Project not found.');
+      return redirect()->to($returnTo)->with('upload_error', 'Project not found.');
     }
     
     $file = $this->request->getFile('image');
@@ -273,6 +312,6 @@ class ImageAdmin extends BaseController
       'height_px' => $heightPx,
     ]);
     
-    return redirect()->to('/image/admin')->with('success', 'Image "' . $webpName . '" uploaded successfully.');
+    return redirect()->to($returnTo)->with('success', 'Image "' . $webpName . '" uploaded successfully.');
   }
 }

@@ -4,14 +4,16 @@
  * @var int $id - The record ID
  * @var string $fieldName - The textarea field name
  * @var string $fieldValue - The current markdown content
- * @var string $title - The editor title (optional)
+ * @var string $editor_title - The editor title (optional)
  * @var string $fixed_width - If the text is allowed to overflow or not.
  * @var array|null $titleField - Optional title field: ['name' => '...', 'value' => '...', 'label' => '...']
+ * @var array $extraFields - Optional extra fields: [['type'=>'text|select','name'=>'...','label'=>'...','value'=>'...','options'=>[...],'empty_option'=>'...']]
  */
-$title = $title ?? 'Edit Content (Markdown)';
+$editor_title = $editor_title ?? 'Edit Content (Markdown)';
 $editorId = $editorId ?? 'md-editor-' . uniqid();
 $fixed_width = $fixed_width ?? false;
 $titleField = $titleField ?? null;
+$extraFields = $extraFields ?? [];
 ?>
 <!-- Modal for preview -->
 <div id="<?= $editorId ?>-preview-modal" class="preview-modal"
@@ -29,7 +31,7 @@ $titleField = $titleField ?? null;
 
 <section class="admin-editor contained">
   <div>
-    <h2><?= esc($title) ?></h2>
+    <h2><?= esc($editor_title) ?></h2>
   </div>
   <form class="contained" action="<?= $formAction ?>" method="post">
     <input type="hidden" name="id" value="<?= esc($id) ?>">
@@ -39,6 +41,28 @@ $titleField = $titleField ?? null;
       <input type="text" name="<?= esc($titleField['name']) ?>" value="<?= esc($titleField['value'] ?? '') ?>">
     </label>
     <?php endif; ?>
+    <?php foreach ($extraFields as $field): ?>
+      <?php if (($field['type'] ?? 'text') === 'select'): ?>
+      <label class="md-extra-field">
+        <?= esc($field['label'] ?? '') ?>
+        <select name="<?= esc($field['name']) ?>">
+          <?php if (isset($field['empty_option'])): ?>
+            <option value=""><?= esc($field['empty_option']) ?></option>
+          <?php endif; ?>
+          <?php foreach ($field['options'] ?? [] as $opt): ?>
+            <option value="<?= esc($opt['value']) ?>"<?= (string)($field['value'] ?? '') === (string)$opt['value'] ? ' selected' : '' ?>>
+              <?= esc($opt['label']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+      <?php else: ?>
+      <label class="md-extra-field">
+        <?= esc($field['label'] ?? '') ?>
+        <input type="text" name="<?= esc($field['name']) ?>" value="<?= esc($field['value'] ?? '') ?>">
+      </label>
+      <?php endif; ?>
+    <?php endforeach; ?>
     <div class="md-toolbar">
       <button type="button" onclick="mdWrap('<?= $editorId ?>', '**', '**')" title="Bold">B</button>
       <button type="button" onclick="mdWrap('<?= $editorId ?>', '*', '*')" title="Italic"><em>I</em></button>

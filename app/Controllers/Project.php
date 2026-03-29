@@ -64,12 +64,33 @@ class Project extends BaseController
     if (!isset($images) || !is_array($images)) $images = [];
     $next_project_slug = $next_project_slug ?? '';
     $next_project_title = $next_project_title ?? '';
+
+    // Fetch news items linked to this project
+    $newsModel = new \App\Models\NewsModel();
+    $projectNews = $newsModel
+      ->where('project_id', $project['id'])
+      ->orderBy('created_at', 'DESC')
+      ->findAll();
+
+    if (!empty($projectNews)) {
+      $parser = new \Parsedown();
+      $parser->setSafeMode(true);
+      $parser->setBreaksEnabled(true);
+      $projectNews = array_map(function ($item) use ($parser) {
+        $item['content_parsed'] = $parser->text($item['content'] ?? '');
+        return $item;
+      }, $projectNews);
+    }
+
+    $allProjects = $projectModel->orderBy('sort_order', 'ASC')->findAll();
+
     return $this->renderView('artwork/project-view', $required, [
-      'project' => $project,
-      'images' => $images,
-      'next_project_slug' => $next_project_slug,
+      'project'            => $project,
+      'images'             => $images,
+      'all_projects'       => $allProjects,
+      'next_project_slug'  => $next_project_slug,
       'next_project_title' => $next_project_title,
-      // 'news' => $news // Add when news model is available
+      'project_news'       => $projectNews,
     ]);
   }
   

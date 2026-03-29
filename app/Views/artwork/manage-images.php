@@ -122,6 +122,12 @@
                  data-method="PATCH"
                  aria-disabled="<?= $isFirst ? 'true' : 'false' ?>"
                  title="Move up">▲</a>
+              <input type="number"
+                     class="order-input js-order-input"
+                     value="<?= (int)$img['order'] ?>"
+                     min="1"
+                     data-image-id="<?= $img['id'] ?>"
+                     title="Edit order">
               <a href="/image/move-down/<?= $img['id'] ?>"
                  class="order-btn js-image-move<?= $isLast ? ' disabled' : '' ?>"
                  data-direction="down"
@@ -477,6 +483,13 @@
     });
   }
 
+  function refreshOrderInputs(listEl) {
+    Array.from(listEl.querySelectorAll(':scope > .image-list-item')).forEach((el, idx) => {
+      const inp = el.querySelector('.js-order-input');
+      if (inp) inp.value = idx + 1;
+    });
+  }
+
   document.addEventListener('click', async function (event) {
     const moveBtn = event.target.closest('.js-image-move');
     if (!moveBtn) return;
@@ -530,6 +543,7 @@
       }
 
       refreshListMoveButtons(listEl);
+      refreshOrderInputs(listEl);
       window.scrollTo(0, scrollTop);
     } catch (err) {
       // Fallback to normal navigation if async request fails.
@@ -658,5 +672,65 @@
       showToast('Delete failed.');
     }
   };
+  document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && e.target.classList.contains('js-order-input')) {
+        e.preventDefault();
+        e.target.blur();
+      }
+    });
+
+    document.addEventListener('change', async function (e) {
+      const input = e.target;
+      if (!input.classList.contains('js-order-input')) return;
+
+      const imageId = input.dataset.imageId;
+      const newOrder = parseInt(input.value, 10);
+      if (!imageId || isNaN(newOrder) || newOrder < 1) return;
+
+      const itemEl = input.closest('.image-list-item');
+      const listEl = itemEl ? itemEl.parentElement : null;
+      if (!listEl) return;
+
+      input.disabled = true;
+      try {
+        const resp = await fetch('/image/reorder/' + imageId, {
+          method: 'PATCH',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ order: newOrder })
+        });
+
+        if (!resp.ok) throw new Error('Request failed');
+        const payload = await resp.json();
+        if (!payload.success) throw new Error('Reorder failed');
+
+        // Reposition item in the DOM
+        const scrollTop = window.scrollY;
+        const items = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
+        listEl.removeChild(itemEl);
+        const clampedIndex = Math.min(Math.max(newOrder - 1, 0), items.length - 1);
+        const sibling = items[clampedIndex] !== itemEl ? items[clampedIndex] : null;
+        if (sibling && listEl.contains(sibling)) {
+          listEl.insertBefore(itemEl, sibling);
+        } else {
+          listEl.appendChild(itemEl);
+        }
+
+        refreshListMoveButtons(listEl);
+        refreshOrderInputs(listEl);
+        window.scrollTo(0, scrollTop);
+      } catch (err) {
+        // Restore original value on failure
+        const items = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
+        input.value = items.indexOf(itemEl) + 1;
+      } finally {
+        input.disabled = false;
+      }
+    });
+  });
 </script>
 <?= $this->endSection() ?>

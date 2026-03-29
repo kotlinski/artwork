@@ -11,6 +11,7 @@ $routes->get('user/(:num)', 'Home::profile/$1');
 // above was initial setup
 
 $routes->get('news', 'News::index');
+$routes->post('news/store', 'News::store', ['filter' => 'auth']);
 $routes->post('news/update', 'News::update', ['filter' => 'auth']);
 
 
@@ -42,6 +43,7 @@ $routes->group('image', ['filter' => 'auth'], function ($routes) {
     $routes->post('update/(:num)', 'ImageAdmin::update/$1');
     $routes->patch('move-up/(:num)', 'ImageAdmin::moveUp/$1');
     $routes->patch('move-down/(:num)', 'ImageAdmin::moveDown/$1');
+    $routes->patch('reorder/(:num)', 'ImageAdmin::reorder/$1');
     $routes->post('upload', 'ImageAdmin::upload');
     $routes->post('delete/(:num)', 'ImageAdmin::delete/$1');
 });

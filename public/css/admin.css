@@ -292,6 +292,24 @@ textarea.fixed-width {
     padding: 1px 4px;
 }
 
+.order-input {
+    width: 30px;
+    text-align: center;
+    font-family: "Courier New", sans-serif;
+    font-size: 11px;
+    padding: 1px 2px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.order-input::-webkit-inner-spin-button,
+.order-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .image-list-thumb {
     margin-right: 10px;
     min-width: 90px;
@@ -673,6 +691,26 @@ code {
 }
 
 .md-title-field input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Courier New", sans-serif;
+    font-size: 12px;
+    padding: 3px 6px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+}
+
+.md-extra-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.md-extra-field input[type="text"],
+.md-extra-field select {
     width: 100%;
     box-sizing: border-box;
     font-family: "Courier New", sans-serif;

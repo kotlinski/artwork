@@ -10,15 +10,58 @@
 
 <?= $this->section('adminContent') ?>
 <div class="contained news-admin">
-  <h2>News Administration</h2>
-  <p>Expand a news title to update its markdown content.</p>
-
   <?php if (session()->getFlashdata('success')): ?>
     <div class="alert success"><?= esc(session()->getFlashdata('success')) ?></div>
   <?php endif; ?>
   <?php if (session()->getFlashdata('error')): ?>
     <div class="alert error"><?= esc(session()->getFlashdata('error')) ?></div>
   <?php endif; ?>
+
+  <div class="news-edit-form" id="news-admin-new">
+    <?php if (session()->getFlashdata('create_errors')): ?>
+      <div class="alert error" style="margin: 8px 0 0 0;">
+        <?php foreach ((array) session()->getFlashdata('create_errors') as $err): ?>
+          <div><?= esc($err) ?></div>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+    <?= view('partials/markdown_editor', [
+      'formAction'   => base_url('news/store'),
+      'id'           => 0,
+      'fieldName'    => 'content',
+      'fieldValue'   => session()->getFlashdata('create_content') ?? '',
+      'editor_title' => 'New Article',
+      'editorId'     => 'news-md-editor-new',
+      'fixed_width'  => true,
+      'titleField'   => [
+        'name'  => 'title',
+        'label' => 'Title',
+        'value' => session()->getFlashdata('create_title') ?? '',
+      ],
+      'extraFields'  => [
+        [
+          'type'  => 'text',
+          'name'  => 'slug',
+          'label' => 'Slug',
+          'value' => session()->getFlashdata('create_slug') ?? '',
+        ],
+        [
+          'type'         => 'select',
+          'name'         => 'project_id',
+          'label'        => 'Project',
+          'value'        => '',
+          'empty_option' => '— No project —',
+          'options'      => array_map(fn($p) => [
+            'value' => $p['id'],
+            'label' => $p['title'],
+          ], $projects ?? []),
+        ],
+      ],
+    ]) ?>
+  </div>
+  <hr class='light'/>
+  <h2>News Administration</h2>
+  <p>Expand a news title to update its markdown content.</p>
 
   <?php foreach (($news_items ?? []) as $item): ?>
     <?php $newsId = (int) ($item['id'] ?? 0); ?>
@@ -36,13 +79,26 @@
           'id' => $newsId,
           'fieldName' => 'content',
           'fieldValue' => $item['content'] ?? '',
-          'title' => '',
+          'editor_title' => '',
           'editorId' => 'news-md-editor-' . $newsId,
           'fixed_width' => true,
           'titleField' => [
             'name'  => 'title',
             'label' => 'Title',
             'value' => $item['title'] ?? '',
+          ],
+          'extraFields' => [
+            [
+              'type'         => 'select',
+              'name'         => 'project_id',
+              'label'        => 'Project',
+              'value'        => $item['project_id'] ?? '',
+              'empty_option' => '— No project —',
+              'options'      => array_map(fn($p) => [
+                'value' => $p['id'],
+                'label' => $p['title'],
+              ], $projects ?? []),
+            ],
           ],
         ]) ?>
       </div>
@@ -94,13 +150,25 @@
         if (toggle) toggle.click();
       }
     }
+
+    // Auto-generate slug from title in the New Article form
+    const createTitleInput = document.querySelector('#news-form-new input[name="title"]');
+    const createSlugInput  = document.querySelector('#news-form-new input[name="slug"]');
+    if (createTitleInput && createSlugInput) {
+      createTitleInput.addEventListener('input', function () {
+        createSlugInput.value = this.value.toLowerCase()
+          .replace(/[åä]/g, 'a').replace(/ö/g, 'o')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      });
+    }
   });
 </script>
 <?= $this->endSection() ?>
 
 
 <?= $this->section('content') ?>
-<h1 class="visually-hidden">About</h1>
+<h1 class="visually-hidden">News</h1>
 
 <?php $news_items = $news_items ?? []; ?>
 <div class='contained'>
@@ -120,9 +188,9 @@
     ?>
     <article id="<?= $item['slug'] ?>" class="news-item">
       <h2><?= esc($item['title']) ?></h2>
-      <div class="date">
-        <?= $createdLabel ?>
-      </div>
+<!--      <div class="date">
+        <?php /*= $createdLabel */?>
+      </div>-->
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
       </div>

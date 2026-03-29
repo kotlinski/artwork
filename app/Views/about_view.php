@@ -13,13 +13,14 @@
   'id' => $about['id'],
   'fieldName' => 'about_text',
   'fieldValue' => $about['text'],
-  'title' => 'Edit About Info (Markdown)'
+  'editor_title' => 'Edit About Info (Markdown)'
 ]) ?>
 <hr class="light admin-divider"/>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<h1 class="visually-hidden">About</h1>
+<h1>About</h1>
+<!--class="visually-hidden"-->
 <div>
   <?= $about_text ?>
 </div>
