@@ -38,16 +38,34 @@ $extraFields = $extraFields ?? [];
     <?php if ($titleField): ?>
     <label class="md-title-field">
       <?= esc($titleField['label'] ?? 'Title') ?>
-      <input type="text" name="<?= esc($titleField['name']) ?>" value="<?= esc($titleField['value'] ?? '') ?>">
+      <input type="text" name="<?= esc($titleField['name']) ?>" value="<?= esc($titleField['value'] ?? '') ?>"
+        <?php if (!empty($titleField['attributes']) && is_array($titleField['attributes'])):
+          foreach ($titleField['attributes'] as $attrKey => $attrVal): ?>
+            <?= esc($attrKey) ?>="<?= esc($attrVal) ?>"
+          <?php endforeach;
+        endif; ?>
+      >
     </label>
     <?php endif; ?>
     <?php foreach (($extraFields ?? []) as $field): ?>
       <?php if ($field['type'] === 'hidden'): ?>
-        <input type="hidden" name="<?= esc($field['name']) ?>" value="<?= esc($field['value']) ?>">
+        <input type="hidden" name="<?= esc($field['name']) ?>" value="<?= esc($field['value']) ?>"
+          <?php if (!empty($field['attributes']) && is_array($field['attributes'])):
+            foreach ($field['attributes'] as $attrKey => $attrVal): ?>
+              <?= esc($attrKey) ?>="<?= esc($attrVal) ?>"
+            <?php endforeach;
+          endif; ?>
+        >
       <?php elseif ($field['type'] === 'select'): ?>
       <label class="md-extra-field">
         <?= esc($field['label'] ?? '') ?>
-        <select name="<?= esc($field['name']) ?>">
+        <select name="<?= esc($field['name']) ?>"
+          <?php if (!empty($field['attributes']) && is_array($field['attributes'])):
+            foreach ($field['attributes'] as $attrKey => $attrVal): ?>
+              <?= esc($attrKey) ?>="<?= esc($attrVal) ?>"
+            <?php endforeach;
+          endif; ?>
+        >
           <?php if (isset($field['empty_option'])): ?>
             <option value=""><?= esc($field['empty_option']) ?></option>
           <?php endif; ?>
@@ -58,10 +76,27 @@ $extraFields = $extraFields ?? [];
           <?php endforeach; ?>
         </select>
       </label>
+      <?php elseif ($field['type'] === 'textarea'): ?>
+      <label class="md-extra-field">
+        <?= esc($field['label'] ?? '') ?>
+        <textarea name="<?= esc($field['name']) ?>"
+          <?php if (!empty($field['attributes']) && is_array($field['attributes'])):
+            foreach ($field['attributes'] as $attrKey => $attrVal): ?>
+              <?= esc($attrKey) ?>="<?= esc($attrVal) ?>"
+            <?php endforeach;
+          endif; ?>
+        ><?= esc($field['value'] ?? '') ?></textarea>
+      </label>
       <?php else: ?>
       <label class="md-extra-field">
         <?= esc($field['label'] ?? '') ?>
-        <input type="text" name="<?= esc($field['name']) ?>" value="<?= esc($field['value'] ?? '') ?>">
+        <input type="text" name="<?= esc($field['name']) ?>" value="<?= esc($field['value'] ?? '') ?>"
+          <?php if (!empty($field['attributes']) && is_array($field['attributes'])):
+            foreach ($field['attributes'] as $attrKey => $attrVal): ?>
+              <?= esc($attrKey) ?>="<?= esc($attrVal) ?>"
+            <?php endforeach;
+          endif; ?>
+        >
       </label>
       <?php endif; ?>
     <?php endforeach; ?>

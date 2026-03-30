@@ -19,6 +19,67 @@
 
   <button type="button" id="open-news-create-modal" class="button" style="margin-bottom:16px;">Add News</button>
 
+  <!-- Edit News Modal -->
+  <div id="news-edit-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
+    <div class="modal-content" style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:520px;width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
+      <button type="button" id="close-news-edit-modal" style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">&times;</button>
+      <form id="news-edit-form" method="post" action="<?= base_url('news/update') ?>">
+        <?php
+        $extraFields = [
+          [
+            'type'         => 'select',
+            'name'         => 'project_id',
+            'label'        => 'Project',
+            'value'        => '',
+            'empty_option' => '— No project —',
+            'options'      => array_map(fn($p) => [
+              'value' => $p['id'],
+              'label' => $p['title'],
+            ], $projects ?? []),
+          ],
+          [
+            'type'  => 'hidden',
+            'name'  => 'slug',
+            'label' => 'Slug',
+            'value' => '',
+          ],
+        ];
+        ?>
+        <?= view('partials/markdown_editor', [
+          'formAction' => base_url('news/update'),
+          'id' => '',
+          'fieldName' => 'content',
+          'fieldValue' => '',
+          'editor_title' => '',
+          'editorId' => 'news-md-editor-edit',
+          'fixed_width' => true,
+          'titleField' => [
+            'name'  => 'title',
+            'label' => 'Title',
+            'value' => '',
+            'attributes' => ['id' => 'edit-news-title'], // Add ID here
+          ],
+          'extraFields' => [
+            [
+              'type'  => 'hidden',
+              'name'  => 'slug',
+              'label' => 'Slug',
+              'value' => '',
+              'attributes' => ['id' => 'edit-news-id'], // Add ID here
+            ],
+            [
+              'type'  => 'textarea',
+              'name'  => 'content',
+              'label' => 'Content',
+              'value' => '',
+              'attributes' => ['id' => 'edit-news-content'], // Add ID here
+            ],
+          ],
+        ]) ?>
+      </form>
+    </div>
+  </div>
+
   <!-- News Create Modal -->
   <div id="news-create-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
     <div class="modal-content" style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:520px;width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
@@ -73,6 +134,8 @@
   </div>
 
   <hr class='light'/>
+
+
   <h2>News Administration</h2>
   <p>Expand a news title to update its markdown content.</p>
 
@@ -201,6 +264,8 @@
         });
         // Initial fill
         slugInput.value = generateSlug(titleInput.value);
+      } else {
+        console.warn('Missing title or slug input in form:', form);
       }
     });
 
@@ -249,10 +314,85 @@
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
       </div>
+      <?php
+      $session = service('session');
+      $isAdmin = $session->get('isLoggedIn');
+      ?>
+      <?php if ($isAdmin): ?>
+        <button type="button" class="edit-news-button" data-news-id="<?= $item['id'] ?>">Edit</button>
+      <?php endif; ?>
       <hr>
     </article>
   <?php endforeach; ?>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.edit-news-button');
+    const editModal = document.getElementById('news-edit-modal');
+    const closeEditModal = document.getElementById('close-news-edit-modal');
+    const editForm = document.getElementById('news-edit-form');
+    const editNewsId = document.getElementById('edit-news-id');
+    const editNewsTitle = document.getElementById('edit-news-title');
+    const editNewsContent = document.getElementById('edit-news-content');
+
+    editButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const newsId = this.getAttribute('data-news-id');
+        const newsTitle = this.closest('.news-item').querySelector('h2').textContent;
+        const newsContent = this.closest('.news-item').querySelector('.body').textContent;
+
+        editNewsId.value = newsId;
+        editNewsTitle.value = newsTitle;
+        editNewsContent.value = newsContent;
+
+        editModal.style.display = 'flex';
+      });
+    });
+
+    closeEditModal.addEventListener('click', function () {
+      editModal.style.display = 'none';
+    });
+
+    editModal.addEventListener('click', function (e) {
+      if (e.target === editModal) {
+        editModal.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (editModal.style.display === 'flex' && e.key === 'Escape') {
+        editModal.style.display = 'none';
+      }
+    });
+
+    editForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(editForm);
+      fetch(editForm.action, {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.success) {
+            location.reload();
+          } else {
+            alert('Failed to update news item.');
+          }
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+  });
+</script>
 <?= $this->endSection() ?>
 
 
