@@ -9,9 +9,9 @@ class NewsModel extends Model
   protected $table      = 'news_modern';
   protected $primaryKey = 'id';
   protected $allowedFields = [
-    'title', 'slug', 'content', 'excerpt',
+    'title', 'slug', 'content', 'excerpt', 'category',
     'event_location', 'event_start_date', 'event_end_date',
-    'main_image', 'created_at', 'project_id'
+    'external_link', 'main_image', 'created_at', 'project_id', 'is_published'
   ];
   
   /**
