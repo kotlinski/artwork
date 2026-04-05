@@ -49,9 +49,13 @@
 
     <!-- Preview sub-modal -->
     <div id="news-edit-preview-modal" class="preview-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
-      <div class="preview-modal-content" style="position:relative;">
+      <div class="preview-modal-content news-edit-preview-modal-content" style="position:relative;">
         <button type="button" id="news-edit-preview-close" style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">&times;</button>
-        <div id="news-edit-preview-content" style="word-break:break-word;overflow-wrap:anywhere;"></div>
+        <div class="contained news-edit-preview-contained">
+          <article class="news-item news-edit-preview-item">
+            <div id="news-edit-preview-content" class="body"></div>
+          </article>
+        </div>
       </div>
     </div>
 
