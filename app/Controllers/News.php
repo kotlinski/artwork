@@ -94,8 +94,13 @@ class News extends BaseController
     }
 
     $model = new \App\Models\NewsModel();
-    if (empty($errors) && $model->where('slug', $slug)->first()) {
-      $errors[] = 'A news item with that slug already exists.';
+    if (empty($errors)) {
+      $baseSlug = $slug;
+      $counter = 2;
+      while ($model->where('slug', $slug)->first()) {
+        $slug = $baseSlug . '-' . $counter;
+        $counter++;
+      }
     }
 
     if (!empty($errors)) {
@@ -150,7 +155,7 @@ class News extends BaseController
     $model->insert($data);
     $id = $model->getInsertID();
 
-    return redirect()->to('/news#news-admin-item-' . $id)->with('success', 'Article created.');
+    return redirect()->to('/news#news-' . $slug)->with('success', 'Article created.');
   }
 
   protected function normalizeSlug(string $value): string
@@ -340,12 +345,15 @@ class News extends BaseController
       return redirect()->to('/news')->with('error', 'External link must be a valid URL.');
     }
 
+    $model = new \App\Models\NewsModel();
     if (!empty($data)) {
-      $model = new \App\Models\NewsModel();
       $model->update($id, $data);
     }
 
-    return redirect()->to('/news#news-admin-item-' . $id)->with('success', 'News updated.');
+    $item = $model->find($id);
+    $slug = $item['slug'] ?? $id;
+
+    return redirect()->to('/news#news-' . $slug)->with('success', 'News updated.');
   }
 
   public function delete()

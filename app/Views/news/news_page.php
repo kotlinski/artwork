@@ -32,7 +32,10 @@ $newsCategories = [
   <div class="news-admin-top-actions">
     <button type="button" id="news-add-open-btn" class="news-add-btn">Add news</button>
   </div>
+  <hr class='light'/>
 </div>
+
+
 
 <div id="news-add-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="news-add-modal-heading">
   <div class="news-edit-modal-box">
@@ -141,7 +144,7 @@ $newsCategories = [
 <?php $news_items = $news_items ?? []; ?>
 <div class='contained'>
   <?php foreach ($news_items as $item): ?>
-    <article id="<?= $item['slug'] ?>" class="news-item" data-project-id="<?= esc($item['project_id'] ?? '') ?>" data-slug="<?= esc($item['slug'] ?? '') ?>" data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>">
+    <article id="news-<?= $item['slug'] ?>" class="news-item" data-project-id="<?= esc($item['project_id'] ?? '') ?>" data-slug="<?= esc($item['slug'] ?? '') ?>" data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>">
       <h2><?= esc($item['title']) ?></h2>
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
@@ -540,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <?php foreach ($news_items as $index => $item): ?>
         {
           "@type": "BlogPosting",
-          "@id": "<?= current_url() ?>#<?= $item['slug'] ?>",
+          "@id": "<?= current_url() ?>#news-<?= $item['slug'] ?>",
           "headline": "<?= esc($item['title']) ?>",
           "datePublished": "<?= date('c', strtotime($item['created_at'])) ?>",
           "description": "<?= esc($item['excerpt']) ?>",
