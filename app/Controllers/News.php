@@ -122,4 +122,28 @@ class News extends BaseController
 
     return redirect()->to('/news#news-admin-item-' . $id)->with('success', 'News updated.');
   }
+
+  public function delete()
+  {
+    if (!session()->get('isLoggedIn')) {
+      return redirect()->to('/login');
+    }
+
+    $id = (int) $this->request->getPost('id');
+    if ($id <= 0) {
+      return redirect()->to('/news')->with('error', 'Invalid news item.');
+    }
+
+    $model = new \App\Models\NewsModel();
+    $item = $model->find($id);
+
+    if (!$item) {
+      return redirect()->to('/news')->with('error', 'News item not found.');
+    }
+
+    $model->delete($id);
+
+    return redirect()->to('/news')->with('success', 'News deleted.');
+  }
 }
+

@@ -33,6 +33,12 @@
             data-title="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
             data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>"
             data-project-id="<?= esc($item['project_id'] ?? '') ?>">Edit</button>
+          <form method="post" action="<?= base_url('news/delete') ?>" class="news-delete-form"
+                onsubmit="return confirm('Are you sure?');">
+            <?= csrf_field() ?>
+            <input type="hidden" name="id" value="<?= esc($item['id']) ?>">
+            <button type="submit" class="news-delete-link">delete</button>
+          </form>
         </div>
       <?php endif; ?>
       <hr>
