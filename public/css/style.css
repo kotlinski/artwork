@@ -36,7 +36,7 @@ body {
     --content-inline-start: max(0px, calc((100vw - var(--content-column-max-width)) / 2));
 }
 
-.content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal, .news-edit-modal-overlay) {
+.content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal, .news-edit-modal-overlay, .news-image-fullscreen-modal) {
     margin-left: var(--content-inline-start);
 }
 
@@ -62,7 +62,7 @@ body {
         padding-right: 10px;
     }
 
-    .content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal, .news-edit-modal-overlay) {
+    .content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal, .news-edit-modal-overlay, .news-image-fullscreen-modal) {
         margin-left: max(0px, calc(var(--content-inline-start) - 10px));
     }
 
@@ -219,6 +219,26 @@ a:hover {
 .news-item {
     margin-bottom: 12px;
 
+    .news-main-image {
+        margin: 8px 0 10px 0;
+    }
+
+    .news-main-image-trigger {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        background: none;
+        cursor: zoom-in;
+    }
+
+    .news-main-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
     h2 {
         margin: 0 0 2px 0;
     }
@@ -260,5 +280,40 @@ ul li {
 
 ul li:last-child {
     margin-bottom: 0;
+}
+
+.news-image-fullscreen-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 20, 20, 0.92);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.news-image-fullscreen-modal img {
+    max-width: min(96vw, 1400px);
+    max-height: 92vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.news-image-fullscreen-close {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
 }
 

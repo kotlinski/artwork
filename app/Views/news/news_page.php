@@ -60,7 +60,7 @@ $newsCategories = [
       </div>
     </div>
 
-    <form id="news-add-form" action="<?= base_url('news/store') ?>" method="post">
+    <form id="news-add-form" action="<?= base_url('news/store') ?>" method="post" enctype="multipart/form-data">
       <?= csrf_field() ?>
       <label class="md-title-field">
         Title
@@ -77,6 +77,11 @@ $newsCategories = [
             </option>
           <?php endforeach; ?>
         </select>
+      </label>
+      <label class="md-extra-field">
+        Main image
+        <input type="file" name="main_image_file" id="news-add-main-image-file" accept=".jpg,.jpeg,.png,.webp">
+        <small class="news-field-hint">Uploaded to <code>/media/news</code> as WebP variants (large, medium, mini, thumb).</small>
       </label>
       <label class="md-extra-field">
         Category
@@ -141,6 +146,16 @@ $newsCategories = [
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
       </div>
+      <?php if (!empty($item['main_image'])): ?>
+        <div class="news-main-image">
+          <button type="button" class="news-main-image-trigger"
+                  data-full-image="<?= base_url($item['main_image']) ?>"
+                  data-alt="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
+                  aria-label="Open image in fullscreen">
+            <img src="<?= base_url($item['main_image']) ?>" alt="<?= esc($item['title']) ?>" loading="lazy">
+          </button>
+        </div>
+      <?php endif; ?>
       <?php if (session()->get('isLoggedIn')): ?>
         <div class="news-item-admin-actions">
           <button type="button" class="news-edit-btn"
@@ -149,6 +164,7 @@ $newsCategories = [
             data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>"
             data-project-id="<?= esc($item['project_id'] ?? '') ?>"
             data-category="<?= esc($item['category'] ?? 'general') ?>"
+            data-main-image="<?= htmlspecialchars($item['main_image'] ?? '', ENT_QUOTES) ?>"
             data-event-location="<?= htmlspecialchars($item['event_location'] ?? '', ENT_QUOTES) ?>"
             data-event-start-date="<?= esc($item['event_start_date'] ?? '') ?>"
             data-event-end-date="<?= esc($item['event_end_date'] ?? '') ?>"
@@ -164,6 +180,11 @@ $newsCategories = [
       <hr>
     </article>
   <?php endforeach; ?>
+</div>
+
+<div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
+  <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" aria-label="Close">&times;</button>
+  <img id="news-image-fullscreen-img" src="" alt="">
 </div>
 
 <?php if (session()->get('isLoggedIn')): ?>
@@ -185,7 +206,7 @@ $newsCategories = [
       </div>
     </div>
 
-    <form id="news-edit-form" action="<?= base_url('news/update') ?>" method="post">
+    <form id="news-edit-form" action="<?= base_url('news/update') ?>" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" id="news-edit-id">
       <label class="md-title-field">
         Title
@@ -199,6 +220,11 @@ $newsCategories = [
             <option value="<?= esc($proj['id']) ?>"><?= esc($proj['title']) ?></option>
           <?php endforeach; ?>
         </select>
+      </label>
+      <label class="md-extra-field">
+        Main image
+        <input type="file" name="main_image_file" id="news-edit-main-image-file" accept=".jpg,.jpeg,.png,.webp">
+        <small id="news-edit-main-image-current" class="news-field-hint"></small>
       </label>
       <label class="md-extra-field">
         Category
@@ -262,6 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var editContentInput = document.getElementById('news-edit-content');
   var editProjectSel   = document.getElementById('news-edit-project');
   var editCategorySel  = document.getElementById('news-edit-category');
+  var editMainImageCurrent = document.getElementById('news-edit-main-image-current');
   var editEventLocationInput = document.getElementById('news-edit-event-location');
   var editEventStartDateInput = document.getElementById('news-edit-event-start-date');
   var editEventEndDateInput = document.getElementById('news-edit-event-end-date');
@@ -320,6 +347,8 @@ document.addEventListener('DOMContentLoaded', function () {
       editProjectSel.options[i].selected = (editProjectSel.options[i].value === pid);
     }
     editCategorySel.value = btn.dataset.category || 'general';
+    var currentMainImage = btn.dataset.mainImage || '';
+    editMainImageCurrent.textContent = currentMainImage !== '' ? ('Current image: ' + currentMainImage) : 'No main image uploaded yet.';
     editEventLocationInput.value = btn.dataset.eventLocation || '';
     editEventStartDateInput.value = btn.dataset.eventStartDate || '';
     editEventEndDateInput.value = btn.dataset.eventEndDate || '';
@@ -448,6 +477,53 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <?php endif; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var modal = document.getElementById('news-image-fullscreen-modal');
+  var modalImg = document.getElementById('news-image-fullscreen-img');
+  var closeBtn = document.getElementById('news-image-fullscreen-close');
+  var triggers = document.querySelectorAll('.news-main-image-trigger');
+
+  if (!modal || !modalImg || !closeBtn || triggers.length === 0) {
+    return;
+  }
+
+  function openModal(src, alt) {
+    modalImg.src = src;
+    modalImg.alt = alt || '';
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    modalImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      openModal(trigger.dataset.fullImage || '', trigger.dataset.alt || '');
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Escape' || e.key === 'Esc') && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
+});
+</script>
 
 <?= $this->endSection() ?>
 

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\Files\UploadedFile;
+
 class News extends BaseController
 {
   protected const NEWS_CATEGORIES = ['exhibition', 'talk', 'workshop', 'general'];
@@ -9,6 +11,7 @@ class News extends BaseController
   public function index(){
     $model = new \App\Models\NewsModel();
     $news_items = $model->getLatestNews();
+    $news_items = $this->normalizeMainImagePaths($news_items);
     
     $parser = new \Parsedown();
     $parser->setSafeMode(true);
@@ -45,6 +48,18 @@ class News extends BaseController
       return $item;
     }, $news_items);
   }
+
+  protected function normalizeMainImagePaths(array $newsItems): array
+  {
+    return array_map(function (array $item): array {
+      $mainImage = $item['main_image'] ?? null;
+      if (is_string($mainImage) && str_starts_with($mainImage, 'news/')) {
+        $item['main_image'] = 'media/news/' . ltrim(substr($mainImage, 5), '/');
+      }
+
+      return $item;
+    }, $newsItems);
+  }
   
   public function store()
   {
@@ -61,6 +76,8 @@ class News extends BaseController
     $eventStartDate = $this->normalizeOptionalDate($this->request->getPost('event_start_date'));
     $eventEndDate = $this->normalizeOptionalDate($this->request->getPost('event_end_date'));
     $externalLink = trim($this->request->getPost('external_link') ?? '');
+    $mainImageFile = $this->request->getFile('main_image_file');
+    $hasMainImageUpload = $this->hasUploadedFile($mainImageFile);
 
     $errors = [];
     if ($title === '') $errors[] = 'Title is required.';
@@ -69,6 +86,12 @@ class News extends BaseController
     if (!in_array($category, self::NEWS_CATEGORIES, true)) $errors[] = 'Invalid category.';
     if ($externalLink !== '' && filter_var($externalLink, FILTER_VALIDATE_URL) === false) $errors[] = 'External link must be a valid URL.';
     if ($eventStartDate !== null && $eventEndDate !== null && $eventEndDate < $eventStartDate) $errors[] = 'Event end date cannot be earlier than event start date.';
+    if ($hasMainImageUpload) {
+      $uploadError = $this->validateMainImageFile($mainImageFile);
+      if ($uploadError !== null) {
+        $errors[] = $uploadError;
+      }
+    }
 
     $model = new \App\Models\NewsModel();
     if (empty($errors) && $model->where('slug', $slug)->first()) {
@@ -89,6 +112,25 @@ class News extends BaseController
         ->with('create_external_link', $externalLink);
     }
 
+    $mainImagePath = null;
+    if ($hasMainImageUpload) {
+      try {
+        $mainImagePath = $this->saveNewsMainImageVariants($mainImageFile, $slug);
+      } catch (\Throwable $e) {
+        return redirect()->to('/news')
+          ->with('create_errors', ['Failed to process main image upload.'])
+          ->with('create_title', $title)
+          ->with('create_slug', $slug)
+          ->with('create_content', $content)
+          ->with('create_project_id', $projectId ?? '')
+          ->with('create_category', $category)
+          ->with('create_event_location', $eventLocation)
+          ->with('create_event_start_date', $eventStartDate ?? '')
+          ->with('create_event_end_date', $eventEndDate ?? '')
+          ->with('create_external_link', $externalLink);
+      }
+    }
+
     $data = [
       'title'      => $title,
       'slug'       => $slug,
@@ -99,6 +141,7 @@ class News extends BaseController
     if (!empty($projectId)) {
       $data['project_id'] = (int) $projectId;
     }
+    $data['main_image'] = $mainImagePath;
     $data['event_location'] = $eventLocation !== '' ? $eventLocation : null;
     $data['event_start_date'] = $eventStartDate;
     $data['event_end_date'] = $eventEndDate;
@@ -140,6 +183,88 @@ class News extends BaseController
     return $value !== '' ? $value : null;
   }
 
+  protected function hasUploadedFile(?UploadedFile $file): bool
+  {
+    return $file !== null && $file->getError() !== UPLOAD_ERR_NO_FILE;
+  }
+
+  protected function validateMainImageFile(?UploadedFile $file): ?string
+  {
+    if ($file === null || !$file->isValid()) {
+      return 'Main image upload failed.';
+    }
+
+    if ($file->getSize() > 20 * 1024 * 1024) {
+      return 'Main image may not be larger than 20 MB.';
+    }
+
+    $ext = strtolower($file->getClientExtension());
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+      return 'Main image must be jpg, jpeg, png, or webp.';
+    }
+
+    return null;
+  }
+
+  protected function saveNewsMainImageVariants(UploadedFile $file, string $slug): string
+  {
+    $baseName = 'anne-hamrin-simonsson-news-' . ($slug !== '' ? $slug : 'item') . '-' . date('YmdHis') . '-' . substr(bin2hex(random_bytes(3)), 0, 6);
+    $origExt = strtolower($file->getClientExtension());
+    $origName = $baseName . '.' . $origExt;
+    $webpName = $baseName . '.webp';
+
+    $newsDir = FCPATH . 'media/news/';
+    $originalDir = $newsDir . 'original/';
+    if (!is_dir($originalDir) && !mkdir($originalDir, 0775, true) && !is_dir($originalDir)) {
+      throw new \RuntimeException('Failed to create news original directory.');
+    }
+
+    $file->move($originalDir, $origName, true);
+    $origPath = $originalDir . $origName;
+
+    $filesize = @filesize($origPath) ?: 0;
+    if ($filesize > 3145728) {
+      $quality = 43;
+    } elseif ($filesize > 2097152) {
+      $quality = 63;
+    } elseif ($filesize > 1048576) {
+      $quality = 73;
+    } else {
+      $quality = 87;
+    }
+
+    $variants = [
+      '' => '',
+      'mini/' => 'x70',
+      'thumb/' => 'x140',
+      'medium/' => 'x280',
+      'large/' => 'x560',
+    ];
+
+    foreach ($variants as $subdir => $resize) {
+      $targetDir = $newsDir . $subdir;
+      if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
+        throw new \RuntimeException('Failed to create news variant directory.');
+      }
+
+      $outPath = $targetDir . $webpName;
+      $image = \Config\Services::image('imagick');
+      $image->withFile($origPath);
+      $image->reorient();
+      $image->convert(IMAGETYPE_WEBP);
+      $image->quality($quality);
+
+      if ($resize !== '') {
+        $height = (int) str_replace('x', '', $resize);
+        $image->resize(0, $height, true);
+      }
+
+      $image->save($outPath);
+    }
+
+    return 'media/news/' . $webpName;
+  }
+
   public function update()
   {
     if (!session()->get('isLoggedIn')) {
@@ -160,6 +285,8 @@ class News extends BaseController
     $eventStartDate = $this->request->getPost('event_start_date');
     $eventEndDate = $this->request->getPost('event_end_date');
     $externalLink = $this->request->getPost('external_link');
+    $mainImageFile = $this->request->getFile('main_image_file');
+    $hasMainImageUpload = $this->hasUploadedFile($mainImageFile);
 
     if ($title !== null) {
       $data['title'] = $title;
@@ -172,6 +299,18 @@ class News extends BaseController
     }
     if ($category !== null) {
       $data['category'] = $this->normalizeCategory($category);
+    }
+    if ($hasMainImageUpload) {
+      $uploadError = $this->validateMainImageFile($mainImageFile);
+      if ($uploadError !== null) {
+        return redirect()->to('/news')->with('error', $uploadError);
+      }
+
+      try {
+        $data['main_image'] = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
+      } catch (\Throwable $e) {
+        return redirect()->to('/news')->with('error', 'Failed to process main image upload.');
+      }
     }
     if ($eventLocation !== null) {
       $eventLocation = trim((string) $eventLocation);

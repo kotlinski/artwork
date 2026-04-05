@@ -864,6 +864,13 @@ code {
     border-color: #999;
 }
 
+.news-field-hint {
+    display: block;
+    margin-top: 4px;
+    color: #666;
+    font-size: 11px;
+}
+
 #news-edit-preview-modal .preview-modal-content.news-edit-preview-modal-content,
 #news-add-preview-modal .preview-modal-content.news-edit-preview-modal-content {
     width: min(92vw, calc(var(--content-column-max-width) + 34px));
