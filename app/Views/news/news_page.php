@@ -10,281 +10,8 @@
 
 <?= $this->section('adminContent') ?>
 <div class="contained news-admin">
-  <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert success"><?= esc(session()->getFlashdata('success')) ?></div>
-  <?php endif; ?>
-  <?php if (session()->getFlashdata('error')): ?>
-    <div class="alert error"><?= esc(session()->getFlashdata('error')) ?></div>
-  <?php endif; ?>
 
-  <button type="button" id="open-news-create-modal" class="button" style="margin-bottom:16px;">Add News</button>
-
-  <!-- Edit News Modal -->
-  <div id="news-edit-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
-    <div class="modal-content" style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:520px;width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
-      <button type="button" id="close-news-edit-modal" style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">&times;</button>
-      <div class="news-edit-form" id="news-admin-edit-modal-form">
-        <?php
-        // Use the same partial as the create modal for consistent style
-        $editExtraFields = [
-          [
-            'type'  => 'hidden',
-            'name'  => 'slug',
-            'label' => 'Slug',
-            'value' => '', // Will be filled by JS
-          ],
-          [
-            'type'         => 'select',
-            'name'         => 'project_id',
-            'label'        => 'Project',
-            'value'        => '', // Will be filled by JS
-            'empty_option' => '— No project —',
-            'options'      => array_map(fn($p) => [
-              'value' => $p['id'],
-              'label' => $p['title'],
-            ], $projects ?? []),
-          ],
-        ];
-        ?>
-        <?= view('partials/markdown_editor', [
-          'formAction'   => base_url('news/update'),
-          'id'           => '', // Will be filled by JS
-          'fieldName'    => 'content',
-          'fieldValue'   => '', // Will be filled by JS
-          'editor_title' => 'Edit Article',
-          'editorId'     => 'news-md-editor-edit',
-          'fixed_width'  => true,
-          'titleField'   => [
-            'name'  => 'title',
-            'label' => 'Title',
-            'value' => '', // Will be filled by JS
-          ],
-          'extraFields'  => $editExtraFields,
-        ]) ?>
-      </div>
-    </div>
-  </div>
-
-  <!-- News Create Modal -->
-  <div id="news-create-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
-    <div class="modal-content" style="background:#fff;padding:24px 18px 18px 18px;border-radius:8px;max-width:520px;width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 4px 32px rgba(0,0,0,0.18);position:relative;">
-      <button type="button" id="close-news-create-modal" style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">&times;</button>
-      <div class="news-edit-form" id="news-admin-new-modal-form">
-        <?php if (session()->getFlashdata('create_errors')): ?>
-          <div class="alert error" style="margin: 8px 0 0 0;">
-            <?php foreach ((array) session()->getFlashdata('create_errors') as $err): ?>
-              <div><?= esc($err) ?></div>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-        <?php
-        // Patch the extraFields array to make slug hidden
-        $extraFields = [
-          [
-            'type'  => 'hidden',
-            'name'  => 'slug',
-            'label' => 'Slug',
-            'value' => session()->getFlashdata('create_slug') ?? '',
-          ],
-          [
-            'type'         => 'select',
-            'name'         => 'project_id',
-            'label'        => 'Project',
-            'value'        => '',
-            'empty_option' => '— No project —',
-            'options'      => array_map(fn($p) => [
-              'value' => $p['id'],
-              'label' => $p['title'],
-            ], $projects ?? []),
-          ],
-        ];
-        ?>
-        <?= view('partials/markdown_editor', [
-          'formAction'   => base_url('news/store'),
-          'id'           => 0,
-          'fieldName'    => 'content',
-          'fieldValue'   => session()->getFlashdata('create_content') ?? '',
-          'editor_title' => 'New Article',
-          'editorId'     => 'news-md-editor-new',
-          'fixed_width'  => true,
-          'titleField'   => [
-            'name'  => 'title',
-            'label' => 'Title',
-            'value' => session()->getFlashdata('create_title') ?? '',
-          ],
-          'extraFields'  => $extraFields,
-        ]) ?>
-      </div>
-    </div>
-  </div>
-
-  <hr class='light'/>
-
-
-  <h2>News Administration</h2>
-  <p>Expand a news title to update its markdown content.</p>
-
-  <?php foreach (($news_items ?? []) as $item): ?>
-    <?php $newsId = (int) ($item['id'] ?? 0); ?>
-    <?php
-    $extraFields = [
-      [
-        'type'         => 'select',
-        'name'         => 'project_id',
-        'label'        => 'Project',
-        'value'        => $item['project_id'] ?? '',
-        'empty_option' => '— No project —',
-        'options'      => array_map(fn($p) => [
-          'value' => $p['id'],
-          'label' => $p['title'],
-        ], $projects ?? []),
-      ],
-      [
-        'type'  => 'hidden',
-        'name'  => 'slug',
-        'label' => 'Slug',
-        'value' => $item['slug'] ?? '',
-      ],
-    ];
-    ?>
-    <div class="news-edit-expandable" id="news-admin-item-<?= $newsId ?>" data-news-id="<?= $newsId ?>">
-      <button type="button"
-              class="news-expand-toggle"
-              aria-expanded="false"
-              aria-controls="news-form-<?= $newsId ?>">
-        <span class="news-chevron">▶</span>
-        <span><?= esc($item['title'] ?? 'Untitled news item') ?></span>
-      </button>
-      <div class="news-edit-form" id="news-form-<?= $newsId ?>" style="display:none;">
-        <?= view('partials/markdown_editor', [
-          'formAction' => base_url('news/update'),
-          'id' => $newsId,
-          'fieldName' => 'content',
-          'fieldValue' => $item['content'] ?? '',
-          'editor_title' => '',
-          'editorId' => 'news-md-editor-' . $newsId,
-          'fixed_width' => true,
-          'titleField' => [
-            'name'  => 'title',
-            'label' => 'Title',
-            'value' => $item['title'] ?? '',
-          ],
-          'extraFields' => $extraFields,
-        ]) ?>
-      </div>
-    </div>
-  <?php endforeach; ?>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const expandToggles = document.querySelectorAll('.news-expand-toggle');
-
-    expandToggles.forEach(function (toggle) {
-      toggle.addEventListener('click', function () {
-        const parent = toggle.closest('.news-edit-expandable');
-        const form = parent.querySelector('.news-edit-form');
-        const chevron = toggle.querySelector('.news-chevron');
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-        document.querySelectorAll('.news-edit-form').forEach(function (section) {
-          section.style.display = 'none';
-        });
-        document.querySelectorAll('.news-expand-toggle').forEach(function (button) {
-          button.setAttribute('aria-expanded', 'false');
-          const icon = button.querySelector('.news-chevron');
-          if (icon) icon.style.transform = '';
-        });
-
-        if (!isExpanded) {
-          form.style.display = 'block';
-          toggle.setAttribute('aria-expanded', 'true');
-          if (chevron) chevron.style.transform = 'rotate(90deg)';
-        }
-      });
-
-      toggle.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          toggle.click();
-        }
-      });
-    });
-
-    // Re-expand the item that was just saved, based on URL hash
-    const hash = window.location.hash;
-    if (hash && hash.startsWith('#news-admin-item-')) {
-      const expandable = document.querySelector(hash);
-      if (expandable) {
-        const toggle = expandable.querySelector('.news-expand-toggle');
-        if (toggle) toggle.click();
-      }
-    }
-
-    // Auto-generate slug from title in the New Article form
-    function generateSlug(str) {
-      return str.toLowerCase()
-        .replace(/[åä]/g, 'a').replace(/ö/g, 'o')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '')
-        .replace(/--+/g, '-');
-    }
-    // New Article form
-    const createTitleInput = document.querySelector('#news-form-new input[name="title"]');
-    const createSlugInput  = document.querySelector('#news-form-new input[name="slug"]');
-    if (createTitleInput && createSlugInput) {
-      createTitleInput.addEventListener('input', function () {
-        createSlugInput.value = generateSlug(this.value);
-      });
-      // Initial fill
-      createSlugInput.value = generateSlug(createTitleInput.value);
-    }
-    // Edit forms
-    document.querySelectorAll('.news-edit-form').forEach(function(form) {
-      const titleInput = form.querySelector('input[name="title"]');
-      const slugInput = form.querySelector('input[name="slug"]');
-      if (titleInput && slugInput) {
-        titleInput.addEventListener('input', function () {
-          slugInput.value = generateSlug(this.value);
-        });
-        // Initial fill
-        slugInput.value = generateSlug(titleInput.value);
-      } else {
-        console.warn('Missing title or slug input in form:', form);
-      }
-    });
-
-    // Modal logic for news create
-    const openNewsCreateBtn = document.getElementById('open-news-create-modal');
-    const newsCreateModal = document.getElementById('news-create-modal');
-    const closeNewsCreateBtn = document.getElementById('close-news-create-modal');
-    if (openNewsCreateBtn && newsCreateModal && closeNewsCreateBtn) {
-      openNewsCreateBtn.addEventListener('click', function() {
-        newsCreateModal.style.display = 'flex';
-        // Focus the title field
-        setTimeout(function() {
-          const titleInput = newsCreateModal.querySelector('input[name="title"]');
-          if (titleInput) titleInput.focus();
-        }, 100);
-      });
-      closeNewsCreateBtn.addEventListener('click', function() {
-        newsCreateModal.style.display = 'none';
-      });
-      newsCreateModal.addEventListener('click', function(e) {
-        if (e.target === newsCreateModal) newsCreateModal.style.display = 'none';
-      });
-      document.addEventListener('keydown', function(e) {
-        if (newsCreateModal.style.display === 'flex' && e.key === 'Escape') {
-          newsCreateModal.style.display = 'none';
-        }
-      });
-    }
-    // If there were create errors, open the modal automatically
-    <?php if (session()->getFlashdata('create_errors')): ?>
-    newsCreateModal.style.display = 'flex';
-    <?php endif; ?>
-  });
-</script>
 <?= $this->endSection() ?>
 
 
@@ -299,120 +26,143 @@
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
       </div>
-      <?php
-      $session = service('session');
-      $isAdmin = $session->get('isLoggedIn');
-      ?>
-      <?php if ($isAdmin): ?>
-        <button type="button" class="edit-news-button" data-news-id="<?= $item['id'] ?>">Edit</button>
+      <?php if (session()->get('isLoggedIn')): ?>
+        <div class="news-item-admin-actions">
+          <button type="button" class="news-edit-btn"
+            data-id="<?= esc($item['id']) ?>"
+            data-title="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
+            data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>"
+            data-project-id="<?= esc($item['project_id'] ?? '') ?>">Edit</button>
+        </div>
       <?php endif; ?>
       <hr>
     </article>
   <?php endforeach; ?>
 </div>
 
+<?php if (session()->get('isLoggedIn')): ?>
+<!-- News Edit Modal -->
+<div id="news-edit-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="news-edit-modal-heading">
+  <div class="news-edit-modal-box">
+    <button type="button" id="news-edit-modal-close" class="news-edit-modal-close" aria-label="Close">&times;</button>
+    <h3 id="news-edit-modal-heading">Edit News Item</h3>
+
+    <!-- Preview sub-modal -->
+    <div id="news-edit-preview-modal" class="preview-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
+      <div class="preview-modal-content" style="position:relative;">
+        <button type="button" id="news-edit-preview-close" style="position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;">&times;</button>
+        <div id="news-edit-preview-content" style="word-break:break-word;overflow-wrap:anywhere;"></div>
+      </div>
+    </div>
+
+    <form id="news-edit-form" action="<?= base_url('news/update') ?>" method="post">
+      <input type="hidden" name="id" id="news-edit-id">
+      <label class="md-title-field">
+        Title
+        <input type="text" name="title" id="news-edit-title">
+      </label>
+      <label class="md-extra-field">
+        Project
+        <select name="project_id" id="news-edit-project">
+          <option value="">— none —</option>
+          <?php foreach ($projects ?? [] as $proj): ?>
+            <option value="<?= esc($proj['id']) ?>"><?= esc($proj['title']) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+      <div class="md-toolbar">
+        <button type="button" onclick="mdWrap('news-edit-content', '**', '**')" title="Bold">B</button>
+        <button type="button" onclick="mdWrap('news-edit-content', '*', '*')" title="Italic"><em>I</em></button>
+        <button type="button" onclick="mdInsert('news-edit-content', '## ')" title="Heading">H</button>
+        <button type="button" onclick="mdWrap('news-edit-content', '[', '](url)')" title="Link">🔗</button>
+        <button type="button" onclick="mdInsert('news-edit-content', '- ')" title="Bullet List">• List</button>
+        <button type="button" onclick="mdInsert('news-edit-content', '1. ')" title="Numbered List">1. List</button>
+        <button type="button" onclick="mdInsert('news-edit-content', '  \n')" title="Line Break">↵</button>
+        <button type="button" onclick="mdWrap('news-edit-content', '`', '`')" title="Code">&lt;/&gt;</button>
+      </div>
+      <textarea id="news-edit-content" name="content" class="news-edit-modal-textarea"></textarea>
+      <div style="padding: 0 4px">
+        <div class="form-actions">
+          <button type="button" id="news-edit-preview-btn">Preview</button>
+          <button type="submit">Save</button>
+          <button type="button" id="news-edit-cancel-btn">Cancel</button>
+        </div>
+        <div>💡 Tip: "↵" adds a "soft line break"</div>
+        <div>Soft line break: 2 spaces + new line</div>
+        <div>New Paragraph: Use a blank line</div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="<?= base_url('js/marked.min.js') ?>"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const editButtons = document.querySelectorAll('.edit-news-button');
-    const editModal = document.getElementById('news-edit-modal');
-    const closeEditModal = document.getElementById('close-news-edit-modal');
-    const editForm = document.getElementById('news-edit-form');
-    // Use correct IDs generated by markdown_editor partial
-    const editNewsId = editForm ? editForm.querySelector('input[name="id"]') : null;
-    const editNewsTitle = document.getElementById('news-md-editor-edit-title');
-    const editNewsContent = document.getElementById('news-md-editor-edit-content');
-    const editNewsProject = document.getElementById('news-md-editor-edit-project_id');
-    const editNewsSlug = document.getElementById('news-md-editor-edit-slug');
+document.addEventListener('DOMContentLoaded', function () {
+  var modal        = document.getElementById('news-edit-modal');
+  var closeBtn     = document.getElementById('news-edit-modal-close');
+  var cancelBtn    = document.getElementById('news-edit-cancel-btn');
+  var idInput      = document.getElementById('news-edit-id');
+  var titleInput   = document.getElementById('news-edit-title');
+  var contentInput = document.getElementById('news-edit-content');
+  var projectSel   = document.getElementById('news-edit-project');
+  var previewBtn   = document.getElementById('news-edit-preview-btn');
+  var previewModal = document.getElementById('news-edit-preview-modal');
+  var previewBody  = document.getElementById('news-edit-preview-content');
+  var previewClose = document.getElementById('news-edit-preview-close');
 
-    editButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const newsId = this.getAttribute('data-news-id');
-        const newsItem = this.closest('.news-item');
-        const newsTitle = newsItem.querySelector('h2').textContent;
-        // Get the raw markdown content from data-content attribute
-        let newsContent = newsItem.dataset.content || newsItem.querySelector('.body').textContent;
-        // Find the project id and slug from a data attribute or hidden field if available
-        let projectId = '';
-        let slug = '';
-        if (newsItem.dataset.projectId) projectId = newsItem.dataset.projectId;
-        if (newsItem.dataset.slug) slug = newsItem.dataset.slug;
-        // fallback: try to find hidden fields if present
-        if (!slug) {
-          const hiddenSlug = newsItem.querySelector('input[name="slug"]');
-          if (hiddenSlug) slug = hiddenSlug.value;
-        }
-        if (!projectId) {
-          const hiddenProject = newsItem.querySelector('input[name="project_id"]');
-          if (hiddenProject) projectId = hiddenProject.value;
-        }
-
-        if (editNewsId) editNewsId.value = newsId;
-        if (editNewsTitle) editNewsTitle.value = newsTitle;
-        if (editNewsContent) {
-          editNewsContent.value = newsContent;
-          // Trigger input event for markdown editor JS
-          editNewsContent.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-        if (editNewsSlug) editNewsSlug.value = slug;
-        if (editNewsProject) editNewsProject.value = projectId;
-
-        if (editModal) editModal.style.display = 'flex';
-        // Focus the title field
-        setTimeout(function() {
-          if (editNewsTitle) editNewsTitle.focus();
-        }, 100);
-      });
-    });
-
-    if (closeEditModal) {
-      closeEditModal.addEventListener('click', function () {
-        editModal.style.display = 'none';
-      });
-    }
-
-    if (editModal) {
-      editModal.addEventListener('click', function (e) {
-        if (e.target === editModal) {
-          editModal.style.display = 'none';
-        }
-      });
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (editModal && editModal.style.display === 'flex' && e.key === 'Escape') {
-        editModal.style.display = 'none';
+  // Open modal and populate fields
+  document.querySelectorAll('.news-edit-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      idInput.value      = btn.dataset.id      || '';
+      titleInput.value   = btn.dataset.title   || '';
+      contentInput.value = btn.dataset.content || '';
+      var pid = btn.dataset.projectId || '';
+      for (var i = 0; i < projectSel.options.length; i++) {
+        projectSel.options[i].selected = (projectSel.options[i].value === pid);
       }
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { contentInput.focus(); }, 50);
     });
+  });
 
-    if (editForm) {
-      editForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 
-        const formData = new FormData(editForm);
-        fetch(editForm.action, {
-          method: 'POST',
-          body: formData,
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            if (data.success) {
-              location.reload();
-            } else {
-              alert('Failed to update news item.');
-            }
-          })
-          .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-          });
-      });
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (modal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) {
+      if (previewModal.style.display === 'flex') {
+        previewModal.style.display = 'none';
+      } else {
+        closeModal();
+      }
     }
   });
+
+  // Preview
+  previewBtn.addEventListener('click', function () {
+    previewBody.innerHTML = window.marked
+      ? (window.marked.parse ? window.marked.parse(contentInput.value) : window.marked(contentInput.value))
+      : contentInput.value;
+    previewModal.style.display = 'flex';
+  });
+  previewClose.addEventListener('click', function () {
+    previewModal.style.display = 'none';
+  });
+  previewModal.addEventListener('click', function (e) {
+    if (e.target === previewModal) previewModal.style.display = 'none';
+  });
+});
 </script>
+<?php endif; ?>
+
 <?= $this->endSection() ?>
 
 
@@ -457,4 +207,3 @@
 ]
 }
 </script>
-

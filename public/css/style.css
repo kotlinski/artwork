@@ -36,7 +36,7 @@ body {
     --content-inline-start: max(0px, calc((100vw - var(--content-column-max-width)) / 2));
 }
 
-.content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal) {
+.content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal, .news-edit-modal-overlay) {
     margin-left: var(--content-inline-start);
 }
 
@@ -62,7 +62,7 @@ body {
         padding-right: 10px;
     }
 
-    .content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal) {
+    .content > :not(.contained, .preview-modal, .image-edit-modal, .project-create-modal, .news-edit-modal-overlay) {
         margin-left: max(0px, calc(var(--content-inline-start) - 10px));
     }
 

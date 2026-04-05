@@ -53,3 +53,5 @@ $routes->get('(:segment)', 'Project::detail/$1');
 
 $routes->post('project/update', 'Project::update', ['filter' => 'auth']);
 
+
+
