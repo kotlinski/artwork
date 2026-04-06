@@ -86,7 +86,6 @@ $newsCategories = [
       <label class="md-extra-field">
         Main image
         <input type="file" name="main_image_file" id="news-add-main-image-file" accept=".jpg,.jpeg,.png,.webp">
-        <small class="news-field-hint">Uploaded to <code>/media/news</code> as WebP variants (large, medium, mini, thumb).</small>
       </label>
       <label class="md-extra-field">
         Category
@@ -230,6 +229,10 @@ $newsCategories = [
         Main image
         <input type="file" name="main_image_file" id="news-edit-main-image-file" accept=".jpg,.jpeg,.png,.webp">
         <small id="news-edit-main-image-current" class="news-field-hint"></small>
+        <label class="news-edit-remove-image-row">
+          <input type="checkbox" name="remove_main_image" id="news-edit-remove-main-image" value="1">
+          Remove current image
+        </label>
       </label>
       <label class="md-extra-field">
         Category
@@ -294,6 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var editProjectSel   = document.getElementById('news-edit-project');
   var editCategorySel  = document.getElementById('news-edit-category');
   var editMainImageCurrent = document.getElementById('news-edit-main-image-current');
+  var editRemoveMainImage = document.getElementById('news-edit-remove-main-image');
   var editEventLocationInput = document.getElementById('news-edit-event-location');
   var editEventStartDateInput = document.getElementById('news-edit-event-start-date');
   var editEventEndDateInput = document.getElementById('news-edit-event-end-date');
@@ -343,6 +347,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function openEditModal(btn) {
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     editIdInput.value = btn.dataset.id || '';
     editTitleInput.value = btn.dataset.title || '';
     editContentInput.value = btn.dataset.content || '';
@@ -353,7 +366,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     editCategorySel.value = btn.dataset.category || 'general';
     var currentMainImage = btn.dataset.mainImage || '';
-    editMainImageCurrent.textContent = currentMainImage !== '' ? ('Current image: ' + currentMainImage) : 'No main image uploaded yet.';
+    if (currentMainImage !== '') {
+      var href = '<?= base_url() ?>' + currentMainImage.replace(/^\/+/, '');
+      editMainImageCurrent.innerHTML = 'Current image: <br /><code>' + escapeHtml(currentMainImage) + '</code> - <a href="' + escapeHtml(href) + '" target="_blank" rel="noopener">open</a>';
+      if (editRemoveMainImage) {
+        editRemoveMainImage.disabled = false;
+        editRemoveMainImage.checked = false;
+      }
+    } else {
+      editMainImageCurrent.textContent = 'No main image uploaded yet.';
+      if (editRemoveMainImage) {
+        editRemoveMainImage.checked = false;
+        editRemoveMainImage.disabled = true;
+      }
+    }
     editEventLocationInput.value = btn.dataset.eventLocation || '';
     editEventStartDateInput.value = btn.dataset.eventStartDate || '';
     editEventEndDateInput.value = btn.dataset.eventEndDate || '';

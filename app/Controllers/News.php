@@ -213,7 +213,7 @@ class News extends BaseController
 
   protected function saveNewsMainImageVariants(UploadedFile $file, string $slug): string
   {
-    $baseName = 'anne-hamrin-simonsson-news-' . ($slug !== '' ? $slug : 'item') . '-' . date('YmdHis') . '-' . substr(bin2hex(random_bytes(3)), 0, 6);
+    $baseName = $this->resolveNewsMainImageBaseName($slug);
     $origExt = strtolower($file->getClientExtension());
     $origName = $baseName . '.' . $origExt;
     $webpName = $baseName . '.webp';
@@ -270,6 +270,80 @@ class News extends BaseController
     return 'media/news/' . $webpName;
   }
 
+  protected function resolveNewsMainImageBaseName(string $slug): string
+  {
+    $cleanSlug = trim($slug) !== '' ? trim($slug) : 'item';
+    $base = 'anne-hamrin-simonsson-news-' . $cleanSlug;
+    $newsDir = FCPATH . 'media/news/';
+
+    // Keep names readable: only add a numeric suffix when a file already exists.
+    $candidate = $base;
+    $suffix = 2;
+    while ($this->newsMainImageBasenameExists($candidate, $newsDir)) {
+      $candidate = $base . '-' . $suffix;
+      $suffix++;
+    }
+
+    return $candidate;
+  }
+
+  protected function newsMainImageBasenameExists(string $basename, string $newsDir): bool
+  {
+    $webpPaths = [
+      $newsDir . $basename . '.webp',
+      $newsDir . 'mini/' . $basename . '.webp',
+      $newsDir . 'thumb/' . $basename . '.webp',
+      $newsDir . 'medium/' . $basename . '.webp',
+      $newsDir . 'large/' . $basename . '.webp',
+    ];
+
+    foreach ($webpPaths as $path) {
+      if (is_file($path)) {
+        return true;
+      }
+    }
+
+    return !empty(glob($newsDir . 'original/' . $basename . '.*') ?: []);
+  }
+
+  protected function deleteNewsMainImageVariants(string $storedPath): void
+  {
+    $path = trim($storedPath);
+    if ($path === '') {
+      return;
+    }
+
+    if (str_starts_with($path, 'media/news/')) {
+      $basename = basename(substr($path, strlen('media/news/')));
+    } elseif (str_starts_with($path, 'news/')) {
+      $basename = basename(substr($path, strlen('news/')));
+    } else {
+      $basename = basename($path);
+    }
+
+    if ($basename === '' || $basename === '.' || $basename === '..') {
+      return;
+    }
+
+    $newsDir = FCPATH . 'media/news/';
+    $variantDirs = ['', 'mini/', 'thumb/', 'medium/', 'large/'];
+    foreach ($variantDirs as $subdir) {
+      $candidate = $newsDir . $subdir . $basename;
+      if (is_file($candidate)) {
+        @unlink($candidate);
+      }
+    }
+
+    $nameNoExt = pathinfo($basename, PATHINFO_FILENAME);
+    if ($nameNoExt !== '') {
+      foreach (glob($newsDir . 'original/' . $nameNoExt . '.*') ?: [] as $original) {
+        if (is_file($original)) {
+          @unlink($original);
+        }
+      }
+    }
+  }
+
   public function update()
   {
     if (!session()->get('isLoggedIn')) {
@@ -281,6 +355,12 @@ class News extends BaseController
       return redirect()->to('/news')->with('error', 'Invalid news item.');
     }
 
+    $model = new \App\Models\NewsModel();
+    $existing = $model->find($id);
+    if (!$existing) {
+      return redirect()->to('/news')->with('error', 'News item not found.');
+    }
+
     $data = [];
     $title = $this->request->getPost('title');
     $content = $this->request->getPost('content');
@@ -290,6 +370,7 @@ class News extends BaseController
     $eventStartDate = $this->request->getPost('event_start_date');
     $eventEndDate = $this->request->getPost('event_end_date');
     $externalLink = $this->request->getPost('external_link');
+    $removeMainImage = in_array($this->request->getPost('remove_main_image'), ['1', 1, true, 'true', 'on'], true);
     $mainImageFile = $this->request->getFile('main_image_file');
     $hasMainImageUpload = $this->hasUploadedFile($mainImageFile);
 
@@ -304,6 +385,9 @@ class News extends BaseController
     }
     if ($category !== null) {
       $data['category'] = $this->normalizeCategory($category);
+    }
+    if ($removeMainImage) {
+      $data['main_image'] = null;
     }
     if ($hasMainImageUpload) {
       $uploadError = $this->validateMainImageFile($mainImageFile);
@@ -345,7 +429,12 @@ class News extends BaseController
       return redirect()->to('/news')->with('error', 'External link must be a valid URL.');
     }
 
-    $model = new \App\Models\NewsModel();
+    $oldMainImage = (string) ($existing['main_image'] ?? '');
+    $newMainImage = array_key_exists('main_image', $data) ? (string) ($data['main_image'] ?? '') : $oldMainImage;
+    if ($oldMainImage !== '' && $oldMainImage !== $newMainImage) {
+      $this->deleteNewsMainImageVariants($oldMainImage);
+    }
+
     if (!empty($data)) {
       $model->update($id, $data);
     }

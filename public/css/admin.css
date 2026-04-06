@@ -803,17 +803,21 @@ code {
 /* Edit button below each news item */
 .news-item-admin-actions {
     margin: 6px 0 10px 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: 10px;
+    column-gap: 10px;
 }
 
 .news-item-admin-actions .news-edit-btn {
-    margin-left: 0;
+    grid-column: 2;
+    justify-self: center;
 }
 
 .news-delete-form {
-    margin: 0 0 0 auto;
+    grid-column: 3;
+    justify-self: end;
+    margin: 0;
 }
 
 .news-delete-link {
@@ -1051,6 +1055,16 @@ code {
     margin-top: 4px;
     color: #666;
     font-size: 11px;
+}
+
+.news-edit-remove-image-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: #444;
+    cursor: pointer;
 }
 
 #news-edit-preview-modal .preview-modal-content.news-edit-preview-modal-content,
