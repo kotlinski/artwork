@@ -117,8 +117,9 @@ $extraFields = $extraFields ?? [];
         <button
           id="<?= $editorId ?>-preview-btn"
           type="button"
+          class="admin-action-btn"
         >Preview</button>
-        <button type="submit">Save</button>
+        <button type="submit" class="admin-action-btn">Save</button>
       </div>
       <div>💡 Tip: "↵" adds a "soft line break"</div>
       <div>Soft line break: 2 spaces + new line</div>

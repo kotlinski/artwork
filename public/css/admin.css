@@ -831,7 +831,9 @@ code {
     color: #900;
 }
 
-.news-edit-btn {
+.admin-action-btn,
+.news-edit-btn,
+.news-add-btn {
     font-size: 12px;
     padding: 3px 12px;
     border: 1px solid #bbb;
@@ -841,9 +843,17 @@ code {
     color: #333;
 }
 
-.news-edit-btn:hover {
+.admin-action-btn:hover,
+.news-edit-btn:hover,
+.news-add-btn:hover {
     background: #e8e8e8;
     border-color: #999;
+}
+
+.admin-action-btn-link {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1.4;
 }
 
 /* News edit modal */

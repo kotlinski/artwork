@@ -175,7 +175,7 @@
           </script>
         </div>
 <div style="margin-top:12px;display:flex;justify-content:center;align-items:center;width:100%;">
-  <button type="submit" style="margin:0 auto;display:block;">Update</button>
+  <button type="submit" class="admin-action-btn" style="margin:0 auto;display:block;">Update</button>
 </div>
       </form>
     </div>
@@ -191,7 +191,7 @@
       </button>
       <div id="image-admin-section" style="display:none; padding: 2px 12px">
         <div style="text-align:center; margin-bottom:10px;">
-          <button type="button" onclick="openUploadModal()">Upload Image To Project</button>
+          <button type="button" class="admin-action-btn" onclick="openUploadModal()">Upload Image To Project</button>
         </div>
         <!-- Upload modal -->
         <div id="upload-image-modal"
@@ -217,8 +217,8 @@
                        style="display:block;width:100%;margin-top:4px;box-sizing:border-box;">
               </label>
               <div style="text-align:right;">
-                <button type="button" onclick="closeUploadModal()" style="margin-right:8px;">Cancel</button>
-                <button type="submit">Upload</button>
+                <button type="button" class="admin-action-btn" onclick="closeUploadModal()" style="margin-right:8px;">Cancel</button>
+                <button type="submit" class="admin-action-btn">Upload</button>
               </div>
             </form>
           </div>
@@ -395,10 +395,10 @@
           </div>
           <div class="image-edit-modal-actions" style="display:flex;justify-content:space-between;align-items:center;">
             <span>
-              <button type="button" onclick="closeImageEditModal()" style="margin-right:8px;">Cancel</button>
+              <button type="button" class="admin-action-btn" onclick="closeImageEditModal()" style="margin-right:8px;">Cancel</button>
               <button type="button" class="image-delete-link" id="modal-btn-delete">delete</button>
             </span>
-            <button type="submit" style="margin-right:0;">Update</button>
+            <button type="submit" class="admin-action-btn" style="margin-right:0;">Update</button>
           </div>
         </form>
       </div>

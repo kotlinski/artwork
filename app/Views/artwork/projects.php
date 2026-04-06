@@ -43,7 +43,8 @@
             <td style="text-align: right">
               <a
                 href="<?= base_url($project['slug'] ?? '') ?>"
-                style="display:inline-block;margin-right:10px;padding:1px 7px;border:1px solid #bbb;border-radius:3px;background:#f8f8f8;color:#555;text-decoration:none;line-height:1.4;">
+                class="admin-action-btn admin-action-btn-link"
+                style="margin-right:10px;">
                 Edit
               </a>
               <a href="#" class="delete-link" data-id="<?= $project['id'] ?>">delete</a>
@@ -55,7 +56,7 @@
   </div>
 
   <div class="project-create-actions">
-    <button type="button" class="button" onclick="openProjectCreateModal()">Add new Project</button>
+    <button type="button" class="admin-action-btn" onclick="openProjectCreateModal()">Add new Project</button>
   </div>
 
   <div class="project-create-modal" id="project-create-modal" style="display:none;"
@@ -80,7 +81,7 @@
         <input type="hidden" name="slug" id="project-create-slug-input" value="<?= old('slug') ?>">
         <!-- Slug field removed, now auto-generated from title -->
         <div class="form-actions">
-          <button type="submit" class="button">Create</button>
+          <button type="submit" class="admin-action-btn">Create</button>
         </div>
       </form>
     </div>

@@ -57,7 +57,7 @@
       <h2>Administration</h2><br/>
       <p>You are signed in. You can update each page, use the menu to navigate.</p>
       <div class="admin-notice">
-        <button onclick="window.location.href='<?= base_url('logout') ?>'">Log out</button>
+        <button class="admin-action-btn" onclick="window.location.href='<?= base_url('logout') ?>'">Log out</button>
       </div>
       <hr class="light admin-divider"/>
     </div>
