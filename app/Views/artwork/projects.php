@@ -2,7 +2,11 @@
 
 <?= $this->section('adminContent') ?>
 <?php if (session()->get('isLoggedIn')): ?>
-<?php $projectFormErrors = session('errors') ?? []; ?>
+<?php $allFormErrors = session('errors') ?? []; ?>
+<?php $overviewProjectId = (string) (old('overview_project_id') ?? ''); ?>
+<?php $isOverviewValidation = $overviewProjectId !== ''; ?>
+<?php $projectFormErrors = $isOverviewValidation ? [] : $allFormErrors; ?>
+<?php $overviewFormErrors = $isOverviewValidation ? $allFormErrors : []; ?>
 
 <?php if (session()->has('success')): ?>
   <div class="contained"><div class="alert success"><?= session('success') ?></div></div>
@@ -41,12 +45,6 @@
               </label>
             </td>
             <td style="text-align: right">
-              <a
-                href="<?= base_url($project['slug'] ?? '') ?>"
-                class="admin-action-btn admin-action-btn-link"
-                style="margin-right:10px;">
-                Edit
-              </a>
               <a href="#" class="delete-link" data-id="<?= $project['id'] ?>">delete</a>
             </td>
           </tr>
@@ -57,6 +55,83 @@
 
   <div class="project-create-actions">
     <button type="button" class="admin-action-btn" onclick="openProjectCreateModal()">Add new Project</button>
+  </div>
+
+  <div id="project-overview-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="project-overview-title">
+    <div class="news-edit-modal-box project-overview-modal-box">
+      <button type="button" id="project-overview-modal-close" class="news-edit-modal-close" aria-label="Close">&times;</button>
+      <h3 id="project-overview-title">Edit Project Overview</h3>
+      <div class="project-modal-error-list" id="project-overview-error-list">
+        <?php if (!empty($overviewFormErrors)): ?>
+          <?php foreach ($overviewFormErrors as $error): ?><p><?= esc($error) ?></p><?php endforeach; ?>
+        <?php endif; ?>
+      </div>
+      <form method="post" id="project-overview-form" class="project-overview-form">
+        <?= csrf_field() ?>
+        <input type="hidden" name="overview_project_id" id="project-overview-project-id-field" value="<?= esc(old('overview_project_id') ?? '') ?>">
+
+        <div class="project-overview-main-fields">
+          <label class="md-title-field">
+            Title
+            <input type="text" name="title" id="project-overview-title-input" required value="<?= esc(old('title') ?? '') ?>">
+          </label>
+          <label class="md-title-field">
+            Slug
+            <input type="text" name="slug" id="project-overview-slug-input" required value="<?= esc(old('slug') ?? '') ?>">
+          </label>
+        </div>
+
+        <div class="news-modal-date-row project-overview-year-row">
+          <label class="md-extra-field news-modal-date-field">
+            Start year
+            <input type="number" name="start_year" id="project-overview-start-year" min="1900" max="2100" value="<?= esc(old('start_year') ?? '') ?>">
+          </label>
+          <label class="md-extra-field news-modal-date-field">
+            End year
+            <input type="number" name="end_year" id="project-overview-end-year" min="1900" max="2100" value="<?= esc(old('end_year') ?? '') ?>">
+          </label>
+        </div>
+
+        <div class="project-overview-image-selects">
+          <label class="md-extra-field">
+            Image Left
+            <select name="image_left" id="project-overview-select-image_left"></select>
+          </label>
+          <label class="md-extra-field">
+            Image Mid
+            <select name="image_mid" id="project-overview-select-image_mid"></select>
+          </label>
+          <label class="md-extra-field">
+            Image Right
+            <select name="image_right" id="project-overview-select-image_right"></select>
+          </label>
+        </div>
+
+        <div class="project-image-preview-row">
+          <div class="project-image-preview-box">
+            <div class="project-image-preview-square"><img id="project-overview-preview-image_left" src="" alt="Preview left" style="display:none;"></div>
+          </div>
+          <div class="project-image-preview-box">
+            <div class="project-image-preview-square"><img id="project-overview-preview-image_mid" src="" alt="Preview middle" style="display:none;"></div>
+          </div>
+          <div class="project-image-preview-box">
+            <div class="project-image-preview-square"><img id="project-overview-preview-image_right" src="" alt="Preview right" style="display:none;"></div>
+          </div>
+        </div>
+
+        <label class="md-extra-field project-overview-description-field">
+          Description
+          <small class="news-field-hint">Should be 150-160 characters long.</small>
+          <textarea name="description" id="project-overview-description" rows="4" maxlength="300" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? '') ?></textarea>
+          <span id="project-overview-desc-char-count" class="project-overview-char-count">0/160</span>
+        </label>
+
+        <div class="form-actions project-overview-form-actions">
+          <button type="submit">Update</button>
+          <button type="button" id="project-overview-cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="project-create-modal" id="project-create-modal" style="display:none;"
@@ -102,9 +177,122 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeProjectCreateModal();
   });
-  <?php if (!empty($projectFormErrors) || old('title') || old('slug')): ?>
+  <?php if ((!empty($projectFormErrors) || old('title') || old('slug')) && !$isOverviewValidation): ?>
   openProjectCreateModal();
   <?php endif; ?>
+
+  const projectOverviewData = {};
+  <?php foreach ($projects as $project): ?>
+  projectOverviewData[<?= (int)$project['id'] ?>] = {
+    id: <?= (int)$project['id'] ?>,
+    title: <?= json_encode($project['title'] ?? '') ?>,
+    slug: <?= json_encode($project['slug'] ?? '') ?>,
+    start_year: <?= json_encode(($project['start_year'] ?? 0) != 0 ? (string)$project['start_year'] : '') ?>,
+    end_year: <?= json_encode(($project['end_year'] ?? 0) != 0 ? (string)$project['end_year'] : '') ?>,
+    description: <?= json_encode($project['description'] ?? '') ?>,
+    image_left: <?= json_encode((string)($project['image_left'] ?? '')) ?>,
+    image_mid: <?= json_encode((string)($project['image_mid'] ?? '')) ?>,
+    image_right: <?= json_encode((string)($project['image_right'] ?? '')) ?>,
+    images: <?= json_encode(array_map(static function ($image) {
+      return [
+        'id' => (string)($image['id'] ?? ''),
+        'file_id' => (string)($image['file_id'] ?? ''),
+        'file_name' => (string)($image['file_name'] ?? ''),
+      ];
+    }, $project['images'] ?? [])) ?>
+  };
+  <?php endforeach; ?>
+
+  const overviewOldValues = {
+    overview_project_id: <?= json_encode((string)(old('overview_project_id') ?? '')) ?>,
+    title: <?= json_encode((string)(old('title') ?? '')) ?>,
+    slug: <?= json_encode((string)(old('slug') ?? '')) ?>,
+    start_year: <?= json_encode((string)(old('start_year') ?? '')) ?>,
+    end_year: <?= json_encode((string)(old('end_year') ?? '')) ?>,
+    description: <?= json_encode((string)(old('description') ?? '')) ?>,
+    image_left: <?= json_encode((string)(old('image_left') ?? '')) ?>,
+    image_mid: <?= json_encode((string)(old('image_mid') ?? '')) ?>,
+    image_right: <?= json_encode((string)(old('image_right') ?? '')) ?>
+  };
+
+  let projectOverviewImageMap = {};
+
+  function setProjectOverviewPreview(field) {
+    const select = document.getElementById('project-overview-select-' + field);
+    const image = document.getElementById('project-overview-preview-' + field);
+    if (!select || !image) return;
+    const selectedId = select.value;
+    const fileName = projectOverviewImageMap[selectedId] || '';
+    if (fileName) {
+      image.src = '/konst/thumb/' + fileName;
+      image.style.display = '';
+    } else {
+      image.src = '';
+      image.style.display = 'none';
+    }
+  }
+
+  function fillProjectOverviewSelect(field, images, selectedValue) {
+    const select = document.getElementById('project-overview-select-' + field);
+    if (!select) return;
+    let html = '<option value="">-- Select --</option>';
+    images.forEach(function (img) {
+      const selected = String(selectedValue || '') === String(img.id) ? ' selected' : '';
+      html += '<option value="' + img.id + '"' + selected + '>' + img.file_id + '</option>';
+    });
+    select.innerHTML = html;
+  }
+
+  function updateOverviewDescriptionCounter() {
+    const textarea = document.getElementById('project-overview-description');
+    const counter = document.getElementById('project-overview-desc-char-count');
+    if (!textarea || !counter) return;
+    const len = textarea.value.length;
+    counter.textContent = '150 < ' + len + ' < 160';
+    counter.style.color = (len <= 150 || len >= 160) ? '#b00' : '#080';
+  }
+
+  function openProjectOverviewModal(projectId, overrides) {
+    const project = projectOverviewData[String(projectId)] || projectOverviewData[Number(projectId)];
+    if (!project) return;
+
+    const values = overrides || project;
+    const modal = document.getElementById('project-overview-modal');
+    const form = document.getElementById('project-overview-form');
+    if (!modal || !form) return;
+
+    document.getElementById('project-overview-project-id-field').value = String(project.id);
+    form.action = '/artwork/update/' + project.id;
+    document.getElementById('project-overview-title-input').value = values.title || '';
+    document.getElementById('project-overview-slug-input').value = values.slug || '';
+    document.getElementById('project-overview-start-year').value = values.start_year || '';
+    document.getElementById('project-overview-end-year').value = values.end_year || '';
+    document.getElementById('project-overview-description').value = values.description || '';
+
+    projectOverviewImageMap = {};
+    (project.images || []).forEach(function (img) {
+      projectOverviewImageMap[String(img.id)] = img.file_name || '';
+    });
+
+    fillProjectOverviewSelect('image_left', project.images || [], values.image_left || '');
+    fillProjectOverviewSelect('image_mid', project.images || [], values.image_mid || '');
+    fillProjectOverviewSelect('image_right', project.images || [], values.image_right || '');
+
+    setProjectOverviewPreview('image_left');
+    setProjectOverviewPreview('image_mid');
+    setProjectOverviewPreview('image_right');
+    updateOverviewDescriptionCounter();
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProjectOverviewModal() {
+    const modal = document.getElementById('project-overview-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 
   document.addEventListener('DOMContentLoaded', function () {
     const createForm = document.getElementById('project-create-form');
@@ -130,6 +318,39 @@
           }
         } catch { if (errorBlock) errorBlock.innerHTML = '<p>Server error. Please try again.</p>'; }
       });
+    }
+
+    document.querySelectorAll('.js-open-overview-modal').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openProjectOverviewModal(btn.dataset.projectId || '');
+      });
+    });
+
+    ['image_left', 'image_mid', 'image_right'].forEach(function (field) {
+      const select = document.getElementById('project-overview-select-' + field);
+      if (!select) return;
+      select.addEventListener('change', function () {
+        setProjectOverviewPreview(field);
+      });
+    });
+
+    const overviewDesc = document.getElementById('project-overview-description');
+    if (overviewDesc) overviewDesc.addEventListener('input', updateOverviewDescriptionCounter);
+
+    const overviewModal = document.getElementById('project-overview-modal');
+    const overviewClose = document.getElementById('project-overview-modal-close');
+    const overviewCancel = document.getElementById('project-overview-cancel-btn');
+    if (overviewClose) overviewClose.addEventListener('click', closeProjectOverviewModal);
+    if (overviewCancel) overviewCancel.addEventListener('click', closeProjectOverviewModal);
+    if (overviewModal) {
+      overviewModal.addEventListener('click', function (e) {
+        if (e.target === overviewModal) closeProjectOverviewModal();
+      });
+    }
+
+    const shouldOpenOverviewModal = <?= $isOverviewValidation ? 'true' : 'false' ?>;
+    if (shouldOpenOverviewModal && overviewOldValues.overview_project_id) {
+      openProjectOverviewModal(overviewOldValues.overview_project_id, overviewOldValues);
     }
   });
 
@@ -222,6 +443,12 @@
     // Initial fill
     updateSlug();
   }
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Escape' || e.key === 'Esc') && document.getElementById('project-overview-modal')?.style.display === 'flex') {
+      closeProjectOverviewModal();
+    }
+  });
 </script>
 
 <?php endif; ?>
@@ -304,6 +531,16 @@
         <div style="text-align: right;">
           <a href="<?= $projectUrl ?>">read more</a>
         </div>
+        <?php if (session()->get('isLoggedIn')): ?>
+          <div style="margin-top: 0; text-align: center;">
+            <button
+              type="button"
+              class="admin-action-btn js-open-overview-modal"
+              data-project-id="<?= (int)($project['id'] ?? ($project->id ?? 0)) ?>">
+              Edit
+            </button>
+          </div>
+        <?php endif; ?>
 <!--        <?php /*if ($project !== end($projects)): */?>
           <hr class="light" style="margin: 16px 0 22px 0;">
         --><?php /*endif; */?>

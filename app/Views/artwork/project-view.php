@@ -4,6 +4,15 @@
 <?php if (session()->get('isLoggedIn')): ?>
 
   <?php $uploadErrors = session()->getFlashdata('upload_errors'); ?>
+  <?php $overviewErrors = session('errors') ?? []; ?>
+  <?php
+  $hasOverviewOldInput = old('title') !== null
+    || old('slug') !== null
+    || old('start_year') !== null
+    || old('end_year') !== null
+    || old('description') !== null;
+  ?>
+  <?php $shouldOpenOverviewModal = !empty($overviewErrors) || $hasOverviewOldInput; ?>
   <?php if (session()->getFlashdata('success')): ?>
     <div class="contained">
       <div class="alert success"><?= esc(session()->getFlashdata('success')) ?></div>
@@ -26,160 +35,171 @@
   <?php endif; ?>
 
 
-  <div class="contained">
-    <div class="project-edit-expandable" style="margin:10px 0;">
-      <button type="button" class="project-expand-toggle" aria-expanded="false"
-              aria-controls="project-overview-form"
-              style="width:100%;text-align:left;background:none;border:0;padding:12px 16px;font-family:'Courier New',sans-serif;font-size:12px;color:#767676;letter-spacing:-0.5px;line-height:1.3;cursor:pointer;display:flex;align-items:center;gap:0.7em;">
-        <span class="chevron" style="display:inline-block;transition:transform 0.2s;">▶</span>
-        <span>Project Overview — <?= esc($project['title'] ?? '') ?></span>
-      </button>
-      <form method="post" action="<?= base_url('artwork/update/' . ($project['id'] ?? '')) ?>"
-            class="project-edit-form" id="project-overview-form"
-            style="display:none;padding:0 12px 12px 12px;">
+  <div id="project-overview-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="project-overview-modal-heading">
+    <div class="news-edit-modal-box project-overview-modal-box">
+      <button type="button" id="project-overview-modal-close" class="news-edit-modal-close" aria-label="Close">&times;</button>
+      <h3 id="project-overview-modal-heading">Project Overview — <?= esc($project['title'] ?? '') ?></h3>
+
+      <?php if (!empty($overviewErrors)): ?>
+        <div class="alert error">
+          <ul style="margin:0;padding-left:18px;">
+            <?php foreach ($overviewErrors as $err): ?>
+              <li><?= esc($err) ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
+
+      <form method="post" action="<?= base_url('artwork/update/' . ($project['id'] ?? '')) ?>" id="project-overview-form" class="project-overview-form">
         <?= csrf_field() ?>
-        <div style="display:flex;gap:1em;align-items:center;flex-wrap:wrap;">
-          <label>Title <input type="text" name="title" value="<?= esc($project['title'] ?? '') ?>" required
-                              style="width:180px;"></label>
-          <label>Slug <input type="text" name="slug" value="<?= esc($project['slug'] ?? '') ?>" required
-                             style="width:140px;"></label>
-        </div>
-        <div style="display:flex;gap:1em;align-items:center;margin-top:8px;flex-wrap:wrap;">
-          <label>Year span
-            <div>
-              <input type="number" name="start_year"
-                     value="<?= esc(($project['start_year'] ?? 0) != 0 ? $project['start_year'] : '') ?>"
-                     min="1900" max="2100" style="width:80px;"> –
-              <input type="number" name="end_year"
-                     value="<?= esc(($project['end_year'] ?? 0) != 0 ? $project['end_year'] : '') ?>"
-                     min="1900" max="2100" style="width:80px;">
-            </div>
+
+        <div class="project-overview-main-fields">
+          <label class="md-title-field">
+            Title
+            <input type="text" name="title" value="<?= esc(old('title') ?? ($project['title'] ?? '')) ?>" required>
+          </label>
+          <label class="md-title-field">
+            Slug
+            <input type="text" name="slug" value="<?= esc(old('slug') ?? ($project['slug'] ?? '')) ?>" required>
           </label>
         </div>
-        <!-- Image preview row -->
-        <!-- Image select row above previews, no labels -->
-        <div style="display:flex;gap:1em;align-items:center;margin-top:8px;flex-wrap:wrap;justify-content:left;">
+
+        <div class="news-modal-date-row project-overview-year-row">
+          <label class="md-extra-field news-modal-date-field">
+            Start year
+            <input type="number" name="start_year" value="<?= esc(old('start_year') ?? (($project['start_year'] ?? 0) != 0 ? $project['start_year'] : '')) ?>" min="1900" max="2100">
+          </label>
+          <label class="md-extra-field news-modal-date-field">
+            End year
+            <input type="number" name="end_year" value="<?= esc(old('end_year') ?? (($project['end_year'] ?? 0) != 0 ? $project['end_year'] : '')) ?>" min="1900" max="2100">
+          </label>
+        </div>
+
+        <div class="project-overview-image-selects">
           <?php foreach (["image_left", "image_mid", "image_right"] as $field): ?>
-            <select name="<?= $field ?>" id="select-<?= $field ?>" style="width:109px;">
-              <option value="">-- Select --</option>
-              <?php foreach ($images ?? [] as $image): ?>
-                <option value="<?= esc($image['id'] ?? '') ?>"
-                  <?= (isset($project[$field]) && $project[$field] == ($image['id'] ?? null)) ? 'selected' : '' ?>>
-                  <?= esc($image['file_id'] ?? '') ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+            <label class="md-extra-field">
+              <?= esc(ucwords(str_replace('_', ' ', $field))) ?>
+              <select name="<?= $field ?>" id="select-<?= $field ?>">
+                <option value="">-- Select --</option>
+                <?php foreach ($images ?? [] as $image): ?>
+                  <option value="<?= esc($image['id'] ?? '') ?>" <?= (string)(old($field) ?? ($project[$field] ?? '')) === (string)($image['id'] ?? '') ? 'selected' : '' ?>>
+                    <?= esc($image['file_id'] ?? '') ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </label>
           <?php endforeach; ?>
         </div>
-        <!-- Image preview row, no labels, no rounded corners -->
-        <div id="project-image-preview-row"
-             style="display:flex;gap:1em;align-items:center;margin-top:8px;flex-wrap:wrap;">
+
+        <div id="project-image-preview-row" class="project-image-preview-row">
           <div class="project-image-preview-box">
-            <div class="project-image-preview-square"><img id="preview-image_left" src="" alt="Preview Left"
-                                                           style="display:none;"></div>
+            <div class="project-image-preview-square"><img id="preview-image_left" src="" alt="Preview left" style="display:none;"></div>
           </div>
           <div class="project-image-preview-box">
-            <div class="project-image-preview-square"><img id="preview-image_mid" src="" alt="Preview Mid"
-                                                           style="display:none;"></div>
+            <div class="project-image-preview-square"><img id="preview-image_mid" src="" alt="Preview middle" style="display:none;"></div>
           </div>
           <div class="project-image-preview-box">
-            <div class="project-image-preview-square"><img id="preview-image_right" src="" alt="Preview Right"
-                                                           style="display:none;"></div>
+            <div class="project-image-preview-square"><img id="preview-image_right" src="" alt="Preview right" style="display:none;"></div>
           </div>
         </div>
-        <style>
-            .project-image-preview-box {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 110px;
-            }
 
-            .project-image-preview-square {
-                width: 110px;
-                height: 110px;
-                background: #f4f4f4;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-            }
+        <label class="md-extra-field project-overview-description-field">
+          Description
+          <small class="news-field-hint">Should be 150-160 characters long.</small>
+          <textarea name="description" id="project-description-textarea" rows="4" maxlength="300" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? ($project['description'] ?? '')) ?></textarea>
+          <span id="desc-char-count" class="project-overview-char-count">0/160</span>
+        </label>
 
-            .project-image-preview-square img {
-                max-width: 100%;
-                max-height: 100%;
-                width: 110px;
-                height: 110px;
-                object-fit: cover;
-                object-position: center;
-                display: block;
-                margin: auto;
-                background: #e0e0ff; /* DEBUG: light blue background for image */
-            }
-        </style>
-        <script>
-          // Map image id to file_name for preview
-          const projectImageIdToFile = {};
-          <?php foreach ($images ?? [] as $image): ?>
-          projectImageIdToFile[<?= json_encode($image['id']) ?>] = <?= json_encode($image['file_name']) ?>;
-          <?php endforeach; ?>
-
-          function updateProjectImagePreview(field) {
-            const select = document.getElementById('select-' + field);
-            const img = document.getElementById('preview-' + field);
-            const val = select.value;
-            if (val && projectImageIdToFile[val]) {
-              img.src = '/konst/thumb/' + projectImageIdToFile[val];
-              img.style.display = '';
-            } else {
-              img.src = '';
-              img.style.display = 'none';
-            }
-          }
-
-          ['image_left', 'image_mid', 'image_right'].forEach(function (field) {
-            const select = document.getElementById('select-' + field);
-            if (select) {
-              select.addEventListener('change', function () {
-                updateProjectImagePreview(field);
-              });
-              // Initial preview
-              updateProjectImagePreview(field);
-            }
-          });
-        </script>
-        <div style="margin-top:8px;">
-          <label>Description
-            <span
-              style="display:block;font-size:11px;color:#888;margin-bottom:2px;">Should be 150–160 characters long.</span>
-            <textarea name="description" id="project-description-textarea" rows="4"
-                      style="width:100%;box-sizing:border-box;"
-                      maxlength="300"><?= esc($project['description'] ?? '') ?></textarea>
-            <span id="desc-char-count" style="font-size:11px;color:#888;float:right;margin-top:2px;">0/160</span>
-          </label>
-          <script>
-            // Live character counter for project description
-            const descTextarea = document.getElementById('project-description-textarea');
-            const descCharCount = document.getElementById('desc-char-count');
-            if (descTextarea && descCharCount) {
-              function updateDescCharCount() {
-                const len = descTextarea.value.length;
-                descCharCount.textContent = `150 < ${len} < 160`;
-                descCharCount.style.color = (len <= 150 || len >= 160) ? '#b00' : '#080';
-              }
-
-              descTextarea.addEventListener('input', updateDescCharCount);
-              updateDescCharCount();
-            }
-          </script>
+        <div class="form-actions project-overview-form-actions">
+          <button type="submit">Update</button>
+          <button type="button" id="project-overview-cancel-btn">Cancel</button>
         </div>
-<div style="margin-top:12px;display:flex;justify-content:center;align-items:center;width:100%;">
-  <button type="submit" class="admin-action-btn" style="margin:0 auto;display:block;">Update</button>
-</div>
       </form>
     </div>
   </div>
+
+  <script>
+    const projectImageIdToFile = {};
+    <?php foreach ($images ?? [] as $image): ?>
+    projectImageIdToFile[<?= json_encode($image['id']) ?>] = <?= json_encode($image['file_name']) ?>;
+    <?php endforeach; ?>
+
+    function updateProjectImagePreview(field) {
+      const select = document.getElementById('select-' + field);
+      const img = document.getElementById('preview-' + field);
+      if (!select || !img) return;
+      const val = select.value;
+      if (val && projectImageIdToFile[val]) {
+        img.src = '/konst/thumb/' + projectImageIdToFile[val];
+        img.style.display = '';
+      } else {
+        img.src = '';
+        img.style.display = 'none';
+      }
+    }
+
+    function openProjectOverviewModal() {
+      const modal = document.getElementById('project-overview-modal');
+      if (!modal) return;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectOverviewModal() {
+      const modal = document.getElementById('project-overview-modal');
+      if (!modal) return;
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const overviewModal = document.getElementById('project-overview-modal');
+      const overviewCloseBtn = document.getElementById('project-overview-modal-close');
+      const overviewCancelBtn = document.getElementById('project-overview-cancel-btn');
+      const shouldOpenOverviewModal = <?= $shouldOpenOverviewModal ? 'true' : 'false' ?>;
+
+      if (overviewCloseBtn) overviewCloseBtn.addEventListener('click', closeProjectOverviewModal);
+      if (overviewCancelBtn) overviewCancelBtn.addEventListener('click', closeProjectOverviewModal);
+
+      if (overviewModal) {
+        overviewModal.addEventListener('click', function (e) {
+          if (e.target === overviewModal) closeProjectOverviewModal();
+        });
+      }
+
+      ['image_left', 'image_mid', 'image_right'].forEach(function (field) {
+        const select = document.getElementById('select-' + field);
+        if (!select) return;
+        select.addEventListener('change', function () {
+          updateProjectImagePreview(field);
+        });
+        updateProjectImagePreview(field);
+      });
+
+      const descTextarea = document.getElementById('project-description-textarea');
+      const descCharCount = document.getElementById('desc-char-count');
+      if (descTextarea && descCharCount) {
+        function updateDescCharCount() {
+          const len = descTextarea.value.length;
+          descCharCount.textContent = '150 < ' + len + ' < 160';
+          descCharCount.style.color = (len <= 150 || len >= 160) ? '#b00' : '#080';
+        }
+
+        descTextarea.addEventListener('input', updateDescCharCount);
+        updateDescCharCount();
+      }
+
+      if (shouldOpenOverviewModal) {
+        openProjectOverviewModal();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'Escape' || e.key === 'Esc') && document.getElementById('project-overview-modal')?.style.display === 'flex') {
+        closeProjectOverviewModal();
+      }
+    });
+  </script>
 
   <div class="contained">
     <div class="project-edit-expandable" style="margin:10px 0">
@@ -578,9 +598,8 @@
       });
 
       if (window.location.hash === '#project-overview-form') {
-        const overviewToggle = document.querySelector('.project-expand-toggle[aria-controls="project-overview-form"]');
-        if (overviewToggle) {
-          overviewToggle.click();
+        if (typeof openProjectOverviewModal === 'function') {
+          openProjectOverviewModal();
           const target = document.getElementById('project-overview-form');
           if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
         }
