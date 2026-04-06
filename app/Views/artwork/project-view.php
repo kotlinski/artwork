@@ -314,6 +314,9 @@
                 <?php endif; ?>
               </div>
             </li>
+            <?php if ((($idx + 1) % 3 === 0) && !$isLast): ?>
+              <li class="image-list-divider" aria-hidden="true"><hr class="light"></li>
+            <?php endif; ?>
           <?php endforeach; ?>
         </ul>
       </div>
@@ -529,6 +532,22 @@
       });
     }
 
+    function refreshImageListDividers(listEl) {
+      if (!listEl) return;
+      listEl.querySelectorAll(':scope > .image-list-divider').forEach(el => el.remove());
+      const items = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
+      items.forEach((item, idx) => {
+        const isBoundary = (idx + 1) % 3 === 0;
+        const isLast = idx === items.length - 1;
+        if (!isBoundary || isLast) return;
+        const divider = document.createElement('li');
+        divider.className = 'image-list-divider';
+        divider.setAttribute('aria-hidden', 'true');
+        divider.innerHTML = '<hr class="light">';
+        item.insertAdjacentElement('afterend', divider);
+      });
+    }
+
     document.addEventListener('click', async function (e) {
       const moveBtn = e.target.closest('.js-image-move');
       if (!moveBtn) return;
@@ -558,6 +577,7 @@
         else if (direction === 'down' && ci < ordered.length - 1) listEl.insertBefore(ordered[ci + 1], itemEl);
         refreshListMoveButtons(listEl);
         refreshOrderInputs(listEl);
+        refreshImageListDividers(listEl);
         window.scrollTo(0, scrollTop);
       } catch {
         window.location.href = moveUrl;
@@ -567,6 +587,9 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
+      const projectImageList = document.getElementById('project-image-list');
+      if (projectImageList) refreshImageListDividers(projectImageList);
+
       document.querySelectorAll('.project-expand-toggle').forEach(function (toggle) {
         toggle.addEventListener('click', function () {
           const parent = toggle.closest('.project-edit-expandable');

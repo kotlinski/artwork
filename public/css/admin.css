@@ -333,7 +333,6 @@ textarea.fixed-width {
 .image-list-item {
     display: flex;
     align-items: flex-start;
-    border-bottom: 1px solid #ccc;
     padding: 10px 0 10px 0;
     font-size: 15px;
     gap: 8px;
