@@ -9,7 +9,12 @@ class Project extends BaseController
   public function detail($slug)
   {
     $model = new \App\Models\Project();
-    $project = $model->where('slug', $slug)->first();
+    $isLoggedIn = (bool)session()->get('isLoggedIn');
+    $projectQuery = $model->where('slug', $slug);
+    if (!$isLoggedIn) {
+      $projectQuery = $projectQuery->where('is_published', 1);
+    }
+    $project = $projectQuery->first();
     if (!$project) {
       // Redirect to artwork page if slug does not match a project
       return redirect()->to('/artwork');
@@ -23,13 +28,20 @@ class Project extends BaseController
     $currentSortOrder = $project['sort_order'] ?? null;
     $nextProject = null;
     if ($currentSortOrder !== null) {
-      $nextProject = $projectModel
-        ->where('sort_order >', $currentSortOrder)
+      $nextProjectQuery = $projectModel->where('sort_order >', $currentSortOrder);
+      if (!$isLoggedIn) {
+        $nextProjectQuery = $nextProjectQuery->where('is_published', 1);
+      }
+      $nextProject = $nextProjectQuery
         ->orderBy('sort_order', 'ASC')
         ->first();
       if (!$nextProject) {
         // Wrap to first project if at end
-        $nextProject = $projectModel->orderBy('sort_order', 'ASC')->first();
+        $wrapQuery = (new \App\Models\Project())->orderBy('sort_order', 'ASC');
+        if (!$isLoggedIn) {
+          $wrapQuery = $wrapQuery->where('is_published', 1);
+        }
+        $nextProject = $wrapQuery->first();
       }
     }
     $next_project_slug = $nextProject['slug'] ?? null;
@@ -82,7 +94,11 @@ class Project extends BaseController
       }, $projectNews);
     }
 
-    $allProjects = $projectModel->orderBy('sort_order', 'ASC')->findAll();
+    $allProjectsQuery = $projectModel->orderBy('sort_order', 'ASC');
+    if (!$isLoggedIn) {
+      $allProjectsQuery = $allProjectsQuery->where('is_published', 1);
+    }
+    $allProjects = $allProjectsQuery->findAll();
 
     return $this->renderView('artwork/project-view', $required, [
       'project'            => $project,
@@ -97,7 +113,12 @@ class Project extends BaseController
   public function imageDetail($project_slug, $image_slug)
   {
     $model = new \App\Models\Project();
-    $project = $model->where('slug', $project_slug)->first();
+    $isLoggedIn = (bool)session()->get('isLoggedIn');
+    $projectQuery = $model->where('slug', $project_slug);
+    if (!$isLoggedIn) {
+      $projectQuery = $projectQuery->where('is_published', 1);
+    }
+    $project = $projectQuery->first();
     if (!$project) {
       log_message('debug', 'no project found ' . $project_slug . ' / ' . $image_slug);
       return redirect()->to('/artwork');
@@ -165,8 +186,11 @@ class Project extends BaseController
   public function index()
   {
       $model = new \App\Models\Project();
-      // Order by sort_order DESC so newest projects appear first
-      $projects = $model->orderBy('sort_order', 'DESC')->findAll();
+      $projectsQuery = $model->orderBy('sort_order', 'DESC');
+      if (!session()->get('isLoggedIn')) {
+          $projectsQuery = $projectsQuery->where('is_published', 1);
+      }
+      $projects = $projectsQuery->findAll();
       return $this->renderView('artwork/project_overview', [
           'projects' => $projects,
           'selected_menu_item' => 'artwork',

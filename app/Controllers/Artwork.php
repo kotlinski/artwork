@@ -15,7 +15,11 @@ class Artwork extends BaseController
   
   public function index()
   {
-    $projects = $this->projectModel->orderBy('sort_order', 'ASC')->findAll();
+    $projectsQuery = $this->projectModel->orderBy('sort_order', 'ASC');
+    if (!session()->get('isLoggedIn')) {
+      $projectsQuery = $projectsQuery->where('is_published', 1);
+    }
+    $projects = $projectsQuery->findAll();
     $image_ids = array_unique(array_filter(array_merge(
       array_column($projects, 'image_left'),
       array_column($projects, 'image_mid'),
@@ -212,5 +216,47 @@ class Artwork extends BaseController
       return $this->response->setJSON(['success' => true, 'moved' => $moved]);
     }
     return redirect()->to('/artwork');
+  }
+
+  public function setPublished($id)
+  {
+    $project = $this->projectModel->find($id);
+    if (!$project) {
+      return $this->response->setStatusCode(404)->setJSON([
+        'success' => false,
+        'error' => 'Project not found.'
+      ]);
+    }
+
+    $payload = $this->request->getJSON(true);
+    if (!is_array($payload)) {
+      $payload = $this->request->getPost();
+    }
+    $rawValue = $payload['is_published'] ?? null;
+
+    if ($rawValue === 1 || $rawValue === '1' || $rawValue === true || $rawValue === 'true') {
+      $isPublished = 1;
+    } elseif ($rawValue === 0 || $rawValue === '0' || $rawValue === false || $rawValue === 'false') {
+      $isPublished = 0;
+    } else {
+      return $this->response->setStatusCode(422)->setJSON([
+        'success' => false,
+        'error' => 'Invalid publish value.'
+      ]);
+    }
+
+    $success = $this->projectModel->update($id, ['is_published' => $isPublished]);
+    if (!$success) {
+      return $this->response->setStatusCode(500)->setJSON([
+        'success' => false,
+        'error' => 'Failed to update publish state.'
+      ]);
+    }
+
+    return $this->response->setJSON([
+      'success' => true,
+      'id' => (int)$id,
+      'is_published' => $isPublished
+    ]);
   }
 }

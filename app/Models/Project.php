@@ -26,7 +26,8 @@ class Project extends Model
     'image_left',
     'image_mid',
     'image_right',
-    'sort_order'
+    'sort_order',
+    'is_published'
   ];
   
   protected $useTimestamps = true;
@@ -40,7 +41,8 @@ class Project extends Model
     'title'       => 'required|max_length[255]',
     'image_left'  => 'permit_empty|integer',
     'image_mid'   => 'permit_empty|integer',
-    'image_right' => 'permit_empty|integer'
+    'image_right' => 'permit_empty|integer',
+    'is_published' => 'permit_empty|integer'
   ];
   
   protected $validationMessages = [

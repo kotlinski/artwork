@@ -12,12 +12,12 @@
   <div class="projects-table-wrapper">
     <table class="projects-table">
       <thead>
-        <tr><th>Order</th><th>Title</th><th>Slug</th><th>Actions</th></tr>
+        <tr><th class="project-publish-col">Order</th><th>Title</th><th class="project-publish-col">Published</th><th style="text-align:right;"></th></tr>
       </thead>
       <tbody>
         <?php foreach ($projects as $index => $project): ?>
           <tr>
-            <td class="order-controls">
+            <td class="order-controls project-publish-col">
               <?php if ($index > 0): ?>
                 <a href="/artwork/move-up/<?= $project['id'] ?>" class="order-btn js-project-move" data-method="PATCH" data-direction="up" title="Move up">▲</a>
               <?php else: ?>
@@ -30,8 +30,24 @@
               <?php endif; ?>
             </td>
             <td><a href="/<?= $project['slug'] ?>"><?= esc($project['title']) ?></a></td>
-            <td><?= esc($project['slug']) ?></td>
-            <td><a href="#" class="delete-link" data-id="<?= $project['id'] ?>">delete</a></td>
+            <td class="project-publish-col">
+              <label class="project-publish-toggle-label">
+                <input
+                  type="checkbox"
+                  class="js-project-publish-toggle project-publish-toggle"
+                  data-id="<?= (int)$project['id'] ?>"
+                  data-published="<?= !empty($project['is_published']) ? '1' : '0' ?>"
+                  <?= !empty($project['is_published']) ? 'checked' : '' ?>>
+              </label>
+            </td>
+            <td style="text-align: right">
+              <a
+                href="<?= base_url($project['slug'] ?? '') ?>"
+                style="display:inline-block;margin-right:10px;padding:1px 7px;border:1px solid #bbb;border-radius:3px;background:#f8f8f8;color:#555;text-decoration:none;line-height:1.4;">
+                Edit
+              </a>
+              <a href="#" class="delete-link" data-id="<?= $project['id'] ?>">delete</a>
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -151,6 +167,40 @@
     } catch { alert('Delete failed.'); }
   });
 
+  document.addEventListener('change', async function (e) {
+    const toggle = e.target.closest('.js-project-publish-toggle');
+    if (!toggle) return;
+
+    const projectId = toggle.dataset.id;
+    const previousValue = toggle.dataset.published === '1';
+    const nextValue = toggle.checked;
+
+    toggle.disabled = true;
+    try {
+      const resp = await fetch(`/artwork/publish/${projectId}`, {
+        method: 'PATCH',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ is_published: nextValue ? 1 : 0 })
+      });
+
+      if (!resp.ok) throw new Error('Failed to update publish state');
+      const result = await resp.json();
+      if (!result.success) throw new Error(result.error || 'Failed to update publish state');
+
+      toggle.dataset.published = result.is_published ? '1' : '0';
+      toggle.checked = !!result.is_published;
+    } catch {
+      toggle.checked = previousValue;
+      alert('Failed to update publish state.');
+    } finally {
+      toggle.disabled = false;
+    }
+  });
+
   // Slug auto-generation logic
   function generateSlug(str) {
     return str
@@ -222,32 +272,27 @@
         </h2>
         <?php if ($numValidImages > 0): ?>
           <?php
-          // Determine grid style based on image count
-          if ($numValidImages === 1) {
-            $containerStyle = 'display: block; width: 100%; height: 280px;';
-            $imgStyle = 'width: 100%; height: 280px; object-fit: cover; display: block;';
-          } elseif ($numValidImages === 2) {
-            $containerStyle = 'display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 5px; width: 100%; height: 280px;';
-            $imgStyle = 'width: 100%; height: 280px; object-fit: cover; display: block;';
-          } else {
-            $containerStyle = 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 5px; width: 100%; height: 280px;';
-            $imgStyle = 'width: 100%; height: 280px; object-fit: cover; display: block;';
-          }
+          $numCols = min($numValidImages, 3);
+          $gap = 7;
+          $thumbHeight = 122;
+          $containerStyle = $numCols === 3
+            ? "display: grid; grid-template-columns: repeat(3, 122px); gap: {$gap}px; width: 380px; max-width: 100%; margin: 6px 0 12px 0;"
+            : "display: grid; grid-template-columns: repeat({$numCols}, minmax(0, 1fr)); gap: {$gap}px; width: min(100%, 380px); margin: 6px 0 12px 0;";
+          $imageStyle = "display: block; width: 100%; height: {$thumbHeight}px; max-width: none; max-height: {$thumbHeight}px; object-fit: cover; object-position: center; border: 0;";
           ?>
           <div class="hero-container" style="<?= $containerStyle ?>">
             <?php foreach ($validImages as $image):
               $image_file_name = $image['file_name'];
               $image_title = $image['title'] ?? '';
               ?>
-              <a href="<?= $projectUrl ?>" style="display: block; width: 100%; height: 280px;">
+              <a href="<?= $projectUrl ?>" style="display: block; width: 100%;">
                 <img
-                  src="<?= base_url('konst/medium/' . $image_file_name) ?>"
-                  srcset="<?= base_url('konst/medium/' . $image_file_name) ?> 1x,
-                          <?= base_url('konst/large/' . $image_file_name) ?> 2x"
+                  src="<?= base_url('konst/thumb/' . $image_file_name) ?>"
+                  srcset="<?= base_url('konst/thumb/' . $image_file_name) ?> 1x,
+                          <?= base_url('konst/medium/' . $image_file_name) ?> 2x"
                   alt="<?= esc($image_title) ?>"
-                  height="280"
                   loading="lazy"
-                  style="<?= $imgStyle ?>"/>
+                  style="<?= $imageStyle ?>"/>
               </a>
             <?php endforeach; ?>
           </div>

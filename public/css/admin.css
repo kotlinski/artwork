@@ -140,8 +140,73 @@ textarea.fixed-width {
     border-bottom: 1px solid #ddd;
 }
 
+.manage-projects table.projects-table tbody td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
 .manage-projects table.projects-table th {
     background: #f5f5f5;
+}
+
+.manage-projects table.projects-table .project-publish-col {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.manage-projects table.projects-table td.project-publish-col {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.manage-projects .project-publish-toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 100%;
+    min-height: 24px;
+    line-height: 0;
+}
+
+.manage-projects .project-publish-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    border: 1px solid #555;
+    border-radius: 2px;
+    background: #fff;
+    position: relative;
+    cursor: pointer;
+}
+
+.manage-projects .project-publish-toggle:checked {
+    background: #333;
+    border-color: #333;
+}
+
+.manage-projects .project-publish-toggle:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 1px;
+    width: 3px;
+    height: 6px;
+    border: solid #fff;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+}
+
+.manage-projects .project-publish-toggle:focus-visible {
+    outline: 1px solid #111;
+    outline-offset: 1px;
+}
+
+.manage-projects .project-publish-toggle:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
 /* Restrict the projects table width and allow horizontal scroll if needed */
@@ -165,7 +230,7 @@ textarea.fixed-width {
 
 .order-btn {
     display: inline-block;
-    padding: 2px 4px;
+    padding: 2px 2px;
     text-decoration: none;
     color: #333;
     cursor: pointer;

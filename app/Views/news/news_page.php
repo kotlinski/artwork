@@ -29,10 +29,12 @@ $newsCategories = [
 ];
 ?>
 <div class="contained news-admin">
-  <div class="news-admin-top-actions">
-    <button type="button" id="news-add-open-btn" class="news-add-btn">Add news</button>
+  <h2>News Administration</h2>
+  <p>Create, edit, and manage news posts shown on the news page.</p>
+    <div class="news-admin-top-actions">
+      <button type="button" id="news-add-open-btn" class="news-add-btn">Add news</button>
   </div>
-  <hr class='light'/>
+  <hr class='light admin-divider'/>
 </div>
 
 

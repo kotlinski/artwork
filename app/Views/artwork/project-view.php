@@ -547,140 +547,6 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && e.target.classList.contains('js-order-input')) {
-          e.preventDefault();
-          e.target.blur();
-        }
-      });
-      document.addEventListener('change', async function (e) {
-        const input = e.target;
-        if (!input.classList.contains('js-order-input')) return;
-        const imageId = input.dataset.imageId;
-        const newOrder = parseInt(input.value, 10);
-        if (!imageId || isNaN(newOrder) || newOrder < 1) return;
-        const itemEl = input.closest('.image-list-item');
-        const listEl = itemEl?.parentElement;
-        if (!listEl) return;
-        input.disabled = true;
-        try {
-          const resp = await fetch('/image/reorder/' + imageId, {
-            method: 'PATCH',
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ order: newOrder })
-          });
-          if (!resp.ok) throw new Error();
-          const payload = await resp.json();
-          if (!payload.success) throw new Error();
-          const scrollTop = window.scrollY;
-          const items = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
-          listEl.removeChild(itemEl);
-          const ci = Math.min(Math.max(newOrder - 1, 0), items.length - 1);
-          const sib = items[ci] !== itemEl ? items[ci] : null;
-          sib && listEl.contains(sib) ? listEl.insertBefore(itemEl, sib) : listEl.appendChild(itemEl);
-          refreshListMoveButtons(listEl);
-          refreshOrderInputs(listEl);
-          window.scrollTo(0, scrollTop);
-        } catch {
-          const items = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
-          input.value = items.indexOf(itemEl) + 1;
-        } finally {
-          input.disabled = false;
-        }
-      });
-
-      // Image edit modal AJAX
-      const editForm = document.getElementById('image-edit-modal-form');
-      if (editForm) {
-        editForm.addEventListener('submit', async function (e) {
-          e.preventDefault();
-          const formData = new FormData(editForm);
-          let errorDiv = editForm.querySelector('.ajax-error');
-          if (errorDiv) errorDiv.remove();
-          try {
-            const resp = await fetch(editForm.action, {
-              method: 'POST',
-              headers: { 'X-Requested-With': 'XMLHttpRequest' },
-              body: formData
-            });
-            const data = await resp.json();
-            const pid = String(window.currentProjectId);
-            const idx = Number(window.currentImageIndex);
-            if (!resp.ok || !data.success) {
-              showAjaxError(editForm, data.error || 'Update failed.');
-              return;
-            }
-            if (data.image) {
-              const images = window.projectImages[pid];
-              if (images && images[idx]) {
-                Object.assign(images[idx], data.image);
-                if (document.getElementById('image-edit-modal-shared').style.display !== 'none') populateImageEditModal(pid, idx);
-              }
-            }
-            closeImageEditModal();
-            showToast('Image updated!');
-          } catch {
-            showAjaxError(editForm, 'Update failed.');
-          }
-        });
-      }
-
-      document.getElementById('modal-btn-delete').onclick = async function () {
-        const pid = String(window.currentProjectId);
-        const idx = Number(window.currentImageIndex);
-        const images = window.projectImages[pid];
-        if (!images || isNaN(idx) || !images[idx]) return;
-        const img = images[idx];
-        if (!img?.id || !window.confirm('Are you sure you want to delete this image?')) return;
-        try {
-          const resp = await fetch('/image/delete/' + img.id, {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            body: new URLSearchParams({ '<?= csrf_token() ?>': '<?= csrf_hash() ?>' })
-          });
-          const data = await resp.json();
-          if (!resp.ok || !data.success) {
-            showToast(data.error || 'Delete failed.');
-            return;
-          }
-          images.splice(idx, 1);
-          const listItem = document.querySelector('.image-list-item[data-image-id="' + img.id + '"]');
-          if (listItem) {
-            const listEl = listItem.parentElement;
-            listItem.remove();
-            refreshListMoveButtons(listEl);
-            refreshOrderInputs(listEl);
-          }
-          closeImageEditModal();
-          showToast('Image deleted!');
-        } catch {
-          showToast('Delete failed.');
-        }
-      };
-    });
-
-    function showAjaxError(form, msg) {
-      const div = document.createElement('div');
-      div.className = 'ajax-error';
-      div.style.color = '#b00';
-      div.style.margin = '8px 0';
-      div.textContent = msg;
-      form.insertBefore(div, form.firstChild);
-    }
-
-    function showToast(msg) {
-      const t = document.createElement('div');
-      t.textContent = msg;
-      t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:12px 28px;border-radius:6px;font-size:16px;z-index:2000;';
-      document.body.appendChild(t);
-      setTimeout(() => t.remove(), 2000);
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.project-expand-toggle').forEach(function (toggle) {
         toggle.addEventListener('click', function () {
           const parent = toggle.closest('.project-edit-expandable');
@@ -710,6 +576,15 @@
           // If it was open, do nothing (all are now closed)
         });
       });
+
+      if (window.location.hash === '#project-overview-form') {
+        const overviewToggle = document.querySelector('.project-expand-toggle[aria-controls="project-overview-form"]');
+        if (overviewToggle) {
+          overviewToggle.click();
+          const target = document.getElementById('project-overview-form');
+          if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      }
     });
   </script>
 
@@ -742,8 +617,9 @@
               display: block;
               width: var(--thumb-size);
               height: var(--thumb-size);
-              object-fit: cover;
+              object-fit: contain;
               object-position: center;
+              background: #fff;
               border: 0;
               "
             />

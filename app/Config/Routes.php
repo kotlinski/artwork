@@ -37,6 +37,7 @@ $routes->group('artwork', ['filter' => 'auth'], function ($routes) {
   $routes->delete('delete/(:num)', 'Artwork::delete/$1');
   $routes->patch('move-up/(:num)', 'Artwork::moveUp/$1');
   $routes->patch('move-down/(:num)', 'Artwork::moveDown/$1');
+  $routes->patch('publish/(:num)', 'Artwork::setPublished/$1');
 });
 
 $routes->group('image', ['filter' => 'auth'], function ($routes) {
