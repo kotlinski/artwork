@@ -61,3 +61,27 @@ ServerSignature Off
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
+
+<IfModule mod_headers.c>
+	# Long cache for static assets; HTML remains uncached.
+	<FilesMatch "\.(?:webp|jpg|jpeg|png|gif|svg|ico|woff2?|ttf|otf)$">
+		Header set Cache-Control "public, max-age=31536000"
+	</FilesMatch>
+	<FilesMatch "\.(?:css|js)$">
+		Header set Cache-Control "public, max-age=2592000"
+	</FilesMatch>
+	<FilesMatch "\.(?:html?|php)$">
+		Header set Cache-Control "no-cache, no-store, must-revalidate"
+		Header set Pragma "no-cache"
+		Header set Expires "0"
+	</FilesMatch>
+</IfModule>
+
+<IfModule mod_brotli.c>
+	AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+

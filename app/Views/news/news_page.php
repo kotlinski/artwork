@@ -144,19 +144,34 @@ $newsCategories = [
 
 <?php $news_items = $news_items ?? []; ?>
 <div class='contained'>
-  <?php foreach ($news_items as $item): ?>
+  <?php foreach ($news_items as $idx => $item): ?>
     <article id="news-<?= $item['slug'] ?>" class="news-item" data-project-id="<?= esc($item['project_id'] ?? '') ?>" data-slug="<?= esc($item['slug'] ?? '') ?>" data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>">
       <h2><?= esc($item['title']) ?></h2>
       <div class="body">
         <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
       </div>
       <?php if (!empty($item['main_image'])): ?>
+        <?php
+        $mainImageDisplay = $item['main_image_medium'] ?? $item['main_image'];
+        $mainImageLarge = $item['main_image_large'] ?? $mainImageDisplay;
+        $mainImageWidth = isset($item['main_image_width']) ? (int) $item['main_image_width'] : 560;
+        $mainImageHeight = isset($item['main_image_height']) ? (int) $item['main_image_height'] : 315;
+        ?>
         <div class="news-main-image">
           <button type="button" class="news-main-image-trigger"
                   data-full-image="<?= base_url($item['main_image']) ?>"
                   data-alt="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
                   aria-label="Open image in fullscreen">
-            <img src="<?= base_url($item['main_image']) ?>" alt="<?= esc($item['title']) ?>" loading="lazy">
+            <img
+              src="<?= base_url($mainImageDisplay) ?>"
+              srcset="<?= base_url($mainImageDisplay) ?> 1x, <?= base_url($mainImageLarge) ?> 2x"
+              sizes="(max-width: 768px) 100vw, 560px"
+              width="<?= $mainImageWidth ?>"
+              height="<?= $mainImageHeight ?>"
+              alt="<?= esc($item['title']) ?>"
+              loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
+              fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
+              decoding="async">
           </button>
         </div>
       <?php endif; ?>

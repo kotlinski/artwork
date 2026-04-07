@@ -640,28 +640,40 @@
 
 <?= $this->section('content') ?>
 <div class='contained'>
+  <h1>
+    <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
+  </h1>
   <?php if (isset($error)): ?>
     <p><?= esc($error) ?></p>
   <?php else: ?>
     <?php if (!empty($images) && is_array($images)): ?>
       <div
-        style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 6px 0 12px 0;">
-        <?php foreach ($images as $img): ?>
+        style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));align-items:center;gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 6px 0 12px 0;">
+        <?php foreach ($images as $idx => $img): ?>
           <?php if (!isset($img['file_name'])) continue; ?>
-          <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>" style="display: block;">
+          <?php
+          $imgWidth = isset($img['width_px']) && (int)$img['width_px'] > 0 ? (int)$img['width_px'] : 400;
+          $imgHeight = isset($img['height_px']) && (int)$img['height_px'] > 0 ? (int)$img['height_px'] : 400;
+          $slotHeight = 'min(calc(var(--thumb-size) * ' . $imgHeight . ' / ' . $imgWidth . '), 122px)';
+          ?>
+          <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>"
+             style="display:flex;align-items:center;justify-content:center;align-self:center;background:#fff;height:<?= esc($slotHeight, 'attr') ?>;overflow:hidden;">
             <img
               src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
               srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x,
                 <?= base_url('konst/medium/' . $img['file_name']) ?> 2x"
               alt="<?= esc($img['title'] ?? '') ?>"
-              loading="lazy"
+              width="<?= $imgWidth ?>"
+              height="<?= $imgHeight ?>"
+              loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
+              fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
+              decoding="async"
               style="
               display: block;
-              width: var(--thumb-size);
-              height: var(--thumb-size);
-              object-fit: contain;
-              object-position: center;
-              background: #fff;
+              width: auto;
+              height: auto;
+              max-width: 100%;
+              max-height: 100%;
               border: 0;
               "
             />
@@ -670,9 +682,7 @@
       </div>
     <?php endif; ?>
 
-    <h1>
-      <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
-    </h1>
+
     <div class="text">
       <?php
       // Render project text as markdown if available

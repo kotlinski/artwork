@@ -12,6 +12,12 @@ class News extends BaseController
     $model = new \App\Models\NewsModel();
     $news_items = $model->getLatestNews();
     $news_items = $this->normalizeMainImagePaths($news_items);
+    $lcpImageUrl = '';
+    if (!empty($news_items[0]['main_image_large'])) {
+      $lcpImageUrl = base_url($news_items[0]['main_image_large']);
+    } elseif (!empty($news_items[0]['main_image_medium'])) {
+      $lcpImageUrl = base_url($news_items[0]['main_image_medium']);
+    }
     
     $parser = new \Parsedown();
     $parser->setSafeMode(true);
@@ -29,6 +35,7 @@ class News extends BaseController
       'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
       'og_image_width' => '320',
       'og_image_height' => '320',
+      'lcp_image_url' => $lcpImageUrl,
     ];
     
     $page_specific = [
@@ -55,6 +62,23 @@ class News extends BaseController
       $mainImage = $item['main_image'] ?? null;
       if (is_string($mainImage) && str_starts_with($mainImage, 'news/')) {
         $item['main_image'] = 'media/news/' . ltrim(substr($mainImage, 5), '/');
+      }
+
+      $mainImage = $item['main_image'] ?? null;
+      if (is_string($mainImage) && str_starts_with($mainImage, 'media/news/')) {
+        $basename = basename($mainImage);
+        $mediumPath = 'media/news/medium/' . $basename;
+        $largePath = 'media/news/large/' . $basename;
+
+        $item['main_image_medium'] = is_file(FCPATH . $mediumPath) ? $mediumPath : $mainImage;
+        $item['main_image_large'] = is_file(FCPATH . $largePath) ? $largePath : $item['main_image_medium'];
+
+        $displayImagePath = FCPATH . $item['main_image_large'];
+        $dimensions = @getimagesize($displayImagePath);
+        if (is_array($dimensions) && isset($dimensions[0], $dimensions[1]) && $dimensions[0] > 0 && $dimensions[1] > 0) {
+          $item['main_image_width'] = (int) $dimensions[0];
+          $item['main_image_height'] = (int) $dimensions[1];
+        }
       }
 
       return $item;
