@@ -19,10 +19,12 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<h1>About</h1>
-<!--class="visually-hidden"-->
-<div>
-  <?= $about_text ?>
+<div class="contained text">
+  <h1>About</h1>
+  <!--class="visually-hidden"-->
+  <div>
+    <?= $about_text ?>
+  </div>
 </div>
 <?= $this->endSection() ?>
 

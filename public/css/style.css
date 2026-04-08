@@ -128,11 +128,14 @@ h1 a, h2 a, h3 a {
 h1 {
     color: #000;
     display: block;
+    width: 100%;
+    max-width: var(--content-column-max-width);
     position: sticky;
     top: 30px;
     background-color: #fff;
     z-index: 99;
     padding: 4px 0;
+    box-sizing: border-box;
 }
 
 h2 {
