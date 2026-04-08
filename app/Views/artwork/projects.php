@@ -461,7 +461,7 @@
     <div style="color:red;">Error: Projects data not available.</div>
   <?php else: ?>
     <?php foreach ($projects as $project): ?>
-      <div class="project-card" id="<?= esc($project['slug'] ?? '') ?>" style="margin-bottom: 20px;">
+      <div class="project-card" id="<?= esc($project['slug'] ?? '') ?>" style="margin-bottom: 30px;">
         <?php
         // Build year range string for project
         $start_year = isset($project->start_year) ? $project->start_year : ($project['start_year'] ?? null);
@@ -490,22 +490,15 @@
         }
         $numValidImages = count($validImages);
         ?>
-        <h2>
-          <a href="<?= $projectUrl ?>">
-            <?= isset($project->title) ? esc($project->title) : esc($project['title'] ?? '') ?>
-            <?php if ($year_range !== ''): ?>
-              (<?= $year_range ?>)
-            <?php endif; ?>
-          </a>
-        </h2>
+
         <?php if ($numValidImages > 0): ?>
           <?php
           $numCols = min($numValidImages, 3);
           $gap = 7;
           $thumbHeight = 122;
           $containerStyle = $numCols === 3
-            ? "display: grid; grid-template-columns: repeat(3, 122px); gap: {$gap}px; width: 380px; max-width: 100%; margin: 6px 0 12px 0;"
-            : "display: grid; grid-template-columns: repeat({$numCols}, minmax(0, 1fr)); gap: {$gap}px; width: min(100%, 380px); margin: 6px 0 12px 0;";
+            ? "display: grid; grid-template-columns: repeat(3, 122px); gap: {$gap}px; width: 380px; max-width: 100%; margin: 6px 0 6px 0;"
+            : "display: grid; grid-template-columns: repeat({$numCols}, minmax(0, 1fr)); gap: {$gap}px; width: min(100%, 380px); margin: 6px 0 6px 0;";
           $imageStyle = "display: block; width: 100%; height: {$thumbHeight}px; max-width: none; max-height: {$thumbHeight}px; object-fit: cover; object-position: center; border: 0;";
           ?>
           <div class="hero-container" style="<?= $containerStyle ?>">
@@ -525,7 +518,15 @@
             <?php endforeach; ?>
           </div>
         <?php endif; ?>
-        <p style="margin:7px 0 4px 0; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
+        <h2>
+          <a href="<?= $projectUrl ?>">
+            <?= isset($project->title) ? esc($project->title) : esc($project['title'] ?? '') ?>
+            <!--            <?php /*if ($year_range !== ''): */?>
+              (<?php /*= $year_range */?>)
+            --><?php /*endif; */?>
+          </a>
+        </h2>
+        <p style="margin:4px 0 4px 0; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
           <?= esc($project['description'] ?? '') ?>
         </p>
         <div style="text-align: right;">

@@ -528,8 +528,74 @@
     function refreshOrderInputs(listEl) {
       Array.from(listEl.querySelectorAll(':scope > .image-list-item')).forEach((el, idx) => {
         const inp = el.querySelector('.js-order-input');
-        if (inp) inp.value = idx + 1;
+        if (inp) {
+          const next = String(idx + 1);
+          inp.value = next;
+          inp.dataset.lastValue = next;
+        }
       });
+    }
+
+    async function submitImageOrderChange(orderInput) {
+      if (!orderInput || orderInput.dataset.isBusy === '1') return;
+
+      const itemEl = orderInput.closest('.image-list-item');
+      const listEl = itemEl?.parentElement;
+      if (!itemEl || !listEl) return;
+
+      const allItems = Array.from(listEl.querySelectorAll(':scope > .image-list-item'));
+      const currentIndex = allItems.indexOf(itemEl);
+      if (currentIndex < 0) return;
+
+      const imageId = orderInput.dataset.imageId;
+      const maxOrder = allItems.length;
+      const fallback = Number(orderInput.dataset.lastValue || (currentIndex + 1));
+      const requested = Number(orderInput.value);
+
+      if (!Number.isInteger(requested) || requested < 1) {
+        orderInput.value = String(fallback);
+        return;
+      }
+
+      const nextOrder = Math.min(requested, maxOrder);
+      orderInput.value = String(nextOrder);
+
+      if (nextOrder === currentIndex + 1) {
+        orderInput.dataset.lastValue = String(nextOrder);
+        return;
+      }
+
+      orderInput.dataset.isBusy = '1';
+      orderInput.disabled = true;
+
+      try {
+        const resp = await fetch(`/image/reorder/${imageId}`, {
+          method: 'PATCH',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ order: nextOrder })
+        });
+        if (!resp.ok) throw new Error();
+        const payload = await resp.json();
+        if (!payload.success) throw new Error();
+
+        const remaining = Array.from(listEl.querySelectorAll(':scope > .image-list-item')).filter(el => el !== itemEl);
+        if (nextOrder - 1 >= remaining.length) listEl.appendChild(itemEl);
+        else listEl.insertBefore(itemEl, remaining[nextOrder - 1]);
+
+        refreshListMoveButtons(listEl);
+        refreshOrderInputs(listEl);
+        refreshImageListDividers(listEl);
+      } catch {
+        orderInput.value = String(fallback);
+        alert('Failed to update image order.');
+      } finally {
+        orderInput.disabled = false;
+        orderInput.dataset.isBusy = '0';
+      }
     }
 
     function refreshImageListDividers(listEl) {
@@ -588,7 +654,10 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       const projectImageList = document.getElementById('project-image-list');
-      if (projectImageList) refreshImageListDividers(projectImageList);
+      if (projectImageList) {
+        refreshImageListDividers(projectImageList);
+        refreshOrderInputs(projectImageList);
+      }
 
       document.querySelectorAll('.project-expand-toggle').forEach(function (toggle) {
         toggle.addEventListener('click', function () {
@@ -628,6 +697,35 @@
         }
       }
     });
+
+    document.addEventListener('focusin', function (e) {
+      const orderInput = e.target.closest('.js-order-input');
+      if (!orderInput) return;
+      orderInput.dataset.lastValue = String(orderInput.value || '');
+    });
+
+    document.addEventListener('change', function (e) {
+      const orderInput = e.target.closest('.js-order-input');
+      if (!orderInput) return;
+      submitImageOrderChange(orderInput);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      const orderInput = e.target.closest('.js-order-input');
+      if (!orderInput) return;
+
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitImageOrderChange(orderInput);
+        return;
+      }
+
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        e.preventDefault();
+        orderInput.value = String(orderInput.dataset.lastValue || orderInput.value || '');
+        orderInput.blur();
+      }
+    });
   </script>
 
 <?php endif; ?>
@@ -640,9 +738,6 @@
 
 <?= $this->section('content') ?>
 <div class='contained'>
-  <h1>
-    <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
-  </h1>
   <?php if (isset($error)): ?>
     <p><?= esc($error) ?></p>
   <?php else: ?>
@@ -681,7 +776,9 @@
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
-
+    <h1>
+      <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
+    </h1>
 
     <div class="text">
       <?php
