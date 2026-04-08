@@ -32,7 +32,17 @@
   <?php endif; ?>
 
 </head>
-<body>
+<?php
+$bodyClassParts = [];
+if (!empty($selected_menu_item)) {
+  $bodyClassParts[] = 'page-' . preg_replace('/[^a-z0-9\-]/', '', strtolower((string)$selected_menu_item));
+}
+if (!empty($body_class)) {
+  $bodyClassParts[] = preg_replace('/[^a-z0-9\-\s]/', '', strtolower((string)$body_class));
+}
+$bodyClass = trim(implode(' ', $bodyClassParts));
+?>
+<body<?= $bodyClass !== '' ? ' class="' . esc($bodyClass, 'attr') . '"' : '' ?>>
 
 <div class="site-wrapper">
 <?php if (!isset($hide_main_header) || !$hide_main_header): ?>

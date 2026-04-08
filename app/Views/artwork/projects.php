@@ -457,6 +457,7 @@
 
 <?= $this->section('content') ?>
 <div class='contained'>
+  <h1>Artwork</h1>
   <?php if (!isset($projects) || !is_array($projects)): ?>
     <div style="color:red;">Error: Projects data not available.</div>
   <?php else: ?>
@@ -496,9 +497,7 @@
           $numCols = min($numValidImages, 3);
           $gap = 7;
           $thumbHeight = 122;
-          $containerStyle = $numCols === 3
-            ? "display: grid; grid-template-columns: repeat(3, 122px); gap: {$gap}px; width: 380px; max-width: 100%; margin: 6px 0 6px 0;"
-            : "display: grid; grid-template-columns: repeat({$numCols}, minmax(0, 1fr)); gap: {$gap}px; width: min(100%, 380px); margin: 6px 0 6px 0;";
+          $containerStyle = "display: grid; grid-template-columns: repeat({$numCols}, 1fr); gap: {$gap}px; width: 100%; max-width: 380px; margin: 6px 0 6px 0;";
           $imageStyle = "display: block; width: 100%; height: {$thumbHeight}px; max-width: none; max-height: {$thumbHeight}px; object-fit: cover; object-position: center; border: 0;";
           ?>
           <div class="hero-container" style="<?= $containerStyle ?>">

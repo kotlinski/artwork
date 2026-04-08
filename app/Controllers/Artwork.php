@@ -46,6 +46,7 @@ class Artwork extends BaseController
     $required = [
       'title' => 'Artwork | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
+      'body_class' => 'artwork-overview',
       'description' => 'Biography and artist statement of Anne Hamrin Simonsson, a Swedish conceptual artist based on Öland, known for her site-specific installations and objects.',
       'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
       'og_image_width' => '320',
