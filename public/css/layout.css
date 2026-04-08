@@ -176,7 +176,7 @@ footer hr {
 }
 
 @media (max-width: 420px) {
-    .project-header-inner, .main-nav-inner {
+    .project-header-inner {
         max-width: 100%;
     }
 }
