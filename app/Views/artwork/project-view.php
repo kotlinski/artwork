@@ -492,6 +492,14 @@
       document.getElementById('image-edit-modal-shared').style.display = 'none';
     }
 
+    function getCurrentModalImage() {
+      const pid = String(window.currentProjectId);
+      const idx = Number(window.currentImageIndex);
+      const images = window.projectImages[pid];
+      if (pid === 'null' || isNaN(idx) || !images || idx < 0 || idx >= images.length) return null;
+      return images[idx];
+    }
+
     document.getElementById('modal-btn-prev').onclick = function () {
       const pid = String(window.currentProjectId);
       let idx = Number(window.currentImageIndex);
@@ -509,6 +517,37 @@
       if (idx < images.length - 1) {
         populateImageEditModal(pid, idx + 1);
         window.currentImageIndex = idx + 1;
+      }
+    };
+
+    document.getElementById('modal-btn-delete').onclick = async function () {
+      const currentImage = getCurrentModalImage();
+      if (!currentImage) return;
+      if (!confirm('Are you sure you want to delete this image?')) return;
+
+      const deleteBtn = document.getElementById('modal-btn-delete');
+      const formEl = document.getElementById('image-edit-modal-form');
+      if (!deleteBtn || !formEl) return;
+
+      deleteBtn.disabled = true;
+      try {
+        const resp = await fetch('/image/delete/' + currentImage.id, {
+          method: 'POST',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json'
+          },
+          body: new FormData(formEl)
+        });
+        if (!resp.ok) throw new Error();
+        const payload = await resp.json();
+        if (!payload.success) throw new Error(payload.error || 'Delete failed');
+
+        window.location.reload();
+      } catch {
+        alert('Delete failed.');
+      } finally {
+        deleteBtn.disabled = false;
       }
     };
 
