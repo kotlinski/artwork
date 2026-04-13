@@ -121,9 +121,7 @@
 
         <label class="md-extra-field project-overview-description-field">
           Description
-          <small class="news-field-hint">Should be 150-160 characters long.</small>
           <textarea name="description" id="project-overview-description" rows="4" maxlength="300" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? '') ?></textarea>
-          <span id="project-overview-desc-char-count" class="project-overview-char-count">0/160</span>
         </label>
 
         <div class="form-actions project-overview-form-actions">
@@ -243,15 +241,6 @@
     select.innerHTML = html;
   }
 
-  function updateOverviewDescriptionCounter() {
-    const textarea = document.getElementById('project-overview-description');
-    const counter = document.getElementById('project-overview-desc-char-count');
-    if (!textarea || !counter) return;
-    const len = textarea.value.length;
-    counter.textContent = '150 < ' + len + ' < 160';
-    counter.style.color = (len <= 150 || len >= 160) ? '#b00' : '#080';
-  }
-
   function openProjectOverviewModal(projectId, overrides) {
     const project = projectOverviewData[String(projectId)] || projectOverviewData[Number(projectId)];
     if (!project) return;
@@ -281,7 +270,6 @@
     setProjectOverviewPreview('image_left');
     setProjectOverviewPreview('image_mid');
     setProjectOverviewPreview('image_right');
-    updateOverviewDescriptionCounter();
 
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -334,19 +322,11 @@
       });
     });
 
-    const overviewDesc = document.getElementById('project-overview-description');
-    if (overviewDesc) overviewDesc.addEventListener('input', updateOverviewDescriptionCounter);
 
-    const overviewModal = document.getElementById('project-overview-modal');
     const overviewClose = document.getElementById('project-overview-modal-close');
     const overviewCancel = document.getElementById('project-overview-cancel-btn');
     if (overviewClose) overviewClose.addEventListener('click', closeProjectOverviewModal);
     if (overviewCancel) overviewCancel.addEventListener('click', closeProjectOverviewModal);
-    if (overviewModal) {
-      overviewModal.addEventListener('click', function (e) {
-        if (e.target === overviewModal) closeProjectOverviewModal();
-      });
-    }
 
     const shouldOpenOverviewModal = <?= $isOverviewValidation ? 'true' : 'false' ?>;
     if (shouldOpenOverviewModal && overviewOldValues.overview_project_id) {
@@ -444,11 +424,6 @@
     updateSlug();
   }
 
-  document.addEventListener('keydown', function (e) {
-    if ((e.key === 'Escape' || e.key === 'Esc') && document.getElementById('project-overview-modal')?.style.display === 'flex') {
-      closeProjectOverviewModal();
-    }
-  });
 </script>
 
 <?php endif; ?>
@@ -457,7 +432,7 @@
 
 <?= $this->section('content') ?>
 <div class='contained'>
-  <h1>Artwork</h1>
+  <h1 class='visually-hidden'>Artwork</h1>
   <?php if (!isset($projects) || !is_array($projects)): ?>
     <div style="color:red;">Error: Projects data not available.</div>
   <?php else: ?>

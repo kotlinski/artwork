@@ -436,15 +436,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   editCloseBtn.addEventListener('click', closeEditModal);
   editCancelBtn.addEventListener('click', closeEditModal);
-  editModal.addEventListener('click', function (e) {
-    if (e.target === editModal) closeEditModal();
-  });
 
   addCloseBtn.addEventListener('click', closeAddModal);
   addCancelBtn.addEventListener('click', closeAddModal);
-  addModal.addEventListener('click', function (e) {
-    if (e.target === addModal) closeAddModal();
-  });
 
   addTitleInput.addEventListener('input', function () {
     addSlugInput.value = slugifyNewsTitle(addTitleInput.value);
@@ -463,13 +457,6 @@ document.addEventListener('DOMContentLoaded', function () {
     refreshBodyScrollLock();
   });
 
-  editPreviewModal.addEventListener('click', function (e) {
-    if (e.target === editPreviewModal) {
-      editPreviewModal.style.display = 'none';
-      refreshBodyScrollLock();
-    }
-  });
-
   addPreviewBtn.addEventListener('click', function () {
     addPreviewBody.innerHTML = window.marked
       ? (window.marked.parse ? window.marked.parse(addContentInput.value) : window.marked(addContentInput.value))
@@ -481,40 +468,6 @@ document.addEventListener('DOMContentLoaded', function () {
   addPreviewClose.addEventListener('click', function () {
     addPreviewModal.style.display = 'none';
     refreshBodyScrollLock();
-  });
-
-  addPreviewModal.addEventListener('click', function (e) {
-    if (e.target === addPreviewModal) {
-      addPreviewModal.style.display = 'none';
-      refreshBodyScrollLock();
-    }
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape' && e.key !== 'Esc') {
-      return;
-    }
-
-    if (addPreviewModal.style.display === 'flex') {
-      addPreviewModal.style.display = 'none';
-      refreshBodyScrollLock();
-      return;
-    }
-
-    if (editPreviewModal.style.display === 'flex') {
-      editPreviewModal.style.display = 'none';
-      refreshBodyScrollLock();
-      return;
-    }
-
-    if (addModal.style.display === 'flex') {
-      closeAddModal();
-      return;
-    }
-
-    if (editModal.style.display === 'flex') {
-      closeEditModal();
-    }
   });
 
   if (shouldOpenCreateModal) {
@@ -557,17 +510,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if ((e.key === 'Escape' || e.key === 'Esc') && modal.style.display === 'flex') {
-      closeModal();
-    }
-  });
 });
 </script>
 

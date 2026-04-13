@@ -324,14 +324,9 @@
   </div>
 
   <div class="contained">
-    <div class="project-edit-expandable" style="margin:10px 0;">
-      <button type="button" class="project-expand-toggle" aria-expanded="false"
-              aria-controls="project-text-form"
-              style="width:100%;text-align:left;background:none;border:0;padding:12px 16px;font-family:'Courier New',sans-serif;font-size:12px;color:#767676;letter-spacing:-0.5px;line-height:1.3;cursor:pointer;display:flex;align-items:center;gap:0.7em;">
-        <span class="chevron" style="display:inline-block;transition:transform 0.2s;">▶</span>
-        <span>Edit text about <?= esc($project['title'] ?? 'Projekt') ?></span>
-      </button>
-      <div class="project-edit-form" id="project-text-form" style="display:none;padding:0 12px 12px 12px;">
+    <hr class='light'>
+    <div style="margin:10px 0;">
+      <div id="project-text-form" style="display:block;padding:0 12px 12px 12px;">
         <?= view('partials/markdown_editor', [
           'formAction' => base_url('project/update'),
           'id' => $project['id'] ?? '',
@@ -709,7 +704,7 @@
           const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
           // Always close all sections first
-          document.querySelectorAll('.project-edit-form, #image-admin-section').forEach(function (section) {
+          document.querySelectorAll('#image-admin-section').forEach(function (section) {
             section.style.display = 'none';
           });
           document.querySelectorAll('.project-expand-toggle').forEach(function (btn) {
