@@ -11,7 +11,7 @@ class NewsModel extends Model
   protected $allowedFields = [
     'title', 'slug', 'content', 'excerpt', 'category',
     'event_location', 'event_start_date', 'event_end_date',
-    'external_link', 'main_image', 'created_at', 'project_id', 'is_published'
+    'external_link', 'main_image', 'width_px', 'height_px', 'created_at', 'project_id', 'is_published'
   ];
   
   /**

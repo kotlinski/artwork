@@ -74,16 +74,49 @@ class News extends BaseController
         $item['main_image_medium'] = is_file(FCPATH . $mediumPath) ? $mediumPath : $mainImage;
         $item['main_image_large'] = is_file(FCPATH . $largePath) ? $largePath : $item['main_image_medium'];
 
-        $displayImagePath = FCPATH . $item['main_image_large'];
-        $dimensions = @getimagesize($displayImagePath);
-        if (is_array($dimensions) && isset($dimensions[0], $dimensions[1]) && $dimensions[0] > 0 && $dimensions[1] > 0) {
-          $item['main_image_width'] = (int) $dimensions[0];
-          $item['main_image_height'] = (int) $dimensions[1];
+        $storedWidth = isset($item['width_px']) ? (int) $item['width_px'] : 0;
+        $storedHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
+
+        if ($storedWidth > 0 && $storedHeight > 0) {
+          $item['main_image_width'] = $storedWidth;
+          $item['main_image_height'] = $storedHeight;
+        } else {
+          $dimensionCandidates = array_values(array_filter([
+            $item['main_image'] ?? '',
+            $item['main_image_large'] ?? '',
+            $item['main_image_medium'] ?? '',
+          ], static fn ($candidate): bool => is_string($candidate) && $candidate !== ''));
+
+          foreach ($dimensionCandidates as $candidatePath) {
+            $dimensions = $this->getStoredImageDimensions($candidatePath);
+            if ($dimensions['width_px'] !== null && $dimensions['height_px'] !== null) {
+              $item['main_image_width'] = $dimensions['width_px'];
+              $item['main_image_height'] = $dimensions['height_px'];
+              break;
+            }
+          }
         }
       }
 
       return $item;
     }, $newsItems);
+  }
+
+  protected function getStoredImageDimensions(string $relativePath): array
+  {
+    $dimensions = @getimagesize(FCPATH . ltrim($relativePath, '/'));
+
+    if (is_array($dimensions) && isset($dimensions[0], $dimensions[1]) && $dimensions[0] > 0 && $dimensions[1] > 0) {
+      return [
+        'width_px' => (int) $dimensions[0],
+        'height_px' => (int) $dimensions[1],
+      ];
+    }
+
+    return [
+      'width_px' => null,
+      'height_px' => null,
+    ];
   }
   
   public function store()
@@ -143,9 +176,14 @@ class News extends BaseController
     }
 
     $mainImagePath = null;
+    $mainImageWidth = null;
+    $mainImageHeight = null;
     if ($hasMainImageUpload) {
       try {
-        $mainImagePath = $this->saveNewsMainImageVariants($mainImageFile, $slug);
+        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $slug);
+        $mainImagePath = $savedMainImage['path'];
+        $mainImageWidth = $savedMainImage['width_px'];
+        $mainImageHeight = $savedMainImage['height_px'];
       } catch (\Throwable $e) {
         return redirect()->to('/news')
           ->with('create_errors', ['Failed to process main image upload.'])
@@ -172,6 +210,8 @@ class News extends BaseController
       $data['project_id'] = (int) $projectId;
     }
     $data['main_image'] = $mainImagePath;
+    $data['width_px'] = $mainImageWidth;
+    $data['height_px'] = $mainImageHeight;
     $data['event_location'] = $eventLocation !== '' ? $eventLocation : null;
     $data['event_start_date'] = $eventStartDate;
     $data['event_end_date'] = $eventEndDate;
@@ -236,7 +276,7 @@ class News extends BaseController
     return null;
   }
 
-  protected function saveNewsMainImageVariants(UploadedFile $file, string $slug): string
+  protected function saveNewsMainImageVariants(UploadedFile $file, string $slug): array
   {
     $baseName = $this->resolveNewsMainImageBaseName($slug);
     $origExt = strtolower($file->getClientExtension());
@@ -292,7 +332,14 @@ class News extends BaseController
       $image->save($outPath);
     }
 
-    return 'media/news/' . $webpName;
+    $relativePath = 'media/news/' . $webpName;
+    $dimensions = $this->getStoredImageDimensions($relativePath);
+
+    return [
+      'path' => $relativePath,
+      'width_px' => $dimensions['width_px'],
+      'height_px' => $dimensions['height_px'],
+    ];
   }
 
   protected function resolveNewsMainImageBaseName(string $slug): string
@@ -413,6 +460,8 @@ class News extends BaseController
     }
     if ($removeMainImage) {
       $data['main_image'] = null;
+      $data['width_px'] = null;
+      $data['height_px'] = null;
     }
     if ($hasMainImageUpload) {
       $uploadError = $this->validateMainImageFile($mainImageFile);
@@ -421,7 +470,10 @@ class News extends BaseController
       }
 
       try {
-        $data['main_image'] = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
+        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
+        $data['main_image'] = $savedMainImage['path'];
+        $data['width_px'] = $savedMainImage['width_px'];
+        $data['height_px'] = $savedMainImage['height_px'];
       } catch (\Throwable $e) {
         return redirect()->to('/news')->with('error', 'Failed to process main image upload.')->withInput();
       }
