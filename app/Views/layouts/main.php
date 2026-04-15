@@ -25,10 +25,13 @@
 
   <meta name="author" content="Simon Kotlinski">
   <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
-  <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-  <link rel="stylesheet" href="<?= base_url('css/layout.css') ?>">
+  <style>
+    <?= file_get_contents(FCPATH . 'css/layout.css') ?>
+    <?= file_get_contents(FCPATH . 'css/style.css') ?>
+  </style>
   <?php if (session()->get('isLoggedIn')): ?>
-    <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="<?= base_url('css/admin.css') ?>"></noscript>
   <?php endif; ?>
 
 </head>
