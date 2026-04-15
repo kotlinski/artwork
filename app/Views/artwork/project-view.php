@@ -810,7 +810,7 @@
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
-    <h1>
+    <h1 style='color: #555;'>
       <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
     </h1>
 

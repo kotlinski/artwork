@@ -121,7 +121,18 @@
 
         <label class="md-extra-field project-overview-description-field">
           Description
+          <div class="md-toolbar">
+            <button type="button" onclick="mdWrap('project-overview-description', '**', '**')" title="Bold">B</button>
+            <button type="button" onclick="mdWrap('project-overview-description', '*', '*')" title="Italic"><em>I</em></button>
+            <button type="button" onclick="mdInsert('project-overview-description', '## ')" title="Heading">H</button>
+            <button type="button" onclick="mdWrap('project-overview-description', '[', '](url)')" title="Link">🔗</button>
+            <button type="button" onclick="mdInsert('project-overview-description', '- ')" title="Bullet List">• List</button>
+            <button type="button" onclick="mdInsert('project-overview-description', '1. ')" title="Numbered List">1. List</button>
+            <button type="button" onclick="mdInsert('project-overview-description', '  \n')" title="Line Break">↵</button>
+            <button type="button" onclick="mdWrap('project-overview-description', '`', '`')" title="Code">&lt;/&gt;</button>
+          </div>
           <textarea name="description" id="project-overview-description" rows="4" maxlength="300" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? '') ?></textarea>
+          <small class="news-field-hint">Tip: &quot;↵&quot; adds a soft line break.</small>
         </label>
 
         <div class="form-actions project-overview-form-actions">
@@ -501,7 +512,7 @@
           </a>
         </h2>
         <p style="margin:4px 0 4px 0; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
-          <?= esc($project['description'] ?? '') ?>
+          <?= $project['description_parsed'] ?? nl2br(esc($project['description'] ?? '')) ?>
         </p>
         <div style="text-align: right;">
           <a href="<?= $projectUrl ?>">read more</a>

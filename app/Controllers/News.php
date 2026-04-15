@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\ParsedownWithLinkTargets;
 use CodeIgniter\HTTP\Files\UploadedFile;
 
 class News extends BaseController
@@ -19,7 +20,7 @@ class News extends BaseController
       $lcpImageUrl = base_url($news_items[0]['main_image_medium']);
     }
     
-    $parser = new \Parsedown();
+    $parser = new ParsedownWithLinkTargets();
     $parser->setSafeMode(true);
     $parser->setBreaksEnabled(true);
 
@@ -376,13 +377,13 @@ class News extends BaseController
 
     $id = (int) $this->request->getPost('id');
     if ($id <= 0) {
-      return redirect()->to('/news')->with('error', 'Invalid news item.');
+      return redirect()->to('/news')->with('error', 'Invalid news item.')->withInput();
     }
 
     $model = new \App\Models\NewsModel();
     $existing = $model->find($id);
     if (!$existing) {
-      return redirect()->to('/news')->with('error', 'News item not found.');
+      return redirect()->to('/news')->with('error', 'News item not found.')->withInput();
     }
 
     $data = [];
@@ -416,13 +417,13 @@ class News extends BaseController
     if ($hasMainImageUpload) {
       $uploadError = $this->validateMainImageFile($mainImageFile);
       if ($uploadError !== null) {
-        return redirect()->to('/news')->with('error', $uploadError);
+        return redirect()->to('/news')->with('error', $uploadError)->withInput();
       }
 
       try {
         $data['main_image'] = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
       } catch (\Throwable $e) {
-        return redirect()->to('/news')->with('error', 'Failed to process main image upload.');
+        return redirect()->to('/news')->with('error', 'Failed to process main image upload.')->withInput();
       }
     }
     if ($eventLocation !== null) {
@@ -446,11 +447,11 @@ class News extends BaseController
       && $data['event_end_date'] !== null
       && $data['event_end_date'] < $data['event_start_date']
     ) {
-      return redirect()->to('/news')->with('error', 'Event end date cannot be earlier than event start date.');
+      return redirect()->to('/news')->with('error', 'Event end date cannot be earlier than event start date.')->withInput();
     }
 
     if (isset($data['external_link']) && $data['external_link'] !== null && filter_var($data['external_link'], FILTER_VALIDATE_URL) === false) {
-      return redirect()->to('/news')->with('error', 'External link must be a valid URL.');
+      return redirect()->to('/news')->with('error', 'External link must be a valid URL.')->withInput();
     }
 
     $oldMainImage = (string) ($existing['main_image'] ?? '');

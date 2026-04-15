@@ -20,6 +20,21 @@ $createEventLocation = session()->getFlashdata('create_event_location') ?? '';
 $createEventStartDate = session()->getFlashdata('create_event_start_date') ?? '';
 $createEventEndDate = session()->getFlashdata('create_event_end_date') ?? '';
 $createExternalLink = session()->getFlashdata('create_external_link') ?? '';
+$actionError = session()->getFlashdata('error') ?? '';
+$actionSuccess = session()->getFlashdata('success') ?? '';
+$editOldId = (string) (old('id') ?? '');
+$showEditFormError = $editOldId !== '' && $actionError !== '';
+$globalActionError = $showEditFormError ? '' : $actionError;
+$openEditModal = $showEditFormError;
+$editOldTitle = (string) (old('title') ?? '');
+$editOldContent = (string) (old('content') ?? '');
+$editOldProjectId = (string) (old('project_id') ?? '');
+$editOldCategory = (string) (old('category') ?? 'general');
+$editOldEventLocation = (string) (old('event_location') ?? '');
+$editOldEventStartDate = (string) (old('event_start_date') ?? '');
+$editOldEventEndDate = (string) (old('event_end_date') ?? '');
+$editOldExternalLink = (string) (old('external_link') ?? '');
+$editOldRemoveMainImage = in_array(old('remove_main_image'), ['1', 1, true, 'true', 'on'], true);
 $openCreateModal = !empty($createErrors) || $createTitle !== '' || $createSlug !== '' || $createContent !== '';
 $newsCategories = [
   'general' => 'General',
@@ -27,10 +42,22 @@ $newsCategories = [
   'talk' => 'Talk',
   'workshop' => 'Workshop',
 ];
+$projectTitleById = [];
+foreach ($projects ?? [] as $project) {
+  if (isset($project['id'])) {
+    $projectTitleById[(string) $project['id']] = (string) ($project['title'] ?? 'Untitled project');
+  }
+}
 ?>
 <div class="contained news-admin">
   <h2>News Administration</h2>
   <p>Create, edit, and manage news posts shown on the news page.</p>
+    <?php if ($globalActionError !== ''): ?>
+      <div class="alert error"><?= esc($globalActionError) ?></div>
+    <?php endif; ?>
+    <?php if ($actionSuccess !== ''): ?>
+      <div class="alert success"><?= esc($actionSuccess) ?></div>
+    <?php endif; ?>
     <div class="news-admin-top-actions">
       <button type="button" id="news-add-open-btn" class="news-add-btn">Add news</button>
   </div>
@@ -176,6 +203,14 @@ $newsCategories = [
         </div>
       <?php endif; ?>
       <?php if (session()->get('isLoggedIn')): ?>
+        <?php
+        $linkedProjectId = (string) ($item['project_id'] ?? '');
+        $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjectId] ?? null) : null;
+        ?>
+        <div class="news-admin-meta">
+          Linked project:
+          <strong><?= $linkedProjectTitle !== null ? esc($linkedProjectTitle) : 'None' ?></strong>
+        </div>
         <div class="news-item-admin-actions">
           <button type="button" class="news-edit-btn"
             data-id="<?= esc($item['id']) ?>"
@@ -213,6 +248,10 @@ $newsCategories = [
     <button type="button" id="news-edit-modal-close" class="news-edit-modal-close" aria-label="Close">&times;</button>
     <h3 id="news-edit-modal-heading">Edit News Item</h3>
 
+    <?php if ($showEditFormError): ?>
+      <div class="alert error"><?= esc($actionError) ?></div>
+    <?php endif; ?>
+
     <!-- Preview sub-modal -->
     <div id="news-edit-preview-modal" class="preview-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.5);z-index:3000;align-items:center;justify-content:center;">
       <div class="preview-modal-content news-edit-preview-modal-content" style="position:relative;">
@@ -226,17 +265,18 @@ $newsCategories = [
     </div>
 
     <form id="news-edit-form" action="<?= base_url('news/update') ?>" method="post" enctype="multipart/form-data">
+      <?= csrf_field() ?>
       <input type="hidden" name="id" id="news-edit-id">
       <label class="md-title-field">
         Title
-        <input type="text" name="title" id="news-edit-title">
+        <input type="text" name="title" id="news-edit-title" value="<?= esc($editOldTitle) ?>">
       </label>
       <label class="md-extra-field">
         Project
         <select name="project_id" id="news-edit-project">
           <option value="">— none —</option>
           <?php foreach ($projects ?? [] as $proj): ?>
-            <option value="<?= esc($proj['id']) ?>"><?= esc($proj['title']) ?></option>
+            <option value="<?= esc($proj['id']) ?>"<?= $editOldProjectId !== '' && $editOldProjectId === (string) $proj['id'] ? ' selected' : '' ?>><?= esc($proj['title']) ?></option>
           <?php endforeach; ?>
         </select>
       </label>
@@ -245,7 +285,7 @@ $newsCategories = [
         <input type="file" name="main_image_file" id="news-edit-main-image-file" accept=".jpg,.jpeg,.png,.webp">
         <small id="news-edit-main-image-current" class="news-field-hint"></small>
         <label class="news-edit-remove-image-row">
-          <input type="checkbox" name="remove_main_image" id="news-edit-remove-main-image" value="1">
+          <input type="checkbox" name="remove_main_image" id="news-edit-remove-main-image" value="1"<?= $editOldRemoveMainImage ? ' checked' : '' ?>>
           Remove current image
         </label>
       </label>
@@ -253,27 +293,27 @@ $newsCategories = [
         Category
         <select name="category" id="news-edit-category">
           <?php foreach ($newsCategories as $value => $label): ?>
-            <option value="<?= esc($value) ?>"><?= esc($label) ?></option>
+            <option value="<?= esc($value) ?>"<?= $editOldCategory === $value ? ' selected' : '' ?>><?= esc($label) ?></option>
           <?php endforeach; ?>
         </select>
       </label>
       <label class="md-extra-field">
         Event location
-        <input type="text" name="event_location" id="news-edit-event-location">
+        <input type="text" name="event_location" id="news-edit-event-location" value="<?= esc($editOldEventLocation) ?>">
       </label>
       <div class="news-modal-date-row">
         <label class="md-extra-field news-modal-date-field">
           Event start date
-          <input type="date" name="event_start_date" id="news-edit-event-start-date">
+          <input type="date" name="event_start_date" id="news-edit-event-start-date" value="<?= esc($editOldEventStartDate) ?>">
         </label>
         <label class="md-extra-field news-modal-date-field">
           Event end date
-          <input type="date" name="event_end_date" id="news-edit-event-end-date">
+          <input type="date" name="event_end_date" id="news-edit-event-end-date" value="<?= esc($editOldEventEndDate) ?>">
         </label>
       </div>
       <label class="md-extra-field">
         External link
-        <input type="url" name="external_link" id="news-edit-external-link" placeholder="https://...">
+        <input type="text" inputmode="url" name="external_link" id="news-edit-external-link" value="<?= esc($editOldExternalLink) ?>" placeholder="https://...">
       </label>
       <div class="md-toolbar">
         <button type="button" onclick="mdWrap('news-edit-content', '**', '**')" title="Bold">B</button>
@@ -285,7 +325,7 @@ $newsCategories = [
         <button type="button" onclick="mdInsert('news-edit-content', '  \n')" title="Line Break">↵</button>
         <button type="button" onclick="mdWrap('news-edit-content', '`', '`')" title="Code">&lt;/&gt;</button>
       </div>
-      <textarea id="news-edit-content" name="content" class="news-edit-modal-textarea"></textarea>
+      <textarea id="news-edit-content" name="content" class="news-edit-modal-textarea"><?= esc($editOldContent) ?></textarea>
       <div style="padding: 0 4px">
         <div class="form-actions">
           <button type="button" id="news-edit-preview-btn">Preview</button>
@@ -338,8 +378,70 @@ document.addEventListener('DOMContentLoaded', function () {
   var addPreviewModal  = document.getElementById('news-add-preview-modal');
   var addPreviewBody   = document.getElementById('news-add-preview-content');
   var addPreviewClose  = document.getElementById('news-add-preview-close');
+  var editForm         = document.getElementById('news-edit-form');
+  var addForm          = document.getElementById('news-add-form');
 
   var shouldOpenCreateModal = <?= $openCreateModal ? 'true' : 'false' ?>;
+  var shouldOpenEditModal = <?= $openEditModal ? 'true' : 'false' ?>;
+  var editOldValues = <?= json_encode([
+    'id' => $editOldId,
+    'title' => $editOldTitle,
+    'content' => $editOldContent,
+    'project_id' => $editOldProjectId,
+    'category' => $editOldCategory,
+    'event_location' => $editOldEventLocation,
+    'event_start_date' => $editOldEventStartDate,
+    'event_end_date' => $editOldEventEndDate,
+    'external_link' => $editOldExternalLink,
+    'remove_main_image' => $editOldRemoveMainImage,
+  ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+  var scrollRestoreKey = 'news-admin-scroll-y';
+  var lockedScrollY = 0;
+  var isScrollLocked = false;
+
+  function getCurrentScrollY() {
+    return isScrollLocked ? lockedScrollY : (window.pageYOffset || window.scrollY || 0);
+  }
+
+  function persistScrollForNextLoad() {
+    try {
+      sessionStorage.setItem(scrollRestoreKey, String(getCurrentScrollY()));
+    } catch (e) {
+      // Ignore storage failures (private mode/storage limits).
+    }
+  }
+
+  function restoreScrollFromPreviousLoad() {
+    var raw;
+    var y;
+
+    try {
+      raw = sessionStorage.getItem(scrollRestoreKey);
+      if (raw === null) {
+        return;
+      }
+      sessionStorage.removeItem(scrollRestoreKey);
+    } catch (e) {
+      return;
+    }
+
+    y = parseInt(raw, 10);
+    if (!isNaN(y) && y >= 0) {
+      window.scrollTo(0, y);
+    }
+  }
+
+  function focusWithoutScroll(el) {
+    if (!el || typeof el.focus !== 'function') {
+      return;
+    }
+
+    try {
+      el.focus({ preventScroll: true });
+    } catch (e) {
+      el.focus();
+    }
+  }
 
   function refreshBodyScrollLock() {
     var anyOpen = editModal.style.display === 'flex'
@@ -347,7 +449,33 @@ document.addEventListener('DOMContentLoaded', function () {
       || editPreviewModal.style.display === 'flex'
       || addPreviewModal.style.display === 'flex';
 
-    document.body.style.overflow = anyOpen ? 'hidden' : '';
+    if (anyOpen && !isScrollLocked) {
+      lockedScrollY = window.pageYOffset || window.scrollY || 0;
+      isScrollLocked = true;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + lockedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
+    if (!anyOpen && isScrollLocked) {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      isScrollLocked = false;
+      window.scrollTo(0, lockedScrollY);
+      return;
+    }
+
+    if (!anyOpen) {
+      document.body.style.overflow = '';
+    }
   }
 
   function slugifyNewsTitle(input) {
@@ -398,11 +526,11 @@ document.addEventListener('DOMContentLoaded', function () {
     editEventLocationInput.value = btn.dataset.eventLocation || '';
     editEventStartDateInput.value = btn.dataset.eventStartDate || '';
     editEventEndDateInput.value = btn.dataset.eventEndDate || '';
-    editExternalLinkInput.value = btn.dataset.externalLink || '';
+    editExternalLinkInput.value = (btn.dataset.externalLink || '').trim();
 
     editModal.style.display = 'flex';
     refreshBodyScrollLock();
-    setTimeout(function () { editContentInput.focus(); }, 50);
+    setTimeout(function () { focusWithoutScroll(editContentInput); }, 50);
   }
 
   function closeEditModal() {
@@ -414,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addModal.style.display = 'flex';
     refreshBodyScrollLock();
     addSlugInput.value = slugifyNewsTitle(addTitleInput.value);
-    setTimeout(function () { addTitleInput.focus(); }, 50);
+    setTimeout(function () { focusWithoutScroll(addTitleInput); }, 50);
   }
 
   function closeAddModal() {
@@ -470,7 +598,63 @@ document.addEventListener('DOMContentLoaded', function () {
     refreshBodyScrollLock();
   });
 
-  if (shouldOpenCreateModal) {
+  if (editForm) {
+    editForm.addEventListener('submit', function () {
+      if (editExternalLinkInput) {
+        editExternalLinkInput.value = (editExternalLinkInput.value || '').trim();
+      }
+      persistScrollForNextLoad();
+    });
+  }
+
+  if (addForm) {
+    addForm.addEventListener('submit', persistScrollForNextLoad);
+  }
+
+  document.querySelectorAll('.news-delete-form').forEach(function (form) {
+    form.addEventListener('submit', persistScrollForNextLoad);
+  });
+
+  restoreScrollFromPreviousLoad();
+
+  if (shouldOpenEditModal) {
+    var matchingEditButton = null;
+    var oldEditId = String(editOldValues.id || '');
+    document.querySelectorAll('.news-edit-btn').forEach(function (btn) {
+      if ((btn.dataset.id || '') === oldEditId) {
+        matchingEditButton = btn;
+      }
+    });
+
+    if (matchingEditButton) {
+      openEditModal(matchingEditButton);
+    } else {
+      editModal.style.display = 'flex';
+      refreshBodyScrollLock();
+    }
+
+    editIdInput.value = oldEditId;
+    editTitleInput.value = String(editOldValues.title || '');
+    editContentInput.value = String(editOldValues.content || '');
+    editEventLocationInput.value = String(editOldValues.event_location || '');
+    editEventStartDateInput.value = String(editOldValues.event_start_date || '');
+    editEventEndDateInput.value = String(editOldValues.event_end_date || '');
+    editExternalLinkInput.value = String(editOldValues.external_link || '');
+
+    if (editProjectSel) {
+      var oldProjectId = String(editOldValues.project_id || '');
+      for (var j = 0; j < editProjectSel.options.length; j++) {
+        editProjectSel.options[j].selected = (editProjectSel.options[j].value === oldProjectId);
+      }
+    }
+    if (editCategorySel) {
+      editCategorySel.value = String(editOldValues.category || 'general');
+    }
+    if (editRemoveMainImage) {
+      editRemoveMainImage.checked = !!editOldValues.remove_main_image;
+    }
+    focusWithoutScroll(editContentInput);
+  } else if (shouldOpenCreateModal) {
     openAddModal();
   }
 });

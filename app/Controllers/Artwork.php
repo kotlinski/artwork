@@ -20,6 +20,11 @@ class Artwork extends BaseController
       $projectsQuery = $projectsQuery->where('is_published', 1);
     }
     $projects = $projectsQuery->findAll();
+    $parser = class_exists('Parsedown') ? new \Parsedown() : null;
+    if ($parser !== null) {
+      $parser->setSafeMode(true);
+      $parser->setBreaksEnabled(true);
+    }
     $image_ids = array_unique(array_filter(array_merge(
       array_column($projects, 'image_left'),
       array_column($projects, 'image_mid'),
@@ -35,6 +40,9 @@ class Artwork extends BaseController
       if (session()->get('isLoggedIn')) {
         $project['images'] = $image_model->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
       }
+      $project['description_parsed'] = $parser !== null
+        ? $parser->text($project['description'] ?? '')
+        : nl2br(esc($project['description'] ?? ''));
       // 3. Cast the project values to (int) when looking them up
       $project['preview'] = [
         'left' => $indexed_images[(int)$project['image_left']] ?? null,
