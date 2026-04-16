@@ -311,6 +311,8 @@ class News extends BaseController
       'large/' => ['resize' => 'x560', 'quality' => min($quality, 75)],
     ];
 
+    helper('webp');
+
     foreach ($variants as $subdir => $opts) {
       $targetDir = $newsDir . $subdir;
       if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
@@ -318,18 +320,8 @@ class News extends BaseController
       }
 
       $outPath = $targetDir . $webpName;
-      $image = \Config\Services::image('imagick');
-      $image->withFile($origPath);
-      $image->reorient();
-      $image->convert(IMAGETYPE_WEBP);
-      $image->quality($opts['quality']);
-
-      if ($opts['resize'] !== '') {
-        $height = (int) str_replace('x', '', $opts['resize']);
-        $image->resize(0, $height, true);
-      }
-
-      $image->save($outPath);
+      $resizeHeight = $opts['resize'] !== '' ? (int) str_replace('x', '', $opts['resize']) : 0;
+      generate_webp_variant($origPath, $outPath, $opts['quality'], $resizeHeight);
     }
 
     $relativePath = 'media/news/' . $webpName;

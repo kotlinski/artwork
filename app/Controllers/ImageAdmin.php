@@ -254,10 +254,8 @@ class ImageAdmin extends BaseController
     
     $webpName = $baseName . '.webp';
     
-    $magick = \Config\Services::image('imagick');
-    if (extension_loaded('imagick')) {
-      \Imagick::setResourceLimit(\Imagick::RESOURCETYPE_MEMORY, 256);
-    }
+    helper('webp');
+
     $variants = [
       '' => ['resize' => '', 'quality' => $quality],
       'mini/' => ['resize' => 'x70', 'quality' => min($quality, 55)],
@@ -271,26 +269,8 @@ class ImageAdmin extends BaseController
         mkdir($targetDir, 0775, true);
       }
       $outPath = $targetDir . $webpName;
-      
-      // 1. Initialize the service fresh for each variant
-      $image = \Config\Services::image('imagick');
-      
-      // 2. Load the file
-      $image->withFile($origPath);
-      
-      // 3. Apply manipulations step-by-step (Standard CI4 methods)
-      $image->reorient();
-      $image->convert(IMAGETYPE_WEBP);
-      $image->quality($opts['quality']);
-      
-      // 4. Handle Resize if needed
-      if ($opts['resize'] !== '') {
-        $height = (int) str_replace('x', '', $opts['resize']);
-        $image->resize(0, $height, true);
-      }
-      
-      // 5. Save (This will no longer be null)
-      $image->save($outPath);
+      $resizeHeight = $opts['resize'] !== '' ? (int) str_replace('x', '', $opts['resize']) : 0;
+      generate_webp_variant($origPath, $outPath, $opts['quality'], $resizeHeight);
     }
     // Get dimensions from the root webp
     $rootWebp = $konstDir . $webpName;

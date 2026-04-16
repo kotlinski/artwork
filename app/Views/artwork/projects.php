@@ -515,7 +515,7 @@
           <?= $project['description_parsed'] ?? nl2br(esc($project['description'] ?? '')) ?>
         </p>
         <div style="text-align: right;">
-          <a href="<?= $projectUrl ?>">read more</a>
+          <a href="<?= $projectUrl ?>" aria-label='read more about <?= esc($project['title'] ) ?>'>read more<span class="visually-hidden"> about <?= esc($project['title'] )?></span></a>
         </div>
         <?php if (session()->get('isLoggedIn')): ?>
           <div style="margin-top: 0; text-align: center;">
