@@ -259,13 +259,13 @@ class ImageAdmin extends BaseController
       \Imagick::setResourceLimit(\Imagick::RESOURCETYPE_MEMORY, 256);
     }
     $variants = [
-      '' => '',        // root /konst/
-      'mini/' => 'x70',
-      'thumb/' => 'x140',
-      'medium/' => 'x280',
-      'large/' => 'x560',
+      '' => ['resize' => '', 'quality' => $quality],
+      'mini/' => ['resize' => 'x70', 'quality' => min($quality, 55)],
+      'thumb/' => ['resize' => 'x140', 'quality' => min($quality, 60)],
+      'medium/' => ['resize' => 'x280', 'quality' => min($quality, 65)],
+      'large/' => ['resize' => 'x560', 'quality' => min($quality, 75)],
     ];
-    foreach ($variants as $subdir => $resize) {
+    foreach ($variants as $subdir => $opts) {
       $targetDir = $konstDir . $subdir;
       if (!is_dir($targetDir)) {
         mkdir($targetDir, 0775, true);
@@ -281,11 +281,11 @@ class ImageAdmin extends BaseController
       // 3. Apply manipulations step-by-step (Standard CI4 methods)
       $image->reorient();
       $image->convert(IMAGETYPE_WEBP);
-      $image->quality($quality);
+      $image->quality($opts['quality']);
       
       // 4. Handle Resize if needed
-      if ($resize !== '') {
-        $height = (int) str_replace('x', '', $resize);
+      if ($opts['resize'] !== '') {
+        $height = (int) str_replace('x', '', $opts['resize']);
         $image->resize(0, $height, true);
       }
       

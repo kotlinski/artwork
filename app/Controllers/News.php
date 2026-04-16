@@ -304,14 +304,14 @@ class News extends BaseController
     }
 
     $variants = [
-      '' => '',
-      'mini/' => 'x70',
-      'thumb/' => 'x140',
-      'medium/' => 'x280',
-      'large/' => 'x560',
+      '' => ['resize' => '', 'quality' => $quality],
+      'mini/' => ['resize' => 'x70', 'quality' => min($quality, 55)],
+      'thumb/' => ['resize' => 'x140', 'quality' => min($quality, 60)],
+      'medium/' => ['resize' => 'x280', 'quality' => min($quality, 65)],
+      'large/' => ['resize' => 'x560', 'quality' => min($quality, 75)],
     ];
 
-    foreach ($variants as $subdir => $resize) {
+    foreach ($variants as $subdir => $opts) {
       $targetDir = $newsDir . $subdir;
       if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
         throw new \RuntimeException('Failed to create news variant directory.');
@@ -322,10 +322,10 @@ class News extends BaseController
       $image->withFile($origPath);
       $image->reorient();
       $image->convert(IMAGETYPE_WEBP);
-      $image->quality($quality);
+      $image->quality($opts['quality']);
 
-      if ($resize !== '') {
-        $height = (int) str_replace('x', '', $resize);
+      if ($opts['resize'] !== '') {
+        $height = (int) str_replace('x', '', $opts['resize']);
         $image->resize(0, $height, true);
       }
 

@@ -789,8 +789,10 @@
              style="display:flex;align-items:center;justify-content:center;align-self:center;background:#fff;height:<?= esc($slotHeight, 'attr') ?>;overflow:hidden;">
             <img
               src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
-              srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x,
-                <?= base_url('konst/medium/' . $img['file_name']) ?> 2x"
+              srcset="<?= base_url('konst/mini/' . $img['file_name']) ?> <?= max(1, (int)(70 * $imgWidth / max($imgHeight, 1))) ?>w,
+                <?= base_url('konst/thumb/' . $img['file_name']) ?> <?= max(1, (int)(140 * $imgWidth / max($imgHeight, 1))) ?>w,
+                <?= base_url('konst/medium/' . $img['file_name']) ?> <?= max(1, (int)(280 * $imgWidth / max($imgHeight, 1))) ?>w"
+              sizes="calc((min(100vw, 400px) - 34px) / 3)"
               alt="<?= esc($img['title'] ?? '') ?>"
               width="<?= $imgWidth ?>"
               height="<?= $imgHeight ?>"

@@ -37,23 +37,30 @@ for img in "$ORIGINAL_DIR"/*.{jpg,jpeg,png}; do
         QUALITY=87
     fi
 
-    echo "Processing $filename (Quality: ${QUALITY}%)"
+    echo "Processing $filename (Base quality: ${QUALITY}%)"
 
     # --- Generate the WebP versions ---
-    # ROOT of /art/
-    magick "$img" -auto-orient -quality "$QUALITY" "$BASE_DIR/${filename}.webp"
+    # Use convert for resize + auto-orient, then cwebp for efficient WebP encoding.
+    # ImageMagick 6's WebP encoder produces bloated files; cwebp is ~8x smaller.
+
+    # ROOT of /art/ (full-size WebP)
+    convert "$img" -auto-orient png:- | cwebp -q "$QUALITY" -o "$BASE_DIR/${filename}.webp" -- -
 
     # MINI: 70px height
-    magick "$img" -auto-orient -resize x70 -quality "$QUALITY" "$BASE_DIR/mini/${filename}.webp"
+    MINI_Q=$(( QUALITY < 55 ? QUALITY : 55 ))
+    convert "$img" -auto-orient -resize x70 png:- | cwebp -q "$MINI_Q" -o "$BASE_DIR/mini/${filename}.webp" -- -
 
     # THUMB: 140px height
-    magick "$img" -auto-orient -resize x140 -quality "$QUALITY" "$BASE_DIR/thumb/${filename}.webp"
+    THUMB_Q=$(( QUALITY < 60 ? QUALITY : 60 ))
+    convert "$img" -auto-orient -resize x140 png:- | cwebp -q "$THUMB_Q" -o "$BASE_DIR/thumb/${filename}.webp" -- -
 
     # MEDIUM: 280px height
-    magick "$img" -auto-orient -resize x280 -quality "$QUALITY" "$BASE_DIR/medium/${filename}.webp"
+    MEDIUM_Q=$(( QUALITY < 65 ? QUALITY : 65 ))
+    convert "$img" -auto-orient -resize x280 png:- | cwebp -q "$MEDIUM_Q" -o "$BASE_DIR/medium/${filename}.webp" -- -
 
     # LARGE: 560px height
-    magick "$img" -auto-orient -resize x560 -quality "$QUALITY" "$BASE_DIR/large/${filename}.webp"
+    LARGE_Q=$(( QUALITY < 75 ? QUALITY : 75 ))
+    convert "$img" -auto-orient -resize x560 png:- | cwebp -q "$LARGE_Q" -o "$BASE_DIR/large/${filename}.webp" -- -
 
 done
 
