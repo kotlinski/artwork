@@ -14,10 +14,25 @@ class News extends BaseController
     $news_items = $model->getLatestNews();
     $news_items = $this->normalizeMainImagePaths($news_items);
     $lcpImageUrl = '';
-    if (!empty($news_items[0]['main_image_large'])) {
-      $lcpImageUrl = base_url($news_items[0]['main_image_large']);
-    } elseif (!empty($news_items[0]['main_image_medium'])) {
-      $lcpImageUrl = base_url($news_items[0]['main_image_medium']);
+    $lcpImageSrcset = '';
+    if (!empty($news_items[0]['main_image'])) {
+      $first = $news_items[0];
+      $fullWidth = isset($first['main_image_width']) ? (int) $first['main_image_width'] : 560;
+      $fullHeight = isset($first['main_image_height']) ? (int) $first['main_image_height'] : 315;
+      $aspect = $fullWidth > 0 ? ($fullWidth / $fullHeight) : (16 / 9);
+      $medium = $first['main_image_medium'] ?? $first['main_image'];
+      $large = $first['main_image_large'] ?? $medium;
+      $lcpImageUrl = base_url($medium);
+      $srcsetParts = [];
+      if (!empty($first['main_image_mini'])) {
+        $srcsetParts[] = base_url($first['main_image_mini']) . ' ' . ((int) round(70 * $aspect)) . 'w';
+      }
+      if (!empty($first['main_image_thumb'])) {
+        $srcsetParts[] = base_url($first['main_image_thumb']) . ' ' . ((int) round(140 * $aspect)) . 'w';
+      }
+      $srcsetParts[] = base_url($medium) . ' ' . ((int) round(280 * $aspect)) . 'w';
+      $srcsetParts[] = base_url($large) . ' ' . ((int) round(560 * $aspect)) . 'w';
+      $lcpImageSrcset = implode(', ', $srcsetParts);
     }
     
     $parser = new ParsedownWithLinkTargets();
@@ -37,6 +52,7 @@ class News extends BaseController
       'og_image_width' => '320',
       'og_image_height' => '320',
       'lcp_image_url' => $lcpImageUrl,
+      'lcp_image_srcset' => $lcpImageSrcset,
     ];
     
     $page_specific = [
@@ -68,9 +84,13 @@ class News extends BaseController
       $mainImage = $item['main_image'] ?? null;
       if (is_string($mainImage) && str_starts_with($mainImage, 'media/news/')) {
         $basename = basename($mainImage);
+        $miniPath = 'media/news/mini/' . $basename;
+        $thumbPath = 'media/news/thumb/' . $basename;
         $mediumPath = 'media/news/medium/' . $basename;
         $largePath = 'media/news/large/' . $basename;
 
+        $item['main_image_mini'] = is_file(FCPATH . $miniPath) ? $miniPath : null;
+        $item['main_image_thumb'] = is_file(FCPATH . $thumbPath) ? $thumbPath : null;
         $item['main_image_medium'] = is_file(FCPATH . $mediumPath) ? $mediumPath : $mainImage;
         $item['main_image_large'] = is_file(FCPATH . $largePath) ? $largePath : $item['main_image_medium'];
 

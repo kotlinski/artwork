@@ -179,25 +179,48 @@ foreach ($projects ?? [] as $project) {
       </div>
       <?php if (!empty($item['main_image'])): ?>
         <?php
-        $mainImageDisplay = $item['main_image_medium'] ?? $item['main_image'];
-        $mainImageLarge = $item['main_image_large'] ?? $mainImageDisplay;
-        $mainImageWidth = isset($item['main_image_width']) ? (int) $item['main_image_width'] : 560;
-        $mainImageHeight = isset($item['main_image_height']) ? (int) $item['main_image_height'] : 315;
+        $mainImageMini = $item['main_image_mini'] ?? null;
+        $mainImageThumb = $item['main_image_thumb'] ?? null;
+        $mainImageMedium = $item['main_image_medium'] ?? $item['main_image'];
+        $mainImageLarge = $item['main_image_large'] ?? $mainImageMedium;
+        $mainImageFull = $item['main_image'];
+        $fullWidth = isset($item['main_image_width']) ? (int) $item['main_image_width'] : 560;
+        $fullHeight = isset($item['main_image_height']) ? (int) $item['main_image_height'] : 315;
+
+        // Build srcset with w descriptors based on variant heights and aspect ratio
+        $aspect = $fullWidth > 0 ? ($fullWidth / $fullHeight) : (16 / 9);
+        $srcsetParts = [];
+        if ($mainImageMini) {
+          $w = (int) round(70 * $aspect);
+          $srcsetParts[] = base_url($mainImageMini) . ' ' . $w . 'w';
+        }
+        if ($mainImageThumb) {
+          $w = (int) round(140 * $aspect);
+          $srcsetParts[] = base_url($mainImageThumb) . ' ' . $w . 'w';
+        }
+        $mediumW = (int) round(280 * $aspect);
+        $srcsetParts[] = base_url($mainImageMedium) . ' ' . $mediumW . 'w';
+        $largeW = (int) round(560 * $aspect);
+        $srcsetParts[] = base_url($mainImageLarge) . ' ' . $largeW . 'w';
+        if ($fullWidth > $largeW) {
+          $srcsetParts[] = base_url($mainImageFull) . ' ' . $fullWidth . 'w';
+        }
+        $srcset = implode(', ', $srcsetParts);
+        $isFirst = $idx === 0;
         ?>
         <div class="news-main-image">
           <button type="button" class="news-main-image-trigger"
-                  data-full-image="<?= base_url($item['main_image']) ?>"
+                  data-full-image="<?= base_url($mainImageFull) ?>"
                   data-alt="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
                   aria-label="Open image in fullscreen">
             <img
-              src="<?= base_url($mainImageDisplay) ?>"
-              srcset="<?= base_url($mainImageDisplay) ?> 1x, <?= base_url($mainImageLarge) ?> 2x"
-              sizes="(max-width: 768px) 100vw, 560px"
-              width="<?= $mainImageWidth ?>"
-              height="<?= $mainImageHeight ?>"
+              src="<?= base_url($mainImageMedium) ?>"
+              srcset="<?= $srcset ?>"
+              sizes="(max-width: 600px) calc(100vw - 20px), 560px"
+              width="<?= $fullWidth ?>"
+              height="<?= $fullHeight ?>"
               alt="<?= esc($item['title']) ?>"
-              loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
-              fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
+              <?php if ($isFirst): ?>fetchpriority="high"<?php else: ?>loading="lazy" fetchpriority="auto"<?php endif; ?>
               decoding="async">
           </button>
         </div>
