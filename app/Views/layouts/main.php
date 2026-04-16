@@ -25,6 +25,13 @@
 
   <meta name="author" content="Simon Kotlinski">
   <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
+  <?php if (isset($lcp_image_url) && $lcp_image_url !== ''): ?>
+    <?php if (isset($lcp_image_srcset) && $lcp_image_srcset !== ''): ?>
+      <link rel="preload" as="image" href="<?= $lcp_image_url ?>" imagesrcset="<?= $lcp_image_srcset ?>" imagesizes="(max-width: 600px) calc(100vw - 20px), 560px" fetchpriority="high">
+    <?php else: ?>
+      <link rel="preload" as="image" href="<?= $lcp_image_url ?>" fetchpriority="high">
+    <?php endif; ?>
+  <?php endif; ?>
   <style>
     <?= file_get_contents(FCPATH . 'css/layout.css') ?>
     <?= file_get_contents(FCPATH . 'css/style.css') ?>
@@ -86,13 +93,6 @@ $bodyClass = trim(implode(' ', $bodyClassParts));
 </footer>
 </div>
 
-<?php if (isset($lcp_image_url) && $lcp_image_url !== ''): ?>
-  <?php if (isset($lcp_image_srcset) && $lcp_image_srcset !== ''): ?>
-    <link rel="preload" as="image" href="<?= $lcp_image_url ?>" imagesrcset="<?= $lcp_image_srcset ?>" imagesizes="(max-width: 600px) calc(100vw - 20px), 560px">
-  <?php else: ?>
-    <link rel="preload" as="image" href="<?= $lcp_image_url ?>">
-  <?php endif; ?>
-<?php endif; ?>
 <?php if (session()->get('isLoggedIn')): ?>
   <script src="<?= base_url('js/markdown-editor.js') ?>" defer></script>
 <?php endif; ?>

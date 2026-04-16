@@ -28,10 +28,10 @@ class News extends BaseController
         $srcsetParts[] = base_url($first['main_image_mini']) . ' ' . ((int) round(70 * $aspect)) . 'w';
       }
       if (!empty($first['main_image_thumb'])) {
-        $srcsetParts[] = base_url($first['main_image_thumb']) . ' ' . ((int) round(140 * $aspect)) . 'w';
+        $srcsetParts[] = base_url($first['main_image_thumb']) . ' ' . ((int) round(280 * $aspect)) . 'w';
       }
-      $srcsetParts[] = base_url($medium) . ' ' . ((int) round(280 * $aspect)) . 'w';
-      $srcsetParts[] = base_url($large) . ' ' . ((int) round(560 * $aspect)) . 'w';
+      $srcsetParts[] = base_url($medium) . ' ' . ((int) round(560 * $aspect)) . 'w';
+      $srcsetParts[] = base_url($large) . ' ' . ((int) round(1120 * $aspect)) . 'w';
       $lcpImageSrcset = implode(', ', $srcsetParts);
     }
     
@@ -324,11 +324,10 @@ class News extends BaseController
     }
 
     $variants = [
-      '' => ['resize' => '', 'quality' => $quality],
       'mini/' => ['resize' => 'x70', 'quality' => min($quality, 55)],
-      'thumb/' => ['resize' => 'x140', 'quality' => min($quality, 60)],
-      'medium/' => ['resize' => 'x280', 'quality' => min($quality, 65)],
-      'large/' => ['resize' => 'x560', 'quality' => min($quality, 75)],
+      'thumb/' => ['resize' => 'x280', 'quality' => min($quality, 60)],
+      'medium/' => ['resize' => 'x560', 'quality' => min($quality, 65)],
+      'large/' => ['resize' => 'x1120', 'quality' => min($quality, 72)],
     ];
 
     helper('webp');
@@ -345,7 +344,11 @@ class News extends BaseController
     }
 
     $relativePath = 'media/news/' . $webpName;
-    $dimensions = $this->getStoredImageDimensions($relativePath);
+    $largePath = 'media/news/large/' . $webpName;
+    $dimensions = $this->getStoredImageDimensions($largePath);
+    if ($dimensions['width_px'] === null) {
+      $dimensions = $this->getStoredImageDimensions('media/news/medium/' . $webpName);
+    }
 
     return [
       'path' => $relativePath,

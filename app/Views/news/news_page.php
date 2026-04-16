@@ -183,7 +183,7 @@ foreach ($projects ?? [] as $project) {
         $mainImageThumb = $item['main_image_thumb'] ?? null;
         $mainImageMedium = $item['main_image_medium'] ?? $item['main_image'];
         $mainImageLarge = $item['main_image_large'] ?? $mainImageMedium;
-        $mainImageFull = $item['main_image'];
+        $mainImageFull = $item['main_image_large'] ?? $item['main_image'];
         $fullWidth = isset($item['main_image_width']) ? (int) $item['main_image_width'] : 560;
         $fullHeight = isset($item['main_image_height']) ? (int) $item['main_image_height'] : 315;
 
@@ -195,16 +195,13 @@ foreach ($projects ?? [] as $project) {
           $srcsetParts[] = base_url($mainImageMini) . ' ' . $w . 'w';
         }
         if ($mainImageThumb) {
-          $w = (int) round(140 * $aspect);
+          $w = (int) round(280 * $aspect);
           $srcsetParts[] = base_url($mainImageThumb) . ' ' . $w . 'w';
         }
-        $mediumW = (int) round(280 * $aspect);
+        $mediumW = (int) round(560 * $aspect);
         $srcsetParts[] = base_url($mainImageMedium) . ' ' . $mediumW . 'w';
-        $largeW = (int) round(560 * $aspect);
+        $largeW = (int) round(1120 * $aspect);
         $srcsetParts[] = base_url($mainImageLarge) . ' ' . $largeW . 'w';
-        if ($fullWidth > $largeW) {
-          $srcsetParts[] = base_url($mainImageFull) . ' ' . $fullWidth . 'w';
-        }
         $srcset = implode(', ', $srcsetParts);
         $isFirst = $idx === 0;
         ?>
