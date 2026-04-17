@@ -52,6 +52,7 @@ $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjec
               style="width:<?= $thumbW ?>px;height:<?= $thumbH ?>px;"
               data-full-image="<?= base_url($mainImageFull) ?>"
               data-alt="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
+              data-news-title="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
               aria-label="Open image in fullscreen">
         <img
           src="<?= base_url($mainImageThumb) ?>"

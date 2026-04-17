@@ -848,26 +848,31 @@
       </div>
 
       <div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
-        <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" aria-label="Close">
-          &times;
-        </button>
-        <img id="news-image-fullscreen-img" src="" alt="">
+        <figure class="news-image-fullscreen-figure">
+          <img id="news-image-fullscreen-img" src="" alt="">
+          <figcaption class="news-image-fullscreen-caption">
+            <span id="news-image-fullscreen-title" class="news-image-fullscreen-title"></span>
+            <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" aria-label="Close image">close</button>
+          </figcaption>
+        </figure>
       </div>
 
       <script>
         document.addEventListener('DOMContentLoaded', function () {
           var modal = document.getElementById('news-image-fullscreen-modal');
           var modalImg = document.getElementById('news-image-fullscreen-img');
+          var modalTitle = document.getElementById('news-image-fullscreen-title');
           var closeBtn = document.getElementById('news-image-fullscreen-close');
           var triggers = document.querySelectorAll('.news-main-image-trigger');
 
-          if (!modal || !modalImg || !closeBtn || triggers.length === 0) {
+          if (!modal || !modalImg || !modalTitle || !closeBtn || triggers.length === 0) {
             return;
           }
 
-          function openModal(src, alt) {
+          function openModal(src, alt, title) {
             modalImg.src = src;
             modalImg.alt = alt || '';
+            modalTitle.textContent = title || '';
             modal.style.display = 'flex';
             modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
@@ -877,12 +882,17 @@
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
             modalImg.src = '';
+            modalTitle.textContent = '';
             document.body.style.overflow = '';
           }
 
           triggers.forEach(function (trigger) {
             trigger.addEventListener('click', function () {
-              openModal(trigger.dataset.fullImage || '', trigger.dataset.alt || '');
+              openModal(
+                trigger.dataset.fullImage || '',
+                trigger.dataset.alt || '',
+                trigger.dataset.newsTitle || trigger.dataset.alt || ''
+              );
             });
           });
 
