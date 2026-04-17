@@ -31,8 +31,8 @@ class RegenerateNewsImages extends BaseCommand
         $convertBin = trim((string) shell_exec('which convert 2>/dev/null'));
 
         $variants = [
-            'medium/' => ['maxW' => 380, 'maxH' => 280, 'quality' => 65],
-            'large/'  => ['maxW' => 760, 'maxH' => 560, 'quality' => 72],
+            'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => 65],
+            'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => 70],
         ];
 
         foreach ($originals as $origPath) {

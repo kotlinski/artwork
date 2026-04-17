@@ -224,26 +224,30 @@ a:hover {
     margin-bottom: 12px;
 
     .news-main-image {
-        margin: 8px 0 10px 0;
+        margin: 0 0 17px 0;
         display: flex;
         justify-content: center;
+        /* Reserve vertical space even before the img box is laid out. */
+        min-height: 122px;
     }
 
     .news-main-image-trigger {
         display: block;
-        width: fit-content;
         padding: 0;
         margin: 0;
         border: 0;
         background: none;
         cursor: zoom-in;
+        /* Button box follows the image's intrinsic (attribute) dimensions. */
+        line-height: 0;
     }
 
     .news-main-image img {
         display: block;
+        /* Explicit sizing via HTML width/height attributes is honored here;
+           do NOT set width/height to auto — that defeats the aspect-ratio
+           reservation the browser derives from the attributes and causes CLS. */
         max-width: 100%;
-        width: auto;
-        height: auto;
     }
 
     h2 {

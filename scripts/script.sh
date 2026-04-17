@@ -5,8 +5,8 @@
 BASE_DIR="$(dirname "$0")/../public/konst"
 ORIGINAL_DIR="$BASE_DIR/original"
 
-# 1. Setup: Create the subfolder structure inside public/art/
-mkdir -p "$BASE_DIR/mini" "$BASE_DIR/thumb" "$BASE_DIR/medium" "$BASE_DIR/large"
+# 1. Setup: Create the subfolder structure inside public/konst/
+mkdir -p "$BASE_DIR/square" "$BASE_DIR/square2x" "$BASE_DIR/thumb" "$BASE_DIR/thumb2x"
 
 # Enable case-insensitive matching
 shopt -s nocaseglob
@@ -46,21 +46,21 @@ for img in "$ORIGINAL_DIR"/*.{jpg,jpeg,png}; do
     # ROOT of /art/ (full-size WebP)
     convert "$img" -auto-orient png:- | cwebp -q "$QUALITY" -o "$BASE_DIR/${filename}.webp" -- -
 
-    # MINI: 70px height
-    MINI_Q=$(( QUALITY < 55 ? QUALITY : 55 ))
-    convert "$img" -auto-orient -resize x70 png:- | cwebp -q "$MINI_Q" -o "$BASE_DIR/mini/${filename}.webp" -- -
-
-    # THUMB: 140px height
+    # THUMB: fit within 122x122
     THUMB_Q=$(( QUALITY < 60 ? QUALITY : 60 ))
-    convert "$img" -auto-orient -resize x140 png:- | cwebp -q "$THUMB_Q" -o "$BASE_DIR/thumb/${filename}.webp" -- -
+    convert "$img" -auto-orient -resize 122x122\> png:- | cwebp -q "$THUMB_Q" -o "$BASE_DIR/thumb/${filename}.webp" -- -
 
-    # MEDIUM: 280px height
-    MEDIUM_Q=$(( QUALITY < 65 ? QUALITY : 65 ))
-    convert "$img" -auto-orient -resize x280 png:- | cwebp -q "$MEDIUM_Q" -o "$BASE_DIR/medium/${filename}.webp" -- -
+    # THUMB2X: fit within 244x244
+    THUMB2X_Q=$(( QUALITY < 65 ? QUALITY : 65 ))
+    convert "$img" -auto-orient -resize 244x244\> png:- | cwebp -q "$THUMB2X_Q" -o "$BASE_DIR/thumb2x/${filename}.webp" -- -
 
-    # LARGE: 560px height
-    LARGE_Q=$(( QUALITY < 75 ? QUALITY : 75 ))
-    convert "$img" -auto-orient -resize x560 png:- | cwebp -q "$LARGE_Q" -o "$BASE_DIR/large/${filename}.webp" -- -
+    # SQUARE: 122x122 center crop
+    SQUARE_Q=$(( QUALITY < 65 ? QUALITY : 65 ))
+    convert "$img" -auto-orient -resize 122x122^ -gravity center -extent 122x122 png:- | cwebp -q "$SQUARE_Q" -o "$BASE_DIR/square/${filename}.webp" -- -
+
+    # SQUARE2X: 244x244 center crop
+    SQUARE2X_Q=$(( QUALITY < 65 ? QUALITY : 65 ))
+    convert "$img" -auto-orient -resize 244x244^ -gravity center -extent 244x244 png:- | cwebp -q "$SQUARE2X_Q" -o "$BASE_DIR/square2x/${filename}.webp" -- -
 
 done
 

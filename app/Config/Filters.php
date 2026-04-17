@@ -31,6 +31,7 @@ class Filters extends BaseFilters
     'invalidchars' => InvalidChars::class,
     'secureheaders' => SecureHeaders::class,
     'auth' => \App\Filters\AuthFilter::class,
+    'compress' => \App\Filters\ResponseCompressionFilter::class,
     'cors' => Cors::class,
     'forcehttps' => ForceHTTPS::class,
     'pagecache' => PageCache::class,
@@ -59,6 +60,7 @@ class Filters extends BaseFilters
       'pagecache',   // Web Page Caching
       'performance', // Performance Metrics
       'toolbar',     // Debug Toolbar
+      'compress',    // Gzip-compress final text responses when server compression is unavailable
     ],
   ];
   

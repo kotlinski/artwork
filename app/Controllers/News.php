@@ -16,7 +16,7 @@ class News extends BaseController
     $lcpImageUrl = '';
     foreach (array_slice($news_items, 0, 3) as $candidate) {
       if (!empty($candidate['main_image'])) {
-        $lcpImageUrl = base_url($candidate['main_image_medium'] ?? $candidate['main_image']);
+        $lcpImageUrl = base_url($candidate['main_image_thumb'] ?? $candidate['main_image']);
         break;
       }
     }
@@ -69,28 +69,41 @@ class News extends BaseController
       $mainImage = $item['main_image'] ?? null;
       if (is_string($mainImage) && str_starts_with($mainImage, 'media/news/')) {
         $basename = basename($mainImage);
+        $thumbPath = 'media/news/thumb/' . $basename;
+        $thumb2xPath = 'media/news/thumb2x/' . $basename;
         $mediumPath = 'media/news/medium/' . $basename;
         $largePath  = 'media/news/large/'  . $basename;
 
-        $item['main_image_mini']   = null;
-        $item['main_image_thumb']  = null;
-        $item['main_image_medium'] = is_file(FCPATH . $mediumPath) ? $mediumPath : $mainImage;
-        $item['main_image_large']  = is_file(FCPATH . $largePath)  ? $largePath  : $item['main_image_medium'];
+        $hasThumb = is_file(FCPATH . $thumbPath);
+        $hasThumb2x = is_file(FCPATH . $thumb2xPath);
+        $hasMedium = is_file(FCPATH . $mediumPath);
+        $hasLarge = is_file(FCPATH . $largePath);
 
-        // Always derive display dimensions from the medium file — it is already
-        // reoriented and resized, so its pixel dimensions are the ground truth.
-        $mediumFilePath = FCPATH . $item['main_image_medium'];
-        $dims = @getimagesize($mediumFilePath);
+        $item['main_image_thumb'] = $hasThumb ? $thumbPath : ($hasMedium ? $mediumPath : $mainImage);
+        $item['main_image_thumb2x'] = $hasThumb2x ? $thumb2xPath : ($hasLarge ? $largePath : $item['main_image_thumb']);
+
+        // Keep legacy keys for compatibility with older templates/scripts.
+        $item['main_image_mini']   = null;
+        $item['main_image_medium'] = $hasMedium ? $mediumPath : $item['main_image_thumb'];
+        $item['main_image_large']  = $hasLarge  ? $largePath  : $item['main_image_thumb2x'];
+
+        // Derive display dimensions from the thumb file; if unreadable, compute
+        // them from the stored original dimensions using the same fit-within rule.
+        $displayFilePath = FCPATH . $item['main_image_thumb'];
+        $dims = @getimagesize($displayFilePath);
         if ($dims && $dims[0] > 0 && $dims[1] > 0) {
           $item['main_image_width']  = (int) $dims[0];
           $item['main_image_height'] = (int) $dims[1];
         } else {
-          // Fallback to stored DB values if medium file can't be read.
+          // Compute expected thumb dimensions from stored original dimensions
+          // using the same fit-within-122×122 bounding box the generator uses.
           $storedWidth  = isset($item['width_px'])  ? (int) $item['width_px']  : 0;
           $storedHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
           if ($storedWidth > 0 && $storedHeight > 0) {
-            $item['main_image_width']  = $storedWidth;
-            $item['main_image_height'] = $storedHeight;
+            $thumbMax = 122;
+            $scale = min($thumbMax / $storedWidth, $thumbMax / $storedHeight, 1.0);
+            $item['main_image_width']  = (int) round($storedWidth  * $scale);
+            $item['main_image_height'] = (int) round($storedHeight * $scale);
           }
         }
       }
@@ -305,10 +318,10 @@ class News extends BaseController
     // Root: full reoriented image used for fullscreen mode.
     generate_webp_variant($origPath, $newsDir . $webpName, $quality);
 
-    // Two variants: medium (1x) and large (2x), both fit within their bounding box.
+    // Two variants: thumb (1x) and thumb2x (2x), both fit within their bounding box.
     $variants = [
-      'medium/' => ['maxW' => 380, 'maxH' => 280, 'quality' => min($quality, 65)],
-      'large/'  => ['maxW' => 760, 'maxH' => 560, 'quality' => min($quality, 72)],
+      'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => min($quality, 65)],
+      'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => min($quality, 70)],
     ];
 
     foreach ($variants as $subdir => $opts) {
@@ -321,8 +334,9 @@ class News extends BaseController
     }
 
     $relativePath = 'media/news/' . $webpName;
-    $mediumPath = 'media/news/medium/' . $webpName;
-    $dimensions = $this->getStoredImageDimensions($mediumPath);
+    // Store the original (root) image dimensions so the fallback calculation in
+    // normalizeMainImagePaths can derive correct thumb/thumb2x intrinsic sizes.
+    $dimensions = $this->getStoredImageDimensions($relativePath);
 
     return [
       'path' => $relativePath,
@@ -352,6 +366,8 @@ class News extends BaseController
   {
     $webpPaths = [
       $newsDir . $basename . '.webp',
+      $newsDir . 'thumb/' . $basename . '.webp',
+      $newsDir . 'thumb2x/' . $basename . '.webp',
       $newsDir . 'medium/' . $basename . '.webp',
       $newsDir . 'large/' . $basename . '.webp',
     ];
@@ -385,7 +401,7 @@ class News extends BaseController
     }
 
     $newsDir = FCPATH . 'media/news/';
-    $variantDirs = ['', 'mini/', 'thumb/', 'medium/', 'large/'];
+    $variantDirs = ['', 'mini/', 'thumb/', 'thumb2x/', 'medium/', 'large/'];
     foreach ($variantDirs as $subdir) {
       $candidate = $newsDir . $subdir . $basename;
       if (is_file($candidate)) {

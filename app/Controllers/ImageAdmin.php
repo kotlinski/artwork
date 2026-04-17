@@ -261,7 +261,6 @@ class ImageAdmin extends BaseController
     // square2x/  — 244×244 center crop  (2× retina)
     // thumb/     — fits within 122×122  (full image, no crop)
     // thumb2x/   — fits within 244×244  (2× retina)
-    // medium/    — fits within 560×560  (detail/modal view)
     // Root       — full reoriented image (fullscreen)
     $squareVariants = [
       'square/'  => ['size' => 122, 'quality' => min($quality, 65)],
@@ -270,7 +269,6 @@ class ImageAdmin extends BaseController
     $fitVariants = [
       'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => min($quality, 65)],
       'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => min($quality, 65)],
-      'medium/'  => ['maxW' => 560, 'maxH' => 560, 'quality' => min($quality, 72)],
     ];
     foreach ($squareVariants as $subdir => $opts) {
       $targetDir = $konstDir . $subdir;

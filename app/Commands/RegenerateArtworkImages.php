@@ -36,11 +36,10 @@ class RegenerateArtworkImages extends BaseCommand
             'square2x/' => 244,
         ];
 
-        // thumb/, thumb2x/, medium/ — fit within bounding box
+        // thumb/ and thumb2x/ — fit within bounding box
         $fitVariants = [
             'thumb/'   => [122, 122],
             'thumb2x/' => [244, 244],
-            'medium/'  => [560, 560],
         ];
 
         $total = count($originals);

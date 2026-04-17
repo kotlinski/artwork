@@ -495,7 +495,7 @@
                 <img
                   src="<?= base_url('konst/thumb/' . $image_file_name) ?>"
                   srcset="<?= base_url('konst/thumb/' . $image_file_name) ?> 1x,
-                          <?= base_url('konst/medium/' . $image_file_name) ?> 2x"
+                          <?= base_url('konst/thumb2x/' . $image_file_name) ?> 2x"
                   alt="<?= esc($image_title) ?>"
                   loading="lazy"
                   style="<?= $imageStyle ?>"/>

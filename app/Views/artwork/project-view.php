@@ -451,7 +451,7 @@
       window.currentImageIndex = imageIndex;
       document.getElementById('modal-project-id-hidden').value = String(projectId);
       document.getElementById('modal-image-index-hidden').value = imageIndex;
-      document.getElementById('modal-img-preview').src = '/konst/medium/' + img.file_name;
+      document.getElementById('modal-img-preview').src = '/konst/' + img.file_name;
       document.getElementById('modal-img-preview').alt = img.title;
       document.getElementById('modal-title').value = img.title || '';
       document.getElementById('modal-alternate-name').value = img.alternate_name || '';
