@@ -780,18 +780,31 @@
         style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));align-items:center;gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 6px 0 12px 0;">
         <?php foreach ($images as $idx => $img): ?>
           <?php if (!isset($img['file_name'])) continue; ?>
+          <?php
+          // Keep intrinsic dimensions accurate for stable layout while fitting thumbnails within 122x122.
+          $origW = isset($img['width_px']) ? (int)$img['width_px'] : 0;
+          $origH = isset($img['height_px']) ? (int)$img['height_px'] : 0;
+          if ($origW > 0 && $origH > 0) {
+            $scale = min(122 / $origW, 122 / $origH, 1);
+            $thumbW = max(1, (int)round($origW * $scale));
+            $thumbH = max(1, (int)round($origH * $scale));
+          } else {
+            $thumbW = 122;
+            $thumbH = 122;
+          }
+          ?>
           <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>"
-             style="display:flex;align-items:center;justify-content:center;align-self:center;background:#fff;width:var(--thumb-size);height:var(--thumb-size);overflow:hidden;">
+             style="display:flex;align-items:center;justify-content:center;background:#fff;width:var(--thumb-size);overflow:hidden;">
             <img
               src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
               srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x, <?= base_url('konst/thumb2x/' . $img['file_name']) ?> 2x"
-              width="122"
-              height="122"
+              width="<?= $thumbW ?>"
+              height="<?= $thumbH ?>"
               alt="<?= esc($img['title'] ?? '') ?>"
               loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
               fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
               decoding="async"
-              style="display:block;width:100%;height:100%;object-fit:contain;border:0;"
+              style="display:block;max-width:100%;max-height:122px;height:auto;border:0;"
             />
           </a>
         <?php endforeach; ?>
