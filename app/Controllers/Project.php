@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\ParsedownWithLinkTargets;
 use App\Models\Image;
 
 class Project extends BaseController
@@ -85,13 +86,11 @@ class Project extends BaseController
       ->findAll();
 
     if (!empty($projectNews)) {
-      $parser = new \Parsedown();
+      $projectNews = $this->normalizeMainImagePaths($projectNews);
+      $parser = new ParsedownWithLinkTargets();
       $parser->setSafeMode(true);
       $parser->setBreaksEnabled(true);
-      $projectNews = array_map(function ($item) use ($parser) {
-        $item['content_parsed'] = $parser->text($item['content'] ?? '');
-        return $item;
-      }, $projectNews);
+      $projectNews = $this->addParsedNewsContent($projectNews, $parser);
     }
 
     $allProjectsQuery = $projectModel->orderBy('sort_order', 'ASC');
@@ -195,6 +194,62 @@ class Project extends BaseController
           'projects' => $projects,
           'selected_menu_item' => 'artwork',
       ]);
+  }
+
+  protected function addParsedNewsContent(array $newsItems, \Parsedown $parser): array
+  {
+    return array_map(static function (array $item) use ($parser): array {
+      $item['content_parsed'] = $parser->text($item['content'] ?? '');
+      return $item;
+    }, $newsItems);
+  }
+
+  protected function normalizeMainImagePaths(array $newsItems): array
+  {
+    return array_map(static function (array $item): array {
+      $mainImage = $item['main_image'] ?? null;
+      if (is_string($mainImage) && str_starts_with($mainImage, 'news/')) {
+        $item['main_image'] = 'media/news/' . ltrim(substr($mainImage, 5), '/');
+      }
+
+      $mainImage = $item['main_image'] ?? null;
+      if (is_string($mainImage) && str_starts_with($mainImage, 'media/news/')) {
+        $basename = basename($mainImage);
+        $thumbPath = 'media/news/thumb/' . $basename;
+        $thumb2xPath = 'media/news/thumb2x/' . $basename;
+        $mediumPath = 'media/news/medium/' . $basename;
+        $largePath = 'media/news/large/' . $basename;
+
+        $hasThumb = is_file(FCPATH . $thumbPath);
+        $hasThumb2x = is_file(FCPATH . $thumb2xPath);
+        $hasMedium = is_file(FCPATH . $mediumPath);
+        $hasLarge = is_file(FCPATH . $largePath);
+
+        $item['main_image_thumb'] = $hasThumb ? $thumbPath : ($hasMedium ? $mediumPath : $mainImage);
+        $item['main_image_thumb2x'] = $hasThumb2x ? $thumb2xPath : ($hasLarge ? $largePath : $item['main_image_thumb']);
+        $item['main_image_mini'] = null;
+        $item['main_image_medium'] = $hasMedium ? $mediumPath : $item['main_image_thumb'];
+        $item['main_image_large'] = $hasLarge ? $largePath : $item['main_image_thumb2x'];
+
+        $displayFilePath = FCPATH . $item['main_image_thumb'];
+        $dims = @getimagesize($displayFilePath);
+        if ($dims && $dims[0] > 0 && $dims[1] > 0) {
+          $item['main_image_width'] = (int)$dims[0];
+          $item['main_image_height'] = (int)$dims[1];
+        } else {
+          $storedWidth = isset($item['width_px']) ? (int)$item['width_px'] : 0;
+          $storedHeight = isset($item['height_px']) ? (int)$item['height_px'] : 0;
+          if ($storedWidth > 0 && $storedHeight > 0) {
+            $thumbMax = 122;
+            $scale = min($thumbMax / $storedWidth, $thumbMax / $storedHeight, 1.0);
+            $item['main_image_width'] = (int)round($storedWidth * $scale);
+            $item['main_image_height'] = (int)round($storedHeight * $scale);
+          }
+        }
+      }
+
+      return $item;
+    }, $newsItems);
   }
 }
 

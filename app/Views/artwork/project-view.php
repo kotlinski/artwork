@@ -835,32 +835,69 @@
     <!--    <hr class="light"/>
     -->    <?php if (!empty($project_news)): ?>
       <div class="project-news">
-        <?php foreach ($project_news as $item):
-          $createdTs = strtotime($item['created_at']);
-          if ($createdTs !== false) {
-            $svMonths = [
-              1 => 'januari', 2 => 'februari', 3 => 'mars', 4 => 'april',
-              5 => 'maj', 6 => 'juni', 7 => 'juli', 8 => 'augusti',
-              9 => 'september', 10 => 'oktober', 11 => 'november', 12 => 'december',
-            ];
-            $createdLabel = date('j', $createdTs) . ' ' . $svMonths[(int)date('n', $createdTs)] . ' ' . date('Y', $createdTs);
-          } else {
-            $createdLabel = esc($item['created_at']);
-          }
-          ?>
-          <article id="<?= esc($item['slug']) ?>" class="news-item">
-            <h2><?= esc($item['title']) ?></h2>
-            <!--<div class="date"><?php /*= $createdLabel */
-            ?></div>-->
-            <div class="body">
-              <?= $item['content_parsed'] ?: nl2br(esc($item['content'] ?? '')) ?>
-            </div>
-            <?php if ($item !== end($project_news)): ?>
-              <hr>
-            <?php endif; ?>
-          </article>
+        <?php foreach ($project_news as $idx => $item): ?>
+          <?= view('partials/news_item', [
+            'item' => $item,
+            'idx' => $idx,
+            'total' => count($project_news),
+            'showAdmin' => false,
+            'includeDataAttrs' => false,
+            'articleIdPrefix' => '',
+          ]) ?>
         <?php endforeach; ?>
       </div>
+
+      <div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
+        <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" aria-label="Close">
+          &times;
+        </button>
+        <img id="news-image-fullscreen-img" src="" alt="">
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var modal = document.getElementById('news-image-fullscreen-modal');
+          var modalImg = document.getElementById('news-image-fullscreen-img');
+          var closeBtn = document.getElementById('news-image-fullscreen-close');
+          var triggers = document.querySelectorAll('.news-main-image-trigger');
+
+          if (!modal || !modalImg || !closeBtn || triggers.length === 0) {
+            return;
+          }
+
+          function openModal(src, alt) {
+            modalImg.src = src;
+            modalImg.alt = alt || '';
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+          }
+
+          function closeModal() {
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+            modalImg.src = '';
+            document.body.style.overflow = '';
+          }
+
+          triggers.forEach(function (trigger) {
+            trigger.addEventListener('click', function () {
+              openModal(trigger.dataset.fullImage || '', trigger.dataset.alt || '');
+            });
+          });
+
+          closeBtn.addEventListener('click', closeModal);
+
+          modalImg.addEventListener('click', closeModal);
+
+          document.addEventListener('keydown', function (e) {
+            if ((e.key === 'Escape' || e.key === 'Esc') && modal.style.display === 'flex') {
+              closeModal();
+            }
+          });
+        });
+      </script>
+
       <hr class="light"/>
     <?php endif; ?>
     <div class="back-to-overview-row"
