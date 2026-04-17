@@ -14,25 +14,11 @@ class News extends BaseController
     $news_items = $model->getLatestNews();
     $news_items = $this->normalizeMainImagePaths($news_items);
     $lcpImageUrl = '';
-    $lcpImageSrcset = '';
-    if (!empty($news_items[0]['main_image'])) {
-      $first = $news_items[0];
-      $fullWidth = isset($first['main_image_width']) ? (int) $first['main_image_width'] : 560;
-      $fullHeight = isset($first['main_image_height']) ? (int) $first['main_image_height'] : 315;
-      $aspect = $fullWidth > 0 ? ($fullWidth / $fullHeight) : (16 / 9);
-      $medium = $first['main_image_medium'] ?? $first['main_image'];
-      $large = $first['main_image_large'] ?? $medium;
-      $lcpImageUrl = base_url($medium);
-      $srcsetParts = [];
-      if (!empty($first['main_image_mini'])) {
-        $srcsetParts[] = base_url($first['main_image_mini']) . ' ' . ((int) round(70 * $aspect)) . 'w';
+    foreach (array_slice($news_items, 0, 3) as $candidate) {
+      if (!empty($candidate['main_image'])) {
+        $lcpImageUrl = base_url($candidate['main_image_medium'] ?? $candidate['main_image']);
+        break;
       }
-      if (!empty($first['main_image_thumb'])) {
-        $srcsetParts[] = base_url($first['main_image_thumb']) . ' ' . ((int) round(280 * $aspect)) . 'w';
-      }
-      $srcsetParts[] = base_url($medium) . ' ' . ((int) round(560 * $aspect)) . 'w';
-      $srcsetParts[] = base_url($large) . ' ' . ((int) round(1120 * $aspect)) . 'w';
-      $lcpImageSrcset = implode(', ', $srcsetParts);
     }
     
     $parser = new ParsedownWithLinkTargets();
@@ -52,7 +38,6 @@ class News extends BaseController
       'og_image_width' => '320',
       'og_image_height' => '320',
       'lcp_image_url' => $lcpImageUrl,
-      'lcp_image_srcset' => $lcpImageSrcset,
     ];
     
     $page_specific = [
@@ -84,36 +69,28 @@ class News extends BaseController
       $mainImage = $item['main_image'] ?? null;
       if (is_string($mainImage) && str_starts_with($mainImage, 'media/news/')) {
         $basename = basename($mainImage);
-        $miniPath = 'media/news/mini/' . $basename;
-        $thumbPath = 'media/news/thumb/' . $basename;
         $mediumPath = 'media/news/medium/' . $basename;
-        $largePath = 'media/news/large/' . $basename;
+        $largePath  = 'media/news/large/'  . $basename;
 
-        $item['main_image_mini'] = is_file(FCPATH . $miniPath) ? $miniPath : null;
-        $item['main_image_thumb'] = is_file(FCPATH . $thumbPath) ? $thumbPath : null;
+        $item['main_image_mini']   = null;
+        $item['main_image_thumb']  = null;
         $item['main_image_medium'] = is_file(FCPATH . $mediumPath) ? $mediumPath : $mainImage;
-        $item['main_image_large'] = is_file(FCPATH . $largePath) ? $largePath : $item['main_image_medium'];
+        $item['main_image_large']  = is_file(FCPATH . $largePath)  ? $largePath  : $item['main_image_medium'];
 
-        $storedWidth = isset($item['width_px']) ? (int) $item['width_px'] : 0;
-        $storedHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
-
-        if ($storedWidth > 0 && $storedHeight > 0) {
-          $item['main_image_width'] = $storedWidth;
-          $item['main_image_height'] = $storedHeight;
+        // Always derive display dimensions from the medium file — it is already
+        // reoriented and resized, so its pixel dimensions are the ground truth.
+        $mediumFilePath = FCPATH . $item['main_image_medium'];
+        $dims = @getimagesize($mediumFilePath);
+        if ($dims && $dims[0] > 0 && $dims[1] > 0) {
+          $item['main_image_width']  = (int) $dims[0];
+          $item['main_image_height'] = (int) $dims[1];
         } else {
-          $dimensionCandidates = array_values(array_filter([
-            $item['main_image'] ?? '',
-            $item['main_image_large'] ?? '',
-            $item['main_image_medium'] ?? '',
-          ], static fn ($candidate): bool => is_string($candidate) && $candidate !== ''));
-
-          foreach ($dimensionCandidates as $candidatePath) {
-            $dimensions = $this->getStoredImageDimensions($candidatePath);
-            if ($dimensions['width_px'] !== null && $dimensions['height_px'] !== null) {
-              $item['main_image_width'] = $dimensions['width_px'];
-              $item['main_image_height'] = $dimensions['height_px'];
-              break;
-            }
+          // Fallback to stored DB values if medium file can't be read.
+          $storedWidth  = isset($item['width_px'])  ? (int) $item['width_px']  : 0;
+          $storedHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
+          if ($storedWidth > 0 && $storedHeight > 0) {
+            $item['main_image_width']  = $storedWidth;
+            $item['main_image_height'] = $storedHeight;
           }
         }
       }
@@ -323,32 +300,29 @@ class News extends BaseController
       $quality = 87;
     }
 
-    $variants = [
-      'mini/' => ['resize' => 'x70', 'quality' => min($quality, 55)],
-      'thumb/' => ['resize' => 'x280', 'quality' => min($quality, 60)],
-      'medium/' => ['resize' => 'x560', 'quality' => min($quality, 65)],
-      'large/' => ['resize' => 'x1120', 'quality' => min($quality, 72)],
-    ];
-
     helper('webp');
+
+    // Root: full reoriented image used for fullscreen mode.
+    generate_webp_variant($origPath, $newsDir . $webpName, $quality);
+
+    // Two variants: medium (1x) and large (2x), both fit within their bounding box.
+    $variants = [
+      'medium/' => ['maxW' => 380, 'maxH' => 280, 'quality' => min($quality, 65)],
+      'large/'  => ['maxW' => 760, 'maxH' => 560, 'quality' => min($quality, 72)],
+    ];
 
     foreach ($variants as $subdir => $opts) {
       $targetDir = $newsDir . $subdir;
       if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
         throw new \RuntimeException('Failed to create news variant directory.');
       }
-
       $outPath = $targetDir . $webpName;
-      $resizeHeight = $opts['resize'] !== '' ? (int) str_replace('x', '', $opts['resize']) : 0;
-      generate_webp_variant($origPath, $outPath, $opts['quality'], $resizeHeight);
+      generate_webp_fit($origPath, $outPath, $opts['maxW'], $opts['maxH'], $opts['quality']);
     }
 
     $relativePath = 'media/news/' . $webpName;
-    $largePath = 'media/news/large/' . $webpName;
-    $dimensions = $this->getStoredImageDimensions($largePath);
-    if ($dimensions['width_px'] === null) {
-      $dimensions = $this->getStoredImageDimensions('media/news/medium/' . $webpName);
-    }
+    $mediumPath = 'media/news/medium/' . $webpName;
+    $dimensions = $this->getStoredImageDimensions($mediumPath);
 
     return [
       'path' => $relativePath,
@@ -378,8 +352,6 @@ class News extends BaseController
   {
     $webpPaths = [
       $newsDir . $basename . '.webp',
-      $newsDir . 'mini/' . $basename . '.webp',
-      $newsDir . 'thumb/' . $basename . '.webp',
       $newsDir . 'medium/' . $basename . '.webp',
       $newsDir . 'large/' . $basename . '.webp',
     ];

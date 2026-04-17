@@ -130,7 +130,7 @@
       if (!select || !img) return;
       const val = select.value;
       if (val && projectImageIdToFile[val]) {
-        img.src = '/konst/thumb/' + projectImageIdToFile[val];
+        img.src = '/konst/square/' + projectImageIdToFile[val];
         img.style.display = '';
       } else {
         img.src = '';
@@ -295,8 +295,8 @@
               <a href="#" class="image-edit-link"
                  onclick="openImageEditModal(<?= $img['id'] ?>, <?= $project['id'] ?>); return false;">
                 <div class="image-list-thumb">
-                  <img src="/konst/thumb/<?= esc($img['file_name']) ?>" alt="<?= esc($img['title']) ?>"
-                       style="max-width:90px;max-height:60px;">
+                  <img src="/konst/square/<?= esc($img['file_name']) ?>" alt="<?= esc($img['title']) ?>"
+                 style="max-width:90px;max-height:60px;object-fit:cover;">
                 </div>
               </a>
               <div class="image-list-main">
@@ -780,33 +780,18 @@
         style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));align-items:center;gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 6px 0 12px 0;">
         <?php foreach ($images as $idx => $img): ?>
           <?php if (!isset($img['file_name'])) continue; ?>
-          <?php
-          $imgWidth = isset($img['width_px']) && (int)$img['width_px'] > 0 ? (int)$img['width_px'] : 400;
-          $imgHeight = isset($img['height_px']) && (int)$img['height_px'] > 0 ? (int)$img['height_px'] : 400;
-          $slotHeight = 'min(calc(var(--thumb-size) * ' . $imgHeight . ' / ' . $imgWidth . '), 122px)';
-          ?>
           <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>"
-             style="display:flex;align-items:center;justify-content:center;align-self:center;background:#fff;height:<?= esc($slotHeight, 'attr') ?>;overflow:hidden;">
+             style="display:flex;align-items:center;justify-content:center;align-self:center;background:#fff;width:var(--thumb-size);height:var(--thumb-size);overflow:hidden;">
             <img
               src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
-              srcset="<?= base_url('konst/mini/' . $img['file_name']) ?> <?= max(1, (int)(70 * $imgWidth / max($imgHeight, 1))) ?>w,
-                <?= base_url('konst/thumb/' . $img['file_name']) ?> <?= max(1, (int)(140 * $imgWidth / max($imgHeight, 1))) ?>w,
-                <?= base_url('konst/medium/' . $img['file_name']) ?> <?= max(1, (int)(280 * $imgWidth / max($imgHeight, 1))) ?>w"
-              sizes="calc((min(100vw, 400px) - 34px) / 3)"
+              srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x, <?= base_url('konst/thumb2x/' . $img['file_name']) ?> 2x"
+              width="122"
+              height="122"
               alt="<?= esc($img['title'] ?? '') ?>"
-              width="<?= $imgWidth ?>"
-              height="<?= $imgHeight ?>"
               loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
               fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
               decoding="async"
-              style="
-              display: block;
-              width: auto;
-              height: auto;
-              max-width: 100%;
-              max-height: 100%;
-              border: 0;
-              "
+              style="display:block;width:100%;height:100%;object-fit:contain;border:0;"
             />
           </a>
         <?php endforeach; ?>

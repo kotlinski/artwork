@@ -31,10 +31,8 @@ class RegenerateNewsImages extends BaseCommand
         $convertBin = trim((string) shell_exec('which convert 2>/dev/null'));
 
         $variants = [
-            'mini/'   => ['height' => 70,   'quality' => 55],
-            'thumb/'  => ['height' => 280,  'quality' => 60],
-            'medium/' => ['height' => 560,  'quality' => 65],
-            'large/'  => ['height' => 1120, 'quality' => 72],
+            'medium/' => ['maxW' => 380, 'maxH' => 280, 'quality' => 65],
+            'large/'  => ['maxW' => 760, 'maxH' => 560, 'quality' => 72],
         ];
 
         foreach ($originals as $origPath) {
@@ -43,6 +41,9 @@ class RegenerateNewsImages extends BaseCommand
 
             CLI::write("Processing: {$baseName}");
 
+            // Root fullscreen file (reoriented, no resize)
+            $this->generateRoot($origPath, $newsDir . $webpName, 87, $convertBin, $cwebpBin);
+
             foreach ($variants as $subdir => $opts) {
                 $targetDir = $newsDir . $subdir;
                 if (!is_dir($targetDir)) {
@@ -50,36 +51,41 @@ class RegenerateNewsImages extends BaseCommand
                 }
 
                 $outPath = $targetDir . $webpName;
-                $height = $opts['height'];
-                $quality = $opts['quality'];
 
-                // Use ImageMagick convert to resize, then cwebp to encode
-                $tmpPng = tempnam(sys_get_temp_dir(), 'regen_') . '.png';
+                $tmpPng  = tempnam(sys_get_temp_dir(), 'regen_') . '.png';
+                $converted = false;
 
                 if ($convertBin !== '') {
+                    // fit within bounding box with ImageMagick
                     $cmd = sprintf(
-                        '%s %s -auto-orient -resize x%d -quality 95 %s 2>/dev/null',
+                        '%s %s -auto-orient -resize %dx%d\> -quality 95 %s 2>/dev/null',
                         escapeshellarg($convertBin),
                         escapeshellarg($origPath),
-                        $height,
+                        $opts['maxW'],
+                        $opts['maxH'],
                         escapeshellarg($tmpPng)
                     );
                     exec($cmd, $out, $rc);
-                } else {
-                    // Fallback to GD
-                    $this->resizeWithGd($origPath, $tmpPng, $height);
-                    $rc = 0;
+                    $converted = ($rc === 0 && is_file($tmpPng));
                 }
 
-                if ($rc === 0 && is_file($tmpPng) && $cwebpBin !== '') {
+                if (!$converted) {
+                    $this->fitWithGd($origPath, $tmpPng, $opts['maxW'], $opts['maxH']);
+                    $converted = is_file($tmpPng);
+                }
+
+                if ($converted && $cwebpBin !== '') {
                     $cmd = sprintf(
                         '%s -q %d -o %s -- %s 2>/dev/null',
                         escapeshellarg($cwebpBin),
-                        $quality,
+                        $opts['quality'],
                         escapeshellarg($outPath),
                         escapeshellarg($tmpPng)
                     );
                     exec($cmd);
+                } elseif ($converted) {
+                    // fallback: copy png as webp via GD
+                    $this->pngToWebp($tmpPng, $outPath, $opts['quality']);
                 }
 
                 if (is_file($tmpPng)) {
@@ -89,29 +95,31 @@ class RegenerateNewsImages extends BaseCommand
                 $size = is_file($outPath) ? round(filesize($outPath) / 1024, 1) : '??';
                 CLI::write("  {$subdir}{$webpName}: {$size} KB");
             }
-
-            // Remove old root-level webp
-            $rootWebp = $newsDir . $webpName;
-            if (is_file($rootWebp)) {
-                unlink($rootWebp);
-                CLI::write("  Removed old root: {$webpName}");
-            }
         }
 
         CLI::write('Done!', 'green');
     }
 
-    private function resizeWithGd(string $src, string $dst, int $targetHeight): void
+    private function fitWithGd(string $src, string $dst, int $maxW, int $maxH): void
     {
         $info = getimagesize($src);
         if (!$info) return;
 
-        $srcW = $info[0];
-        $srcH = $info[1];
-        $type = $info[2];
-        $scale = $targetHeight / $srcH;
-        $dstW = (int) round($srcW * $scale);
-        $dstH = $targetHeight;
+        [$srcW, $srcH, $type] = $info;
+
+        // EXIF rotate for JPEG
+        $exifAngle = 0;
+        if ($type === IMAGETYPE_JPEG && function_exists('exif_read_data')) {
+            $exif = @exif_read_data($src);
+            $exifAngle = match ((int) ($exif['Orientation'] ?? 0)) {
+                3 => 180, 6 => -90, 8 => 90, default => 0,
+            };
+            if (abs($exifAngle) === 90) [$srcW, $srcH] = [$srcH, $srcW];
+        }
+
+        $scale  = min($maxW / $srcW, $maxH / $srcH, 1.0);
+        $dstW   = (int) round($srcW * $scale);
+        $dstH   = (int) round($srcH * $scale);
 
         $srcImg = match ($type) {
             IMAGETYPE_JPEG => imagecreatefromjpeg($src),
@@ -121,11 +129,61 @@ class RegenerateNewsImages extends BaseCommand
         };
         if (!$srcImg) return;
 
+        if ($exifAngle !== 0) {
+            $srcImg = imagerotate($srcImg, $exifAngle, 0);
+        }
+
         $dstImg = imagecreatetruecolor($dstW, $dstH);
-        imagecopyresampled($dstImg, $srcImg, 0, 0, 0, 0, $dstW, $dstH, $srcW, $srcH);
+        imagecopyresampled($dstImg, $srcImg, 0, 0, 0, 0, $dstW, $dstH, imagesx($srcImg), imagesy($srcImg));
         imagepng($dstImg, $dst);
         imagedestroy($srcImg);
         imagedestroy($dstImg);
     }
-}
 
+    private function pngToWebp(string $src, string $dst, int $quality): void
+    {
+        $img = imagecreatefrompng($src);
+        if (!$img) return;
+        imagewebp($img, $dst, $quality);
+        imagedestroy($img);
+    }
+
+    private function generateRoot(string $src, string $dst, int $quality, string $convertBin, string $cwebpBin): void
+    {
+        $tmpPng = tempnam(sys_get_temp_dir(), 'regen_') . '.png';
+        $converted = false;
+
+        if ($convertBin !== '') {
+            $cmd = sprintf(
+                '%s %s -auto-orient -quality 95 %s 2>/dev/null',
+                escapeshellarg($convertBin),
+                escapeshellarg($src),
+                escapeshellarg($tmpPng)
+            );
+            exec($cmd, $out, $rc);
+            $converted = ($rc === 0 && is_file($tmpPng));
+        }
+
+        if (!$converted) {
+            $this->fitWithGd($src, $tmpPng, 99999, 99999);
+            $converted = is_file($tmpPng);
+        }
+
+        if ($converted && $cwebpBin !== '') {
+            $cmd = sprintf(
+                '%s -q %d -o %s -- %s 2>/dev/null',
+                escapeshellarg($cwebpBin),
+                $quality,
+                escapeshellarg($dst),
+                escapeshellarg($tmpPng)
+            );
+            exec($cmd);
+        } elseif ($converted) {
+            $this->pngToWebp($tmpPng, $dst, $quality);
+        }
+
+        if (is_file($tmpPng)) {
+            @unlink($tmpPng);
+        }
+    }
+}

@@ -179,31 +179,18 @@ foreach ($projects ?? [] as $project) {
       </div>
       <?php if (!empty($item['main_image'])): ?>
         <?php
-        $mainImageMini = $item['main_image_mini'] ?? null;
-        $mainImageThumb = $item['main_image_thumb'] ?? null;
         $mainImageMedium = $item['main_image_medium'] ?? $item['main_image'];
-        $mainImageLarge = $item['main_image_large'] ?? $mainImageMedium;
-        $mainImageFull = $item['main_image_large'] ?? $item['main_image'];
-        $fullWidth = isset($item['main_image_width']) ? (int) $item['main_image_width'] : 560;
-        $fullHeight = isset($item['main_image_height']) ? (int) $item['main_image_height'] : 315;
-
-        // Build srcset with w descriptors based on variant heights and aspect ratio
-        $aspect = $fullWidth > 0 ? ($fullWidth / $fullHeight) : (16 / 9);
-        $srcsetParts = [];
-        if ($mainImageMini) {
-          $w = (int) round(70 * $aspect);
-          $srcsetParts[] = base_url($mainImageMini) . ' ' . $w . 'w';
+        $mainImageLarge  = $item['main_image_large']  ?? $mainImageMedium;
+        $mainImageFull   = $item['main_image'] ?? $mainImageMedium;
+        // Dimensions from the medium file (set by controller, fallback reads file).
+        $mediumW = isset($item['main_image_width'])  && (int)$item['main_image_width']  > 0 ? (int)$item['main_image_width']  : null;
+        $mediumH = isset($item['main_image_height']) && (int)$item['main_image_height'] > 0 ? (int)$item['main_image_height'] : null;
+        if (!$mediumW || !$mediumH) {
+          $dims = @getimagesize(FCPATH . ltrim($mainImageMedium, '/'));
+          if ($dims && $dims[0] > 0 && $dims[1] > 0) { $mediumW = $dims[0]; $mediumH = $dims[1]; }
         }
-        if ($mainImageThumb) {
-          $w = (int) round(280 * $aspect);
-          $srcsetParts[] = base_url($mainImageThumb) . ' ' . $w . 'w';
-        }
-        $mediumW = (int) round(560 * $aspect);
-        $srcsetParts[] = base_url($mainImageMedium) . ' ' . $mediumW . 'w';
-        $largeW = (int) round(1120 * $aspect);
-        $srcsetParts[] = base_url($mainImageLarge) . ' ' . $largeW . 'w';
-        $srcset = implode(', ', $srcsetParts);
-        $isFirst = $idx === 0;
+        $isFirst  = $idx === 0;
+        $lazyLoad = $idx >= 3;
         ?>
         <div class="news-main-image">
           <button type="button" class="news-main-image-trigger"
@@ -212,12 +199,10 @@ foreach ($projects ?? [] as $project) {
                   aria-label="Open image in fullscreen">
             <img
               src="<?= base_url($mainImageMedium) ?>"
-              srcset="<?= $srcset ?>"
-              sizes="(max-width: 600px) calc(100vw - 20px), 560px"
-              width="<?= $fullWidth ?>"
-              height="<?= $fullHeight ?>"
+              srcset="<?= base_url($mainImageMedium) ?> 1x, <?= base_url($mainImageLarge) ?> 2x"
+              <?php if ($mediumW && $mediumH): ?>width="<?= $mediumW ?>" height="<?= $mediumH ?>"<?php endif; ?>
               alt="<?= esc($item['title']) ?>"
-              <?php if ($isFirst): ?>fetchpriority="high"<?php else: ?>loading="lazy" fetchpriority="auto"<?php endif; ?>
+              <?php if ($lazyLoad): ?>loading="lazy"<?php else: ?>fetchpriority="high"<?php endif; ?>
               decoding="async">
           </button>
         </div>
@@ -714,6 +699,14 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   closeBtn.addEventListener('click', closeModal);
+
+  modalImg.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Escape' || e.key === 'Esc') && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
 });
 </script>
 

@@ -253,25 +253,37 @@ class ImageAdmin extends BaseController
     }
     
     $webpName = $baseName . '.webp';
-    
+
     helper('webp');
 
-    $variants = [
-      '' => ['resize' => '', 'quality' => $quality],
-      'mini/' => ['resize' => 'x70', 'quality' => min($quality, 55)],
-      'thumb/' => ['resize' => 'x140', 'quality' => min($quality, 60)],
-      'medium/' => ['resize' => 'x280', 'quality' => min($quality, 65)],
-      'large/' => ['resize' => 'x560', 'quality' => min($quality, 75)],
+    // Artwork variants:
+    // square/    — 122×122 center crop  (uniform grid thumbnail)
+    // square2x/  — 244×244 center crop  (2× retina)
+    // thumb/     — fits within 122×122  (full image, no crop)
+    // thumb2x/   — fits within 244×244  (2× retina)
+    // medium/    — fits within 560×560  (detail/modal view)
+    // Root       — full reoriented image (fullscreen)
+    $squareVariants = [
+      'square/'  => ['size' => 122, 'quality' => min($quality, 65)],
+      'square2x/' => ['size' => 244, 'quality' => min($quality, 65)],
     ];
-    foreach ($variants as $subdir => $opts) {
+    $fitVariants = [
+      'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => min($quality, 65)],
+      'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => min($quality, 65)],
+      'medium/'  => ['maxW' => 560, 'maxH' => 560, 'quality' => min($quality, 72)],
+    ];
+    foreach ($squareVariants as $subdir => $opts) {
       $targetDir = $konstDir . $subdir;
-      if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0775, true);
-      }
-      $outPath = $targetDir . $webpName;
-      $resizeHeight = $opts['resize'] !== '' ? (int) str_replace('x', '', $opts['resize']) : 0;
-      generate_webp_variant($origPath, $outPath, $opts['quality'], $resizeHeight);
+      if (!is_dir($targetDir)) mkdir($targetDir, 0775, true);
+      generate_webp_square($origPath, $targetDir . $webpName, $opts['size'], $opts['quality']);
     }
+    foreach ($fitVariants as $subdir => $opts) {
+      $targetDir = $konstDir . $subdir;
+      if (!is_dir($targetDir)) mkdir($targetDir, 0775, true);
+      generate_webp_fit($origPath, $targetDir . $webpName, $opts['maxW'], $opts['maxH'], $opts['quality']);
+    }
+    // Root: full reoriented image
+    generate_webp_variant($origPath, $konstDir . $webpName, $quality);
     // Get dimensions from the root webp
     $rootWebp = $konstDir . $webpName;
     $dimensions = @getimagesize($rootWebp);

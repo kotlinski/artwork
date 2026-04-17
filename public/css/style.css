@@ -231,7 +231,7 @@ a:hover {
 
     .news-main-image-trigger {
         display: block;
-        width: auto;
+        width: fit-content;
         padding: 0;
         margin: 0;
         border: 0;
@@ -242,6 +242,7 @@ a:hover {
     .news-main-image img {
         display: block;
         max-width: 100%;
+        width: auto;
         height: auto;
     }
 
@@ -308,6 +309,7 @@ ul li:last-child {
     height: auto;
     object-fit: contain;
     display: block;
+    cursor: pointer;
 }
 
 .news-image-fullscreen-close {
