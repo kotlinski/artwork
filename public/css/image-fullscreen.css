@@ -41,6 +41,7 @@ a:hover {
     display: grid;
     place-items: center;
     z-index: 1000;
+    contain: layout style;
 }
 
 .media-wrapper {
@@ -69,9 +70,6 @@ a:hover {
     object-fit: contain;
     display: block;
     background-color: #f9f9f9; /* Placeholder color on the img instead */
-
-    opacity: 0;
-    transition: opacity 0.1s ease-in-out;
 }
 
 .media-wrapper::before {
@@ -81,6 +79,8 @@ a:hover {
     background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent);
     animation: shimmer 1.5s infinite;
     z-index: 1;
+    will-change: transform;
+    contain: strict;
 }
 .media-wrapper:has(img.loaded) {
     background-color: transparent;
@@ -88,17 +88,10 @@ a:hover {
 .media-wrapper:has(img.loaded)::before {
     display: none;
 }
-.media-wrapper img.loaded {
-    opacity: 1;
-}
 
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
-}
-/* This targets the image once it is fully loaded */
-.media-wrapper img.loaded {
-    opacity: 1;
 }
 
 .media-wrapper figcaption {

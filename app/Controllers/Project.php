@@ -217,19 +217,24 @@ class Project extends BaseController
         $basename = basename($mainImage);
         $thumbPath = 'media/news/thumb/' . $basename;
         $thumb2xPath = 'media/news/thumb2x/' . $basename;
+        $smallPath = 'media/news/small/' . $basename;
         $mediumPath = 'media/news/medium/' . $basename;
         $largePath = 'media/news/large/' . $basename;
+        $xLargePath = 'media/news/x-large/' . $basename;
 
         $hasThumb = is_file(FCPATH . $thumbPath);
         $hasThumb2x = is_file(FCPATH . $thumb2xPath);
+        $hasSmall = is_file(FCPATH . $smallPath);
         $hasMedium = is_file(FCPATH . $mediumPath);
         $hasLarge = is_file(FCPATH . $largePath);
+        $hasXLarge = is_file(FCPATH . $xLargePath);
 
-        $item['main_image_thumb'] = $hasThumb ? $thumbPath : ($hasMedium ? $mediumPath : $mainImage);
-        $item['main_image_thumb2x'] = $hasThumb2x ? $thumb2xPath : ($hasLarge ? $largePath : $item['main_image_thumb']);
-        $item['main_image_mini'] = null;
-        $item['main_image_medium'] = $hasMedium ? $mediumPath : $item['main_image_thumb'];
-        $item['main_image_large'] = $hasLarge ? $largePath : $item['main_image_thumb2x'];
+        $item['main_image_thumb'] = $hasThumb ? $thumbPath : $mainImage;
+        $item['main_image_thumb2x'] = $hasThumb2x ? $thumb2xPath : $item['main_image_thumb'];
+        $item['main_image_small'] = $hasSmall ? $smallPath : $mainImage;
+        $item['main_image_medium'] = $hasMedium ? $mediumPath : $item['main_image_small'];
+        $item['main_image_large'] = $hasLarge ? $largePath : $item['main_image_medium'];
+        $item['main_image_x_large'] = $hasXLarge ? $xLargePath : $item['main_image_large'];
 
         $displayFilePath = FCPATH . $item['main_image_thumb'];
         $dims = @getimagesize($displayFilePath);

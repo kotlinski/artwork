@@ -848,11 +848,12 @@
       </div>
 
       <div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
+        <button type="button" class="news-image-fullscreen-close-top" data-news-image-close aria-label="Close image">&times;</button>
         <figure class="news-image-fullscreen-figure">
           <img id="news-image-fullscreen-img" src="" alt="">
           <figcaption class="news-image-fullscreen-caption">
             <span id="news-image-fullscreen-title" class="news-image-fullscreen-title"></span>
-            <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" aria-label="Close image">close</button>
+            <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" data-news-image-close aria-label="Close image">close</button>
           </figcaption>
         </figure>
       </div>
@@ -862,28 +863,52 @@
           var modal = document.getElementById('news-image-fullscreen-modal');
           var modalImg = document.getElementById('news-image-fullscreen-img');
           var modalTitle = document.getElementById('news-image-fullscreen-title');
-          var closeBtn = document.getElementById('news-image-fullscreen-close');
+          var closeButtons = modal ? modal.querySelectorAll('[data-news-image-close]') : [];
           var triggers = document.querySelectorAll('.news-main-image-trigger');
+          var lockedScrollY = 0;
+          var isBodyLocked = false;
 
-          if (!modal || !modalImg || !modalTitle || !closeBtn || triggers.length === 0) {
+          if (!modal || !modalImg || !modalTitle || closeButtons.length === 0 || triggers.length === 0) {
             return;
           }
 
-          function openModal(src, alt, title) {
+          function openModal(src, alt, title, srcset, sizes) {
+            modalImg.srcset = srcset || '';
+            modalImg.sizes = sizes || '';
             modalImg.src = src;
             modalImg.alt = alt || '';
             modalTitle.textContent = title || '';
             modal.style.display = 'flex';
             modal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
+            if (!isBodyLocked) {
+              lockedScrollY = window.scrollY || window.pageYOffset || 0;
+              document.body.style.position = 'fixed';
+              document.body.style.top = '-' + lockedScrollY + 'px';
+              document.body.style.left = '0';
+              document.body.style.right = '0';
+              document.body.style.width = '100%';
+              document.body.style.overflow = 'hidden';
+              isBodyLocked = true;
+            }
           }
 
           function closeModal() {
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
             modalImg.src = '';
+            modalImg.srcset = '';
+            modalImg.sizes = '';
             modalTitle.textContent = '';
-            document.body.style.overflow = '';
+            if (isBodyLocked) {
+              document.body.style.position = '';
+              document.body.style.top = '';
+              document.body.style.left = '';
+              document.body.style.right = '';
+              document.body.style.width = '';
+              document.body.style.overflow = '';
+              window.scrollTo(0, lockedScrollY);
+              isBodyLocked = false;
+            }
           }
 
           triggers.forEach(function (trigger) {
@@ -891,12 +916,16 @@
               openModal(
                 trigger.dataset.fullImage || '',
                 trigger.dataset.alt || '',
-                trigger.dataset.newsTitle || trigger.dataset.alt || ''
+                trigger.dataset.newsTitle || trigger.dataset.alt || '',
+                trigger.dataset.fullImageSrcset || '',
+                trigger.dataset.fullImageSizes || ''
               );
             });
           });
 
-          closeBtn.addEventListener('click', closeModal);
+          closeButtons.forEach(function (btn) {
+            btn.addEventListener('click', closeModal);
+          });
 
           modalImg.addEventListener('click', closeModal);
 

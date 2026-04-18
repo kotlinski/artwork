@@ -269,6 +269,10 @@ class ImageAdmin extends BaseController
     $fitVariants = [
       'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => min($quality, 65)],
       'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => min($quality, 65)],
+      'small/'   => ['maxW' => 800,  'maxH' => 600, 'quality' => min($quality, 75)],
+      'medium/'  => ['maxW' => 1280, 'maxH' => 960, 'quality' => min($quality, 80)],
+      'large/'   => ['maxW' => 1920, 'maxH' => 1440, 'quality' => min($quality, 85)],
+      'x-large/' => ['maxW' => 2560, 'maxH' => 1920, 'quality' => min($quality, 87)],
     ];
     foreach ($squareVariants as $subdir => $opts) {
       $targetDir = $konstDir . $subdir;

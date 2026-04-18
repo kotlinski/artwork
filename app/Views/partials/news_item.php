@@ -16,9 +16,53 @@ if (is_string($mainImage) && str_starts_with($mainImage, 'news/')) {
   $mainImage = 'media/news/' . ltrim(substr($mainImage, 5), '/');
 }
 
-$mainImageThumb = $item['main_image_thumb'] ?? ($item['main_image_medium'] ?? $mainImage);
-$mainImageThumb2x = $item['main_image_thumb2x'] ?? ($item['main_image_large'] ?? $mainImageThumb);
+$mainImageThumb = $item['main_image_thumb'] ?? $mainImage;
+$mainImageThumb2x = $item['main_image_thumb2x'] ?? $mainImageThumb;
 $mainImageFull = $mainImage !== '' ? $mainImage : $mainImageThumb;
+$mainImageSmall = $item['main_image_small'] ?? $mainImageFull;
+$mainImageMedium = $item['main_image_medium'] ?? $mainImageSmall;
+$mainImageLarge = $item['main_image_large'] ?? $mainImageMedium;
+$mainImageXLarge = $item['main_image_x_large'] ?? $mainImageLarge;
+
+$expandedSrcset = '';
+$expandedSizes = '96vw';
+$srcsetByUrl = [];
+$origW = isset($item['width_px']) ? (int)$item['width_px'] : 0;
+$origH = isset($item['height_px']) ? (int)$item['height_px'] : 0;
+if ($origW > 0 && $origH > 0) {
+  $ratio = $origW / $origH;
+  $ratioStr = rtrim(rtrim(number_format($ratio, 6, '.', ''), '0'), '.');
+  $expandedSizes = 'min(calc(100vw - 40px), calc(92vh * ' . $ratioStr . '), 1400px, ' . $origW . 'px)';
+
+  $expandedDefs = [
+    ['url' => $mainImageSmall,  'maxW' => 800,  'maxH' => 600],
+    ['url' => $mainImageMedium, 'maxW' => 1280, 'maxH' => 960],
+    ['url' => $mainImageLarge, 'maxW' => 1920, 'maxH' => 1440],
+    ['url' => $mainImageXLarge, 'maxW' => 2560, 'maxH' => 1920],
+    ['url' => $mainImageFull, 'maxW' => $origW, 'maxH' => $origH],
+  ];
+
+  foreach ($expandedDefs as $def) {
+    $url = (string)($def['url'] ?? '');
+    if ($url === '') {
+      continue;
+    }
+    $scale = min($def['maxW'] / $origW, $def['maxH'] / $origH, 1.0);
+    $variantW = max(1, (int)round($origW * $scale));
+    if (!isset($srcsetByUrl[$url]) || $variantW > $srcsetByUrl[$url]) {
+      $srcsetByUrl[$url] = $variantW;
+    }
+  }
+}
+
+if (!empty($srcsetByUrl)) {
+  asort($srcsetByUrl);
+  $parts = [];
+  foreach ($srcsetByUrl as $url => $w) {
+    $parts[] = base_url($url) . ' ' . $w . 'w';
+  }
+  $expandedSrcset = implode(', ', $parts);
+}
 
 $thumbW = isset($item['main_image_width']) && (int)$item['main_image_width'] > 0 ? (int)$item['main_image_width'] : 0;
 $thumbH = isset($item['main_image_height']) && (int)$item['main_image_height'] > 0 ? (int)$item['main_image_height'] : 0;
@@ -51,6 +95,7 @@ $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjec
       <button type="button" class="news-main-image-trigger"
               style="width:<?= $thumbW ?>px;height:<?= $thumbH ?>px;"
               data-full-image="<?= base_url($mainImageFull) ?>"
+              <?php if ($expandedSrcset !== ''): ?>data-full-image-srcset="<?= esc($expandedSrcset, 'attr') ?>" data-full-image-sizes="<?= esc($expandedSizes, 'attr') ?>"<?php endif; ?>
               data-alt="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
               data-news-title="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
               aria-label="Open image in fullscreen">

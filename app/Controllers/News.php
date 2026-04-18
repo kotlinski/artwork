@@ -71,21 +71,24 @@ class News extends BaseController
         $basename = basename($mainImage);
         $thumbPath = 'media/news/thumb/' . $basename;
         $thumb2xPath = 'media/news/thumb2x/' . $basename;
+        $smallPath = 'media/news/small/' . $basename;
         $mediumPath = 'media/news/medium/' . $basename;
-        $largePath  = 'media/news/large/'  . $basename;
+        $largePath = 'media/news/large/' . $basename;
+        $xLargePath = 'media/news/x-large/' . $basename;
 
         $hasThumb = is_file(FCPATH . $thumbPath);
         $hasThumb2x = is_file(FCPATH . $thumb2xPath);
+        $hasSmall = is_file(FCPATH . $smallPath);
         $hasMedium = is_file(FCPATH . $mediumPath);
         $hasLarge = is_file(FCPATH . $largePath);
+        $hasXLarge = is_file(FCPATH . $xLargePath);
 
-        $item['main_image_thumb'] = $hasThumb ? $thumbPath : ($hasMedium ? $mediumPath : $mainImage);
-        $item['main_image_thumb2x'] = $hasThumb2x ? $thumb2xPath : ($hasLarge ? $largePath : $item['main_image_thumb']);
-
-        // Keep legacy keys for compatibility with older templates/scripts.
-        $item['main_image_mini']   = null;
-        $item['main_image_medium'] = $hasMedium ? $mediumPath : $item['main_image_thumb'];
-        $item['main_image_large']  = $hasLarge  ? $largePath  : $item['main_image_thumb2x'];
+        $item['main_image_thumb'] = $hasThumb ? $thumbPath : $mainImage;
+        $item['main_image_thumb2x'] = $hasThumb2x ? $thumb2xPath : $item['main_image_thumb'];
+        $item['main_image_small'] = $hasSmall ? $smallPath : $mainImage;
+        $item['main_image_medium'] = $hasMedium ? $mediumPath : $item['main_image_small'];
+        $item['main_image_large'] = $hasLarge ? $largePath : $item['main_image_medium'];
+        $item['main_image_x_large'] = $hasXLarge ? $xLargePath : $item['main_image_large'];
 
         // Derive display dimensions from the thumb file; if unreadable, compute
         // them from the stored original dimensions using the same fit-within rule.
@@ -318,10 +321,15 @@ class News extends BaseController
     // Root: full reoriented image used for fullscreen mode.
     generate_webp_variant($origPath, $newsDir . $webpName, $quality);
 
-    // Two variants: thumb (1x) and thumb2x (2x), both fit within their bounding box.
+    // Thumbnail variants for lists/cards.
     $variants = [
       'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => min($quality, 65)],
       'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => min($quality, 70)],
+      // Responsive fullscreen variants.
+      'small/'   => ['maxW' => 800,  'maxH' => 600, 'quality' => min($quality, 75)],
+      'medium/'  => ['maxW' => 1280, 'maxH' => 960, 'quality' => min($quality, 80)],
+      'large/'   => ['maxW' => 1920, 'maxH' => 1440, 'quality' => min($quality, 85)],
+      'x-large/' => ['maxW' => 2560, 'maxH' => 1920, 'quality' => min($quality, 87)],
     ];
 
     foreach ($variants as $subdir => $opts) {
@@ -368,8 +376,11 @@ class News extends BaseController
       $newsDir . $basename . '.webp',
       $newsDir . 'thumb/' . $basename . '.webp',
       $newsDir . 'thumb2x/' . $basename . '.webp',
+      $newsDir . 'small/' . $basename . '.webp',
+      $newsDir . 'mobile/' . $basename . '.webp',
       $newsDir . 'medium/' . $basename . '.webp',
       $newsDir . 'large/' . $basename . '.webp',
+      $newsDir . 'x-large/' . $basename . '.webp',
     ];
 
     foreach ($webpPaths as $path) {
@@ -401,7 +412,7 @@ class News extends BaseController
     }
 
     $newsDir = FCPATH . 'media/news/';
-    $variantDirs = ['', 'mini/', 'thumb/', 'thumb2x/', 'medium/', 'large/'];
+    $variantDirs = ['', 'thumb/', 'thumb2x/', 'small/', 'mobile/', 'medium/', 'large/', 'x-large/'];
     foreach ($variantDirs as $subdir) {
       $candidate = $newsDir . $subdir . $basename;
       if (is_file($candidate)) {

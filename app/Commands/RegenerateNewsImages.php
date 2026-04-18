@@ -33,6 +33,10 @@ class RegenerateNewsImages extends BaseCommand
         $variants = [
             'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => 65],
             'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => 70],
+            'small/'   => ['maxW' => 800,  'maxH' => 600, 'quality' => 75],
+            'medium/'  => ['maxW' => 1280, 'maxH' => 960, 'quality' => 80],
+            'large/'   => ['maxW' => 1920, 'maxH' => 1440, 'quality' => 85],
+            'x-large/' => ['maxW' => 2560, 'maxH' => 1920, 'quality' => 87],
         ];
 
         foreach ($originals as $origPath) {

@@ -221,10 +221,10 @@ a:hover {
 }
 
 .news-item {
-    margin-bottom: 12px;
+    margin-bottom: 22px;
 
     .news-main-image {
-        margin: 0 0 17px 0;
+        margin: 0 0 20px 0;
         display: flex;
         justify-content: center;
         /* Reserve vertical space even before the img box is laid out. */
@@ -301,7 +301,7 @@ ul li:last-child {
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(20, 20, 20, 0.92);
+    background: rgba(20, 20, 20, 0.90);
     padding: 20px;
     box-sizing: border-box;
 }
@@ -309,6 +309,21 @@ ul li:last-child {
 .news-image-fullscreen-figure {
     margin: 0;
     max-width: min(96vw, 1400px);
+}
+
+.news-image-fullscreen-close-top {
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .news-image-fullscreen-modal img {

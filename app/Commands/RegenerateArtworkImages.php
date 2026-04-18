@@ -40,6 +40,10 @@ class RegenerateArtworkImages extends BaseCommand
         $fitVariants = [
             'thumb/'   => [122, 122],
             'thumb2x/' => [244, 244],
+            'small/'   => [800, 600],
+            'medium/'  => [1280, 960],
+            'large/'   => [1920, 1440],
+            'x-large/' => [2560, 1920],
         ];
 
         $total = count($originals);

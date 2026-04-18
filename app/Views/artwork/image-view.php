@@ -13,6 +13,59 @@ $project = $project ?? null;
 $image = $image ?? null;
 $prev_slug = $prev_slug ?? null;
 $next_slug = $next_slug ?? null;
+
+// Default src: prefer 'large' over the original/x-large so non-srcset
+// browsers don't pay for an oversized download. Modern browsers will
+// still use srcset/sizes to pick the optimal variant.
+$expandedSrc = base_url('konst/' . ($image['file_name'] ?? ''));
+foreach (['large', 'medium', 'small', 'x-large'] as $_fallbackDir) {
+  if (isset($image['file_name']) && is_file(FCPATH . 'konst/' . $_fallbackDir . '/' . $image['file_name'])) {
+    $expandedSrc = base_url('konst/' . $_fallbackDir . '/' . $image['file_name']);
+    break;
+  }
+}
+$expandedSizes = '96vw';
+$expandedSrcsetEntries = [];
+$expandedVariantWidths = [];
+
+$fileName = $image['file_name'] ?? '';
+$origW = isset($image['width_px']) ? (int)$image['width_px'] : 0;
+$origH = isset($image['height_px']) ? (int)$image['height_px'] : 0;
+$variantDefs = [
+  ['dir' => 'small',   'maxW' => 800,  'maxH' => 600],
+  ['dir' => 'medium',  'maxW' => 1280, 'maxH' => 960],
+  ['dir' => 'large', 'maxW' => 1920, 'maxH' => 1440],
+  ['dir' => 'x-large', 'maxW' => 2560, 'maxH' => 1920],
+];
+
+if ($fileName !== '' && $origW > 0 && $origH > 0) {
+  $ratio = $origW / $origH;
+  $ratioStr = rtrim(rtrim(number_format($ratio, 6, '.', ''), '0'), '.');
+
+  foreach ($variantDefs as $def) {
+    $absPath = FCPATH . 'konst/' . $def['dir'] . '/' . $fileName;
+    if (!is_file($absPath)) {
+      continue;
+    }
+    $scale = min($def['maxW'] / $origW, $def['maxH'] / $origH, 1.0);
+    $w = max(1, (int)round($origW * $scale));
+    $expandedSrcsetEntries[] = base_url('konst/' . $def['dir'] . '/' . $fileName) . ' ' . $w . 'w';
+    $expandedVariantWidths[] = $w;
+  }
+  $expandedSrcsetEntries[] = base_url('konst/' . $fileName) . ' ' . $origW . 'w';
+  $expandedVariantWidths[] = $origW;
+
+  // Cap CSS-pixel target width to the second-largest variant so the browser
+  // doesn't pick the largest variant (e.g. x-large/2560w) just to cover a
+  // small CSS-pixel overshoot. HiDPI naturally upgrades via DPR scaling.
+  sort($expandedVariantWidths);
+  $uniqW = array_values(array_unique($expandedVariantWidths));
+  $capPx = count($uniqW) >= 2 ? $uniqW[count($uniqW) - 2] : end($uniqW);
+  if (!$capPx) { $capPx = $origW; }
+  $expandedSizes = 'min(90vw, calc((90vh - 40px) * ' . $ratioStr . '), ' . $capPx . 'px)';
+}
+
+$expandedSrcset = implode(', ', $expandedSrcsetEntries);
 ?>
 <h1 class="visually-hidden"><?= $image['title'] ?></h1>
 <div class="container">
@@ -48,11 +101,13 @@ $next_slug = $next_slug ?? null;
       style="--w: <?= $image['width_px'] ?>; --h: <?= $image['height_px'] ?>; --img-w: <?= $image['width_px'] ?>px;"
     >
       <img
-        src="<?= base_url('konst/' . $image['file_name']) ?>"
+        src="<?= $expandedSrc ?>"
+        <?php if ($expandedSrcset !== ''): ?>srcset="<?= esc($expandedSrcset, 'attr') ?>" sizes="<?= esc($expandedSizes, 'attr') ?>"<?php endif; ?>
         alt="<?= esc($image['caption'] ?? '') ?>"
         width="<?= $image['width_px'] ?>"
         height="<?= $image['height_px'] ?>"
         fetchpriority="high"
+        decoding="sync"
         loading="eager"
         onload="this.classList.add('loaded')"
       >
