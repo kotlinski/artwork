@@ -193,11 +193,15 @@ class News extends BaseController
     $mainImageHeight = null;
     if ($hasMainImageUpload) {
       try {
-        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $slug);
+        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $slug, true);
         $mainImagePath = $savedMainImage['path'];
         $mainImageWidth = $savedMainImage['width_px'];
         $mainImageHeight = $savedMainImage['height_px'];
       } catch (\Throwable $e) {
+        log_message('error', 'News create upload failed for slug {slug}: {msg}', [
+          'slug' => $slug,
+          'msg' => $e->getMessage(),
+        ]);
         return redirect()->to('/news')
           ->with('create_errors', ['Failed to process main image upload.'])
           ->with('create_title', $title)
@@ -271,8 +275,8 @@ class News extends BaseController
     return $file !== null && $file->getError() !== UPLOAD_ERR_NO_FILE;
   }
 
-  protected function validateMainImageFile(?UploadedFile $file): ?string
-  {
+    protected function validateMainImageFile(?UploadedFile $file): ?string
+    {
     if ($file === null || !$file->isValid()) {
       return 'Main image upload failed.';
     }
@@ -286,11 +290,27 @@ class News extends BaseController
       return 'Main image must be jpg, jpeg, png, or webp.';
     }
 
-    return null;
-  }
+    $tmpPath = $file->getTempName();
+    if (is_string($tmpPath) && $tmpPath !== '' && is_file($tmpPath)) {
+      $dims = @getimagesize($tmpPath);
+      if (is_array($dims) && isset($dims[0], $dims[1])) {
+        $maxAllowedDimension = 12000;
+        if ((int) $dims[0] > $maxAllowedDimension || (int) $dims[1] > $maxAllowedDimension) {
+          return 'Main image dimensions are too large. Please upload an image up to 12000 px on the longest side.';
+        }
+      }
+    }
 
-  protected function saveNewsMainImageVariants(UploadedFile $file, string $slug): array
-  {
+    return null;
+    }
+
+      protected function saveNewsMainImageVariants(UploadedFile $file, string $slug, bool $generateResponsiveVariants = true): array
+    {
+    // News upload generates multiple responsive variants and can exceed short server defaults.
+    if (function_exists('set_time_limit')) {
+      @set_time_limit(180);
+    }
+
     $baseName = $this->resolveNewsMainImageBaseName($slug);
     $origExt = strtolower($file->getClientExtension());
     $origName = $baseName . '.' . $origExt;
@@ -332,13 +352,42 @@ class News extends BaseController
       'x-large/' => ['maxW' => 2560, 'maxH' => 1920, 'quality' => min($quality, 87)],
     ];
 
-    foreach ($variants as $subdir => $opts) {
-      $targetDir = $newsDir . $subdir;
-      if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
-        throw new \RuntimeException('Failed to create news variant directory.');
+    $variantSourcePath = $origPath;
+    $cleanupVariantSource = false;
+    try {
+      // Preprocess once to x-large bounds so each variant generation does not decode huge originals repeatedly.
+      $preparedPath = $this->prepareNewsVariantSource($origPath, 2560, 1920);
+      if ($preparedPath !== '') {
+        $variantSourcePath = $preparedPath;
+        $cleanupVariantSource = true;
       }
-      $outPath = $targetDir . $webpName;
-      generate_webp_fit($origPath, $outPath, $opts['maxW'], $opts['maxH'], $opts['quality']);
+    } catch (\Throwable $e) {
+      log_message('warning', 'News image variant preprocessing failed; falling back to original source. Error: {msg}', [
+        'msg' => $e->getMessage(),
+      ]);
+    }
+
+    if (!$generateResponsiveVariants) {
+      $variants = array_filter(
+        $variants,
+        static fn(string $subdir): bool => in_array($subdir, ['thumb/', 'thumb2x/'], true),
+        ARRAY_FILTER_USE_KEY
+      );
+    }
+
+    try {
+      foreach ($variants as $subdir => $opts) {
+        $targetDir = $newsDir . $subdir;
+        if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
+          throw new \RuntimeException('Failed to create news variant directory.');
+        }
+        $outPath = $targetDir . $webpName;
+        generate_webp_fit($variantSourcePath, $outPath, $opts['maxW'], $opts['maxH'], $opts['quality']);
+      }
+    } finally {
+      if ($cleanupVariantSource && is_file($variantSourcePath)) {
+        @unlink($variantSourcePath);
+      }
     }
 
     $relativePath = 'media/news/' . $webpName;
@@ -351,7 +400,28 @@ class News extends BaseController
       'width_px' => $dimensions['width_px'],
       'height_px' => $dimensions['height_px'],
     ];
-  }
+    }
+
+    protected function prepareNewsVariantSource(string $sourcePath, int $maxWidth, int $maxHeight): string
+    {
+    $tmpPng = tempnam(sys_get_temp_dir(), 'news_variant_');
+    if ($tmpPng === false) {
+      throw new \RuntimeException('Failed to allocate temporary file for news variant source.');
+    }
+    $tmpPng .= '.png';
+
+    $image = \Config\Services::image('imagick');
+    $image->withFile($sourcePath);
+    $image->reorient();
+    $image->resize($maxWidth, $maxHeight, true);
+    $image->save($tmpPng);
+
+    if (!is_file($tmpPng) || (int) @filesize($tmpPng) === 0) {
+      throw new \RuntimeException('Temporary news variant source was not created.');
+    }
+
+    return $tmpPng;
+    }
 
   protected function resolveNewsMainImageBaseName(string $slug): string
   {
@@ -399,13 +469,7 @@ class News extends BaseController
       return;
     }
 
-    if (str_starts_with($path, 'media/news/')) {
-      $basename = basename(substr($path, strlen('media/news/')));
-    } elseif (str_starts_with($path, 'news/')) {
-      $basename = basename(substr($path, strlen('news/')));
-    } else {
-      $basename = basename($path);
-    }
+    $basename = $this->resolveNewsMainImageBasenameFromStoredPath($path);
 
     if ($basename === '' || $basename === '.' || $basename === '..') {
       return;
@@ -428,6 +492,24 @@ class News extends BaseController
         }
       }
     }
+  }
+
+  protected function resolveNewsMainImageBasenameFromStoredPath(string $storedPath): string
+  {
+    $path = trim($storedPath);
+    if ($path === '') {
+      return '';
+    }
+
+    if (str_starts_with($path, 'media/news/')) {
+      return basename(substr($path, strlen('media/news/')));
+    }
+
+    if (str_starts_with($path, 'news/')) {
+      return basename(substr($path, strlen('news/')));
+    }
+
+    return basename($path);
   }
 
   public function update()
@@ -484,11 +566,16 @@ class News extends BaseController
       }
 
       try {
-        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
+        // Keep update requests responsive: generate only root + thumbs synchronously.
+        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))), false);
         $data['main_image'] = $savedMainImage['path'];
         $data['width_px'] = $savedMainImage['width_px'];
         $data['height_px'] = $savedMainImage['height_px'];
       } catch (\Throwable $e) {
+        log_message('error', 'News update upload failed for id {id}: {msg}', [
+          'id' => $id,
+          'msg' => $e->getMessage(),
+        ]);
         return redirect()->to('/news')->with('error', 'Failed to process main image upload.')->withInput();
       }
     }
@@ -552,6 +639,11 @@ class News extends BaseController
 
     if (!$item) {
       return redirect()->to('/news')->with('error', 'News item not found.');
+    }
+
+    $mainImage = (string) ($item['main_image'] ?? '');
+    if ($mainImage !== '') {
+      $this->deleteNewsMainImageVariants($mainImage);
     }
 
     $model->delete($id);

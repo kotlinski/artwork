@@ -8,24 +8,45 @@ class AddImageDimensionsToNews extends Migration
 {
     public function up()
     {
-        $this->forge->addColumn('news_modern', [
-            'width_px' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'null'       => true,
-                'default'    => null,
-            ],
-            'height_px' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'null'       => true,
-                'default'    => null,
-            ],
-        ]);
+        if (!$this->db->tableExists('news_modern')) {
+            return;
+        }
+
+        if (!$this->db->fieldExists('width_px', 'news_modern')) {
+            $this->forge->addColumn('news_modern', [
+                'width_px' => [
+                    'type'       => 'INT',
+                    'constraint' => 11,
+                    'null'       => true,
+                    'default'    => null,
+                ],
+            ]);
+        }
+
+        if (!$this->db->fieldExists('height_px', 'news_modern')) {
+            $this->forge->addColumn('news_modern', [
+                'height_px' => [
+                    'type'       => 'INT',
+                    'constraint' => 11,
+                    'null'       => true,
+                    'default'    => null,
+                ],
+            ]);
+        }
     }
 
     public function down()
     {
-        $this->forge->dropColumn('news_modern', ['width_px', 'height_px']);
+        if (!$this->db->tableExists('news_modern')) {
+            return;
+        }
+
+        if ($this->db->fieldExists('width_px', 'news_modern')) {
+            $this->forge->dropColumn('news_modern', 'width_px');
+        }
+
+        if ($this->db->fieldExists('height_px', 'news_modern')) {
+            $this->forge->dropColumn('news_modern', 'height_px');
+        }
     }
 }

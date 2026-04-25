@@ -52,4 +52,31 @@ class Project extends Model
   ];
   
   protected $skipValidation = false;
+
+  public function findOrCreateSystemProject(string $slug, string $title): int
+  {
+    $slug = trim(strtolower($slug));
+    if ($slug === '') {
+      throw new \InvalidArgumentException('System project slug cannot be empty.');
+    }
+
+    $existing = $this->where('slug', $slug)->first();
+    if (is_array($existing) && isset($existing['id'])) {
+      return (int) $existing['id'];
+    }
+
+    $maxSort = $this->selectMax('sort_order', 'max_sort')->first();
+    $nextSort = isset($maxSort['max_sort']) ? ((int) $maxSort['max_sort'] + 1) : 1;
+
+    $this->insert([
+      'slug' => $slug,
+      'title' => $title,
+      'description' => null,
+      'text' => null,
+      'sort_order' => $nextSort,
+      'is_published' => 0,
+    ]);
+
+    return (int) $this->getInsertID();
+  }
 }

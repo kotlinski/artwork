@@ -54,5 +54,19 @@ final class NewsControllerTest extends CIUnitTestCase
         $this->assertArrayNotHasKey('main_image_width', $normalized[0]);
         $this->assertArrayNotHasKey('main_image_height', $normalized[0]);
     }
+
+    public function testResolveNewsMainImageBasenameFromStoredPathSupportsCurrentFormats(): void
+    {
+        $controller = new class extends News {
+            public function resolveBasename(string $path): string
+            {
+                return $this->resolveNewsMainImageBasenameFromStoredPath($path);
+            }
+        };
+
+        $this->assertSame('example.webp', $controller->resolveBasename('media/news/example.webp'));
+        $this->assertSame('example.webp', $controller->resolveBasename('news/example.webp'));
+        $this->assertSame('example.webp', $controller->resolveBasename('/tmp/example.webp'));
+    }
 }
 

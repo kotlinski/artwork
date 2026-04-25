@@ -53,7 +53,7 @@ $bodyClass = trim(implode(' ', $bodyClassParts));
 <div class="site-wrapper">
 <?php if (!isset($hide_main_header) || !$hide_main_header): ?>
   <header class="main-header">
-    <div class="site-branding">ANNE HAMRIN SIMONSSON</div>
+    <div class="site-branding"><a href="<?= base_url('/') ?>">ANNE HAMRIN SIMONSSON</a></div>
   </header>
   <nav class="main-nav">
     <div class="main-nav-inner">

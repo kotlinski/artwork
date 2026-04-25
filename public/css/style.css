@@ -134,7 +134,7 @@ h1 {
     position: sticky;
     top: 30px;
     background-color: #fff;
-    z-index: 99;
+    z-index: 4;
     padding: 0 0 4px 0;
     box-sizing: border-box;
 }
@@ -242,6 +242,15 @@ a:hover {
         line-height: 0;
     }
 
+    .news-main-image-trigger:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .news-main-image-trigger:focus-visible {
+        outline: 1px solid #333;
+    }
+
     .news-main-image img {
         display: block;
         /* Explicit sizing via HTML width/height attributes is honored here;
@@ -308,7 +317,11 @@ ul li:last-child {
 
 .news-image-fullscreen-figure {
     margin: 0;
+    width: fit-content;
     max-width: min(96vw, 1400px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .news-image-fullscreen-close-top {
@@ -333,11 +346,13 @@ ul li:last-child {
     height: auto;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
     cursor: pointer;
 }
 
 .news-image-fullscreen-caption {
     width: 100%;
+    max-width: min(96vw, 1400px);
     padding-top: 10px;
     display: flex;
     justify-content: space-between;
@@ -347,7 +362,10 @@ ul li:last-child {
 }
 
 .news-image-fullscreen-title {
+    min-width: 0;
+    flex: 1 1 auto;
     white-space: normal;
+    overflow-wrap: anywhere;
     padding-right: 10px;
 }
 
@@ -362,5 +380,62 @@ ul li:last-child {
     line-height: 1;
     cursor: pointer;
     text-decoration: underline;
+}
+
+.startpage-content {
+    margin-top: 46px;
+}
+
+.startpage-main-image {
+    margin: 0 0 10px 0;
+    width: 100%;
+}
+
+.startpage-main-image-trigger {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    line-height: 0;
+    cursor: zoom-in;
+}
+
+.startpage-main-image-trigger img {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+}
+
+.startpage-caption {
+    margin: 0;
+    max-width: 380px;
+    white-space: normal !important;
+    line-height: 1.45;
+}
+
+.startpage-admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.startpage-admin-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.startpage-admin-form textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+}
+
+.startpage-admin-form small {
+    color: #888;
 }
 

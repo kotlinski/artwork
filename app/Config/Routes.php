@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->post('startpage/update', 'Home::update', ['filter' => 'auth']);
 $routes->get('users', 'Home::index');
 $routes->get('user/(:num)', 'Home::profile/$1');
 // above was initial setup

@@ -675,7 +675,7 @@ code {
     width: 100vw;
     height: 100vh;
     background: rgba(40,40,40,0.5);
-    z-index: 2000;
+    z-index: 2500;
     align-items: center;
     justify-content: center;
     margin-left: 0; /* Prevent m offset from shifting the modal */
