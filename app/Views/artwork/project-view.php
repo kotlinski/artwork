@@ -138,18 +138,39 @@
       }
     }
 
+    var overviewLockedScrollY = 0;
+    var isOverviewBodyLocked = false;
+
     function openProjectOverviewModal() {
       const modal = document.getElementById('project-overview-modal');
       if (!modal) return;
       modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      if (!isOverviewBodyLocked) {
+        const scroller = document.scrollingElement || document.documentElement;
+        overviewLockedScrollY = scroller ? scroller.scrollTop : (window.scrollY || window.pageYOffset || 0);
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        isOverviewBodyLocked = true;
+      }
     }
 
     function closeProjectOverviewModal() {
       const modal = document.getElementById('project-overview-modal');
       if (!modal) return;
       modal.style.display = 'none';
-      document.body.style.overflow = '';
+      if (isOverviewBodyLocked) {
+        const targetY = overviewLockedScrollY;
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        // Restore on both roots for cross-browser consistency.
+        window.scrollTo(0, targetY);
+        document.documentElement.scrollTop = targetY;
+        document.body.scrollTop = targetY;
+        requestAnimationFrame(function () {
+          window.scrollTo(0, targetY);
+        });
+        isOverviewBodyLocked = false;
+      }
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -158,8 +179,18 @@
       const overviewCancelBtn = document.getElementById('project-overview-cancel-btn');
       const shouldOpenOverviewModal = <?= $shouldOpenOverviewModal ? 'true' : 'false' ?>;
 
-      if (overviewCloseBtn) overviewCloseBtn.addEventListener('click', closeProjectOverviewModal);
-      if (overviewCancelBtn) overviewCancelBtn.addEventListener('click', closeProjectOverviewModal);
+      if (overviewCloseBtn) {
+        overviewCloseBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          closeProjectOverviewModal();
+        });
+      }
+      if (overviewCancelBtn) {
+        overviewCancelBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          closeProjectOverviewModal();
+        });
+      }
 
       if (overviewModal) {
         overviewModal.addEventListener('click', function (e) {
@@ -332,12 +363,84 @@
           'id' => $project['id'] ?? '',
           'fieldName' => 'text',
           'fieldValue' => $project['text'] ?? '',
-          'editor_title' => 'Edit text about ' . ($project['title'] ?? 'Projekt'),
+          'editor_title' => 'Edit English text about ' . ($project['title'] ?? 'Project'),
+          'editorId' => 'project-text-editor-en',
+          'fixed_width' => true,
+        ]) ?>
+      </div>
+      <div id="project-text-form-sv" style="display:block;padding:0 12px 12px 12px;">
+        <?= view('partials/markdown_editor', [
+          'formAction' => base_url('project/update'),
+          'id' => $project['id'] ?? '',
+          'fieldName' => 'text_sv',
+          'fieldValue' => $project['text_sv'] ?? '',
+          'editor_title' => 'Edit Swedish text about ' . ($project['title'] ?? 'Project'),
+          'editorId' => 'project-text-editor-sv',
           'fixed_width' => true,
         ]) ?>
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var editors = ['project-text-editor-en', 'project-text-editor-sv'];
+
+      editors.forEach(function (editorId) {
+        var textarea = document.getElementById(editorId);
+        if (!textarea) return;
+
+        var form = textarea.closest('form');
+        if (!form) return;
+
+        var saveBtn = form.querySelector('button[type="submit"]');
+        if (!saveBtn) return;
+
+        var actions = form.querySelector('.form-actions');
+        var status = document.createElement('span');
+        status.setAttribute('aria-live', 'polite');
+        status.style.marginLeft = '8px';
+        status.style.alignSelf = 'center';
+        if (actions) {
+          actions.appendChild(status);
+        }
+
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          saveBtn.disabled = true;
+          status.textContent = 'Saving...';
+
+          try {
+            var resp = await fetch(form.action, {
+              method: 'POST',
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+              },
+              body: new FormData(form)
+            });
+
+            var payload = await resp.json();
+            if (!resp.ok || !payload.success) {
+              throw new Error(payload.error || 'Save failed');
+            }
+
+            status.textContent = payload.message || 'Saved';
+            setTimeout(function () {
+              if (status.textContent === 'Saved' || status.textContent === (payload.message || 'Saved')) {
+                status.textContent = '';
+              }
+            }, 2000);
+          } catch (err) {
+            status.textContent = (err && err.message) ? err.message : 'Save failed';
+          } finally {
+            saveBtn.disabled = false;
+          }
+        });
+      });
+    });
+  </script>
 
 
 
@@ -810,14 +913,44 @@
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
-    <h1 style='color: #555;'>
-      <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
-    </h1>
+    <div class="project-header-row">
+      <h1 style='color: #555;'>
+        <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
+      </h1>
+      <?php
+      $showProjectLanguageSwitch = !empty($has_text_en) && !empty($has_text_sv);
+      $langQuery = (string) ($project_text_lang ?? 'en');
+      ?>
+      <?php if ($showProjectLanguageSwitch): ?>
+        <nav class="project-language-switch" aria-label="Project text language">
+          <a href="<?= base_url($project['slug'] ?? '') ?>?lang=en" data-lang="en" class="<?= $langQuery === 'en' ? 'is-active' : '' ?>">EN</a>
+          <span aria-hidden="true">|</span>
+          <a href="<?= base_url($project['slug'] ?? '') ?>?lang=sv" data-lang="sv" class="<?= $langQuery === 'sv' ? 'is-active' : '' ?>">SV</a>
+        </nav>
+      <?php endif; ?>
+    </div>
 
-    <div class="text">
+    <?php
+    $textEnRaw = (string) ($project['text'] ?? '');
+    $textSvRaw = (string) ($project['text_sv'] ?? '');
+    $renderProjectText = static function (string $value): string {
+      if ($value === '') {
+        return '';
+      }
+      if (class_exists('Parsedown')) {
+        $parsedown = new Parsedown();
+        return $parsedown->text($value);
+      }
+      return nl2br(esc($value));
+    };
+    $textEnHtml = $renderProjectText($textEnRaw);
+    $textSvHtml = $renderProjectText($textSvRaw);
+    ?>
+
+    <div id="project-text-display" class="text" data-current-lang="<?= esc($langQuery) ?>">
       <?php
       // Render project text as markdown if available
-      $text = $project['text'] ?? $project->text ?? '';
+      $text = (string) ($project_text ?? ($project['text'] ?? $project->text ?? ''));
       if (!empty($text)) {
         // Use Parsedown if available, else fallback to nl2br
         if (class_exists('Parsedown')) {
@@ -829,6 +962,47 @@
       }
       ?>
     </div>
+    <div id="project-text-en" style="display:none;"><?= $textEnHtml ?></div>
+    <div id="project-text-sv" style="display:none;"><?= $textSvHtml ?></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var switcher = document.querySelector('.project-language-switch');
+        var display = document.getElementById('project-text-display');
+        var enSource = document.getElementById('project-text-en');
+        var svSource = document.getElementById('project-text-sv');
+        if (!switcher || !display || !enSource || !svSource) return;
+
+        var links = switcher.querySelectorAll('a[data-lang]');
+        if (!links.length) return;
+
+        function applyLang(lang) {
+          var normalized = lang === 'sv' ? 'sv' : 'en';
+          var source = normalized === 'sv' ? svSource : enSource;
+          display.innerHTML = source.innerHTML;
+          display.setAttribute('data-current-lang', normalized);
+
+          links.forEach(function (link) {
+            var isActive = link.getAttribute('data-lang') === normalized;
+            link.classList.toggle('is-active', isActive);
+          });
+
+          var url = new URL(window.location.href);
+          if (normalized === 'en') {
+            url.searchParams.delete('lang');
+          } else {
+            url.searchParams.set('lang', normalized);
+          }
+          window.history.replaceState({}, '', url.toString());
+        }
+
+        links.forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            applyLang(link.getAttribute('data-lang') || 'en');
+          });
+        });
+      });
+    </script>
     <hr class="light" style='margin: 14px 0'/>
 
 

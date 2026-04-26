@@ -18,6 +18,7 @@ class Project extends Model
     'alternate_name',
     'description',
     'text',
+    'text_sv',
     'start_year',
     'end_year',
     'location',
@@ -73,6 +74,7 @@ class Project extends Model
       'title' => $title,
       'description' => null,
       'text' => null,
+      'text_sv' => null,
       'sort_order' => $nextSort,
       'is_published' => 0,
     ]);

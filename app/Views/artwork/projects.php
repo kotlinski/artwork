@@ -174,6 +174,9 @@
 </div>
 
 <script>
+  let overviewModalScrollY = 0;
+  let overviewModalScrollLocked = false;
+
   function openProjectCreateModal() {
     document.getElementById('project-create-modal').style.display = 'block';
   }
@@ -283,14 +286,31 @@
     setProjectOverviewPreview('image_right');
 
     modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    if (!overviewModalScrollLocked) {
+      const scroller = document.scrollingElement || document.documentElement;
+      overviewModalScrollY = scroller ? scroller.scrollTop : (window.scrollY || window.pageYOffset || 0);
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      overviewModalScrollLocked = true;
+    }
   }
 
   function closeProjectOverviewModal() {
     const modal = document.getElementById('project-overview-modal');
     if (!modal) return;
     modal.style.display = 'none';
-    document.body.style.overflow = '';
+    if (overviewModalScrollLocked) {
+      const targetY = overviewModalScrollY;
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, targetY);
+      document.documentElement.scrollTop = targetY;
+      document.body.scrollTop = targetY;
+      requestAnimationFrame(function () {
+        window.scrollTo(0, targetY);
+      });
+      overviewModalScrollLocked = false;
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -336,8 +356,27 @@
 
     const overviewClose = document.getElementById('project-overview-modal-close');
     const overviewCancel = document.getElementById('project-overview-cancel-btn');
-    if (overviewClose) overviewClose.addEventListener('click', closeProjectOverviewModal);
-    if (overviewCancel) overviewCancel.addEventListener('click', closeProjectOverviewModal);
+    if (overviewClose) {
+      overviewClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeProjectOverviewModal();
+      });
+    }
+    if (overviewCancel) {
+      overviewCancel.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeProjectOverviewModal();
+      });
+    }
+
+    const overviewModal = document.getElementById('project-overview-modal');
+    if (overviewModal) {
+      overviewModal.addEventListener('click', function (e) {
+        if (e.target === overviewModal) {
+          closeProjectOverviewModal();
+        }
+      });
+    }
 
     const shouldOpenOverviewModal = <?= $isOverviewValidation ? 'true' : 'false' ?>;
     if (shouldOpenOverviewModal && overviewOldValues.overview_project_id) {

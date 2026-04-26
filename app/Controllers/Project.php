@@ -64,6 +64,7 @@ class Project extends BaseController
       'alternate_name' => '',
       'description' => '',
       'text' => '',
+      'text_sv' => '',
       'start_year' => '',
       'end_year' => '',
       'location' => '',
@@ -74,6 +75,23 @@ class Project extends BaseController
       'image_right' => 0,
       'sort_order' => 0
     ], $project);
+
+    $hasEnglishText = trim((string) ($project['text'] ?? '')) !== '';
+    $hasSwedishText = trim((string) ($project['text_sv'] ?? '')) !== '';
+    $requestedLang = strtolower((string) ($this->request->getGet('lang') ?? 'en'));
+    $selectedLang = ($requestedLang === 'sv' && $hasSwedishText) ? 'sv' : 'en';
+    $projectText = $selectedLang === 'sv'
+      ? (string) ($project['text_sv'] ?? '')
+      : (string) ($project['text'] ?? '');
+
+    // If the selected language is empty, fall back to whichever translation exists.
+    if (trim($projectText) === '' && $hasEnglishText) {
+      $selectedLang = 'en';
+      $projectText = (string) ($project['text'] ?? '');
+    } elseif (trim($projectText) === '' && $hasSwedishText) {
+      $selectedLang = 'sv';
+      $projectText = (string) ($project['text_sv'] ?? '');
+    }
     if (!isset($images) || !is_array($images)) $images = [];
     $next_project_slug = $next_project_slug ?? '';
     $next_project_title = $next_project_title ?? '';
@@ -101,6 +119,10 @@ class Project extends BaseController
 
     return $this->renderView('artwork/project-view', $required, [
       'project'            => $project,
+      'project_text'       => $projectText,
+      'project_text_lang'  => $selectedLang,
+      'has_text_en'        => $hasEnglishText,
+      'has_text_sv'        => $hasSwedishText,
       'images'             => $images,
       'all_projects'       => $allProjects,
       'next_project_slug'  => $next_project_slug,
@@ -168,15 +190,59 @@ class Project extends BaseController
     $request = service('request');
     $id = $request->getPost('id');
     $text = $request->getPost('text');
-    if (!$id || $text === null) {
-      return redirect()->back()->with('error', 'Missing project id or text');
+    $textSv = $request->getPost('text_sv');
+    if (!$id) {
+      if ($request->isAJAX()) {
+        return $this->response->setStatusCode(422)->setJSON([
+          'success' => false,
+          'error' => 'Missing project id',
+        ]);
+      }
+      return redirect()->back()->with('error', 'Missing project id');
+    }
+    if ($text === null && $textSv === null) {
+      if ($request->isAJAX()) {
+        return $this->response->setStatusCode(422)->setJSON([
+          'success' => false,
+          'error' => 'Missing project text payload',
+        ]);
+      }
+      return redirect()->back()->with('error', 'Missing project text payload');
     }
     $model = new \App\Models\Project();
     $project = $model->find($id);
     if (!$project) {
+      if ($request->isAJAX()) {
+        return $this->response->setStatusCode(404)->setJSON([
+          'success' => false,
+          'error' => 'Project not found',
+        ]);
+      }
       return redirect()->back()->with('error', 'Project not found');
     }
-    $model->update($id, ['text' => $text]);
+    $payload = [];
+    if ($text !== null) {
+      $payload['text'] = $text;
+    }
+    if ($textSv !== null) {
+      $payload['text_sv'] = $textSv;
+    }
+
+    $ok = $model->update($id, $payload);
+
+    if ($request->isAJAX()) {
+      if (!$ok) {
+        return $this->response->setStatusCode(500)->setJSON([
+          'success' => false,
+          'error' => 'Failed to save project text',
+        ]);
+      }
+
+      return $this->response->setJSON([
+        'success' => true,
+        'message' => 'Project texts saved',
+      ]);
+    }
     // Redirect to project detail page
     return redirect()->to(base_url('/' . $project['slug']))->with('success', 'Project info updated');
   }
