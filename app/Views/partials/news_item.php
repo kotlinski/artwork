@@ -6,6 +6,8 @@ $showAdmin = !empty($showAdmin);
 $includeDataAttrs = !empty($includeDataAttrs);
 $articleIdPrefix = isset($articleIdPrefix) ? (string)$articleIdPrefix : 'news-';
 $projectTitleById = $projectTitleById ?? [];
+$headingLevel = isset($headingLevel) ? (int)$headingLevel : 2;
+$headingTag = in_array($headingLevel, [1, 2, 3, 4, 5, 6], true) ? 'h' . $headingLevel : 'h2';
 
 $slug = (string)($item['slug'] ?? '');
 $articleId = $slug !== '' ? $articleIdPrefix . $slug : '';
@@ -85,7 +87,7 @@ $linkedProjectId = (string)($item['project_id'] ?? '');
 $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjectId] ?? null) : null;
 ?>
 <article<?= $articleId !== '' ? ' id="' . esc($articleId) . '"' : '' ?> class="news-item"<?= $includeDataAttrs ? ' data-project-id="' . esc($item['project_id'] ?? '') . '" data-slug="' . esc($item['slug'] ?? '') . '" data-content="' . htmlspecialchars($item['content'] ?? '', ENT_QUOTES) . '"' : '' ?>>
-  <h2><?= esc($item['title'] ?? '') ?></h2>
+  <<?= $headingTag ?>><?= esc($item['title'] ?? '') ?></<?= $headingTag ?>>
   <div class="body">
     <?= $item['content_parsed'] ?? nl2br(esc($item['content'] ?? '')) ?>
   </div>

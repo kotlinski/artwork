@@ -21,7 +21,18 @@ class RegenerateNewsImages extends BaseCommand
             return;
         }
 
+        // Optional: filter to a single basename (filename without extension)
+        $filterBasename = $params['basename'] ?? (CLI::getOption('basename') ?? null);
+
         $originals = glob($originalDir . '*.*') ?: [];
+
+        if ($filterBasename !== null) {
+            $filterBasename = trim((string) $filterBasename);
+            $originals = array_filter($originals, static function (string $path) use ($filterBasename): bool {
+                return pathinfo($path, PATHINFO_FILENAME) === $filterBasename;
+            });
+            $originals = array_values($originals);
+        }
         if (empty($originals)) {
             CLI::write('No original images found.', 'yellow');
             return;
@@ -33,6 +44,7 @@ class RegenerateNewsImages extends BaseCommand
         $variants = [
             'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => 65],
             'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => 70],
+            'mobile/'  => ['maxW' => 640,  'maxH' => 480, 'quality' => 72],
             'small/'   => ['maxW' => 800,  'maxH' => 600, 'quality' => 75],
             'medium/'  => ['maxW' => 1280, 'maxH' => 960, 'quality' => 80],
             'large/'   => ['maxW' => 1920, 'maxH' => 1440, 'quality' => 85],

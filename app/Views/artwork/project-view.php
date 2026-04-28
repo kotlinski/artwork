@@ -35,9 +35,11 @@
   <?php endif; ?>
 
 
-  <div id="project-overview-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="project-overview-modal-heading">
+  <div id="project-overview-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true"
+       aria-labelledby="project-overview-modal-heading">
     <div class="news-edit-modal-box project-overview-modal-box">
-      <button type="button" id="project-overview-modal-close" class="news-edit-modal-close" aria-label="Close">&times;</button>
+      <button type="button" id="project-overview-modal-close" class="news-edit-modal-close" aria-label="Close">&times;
+      </button>
       <h3 id="project-overview-modal-heading">Project Overview — <?= esc($project['title'] ?? '') ?></h3>
 
       <?php if (!empty($overviewErrors)): ?>
@@ -50,7 +52,8 @@
         </div>
       <?php endif; ?>
 
-      <form method="post" action="<?= base_url('artwork/update/' . ($project['id'] ?? '')) ?>" id="project-overview-form" class="project-overview-form">
+      <form method="post" action="<?= base_url('artwork/update/' . ($project['id'] ?? '')) ?>"
+            id="project-overview-form" class="project-overview-form">
         <?= csrf_field() ?>
 
         <div class="project-overview-main-fields">
@@ -67,11 +70,15 @@
         <div class="news-modal-date-row project-overview-year-row">
           <label class="md-extra-field news-modal-date-field">
             Start year
-            <input type="number" name="start_year" value="<?= esc(old('start_year') ?? (($project['start_year'] ?? 0) != 0 ? $project['start_year'] : '')) ?>" min="1900" max="2100">
+            <input type="number" name="start_year"
+                   value="<?= esc(old('start_year') ?? (($project['start_year'] ?? 0) != 0 ? $project['start_year'] : '')) ?>"
+                   min="1900" max="2100">
           </label>
           <label class="md-extra-field news-modal-date-field">
             End year
-            <input type="number" name="end_year" value="<?= esc(old('end_year') ?? (($project['end_year'] ?? 0) != 0 ? $project['end_year'] : '')) ?>" min="1900" max="2100">
+            <input type="number" name="end_year"
+                   value="<?= esc(old('end_year') ?? (($project['end_year'] ?? 0) != 0 ? $project['end_year'] : '')) ?>"
+                   min="1900" max="2100">
           </label>
         </div>
 
@@ -82,7 +89,8 @@
               <select name="<?= $field ?>" id="select-<?= $field ?>">
                 <option value="">-- Select --</option>
                 <?php foreach ($images ?? [] as $image): ?>
-                  <option value="<?= esc($image['id'] ?? '') ?>" <?= (string)(old($field) ?? ($project[$field] ?? '')) === (string)($image['id'] ?? '') ? 'selected' : '' ?>>
+                  <option
+                    value="<?= esc($image['id'] ?? '') ?>" <?= (string)(old($field) ?? ($project[$field] ?? '')) === (string)($image['id'] ?? '') ? 'selected' : '' ?>>
                     <?= esc($image['file_id'] ?? '') ?>
                   </option>
                 <?php endforeach; ?>
@@ -93,20 +101,24 @@
 
         <div id="project-image-preview-row" class="project-image-preview-row">
           <div class="project-image-preview-box">
-            <div class="project-image-preview-square"><img id="preview-image_left" src="" alt="Preview left" style="display:none;"></div>
+            <div class="project-image-preview-square"><img id="preview-image_left" src="" alt="Preview left"
+                                                           style="display:none;"></div>
           </div>
           <div class="project-image-preview-box">
-            <div class="project-image-preview-square"><img id="preview-image_mid" src="" alt="Preview middle" style="display:none;"></div>
+            <div class="project-image-preview-square"><img id="preview-image_mid" src="" alt="Preview middle"
+                                                           style="display:none;"></div>
           </div>
           <div class="project-image-preview-box">
-            <div class="project-image-preview-square"><img id="preview-image_right" src="" alt="Preview right" style="display:none;"></div>
+            <div class="project-image-preview-square"><img id="preview-image_right" src="" alt="Preview right"
+                                                           style="display:none;"></div>
           </div>
         </div>
 
         <label class="md-extra-field project-overview-description-field">
           Description
           <small class="news-field-hint">Should be 150-160 characters long.</small>
-          <textarea name="description" id="project-description-textarea" rows="4" maxlength="300" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? ($project['description'] ?? '')) ?></textarea>
+          <textarea name="description" id="project-description-textarea" rows="4" maxlength="300"
+                    class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? ($project['description'] ?? '')) ?></textarea>
           <span id="desc-char-count" class="project-overview-char-count">0/160</span>
         </label>
 
@@ -247,8 +259,10 @@
         <!-- Upload modal -->
         <div id="upload-image-modal"
              style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
-          <div style="background:#fff;padding:28px 32px;border-radius:6px;min-width:320px;max-width:460px;width:100%;position:relative;">
-            <span onclick="closeUploadModal()" style="position:absolute;top:10px;right:16px;font-size:22px;cursor:pointer;">&times;</span>
+          <div
+            style="background:#fff;padding:28px 32px;border-radius:6px;min-width:320px;max-width:460px;width:100%;position:relative;">
+            <span onclick="closeUploadModal()"
+                  style="position:absolute;top:10px;right:16px;font-size:22px;cursor:pointer;">&times;</span>
             <h3 style="margin-top:0;">Upload Image</h3>
             <form method="post" action="<?= base_url('image/upload') ?>" enctype="multipart/form-data">
               <?= csrf_field() ?>
@@ -256,7 +270,8 @@
               <input type="hidden" name="return_to" value="<?= esc(current_url()) ?>">
               <label style="display:block;margin:12px;">
                 Image file <span style="color:#888;font-size:12px;">(jpg, jpeg, png, webp — max 20 MB)</span>
-                <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" required style="display:block;margin-top:4px;">
+                <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" required
+                       style="display:block;margin-top:4px;">
               </label>
               <label style="display:block;margin:12px;">
                 File ID <span style="color:#888;font-size:12px;">(slug, e.g. <em>bla-traktor</em>)</span>
@@ -268,7 +283,9 @@
                        style="display:block;width:100%;margin-top:4px;box-sizing:border-box;">
               </label>
               <div style="text-align:right;">
-                <button type="button" class="admin-action-btn" onclick="closeUploadModal()" style="margin-right:8px;">Cancel</button>
+                <button type="button" class="admin-action-btn" onclick="closeUploadModal()" style="margin-right:8px;">
+                  Cancel
+                </button>
                 <button type="submit" class="admin-action-btn">Upload</button>
               </div>
             </form>
@@ -308,8 +325,10 @@
         <!-- Image list -->
         <ul class="image-list" id="project-image-list">
           <?php foreach ($images as $idx => $img): ?>
-            <?php $isFirst = $idx === 0; $isLast = $idx === count($images) - 1; ?>
-            <li class="image-list-item" data-image-id="<?= esc($img['id']) ?>" style="display: flex; align-items: center;">
+            <?php $isFirst = $idx === 0;
+            $isLast = $idx === count($images) - 1; ?>
+            <li class="image-list-item" data-image-id="<?= esc($img['id']) ?>"
+                style="display: flex; align-items: center;">
               <span class="order-controls image-list-order-controls">
                 <a href="/image/move-up/<?= $img['id'] ?>"
                    class="order-btn js-image-move<?= $isFirst ? ' disabled' : '' ?>"
@@ -327,7 +346,7 @@
                  onclick="openImageEditModal(<?= $img['id'] ?>, <?= $project['id'] ?>); return false;">
                 <div class="image-list-thumb">
                   <img src="/konst/square/<?= esc($img['file_name']) ?>" alt="<?= esc($img['title']) ?>"
-                 style="max-width:90px;max-height:60px;object-fit:cover;">
+                       style="max-width:90px;max-height:60px;object-fit:cover;">
                 </div>
               </a>
               <div class="image-list-main">
@@ -346,7 +365,9 @@
               </div>
             </li>
             <?php if ((($idx + 1) % 3 === 0) && !$isLast): ?>
-              <li class="image-list-divider" aria-hidden="true"><hr class="light"></li>
+              <li class="image-list-divider" aria-hidden="true">
+                <hr class="light">
+              </li>
             <?php endif; ?>
           <?php endforeach; ?>
         </ul>
@@ -441,7 +462,6 @@
       });
     });
   </script>
-
 
 
   <!-- Shared image edit modal -->
@@ -868,7 +888,7 @@
 <?php endif; ?>
 
 <div class="contained">
-  <hr class='light'  style="margin:20px 0;"/>
+  <hr class='light' style="margin:20px 0;"/>
 </div>
 
 <?= $this->endSection() ?>
@@ -878,79 +898,81 @@
   <?php if (isset($error)): ?>
     <p><?= esc($error) ?></p>
   <?php else: ?>
-    <?php if (!empty($images) && is_array($images)): ?>
-      <div
-        style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));align-items:center;gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 6px 0 12px 0;">
-        <?php foreach ($images as $idx => $img): ?>
-          <?php if (!isset($img['file_name'])) continue; ?>
-          <?php
-          // Keep intrinsic dimensions accurate for stable layout while fitting thumbnails within 122x122.
-          $origW = isset($img['width_px']) ? (int)$img['width_px'] : 0;
-          $origH = isset($img['height_px']) ? (int)$img['height_px'] : 0;
-          if ($origW > 0 && $origH > 0) {
-            $scale = min(122 / $origW, 122 / $origH, 1);
-            $thumbW = max(1, (int)round($origW * $scale));
-            $thumbH = max(1, (int)round($origH * $scale));
-          } else {
-            $thumbW = 122;
-            $thumbH = 122;
-          }
-          ?>
-          <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>"
-             style="display:flex;align-items:center;justify-content:center;background:#fff;width:var(--thumb-size);overflow:hidden;">
-            <img
-              src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
-              srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x, <?= base_url('konst/thumb2x/' . $img['file_name']) ?> 2x"
-              width="<?= $thumbW ?>"
-              height="<?= $thumbH ?>"
-              alt="<?= esc($img['title'] ?? '') ?>"
-              loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
-              fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
-              decoding="async"
-              style="display:block;max-width:100%;max-height:122px;height:auto;border:0;"
-            />
-          </a>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
+  <?php if (!empty($images) && is_array($images)): ?>
+    <div
+      style="display: grid;--thumb-size: calc((min(100vw, 400px) - 14px - 20px) / 3);grid-template-columns: repeat(3, var(--thumb-size));align-items:center;gap: 7px;width: calc(min(100vw, 380px) - 14px);margin: 6px 0 18px 0;">
+      <?php foreach ($images as $idx => $img): ?>
+        <?php if (!isset($img['file_name'])) continue; ?>
+        <?php
+        // Keep intrinsic dimensions accurate for stable layout while fitting thumbnails within 122x122.
+        $origW = isset($img['width_px']) ? (int)$img['width_px'] : 0;
+        $origH = isset($img['height_px']) ? (int)$img['height_px'] : 0;
+        if ($origW > 0 && $origH > 0) {
+          $scale = min(122 / $origW, 122 / $origH, 1);
+          $thumbW = max(1, (int)round($origW * $scale));
+          $thumbH = max(1, (int)round($origH * $scale));
+        } else {
+          $thumbW = 122;
+          $thumbH = 122;
+        }
+        ?>
+        <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>"
+           style="display:flex;align-items:center;justify-content:center;background:#fff;width:var(--thumb-size);overflow:hidden;">
+          <img
+            src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
+            srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x, <?= base_url('konst/thumb2x/' . $img['file_name']) ?> 2x"
+            width="<?= $thumbW ?>"
+            height="<?= $thumbH ?>"
+            alt="<?= esc($img['title'] ?? '') ?>"
+            loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
+            fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
+            decoding="async"
+            style="display:block;max-width:100%;max-height:122px;height:auto;border:0;"
+          />
+        </a>
+      <?php endforeach; ?>
+    </div>
+  <?php endif; ?>
     <div class="project-header-row">
       <h1 style='color: #555;'>
         <?= esc($project['title'] ?? $project->title ?? 'Projekt') ?>
       </h1>
       <?php
       $showProjectLanguageSwitch = !empty($has_text_en) && !empty($has_text_sv);
-      $langQuery = (string) ($project_text_lang ?? 'en');
+      $langQuery = (string)($project_text_lang ?? 'en');
       ?>
       <?php if ($showProjectLanguageSwitch): ?>
         <nav class="project-language-switch" aria-label="Project text language">
-          <a href="<?= base_url($project['slug'] ?? '') ?>?lang=en" data-lang="en" class="<?= $langQuery === 'en' ? 'is-active' : '' ?>">EN</a>
+          <a href="<?= base_url($project['slug'] ?? '') ?>?lang=en" data-lang="en"
+             class="<?= $langQuery === 'en' ? 'is-active' : '' ?>">EN</a>
           <span aria-hidden="true">|</span>
-          <a href="<?= base_url($project['slug'] ?? '') ?>?lang=sv" data-lang="sv" class="<?= $langQuery === 'sv' ? 'is-active' : '' ?>">SV</a>
+          <a href="<?= base_url($project['slug'] ?? '') ?>?lang=sv" data-lang="sv"
+             class="<?= $langQuery === 'sv' ? 'is-active' : '' ?>">SV</a>
         </nav>
       <?php endif; ?>
     </div>
 
-    <?php
-    $textEnRaw = (string) ($project['text'] ?? '');
-    $textSvRaw = (string) ($project['text_sv'] ?? '');
-    $renderProjectText = static function (string $value): string {
-      if ($value === '') {
-        return '';
-      }
-      if (class_exists('Parsedown')) {
-        $parsedown = new Parsedown();
-        return $parsedown->text($value);
-      }
-      return nl2br(esc($value));
-    };
-    $textEnHtml = $renderProjectText($textEnRaw);
-    $textSvHtml = $renderProjectText($textSvRaw);
-    ?>
+  <?php
+  $textEnRaw = (string)($project['text'] ?? '');
+  $textSvRaw = (string)($project['text_sv'] ?? '');
+  $renderProjectText = static function (string $value): string {
+    if ($value === '') {
+      return '';
+    }
+    if (class_exists('Parsedown')) {
+      $parsedown = new Parsedown();
+      return $parsedown->text($value);
+    }
+    return nl2br(esc($value));
+  };
+  $textEnHtml = $renderProjectText($textEnRaw);
+  $textSvHtml = $renderProjectText($textSvRaw);
+  ?>
 
-    <div id="project-text-display" class="text" data-current-lang="<?= esc($langQuery) ?>">
+    <div id="project-text-display" class="text project-text-content" data-current-lang="<?= esc($langQuery) ?>">
       <?php
       // Render project text as markdown if available
-      $text = (string) ($project_text ?? ($project['text'] ?? $project->text ?? ''));
+      $text = (string)($project_text ?? ($project['text'] ?? $project->text ?? ''));
       if (!empty($text)) {
         // Use Parsedown if available, else fallback to nl2br
         if (class_exists('Parsedown')) {
@@ -975,10 +997,48 @@
         var links = switcher.querySelectorAll('a[data-lang]');
         if (!links.length) return;
 
+        function applyProjectTextLinkTargets(container) {
+          if (!container) return;
+          var anchors = container.querySelectorAll('a[href]');
+          anchors.forEach(function (anchor) {
+            var href = (anchor.getAttribute('href') || '').trim();
+            if (href === '') return;
+
+            // Keep in-page and non-http links in the same tab.
+            if (href.startsWith('#') || href.startsWith('/') || href.startsWith('./') || href.startsWith('../') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+              anchor.removeAttribute('target');
+              anchor.removeAttribute('rel');
+              return;
+            }
+
+            // Absolute URL: open external origins in a new tab.
+            var parsed;
+            try {
+              parsed = new URL(href, window.location.origin);
+            } catch (_) {
+              anchor.removeAttribute('target');
+              anchor.removeAttribute('rel');
+              return;
+            }
+
+            var isHttp = parsed.protocol === 'http:' || parsed.protocol === 'https:';
+            var isExternal = isHttp && parsed.origin !== window.location.origin;
+
+            if (isExternal) {
+              anchor.setAttribute('target', '_blank');
+              anchor.setAttribute('rel', 'noopener noreferrer');
+            } else {
+              anchor.removeAttribute('target');
+              anchor.removeAttribute('rel');
+            }
+          });
+        }
+
         function applyLang(lang) {
           var normalized = lang === 'sv' ? 'sv' : 'en';
           var source = normalized === 'sv' ? svSource : enSource;
           display.innerHTML = source.innerHTML;
+          applyProjectTextLinkTargets(display);
           display.setAttribute('data-current-lang', normalized);
 
           links.forEach(function (link) {
@@ -1001,118 +1061,127 @@
             applyLang(link.getAttribute('data-lang') || 'en');
           });
         });
+
+        // Ensure initial server-rendered text follows the same link target policy.
+        applyProjectTextLinkTargets(display);
       });
     </script>
-    <hr class="light" style='margin: 14px 0'/>
 
 
     <!--    <hr class="light"/>
     -->    <?php if (!empty($project_news)): ?>
-      <div class="project-news">
-        <?php foreach ($project_news as $idx => $item): ?>
-          <?= view('partials/news_item', [
-            'item' => $item,
-            'idx' => $idx,
-            'total' => count($project_news),
-            'showAdmin' => false,
-            'includeDataAttrs' => false,
-            'articleIdPrefix' => '',
-          ]) ?>
-        <?php endforeach; ?>
-      </div>
+  <hr style='margin: 12px 0'/>
+    <h2 style="margin: 6px 0 12px 0;">Related news</h2>
+    <div class="project-news">
+      <?php foreach ($project_news as $idx => $item): ?>
+        <?= view('partials/news_item', [
+          'item' => $item,
+          'idx' => $idx,
+          'total' => count($project_news),
+          'showAdmin' => false,
+          'includeDataAttrs' => false,
+          'articleIdPrefix' => '',
+          'headingLevel' => 3,
+        ]) ?>
+      <?php endforeach; ?>
+    </div>
 
-      <div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
-        <button type="button" class="news-image-fullscreen-close-top" data-news-image-close aria-label="Close image">&times;</button>
-        <figure class="news-image-fullscreen-figure">
-          <img id="news-image-fullscreen-img" src="" alt="">
-          <figcaption class="news-image-fullscreen-caption">
-            <span id="news-image-fullscreen-title" class="news-image-fullscreen-title"></span>
-            <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" data-news-image-close aria-label="Close image">close</button>
-          </figcaption>
-        </figure>
-      </div>
+    <div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
+      <button type="button" class="news-image-fullscreen-close-top" data-news-image-close aria-label="Close image">
+        &times;
+      </button>
+      <figure class="news-image-fullscreen-figure">
+        <img id="news-image-fullscreen-img" src="" alt="">
+        <figcaption class="news-image-fullscreen-caption">
+          <span id="news-image-fullscreen-title" class="news-image-fullscreen-title"></span>
+          <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close"
+                  data-news-image-close aria-label="Close image">close
+          </button>
+        </figcaption>
+      </figure>
+    </div>
 
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          var modal = document.getElementById('news-image-fullscreen-modal');
-          var modalImg = document.getElementById('news-image-fullscreen-img');
-          var modalTitle = document.getElementById('news-image-fullscreen-title');
-          var closeButtons = modal ? modal.querySelectorAll('[data-news-image-close]') : [];
-          var triggers = document.querySelectorAll('.news-main-image-trigger');
-          var lockedScrollY = 0;
-          var isBodyLocked = false;
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('news-image-fullscreen-modal');
+        var modalImg = document.getElementById('news-image-fullscreen-img');
+        var modalTitle = document.getElementById('news-image-fullscreen-title');
+        var closeButtons = modal ? modal.querySelectorAll('[data-news-image-close]') : [];
+        var triggers = document.querySelectorAll('.news-main-image-trigger');
+        var lockedScrollY = 0;
+        var isBodyLocked = false;
 
-          if (!modal || !modalImg || !modalTitle || closeButtons.length === 0 || triggers.length === 0) {
-            return;
+        if (!modal || !modalImg || !modalTitle || closeButtons.length === 0 || triggers.length === 0) {
+          return;
+        }
+
+        function openModal(src, alt, title, srcset, sizes) {
+          modalImg.srcset = srcset || '';
+          modalImg.sizes = sizes || '';
+          modalImg.src = src;
+          modalImg.alt = alt || '';
+          modalTitle.textContent = title || '';
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+          if (!isBodyLocked) {
+            lockedScrollY = window.scrollY || window.pageYOffset || 0;
+            document.body.style.position = 'fixed';
+            document.body.style.top = '-' + lockedScrollY + 'px';
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+            isBodyLocked = true;
           }
+        }
 
-          function openModal(src, alt, title, srcset, sizes) {
-            modalImg.srcset = srcset || '';
-            modalImg.sizes = sizes || '';
-            modalImg.src = src;
-            modalImg.alt = alt || '';
-            modalTitle.textContent = title || '';
-            modal.style.display = 'flex';
-            modal.setAttribute('aria-hidden', 'false');
-            if (!isBodyLocked) {
-              lockedScrollY = window.scrollY || window.pageYOffset || 0;
-              document.body.style.position = 'fixed';
-              document.body.style.top = '-' + lockedScrollY + 'px';
-              document.body.style.left = '0';
-              document.body.style.right = '0';
-              document.body.style.width = '100%';
-              document.body.style.overflow = 'hidden';
-              isBodyLocked = true;
-            }
+        function closeModal() {
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+          modalImg.src = '';
+          modalImg.srcset = '';
+          modalImg.sizes = '';
+          modalTitle.textContent = '';
+          if (isBodyLocked) {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            window.scrollTo(0, lockedScrollY);
+            isBodyLocked = false;
           }
+        }
 
-          function closeModal() {
-            modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
-            modalImg.src = '';
-            modalImg.srcset = '';
-            modalImg.sizes = '';
-            modalTitle.textContent = '';
-            if (isBodyLocked) {
-              document.body.style.position = '';
-              document.body.style.top = '';
-              document.body.style.left = '';
-              document.body.style.right = '';
-              document.body.style.width = '';
-              document.body.style.overflow = '';
-              window.scrollTo(0, lockedScrollY);
-              isBodyLocked = false;
-            }
-          }
-
-          triggers.forEach(function (trigger) {
-            trigger.addEventListener('click', function () {
-              openModal(
-                trigger.dataset.fullImage || '',
-                trigger.dataset.alt || '',
-                trigger.dataset.newsTitle || trigger.dataset.alt || '',
-                trigger.dataset.fullImageSrcset || '',
-                trigger.dataset.fullImageSizes || ''
-              );
-            });
-          });
-
-          closeButtons.forEach(function (btn) {
-            btn.addEventListener('click', closeModal);
-          });
-
-          modalImg.addEventListener('click', closeModal);
-
-          document.addEventListener('keydown', function (e) {
-            if ((e.key === 'Escape' || e.key === 'Esc') && modal.style.display === 'flex') {
-              closeModal();
-            }
+        triggers.forEach(function (trigger) {
+          trigger.addEventListener('click', function () {
+            openModal(
+              trigger.dataset.fullImage || '',
+              trigger.dataset.alt || '',
+              trigger.dataset.newsTitle || trigger.dataset.alt || '',
+              trigger.dataset.fullImageSrcset || '',
+              trigger.dataset.fullImageSizes || ''
+            );
           });
         });
-      </script>
 
-      <hr class="light"/>
-    <?php endif; ?>
+        closeButtons.forEach(function (btn) {
+          btn.addEventListener('click', closeModal);
+        });
+
+        modalImg.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', function (e) {
+          if ((e.key === 'Escape' || e.key === 'Esc') && modal.style.display === 'flex') {
+            closeModal();
+          }
+        });
+      });
+    </script>
+
+  <hr class="light"/>
+  <?php endif; ?>
     <div class="back-to-overview-row"
          style="display: flex; justify-content: space-between; align-items: center; margin: 1em 0;">
       <a href="<?= base_url('artwork') . '#' . ($project['slug'] ?? '') ?>">Back to Artworks</a>

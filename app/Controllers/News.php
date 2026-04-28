@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\Files\UploadedFile;
 class News extends BaseController
 {
   protected const NEWS_CATEGORIES = ['exhibition', 'talk', 'workshop', 'general'];
+  protected ?bool $supportsNewsImageDimensions = null;
 
   public function index(){
     $model = new \App\Models\NewsModel();
@@ -193,7 +194,7 @@ class News extends BaseController
     $mainImageHeight = null;
     if ($hasMainImageUpload) {
       try {
-        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $slug, true);
+        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $slug);
         $mainImagePath = $savedMainImage['path'];
         $mainImageWidth = $savedMainImage['width_px'];
         $mainImageHeight = $savedMainImage['height_px'];
@@ -227,14 +228,34 @@ class News extends BaseController
       $data['project_id'] = (int) $projectId;
     }
     $data['main_image'] = $mainImagePath;
-    $data['width_px'] = $mainImageWidth;
-    $data['height_px'] = $mainImageHeight;
+    if ($this->supportsNewsImageDimensions()) {
+      $data['width_px'] = $mainImageWidth;
+      $data['height_px'] = $mainImageHeight;
+    }
     $data['event_location'] = $eventLocation !== '' ? $eventLocation : null;
     $data['event_start_date'] = $eventStartDate;
     $data['event_end_date'] = $eventEndDate;
     $data['external_link'] = $externalLink !== '' ? $externalLink : null;
 
-    $model->insert($data);
+    try {
+      $model->insert($data);
+    } catch (\Throwable $e) {
+      log_message('error', 'News create database save failed for slug {slug}: {msg}', [
+        'slug' => $slug,
+        'msg' => $e->getMessage(),
+      ]);
+      return redirect()->to('/news')
+        ->with('create_errors', ['Failed to save the article after processing the image.'])
+        ->with('create_title', $title)
+        ->with('create_slug', $slug)
+        ->with('create_content', $content)
+        ->with('create_project_id', $projectId ?? '')
+        ->with('create_category', $category)
+        ->with('create_event_location', $eventLocation)
+        ->with('create_event_start_date', $eventStartDate ?? '')
+        ->with('create_event_end_date', $eventEndDate ?? '')
+        ->with('create_external_link', $externalLink);
+    }
     $id = $model->getInsertID();
 
     return redirect()->to('/news#news-' . $slug)->with('success', 'Article created.');
@@ -304,13 +325,8 @@ class News extends BaseController
     return null;
     }
 
-      protected function saveNewsMainImageVariants(UploadedFile $file, string $slug, bool $generateResponsiveVariants = true): array
+      protected function saveNewsMainImageVariants(UploadedFile $file, string $slug): array
     {
-    // News upload generates multiple responsive variants and can exceed short server defaults.
-    if (function_exists('set_time_limit')) {
-      @set_time_limit(180);
-    }
-
     $baseName = $this->resolveNewsMainImageBaseName($slug);
     $origExt = strtolower($file->getClientExtension());
     $origName = $baseName . '.' . $origExt;
@@ -338,92 +354,114 @@ class News extends BaseController
 
     helper('webp');
 
-    // Root: full reoriented image used for fullscreen mode.
-    generate_webp_variant($origPath, $newsDir . $webpName, $quality);
-
-    // Thumbnail variants for lists/cards.
-    $variants = [
-      'thumb/'   => ['maxW' => 122, 'maxH' => 122, 'quality' => min($quality, 65)],
-      'thumb2x/' => ['maxW' => 244, 'maxH' => 244, 'quality' => min($quality, 70)],
-      // Responsive fullscreen variants.
-      'small/'   => ['maxW' => 800,  'maxH' => 600, 'quality' => min($quality, 75)],
-      'medium/'  => ['maxW' => 1280, 'maxH' => 960, 'quality' => min($quality, 80)],
-      'large/'   => ['maxW' => 1920, 'maxH' => 1440, 'quality' => min($quality, 85)],
-      'x-large/' => ['maxW' => 2560, 'maxH' => 1920, 'quality' => min($quality, 87)],
-    ];
-
-    $variantSourcePath = $origPath;
-    $cleanupVariantSource = false;
-    try {
-      // Preprocess once to x-large bounds so each variant generation does not decode huge originals repeatedly.
-      $preparedPath = $this->prepareNewsVariantSource($origPath, 2560, 1920);
-      if ($preparedPath !== '') {
-        $variantSourcePath = $preparedPath;
-        $cleanupVariantSource = true;
+    // Generate only thumbnails synchronously — they are tiny and fast.
+    // Larger variants (root, small, medium, large, x-large) are generated
+    // in a background process so the web request does not time out.
+    foreach (['thumb/' => [122, 122, min($quality, 65)], 'thumb2x/' => [244, 244, min($quality, 70)]] as $subdir => $opts) {
+      $targetDir = $newsDir . $subdir;
+      if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
+        throw new \RuntimeException('Failed to create news variant directory: ' . $subdir);
       }
-    } catch (\Throwable $e) {
-      log_message('warning', 'News image variant preprocessing failed; falling back to original source. Error: {msg}', [
-        'msg' => $e->getMessage(),
-      ]);
+      generate_webp_fit($origPath, $targetDir . $webpName, $opts[0], $opts[1], $opts[2]);
     }
 
-    if (!$generateResponsiveVariants) {
-      $variants = array_filter(
-        $variants,
-        static fn(string $subdir): bool => in_array($subdir, ['thumb/', 'thumb2x/'], true),
-        ARRAY_FILTER_USE_KEY
-      );
-    }
-
-    try {
-      foreach ($variants as $subdir => $opts) {
-        $targetDir = $newsDir . $subdir;
-        if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
-          throw new \RuntimeException('Failed to create news variant directory.');
-        }
-        $outPath = $targetDir . $webpName;
-        generate_webp_fit($variantSourcePath, $outPath, $opts['maxW'], $opts['maxH'], $opts['quality']);
-      }
-    } finally {
-      if ($cleanupVariantSource && is_file($variantSourcePath)) {
-        @unlink($variantSourcePath);
-      }
-    }
+    // Fire background process: regenerate all variants (root + large) for this basename only.
+    $this->dispatchVariantRegeneration($baseName);
 
     $relativePath = 'media/news/' . $webpName;
-    // Store the original (root) image dimensions so the fallback calculation in
-    // normalizeMainImagePaths can derive correct thumb/thumb2x intrinsic sizes.
-    $dimensions = $this->getStoredImageDimensions($relativePath);
+    // Dimensions from thumb (root webp may not exist yet until background job finishes).
+    $thumbPath = $newsDir . 'thumb/' . $webpName;
+    $dims = @getimagesize($thumbPath);
+    $width = ($dims && $dims[0] > 0) ? (int) $dims[0] : null;
+    $height = ($dims && $dims[1] > 0) ? (int) $dims[1] : null;
 
     return [
       'path' => $relativePath,
-      'width_px' => $dimensions['width_px'],
-      'height_px' => $dimensions['height_px'],
+      'width_px' => $width,
+      'height_px' => $height,
     ];
     }
 
-    protected function prepareNewsVariantSource(string $sourcePath, int $maxWidth, int $maxHeight): string
+    protected function dispatchVariantRegeneration(string $baseName): void
     {
-    $tmpPng = tempnam(sys_get_temp_dir(), 'news_variant_');
-    if ($tmpPng === false) {
-      throw new \RuntimeException('Failed to allocate temporary file for news variant source.');
-    }
-    $tmpPng .= '.png';
+        $phpBin = $this->resolvePhpCliBinary();
+    $sparkPath = ROOTPATH . 'spark';
 
-    $image = \Config\Services::image('imagick');
-    $image->withFile($sourcePath);
-    $image->reorient();
-    $image->resize($maxWidth, $maxHeight, true);
-    $image->save($tmpPng);
+        if ($phpBin === null) {
+          log_message('warning', 'No PHP CLI binary found; background news variant regeneration skipped for {basename}.', [
+            'basename' => $baseName,
+          ]);
+          return;
+        }
 
-    if (!is_file($tmpPng) || (int) @filesize($tmpPng) === 0) {
-      throw new \RuntimeException('Temporary news variant source was not created.');
-    }
-
-    return $tmpPng;
+    if (!is_file($sparkPath)) {
+      log_message('warning', 'spark not found at {path}; large news image variants will not be generated in background.', [
+        'path' => $sparkPath,
+      ]);
+      return;
     }
 
-  protected function resolveNewsMainImageBaseName(string $slug): string
+        $logFile = WRITEPATH . 'logs/news-regenerate.log';
+
+    $cmd = sprintf(
+          'nohup %s %s news:regenerate-images --basename %s >> %s 2>&1 & echo $!',
+      escapeshellarg($phpBin),
+      escapeshellarg($sparkPath),
+          escapeshellarg($baseName),
+          escapeshellarg($logFile)
+    );
+
+        $output = [];
+        $exitCode = 0;
+        @exec($cmd, $output, $exitCode);
+
+        $pid = !empty($output[0]) ? trim((string) $output[0]) : '';
+        if ($exitCode !== 0 || $pid === '') {
+          log_message('warning', 'Failed to dispatch background news variant regeneration for {basename}. Exit: {code}', [
+            'basename' => $baseName,
+            'code' => $exitCode,
+          ]);
+          return;
+        }
+
+        log_message('info', 'Dispatched background news variant regeneration for {basename} with pid {pid}.', [
+          'basename' => $baseName,
+          'pid' => $pid,
+        ]);
+      }
+
+      protected function resolvePhpCliBinary(): ?string
+      {
+        $candidates = [];
+
+        $fromShell = trim((string) @shell_exec('command -v php 2>/dev/null'));
+        if ($fromShell !== '') {
+          $candidates[] = $fromShell;
+        }
+
+        $candidates[] = PHP_BINDIR . '/php';
+        $candidates[] = '/opt/homebrew/bin/php';
+        $candidates[] = '/usr/local/bin/php';
+        $candidates[] = '/usr/bin/php';
+
+        foreach ($candidates as $candidate) {
+          $candidate = trim((string) $candidate);
+          if ($candidate === '') {
+            continue;
+          }
+          if (!is_file($candidate) || !is_executable($candidate)) {
+            continue;
+          }
+          if (str_contains(strtolower($candidate), 'php-fpm')) {
+            continue;
+          }
+          return $candidate;
+        }
+
+        return null;
+      }
+
+    protected function resolveNewsMainImageBaseName(string $slug): string
   {
     $cleanSlug = trim($slug) !== '' ? trim($slug) : 'item';
     $base = 'anne-hamrin-simonsson-news-' . $cleanSlug;
@@ -518,6 +556,8 @@ class News extends BaseController
       return redirect()->to('/login');
     }
 
+    try {
+
     $id = (int) $this->request->getPost('id');
     if ($id <= 0) {
       return redirect()->to('/news')->with('error', 'Invalid news item.')->withInput();
@@ -556,8 +596,10 @@ class News extends BaseController
     }
     if ($removeMainImage) {
       $data['main_image'] = null;
-      $data['width_px'] = null;
-      $data['height_px'] = null;
+      if ($this->supportsNewsImageDimensions()) {
+        $data['width_px'] = null;
+        $data['height_px'] = null;
+      }
     }
     if ($hasMainImageUpload) {
       $uploadError = $this->validateMainImageFile($mainImageFile);
@@ -567,10 +609,12 @@ class News extends BaseController
 
       try {
         // Keep update requests responsive: generate only root + thumbs synchronously.
-        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))), false);
+        $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
         $data['main_image'] = $savedMainImage['path'];
-        $data['width_px'] = $savedMainImage['width_px'];
-        $data['height_px'] = $savedMainImage['height_px'];
+        if ($this->supportsNewsImageDimensions()) {
+          $data['width_px'] = $savedMainImage['width_px'];
+          $data['height_px'] = $savedMainImage['height_px'];
+        }
       } catch (\Throwable $e) {
         log_message('error', 'News update upload failed for id {id}: {msg}', [
           'id' => $id,
@@ -614,13 +658,28 @@ class News extends BaseController
     }
 
     if (!empty($data)) {
-      $model->update($id, $data);
+      try {
+        $model->update($id, $data);
+      } catch (\Throwable $e) {
+        log_message('error', 'News update database save failed for id {id}: {msg}', [
+          'id' => $id,
+          'msg' => $e->getMessage(),
+        ]);
+        return redirect()->to('/news')->with('error', 'Failed to save the news item after processing the image.')->withInput();
+      }
     }
 
     $item = $model->find($id);
     $slug = $item['slug'] ?? $id;
 
     return redirect()->to('/news#news-' . $slug)->with('success', 'News updated.');
+    } catch (\Throwable $e) {
+      log_message('critical', 'Unhandled error in News::update for id {id}: {msg}', [
+        'id' => (int) ($this->request->getPost('id') ?? 0),
+        'msg' => $e->getMessage(),
+      ]);
+      return redirect()->to('/news')->with('error', 'Unexpected error while updating news item.')->withInput();
+    }
   }
 
   public function delete()
@@ -649,6 +708,26 @@ class News extends BaseController
     $model->delete($id);
 
     return redirect()->to('/news')->with('success', 'News deleted.');
+  }
+
+  protected function supportsNewsImageDimensions(): bool
+  {
+    if ($this->supportsNewsImageDimensions !== null) {
+      return $this->supportsNewsImageDimensions;
+    }
+
+    try {
+      $db = \Config\Database::connect();
+      $this->supportsNewsImageDimensions = $db->fieldExists('width_px', 'news_modern')
+        && $db->fieldExists('height_px', 'news_modern');
+    } catch (\Throwable $e) {
+      $this->supportsNewsImageDimensions = false;
+      log_message('warning', 'Could not inspect news_modern image dimension columns: {msg}', [
+        'msg' => $e->getMessage(),
+      ]);
+    }
+
+    return $this->supportsNewsImageDimensions;
   }
 }
 

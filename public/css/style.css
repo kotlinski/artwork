@@ -186,6 +186,11 @@ a {
     margin: 0 0 4px 0;
 }
 
+/* Project text should not inherit generic link bottom margin. */
+.project-text-content a {
+    margin: 0;
+}
+
 a:hover {
     color: #333;
 }
@@ -247,22 +252,34 @@ a:hover {
 .project-language-switch {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     flex-shrink: 0;
     white-space: nowrap;
+    /* Keep vertical padding at 0 so text baseline lines up cleanly with the title. */
+    padding: 0 6px 0 12px;
+    align-self: baseline;
+    line-height: 1.3;
 }
 
 .project-language-switch a {
     text-decoration: none;
-    color: #555;
+    color: #767676;
+    font-weight: 400;
 }
 
-.project-language-switch a.is-active {
+.project-language-switch a:not(.is-active):hover {
+    color: #222;
     text-decoration: underline;
 }
 
+.project-language-switch a.is-active {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+}
+
 .news-item {
-    margin-bottom: 22px;
+    margin-bottom: 4px;
 
     .news-main-image {
         margin: 0 0 20px 0;

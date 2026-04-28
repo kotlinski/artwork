@@ -19,7 +19,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="contained text">
+<div class="text">
   <h1>About</h1>
   <!--class="visually-hidden"-->
   <div>
