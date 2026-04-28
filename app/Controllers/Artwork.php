@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\HtaccessRedirectManager;
+use App\Models\Image;
 use App\Models\Project;
 
 class Artwork extends BaseController
@@ -148,6 +150,11 @@ class Artwork extends BaseController
   
   public function update($id)
   {
+    $existingProject = $this->projectModel->find($id);
+    if (!$existingProject) {
+      return redirect()->back()->withInput()->with('error', 'Project not found.');
+    }
+
     $data = $this->request->getPost();
     $data['id'] = $id;
     
@@ -156,6 +163,39 @@ class Artwork extends BaseController
     }
     
     if ($this->projectModel->update($id, $data)) {
+      $updatedProject = $this->projectModel->find($id);
+      $oldSlug = (string)($existingProject['slug'] ?? '');
+      $newSlug = (string)($updatedProject['slug'] ?? '');
+
+      if ($oldSlug !== '' && $newSlug !== '' && $oldSlug !== $newSlug) {
+        try {
+          $imageModel = new Image();
+          $projectImages = $imageModel
+            ->select('file_id')
+            ->where('project', $id)
+            ->findAll();
+
+          $redirects = [
+            ['from' => '/' . $oldSlug, 'to' => '/' . $newSlug],
+          ];
+
+          foreach ($projectImages as $image) {
+            $fileId = (string)($image['file_id'] ?? '');
+            if ($fileId === '') {
+              continue;
+            }
+            $redirects[] = [
+              'from' => '/' . $oldSlug . '/' . $fileId,
+              'to' => '/' . $newSlug . '/' . $fileId,
+            ];
+          }
+
+          (new HtaccessRedirectManager())->addRedirects($redirects);
+        } catch (\Throwable $e) {
+          log_message('error', 'Failed writing project rename redirects: ' . $e->getMessage());
+        }
+      }
+
       return redirect()->to('/artwork')->with('success', 'Project updated successfully.');
     }
     

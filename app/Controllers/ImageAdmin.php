@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\HtaccessRedirectManager;
 use App\Models\Image;
 use App\Models\Project;
 
@@ -56,6 +57,15 @@ class ImageAdmin extends BaseController
   public function update($id)
   {
     $imageModel = new Image();
+    $projectModel = new Project();
+    $existingImage = $imageModel->find($id);
+    if (!$existingImage) {
+      if ($this->request->isAJAX()) {
+        return $this->response->setStatusCode(404)->setJSON(['success' => false, 'error' => 'Image not found.']);
+      }
+      return redirect()->to('/image/admin')->with('error', 'Image not found.');
+    }
+
     $data = $this->request->getPost();
     // Ensure blank dimensions are saved as NULL, not 0.00, and integers are stored as integer strings
     foreach (['height_cm', 'width_cm', 'depth_cm'] as $dim) {
@@ -76,6 +86,32 @@ class ImageAdmin extends BaseController
       }
     }
     $success = $imageModel->update($id, $data);
+
+    if ($success) {
+      $updatedImage = $imageModel->find($id);
+      $oldProject = $projectModel->find($existingImage['project'] ?? null);
+      $newProject = $projectModel->find($updatedImage['project'] ?? null);
+
+      $oldProjectSlug = (string)($oldProject['slug'] ?? '');
+      $newProjectSlug = (string)($newProject['slug'] ?? '');
+      $oldFileId = (string)($existingImage['file_id'] ?? '');
+      $newFileId = (string)($updatedImage['file_id'] ?? '');
+
+      if ($oldProjectSlug !== '' && $newProjectSlug !== '' && $oldFileId !== '' && $newFileId !== '') {
+        $oldPath = '/' . $oldProjectSlug . '/' . $oldFileId;
+        $newPath = '/' . $newProjectSlug . '/' . $newFileId;
+        if ($oldPath !== $newPath) {
+          try {
+            (new HtaccessRedirectManager())->addRedirects([
+              ['from' => $oldPath, 'to' => $newPath],
+            ]);
+          } catch (\Throwable $e) {
+            log_message('error', 'Failed writing image rename redirect: ' . $e->getMessage());
+          }
+        }
+      }
+    }
+
     if ($this->request->isAJAX()) {
       if ($success) {
         // Fetch the updated image from the database

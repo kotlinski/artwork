@@ -16,6 +16,36 @@ Options -Indexes
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
 	RewriteBase /
 
+	# ------------------------------------------------------------------
+	# Legacy URL redirects (old /album structure -> new URL structure)
+	# Keep these BEFORE front-controller rewrite rules.
+	# ------------------------------------------------------------------
+
+	# Old overview/category pages
+	RewriteRule ^album/?$ /artwork [R=301,L,NC]
+	RewriteRule ^album/(installations|objects|paintings)/?$ /artwork [R=301,L,NC]
+
+	# Project-prefixed legacy image URLs
+	RewriteRule ^album/(installations|objects|paintings)/avfallningar-([a-z0-9-]+)/?$ /avfallningar/$2 [R=301,L,NC]
+	RewriteRule ^album/(installations|objects|paintings)/under-liv-([a-z0-9-]+)/?$ /under-liv/$2 [R=301,L,NC]
+	RewriteRule ^album/(installations|objects|paintings)/bacteria-([a-z0-9-]+)/?$ /bacteria/$2 [R=301,L,NC]
+	RewriteRule ^album/(installations|objects|paintings)/liv-no-8-([a-z0-9-]+)/?$ /liv-no-8/$2 [R=301,L,NC]
+
+	# Legacy one-off slug variant in old sitemap
+	RewriteRule ^album/(installations|objects|paintings)/life-no-8-construction/?$ /liv-no-8/life-no-8-construction [R=301,L,NC]
+
+	# Images that moved to project "vi-i-villa-liv"
+	RewriteRule ^album/(installations|objects|paintings)/(sparris-no-2|rodkal-no-2|lok-no-2|liv-kalmar-konstmuseum|liv-rotundan-kalmar-konstmuseum|vitkal-skulptur|bla-traktor-no-2-gras|traktor-no-2-gras|red-traktor-grass|bla-traktor|gul-traktor|rod-vit-traktor|scener-ur-ett|vi-i-villa-no-[1-5])/?$ /vi-i-villa-liv/$2 [R=301,L,NC]
+
+	# Old unprefixed slugs that now live under bacteria
+	RewriteRule ^album/(installations|objects|paintings)/(embryo-sphere-[1-3]|livspiral-3)/?$ /bacteria/$2 [R=301,L,NC]
+
+	# Project "liv" images (keep whole slug as image id)
+	RewriteRule ^album/(installations|objects|paintings)/(liv-[a-z0-9-]+)/?$ /liv/$2 [R=301,L,NC]
+
+	# Fallback for any remaining old album image/detail URL
+	RewriteRule ^album/(installations|objects|paintings)/[a-z0-9-]+/?$ /artwork [R=301,L,NC]
+
 	# Redirect Trailing Slashes...
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_URI} (.+)/$
