@@ -48,6 +48,13 @@ class Auth extends BaseController
   public function logout()
   {
     $referrer = $this->request->getServer('HTTP_REFERER') ?? '/';
+
+    try {
+      (new SitemapGenerator())->generate();
+    } catch (\Throwable $e) {
+      log_message('error', 'Sitemap generation failed on logout: ' . $e->getMessage());
+    }
+
     session()->destroy();
     return redirect()->to($referrer);
   }
