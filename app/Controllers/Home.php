@@ -34,6 +34,7 @@ class Home extends BaseController
         return $this->renderView('startpage_view', $required, [
             'startpage' => $startpage,
             'startpage_image' => $imageData,
+            'startpage_jsonld' => generateStartpageJsonLd($description, $imageData),
         ]);
     }
 
@@ -309,3 +310,84 @@ class Home extends BaseController
         }
     }
 }
+
+function generateStartpageJsonLd(string $description, array $imageData = []): string
+{
+    $baseUrl = rtrim((string) base_url('/'), '/');
+    $pageUrl = $baseUrl . '/';
+
+    $graph = [
+        [
+            '@type' => 'WebSite',
+            '@id' => $baseUrl . '/#website',
+            'url' => $pageUrl,
+            'name' => 'Anne Hamrin Simonsson',
+            'publisher' => ['@id' => $baseUrl . '/#person'],
+        ],
+        [
+            '@type' => 'Person',
+            '@id' => $baseUrl . '/#person',
+            'name' => 'Anne Hamrin Simonsson',
+            'url' => $baseUrl . '/about',
+            'sameAs' => [
+                'https://www.wikidata.org/wiki/Q137808007',
+                'https://www.instagram.com/ahamrinsimonsson/',
+                'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+            ],
+        ],
+        [
+            '@type' => 'WebPage',
+            '@id' => $baseUrl . '/#webpage',
+            'url' => $pageUrl,
+            'name' => 'Anne Hamrin Simonsson',
+            'description' => $description,
+            'isPartOf' => ['@id' => $baseUrl . '/#website'],
+            'about' => ['@id' => $baseUrl . '/#person'],
+            'mainEntity' => ['@id' => $baseUrl . '/#person'],
+            'inLanguage' => 'en',
+        ],
+    ];
+
+    $fullUrl = trim((string) ($imageData['full_url'] ?? ''));
+    if ($fullUrl !== '') {
+        $imageNodeId = $baseUrl . '/#startpage-image';
+        $imageNode = [
+            '@type' => 'ImageObject',
+            '@id' => $imageNodeId,
+            'url' => $fullUrl,
+            'contentUrl' => $fullUrl,
+            'name' => 'Startpage image',
+        ];
+
+        $displayUrl = trim((string) ($imageData['display_url'] ?? ''));
+        if ($displayUrl !== '') {
+            $imageNode['thumbnailUrl'] = $displayUrl;
+        }
+
+        $fullWidth = isset($imageData['full_width']) ? (int) $imageData['full_width'] : 0;
+        $fullHeight = isset($imageData['full_height']) ? (int) $imageData['full_height'] : 0;
+        if ($fullWidth > 0) {
+            $imageNode['width'] = $fullWidth;
+        }
+        if ($fullHeight > 0) {
+            $imageNode['height'] = $fullHeight;
+        }
+
+        $graph[2]['primaryImageOfPage'] = ['@id' => $imageNodeId];
+        $graph[] = $imageNode;
+    }
+
+    $jsonLd = [
+        '@context' => 'https://schema.org',
+        '@graph' => $graph,
+    ];
+
+    return json_encode(
+        $jsonLd,
+        JSON_UNESCAPED_SLASHES
+        | JSON_UNESCAPED_UNICODE
+        | JSON_PRETTY_PRINT
+        | JSON_HEX_TAG
+    );
+}
+

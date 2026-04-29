@@ -1,5 +1,13 @@
 <?= $this->extend('layouts/main') ?>
 
+<?= $this->section('ldjson') ?>
+<?php if (!empty($startpage_jsonld)): ?>
+<script type="application/ld+json">
+<?= $startpage_jsonld ?>
+</script>
+<?php endif; ?>
+<?= $this->endSection() ?>
+
 <?= $this->section('adminContent') ?>
 <?php
 $actionError = session()->getFlashdata('error') ?? '';

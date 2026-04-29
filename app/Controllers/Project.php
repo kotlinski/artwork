@@ -116,6 +116,7 @@ class Project extends BaseController
       $allProjectsQuery = $allProjectsQuery->where('is_published', 1);
     }
     $allProjects = $allProjectsQuery->findAll();
+    $projectJsonLd = generateProjectJsonLd($project, $images, $projectText, $selectedLang, $projectNews);
 
     return $this->renderView('artwork/project-view', $required, [
       'project'            => $project,
@@ -128,6 +129,7 @@ class Project extends BaseController
       'next_project_slug'  => $next_project_slug,
       'next_project_title' => $next_project_title,
       'project_news'       => $projectNews,
+      'project_jsonld'     => $projectJsonLd,
     ]);
   }
   
@@ -181,7 +183,7 @@ class Project extends BaseController
       'next_slug' => $next_slug,
       'images_count' => $images_count,
       'hide_main_header' => true,
-      'jsonld' => generateImageJsonLd($image, '/' . $project['slug'])
+      'jsonld' => generateImageJsonLd($image, $project)
     ]);
   }
   
@@ -325,83 +327,444 @@ class Project extends BaseController
 }
 
 
-function generateImageJsonLd($image, $projectPath)
+function generateProjectJsonLd(array $project, array $images, string $projectText = '', string $language = 'en', array $projectNews = []): string
 {
-  $year_created = !empty($image['date_created']) ? $image['date_created'] : null;
-  
-  $jsonLd = [
-    "@context" => "https://schema.org",
-    "@graph" => [
-      [
-        "@type" => "VisualArtwork",
-        "@id" => "https://www.annesimonsson.se" . $projectPath . "/" . $image['file_id'] . "#artwork",
-        "name" => $image['title'],
-        "alternateName" => $image['alternate_name'],
-        "license" => "https://www.annesimonsson.se/license.html",
-        "description" => $image['caption'],
-        "dateCreated" => $year_created,
-        "artform" => $image['artform'] ?? "Visual Artwork",
-        "artMedium" => $image['art_medium'],
-        "artworkSurface" => $image['artwork_surface'],
-        "artEdition" => $image['art_edition'],
-        "creator" => [
-          "@type" => "Person",
-          "@id" => "https://www.annesimonsson.se/#person",
-          "name" => "Anne Hamrin Simonsson",
-          "sameAs" => ["https://www.wikidata.org/wiki/Q137808007"]
-        ]
-      ],
-      [
-        "@type" => "ImageObject",
-        "@id" => "https://www.annesimonsson.se" . $projectPath . "/" . $image['file_id'] . "#image",
-        "url" => "https://www.annesimonsson.se/konst/" . $image['file_name'],
-        "contentUrl" => "https://www.annesimonsson.se/konst/" . $image['file_name'],
-        "thumbnailUrl" => "https://www.annesimonsson.se/konst/thumb/" . $image['file_name'],
-        "license" => "https://www.annesimonsson.se/license.html",
-        "acquireLicensePage" => "https://www.annesimonsson.se/license.html",
-        "creditText" => "Anne Hamrin Simonsson",
-        "copyrightNotice" => "© 2009-2026 Anne Hamrin Simonsson. All rights reserved.",
-        "width" => $image['width_px'],
-        "height" => $image['height_px'],
-        "encodingFormat" => "image/webp",
-        "creator" => [
-          "@type" => "Person",
-          "name" => $image['photographer_name'] ?? "Anne Hamrin Simonsson"
-        ]
-      ]
-    ]
-  ];
-  
-  if (!empty($image['height_cm'])) {
-    $jsonLd["@graph"][0]["height"] = ["@type" => "Distance", "name" => $image['height_cm'] . " cm"];
-    $jsonLd["@graph"][0]["width"] = ["@type" => "Distance", "name" => $image['width_cm'] . " cm"];
-    if (!empty($image['depth_cm'])) {
-      $jsonLd["@graph"][0]["depth"] = ["@type" => "Distance", "name" => $image['depth_cm'] . " cm"];
+  $baseUrl = rtrim((string) base_url('/'), '/');
+  $slug = trim((string) ($project['slug'] ?? ''));
+  $projectPath = $slug !== '' ? '/' . rawurlencode($slug) : '/artwork';
+  $projectUrl = $baseUrl . $projectPath;
+
+  $imagesById = [];
+  foreach ($images as $image) {
+    if (!is_array($image)) {
+      continue;
+    }
+    $imageId = isset($image['id']) ? (int) $image['id'] : 0;
+    if ($imageId > 0) {
+      $imagesById[$imageId] = $image;
     }
   }
-  
-  if (!empty($image['geo_location'])) {
-    $jsonLd["@graph"][0]["locationCreated"] = [
-      "@type" => "Place",
-      "name" => $image['geo_location'],
-      "hasMap" => $image['map_url'] ?? null,
-      "address" => [
-        "@type" => "PostalAddress",
-        "addressLocality" => $image['address_locality'],
-        "addressRegion" => $image['address_region'],
-        "addressCountry" => $image['address_country']
-      ]
+
+  $highlightIds = [];
+  foreach (['image_left', 'image_mid', 'image_right'] as $field) {
+    $candidate = isset($project[$field]) ? (int) $project[$field] : 0;
+    if ($candidate > 0 && !in_array($candidate, $highlightIds, true)) {
+      $highlightIds[] = $candidate;
+    }
+  }
+
+  $highlightedImages = [];
+  foreach ($highlightIds as $imageId) {
+    if (isset($imagesById[$imageId])) {
+      $highlightedImages[] = $imagesById[$imageId];
+    }
+  }
+  if (empty($highlightedImages)) {
+    $highlightedImages = array_slice($images, 0, 3);
+  }
+
+  $allImageNodes = [];
+  $allImageRefs = [];
+  $imageRefByDbId = [];
+  foreach ($images as $index => $image) {
+    if (!is_array($image)) {
+      continue;
+    }
+
+    $fileName = trim((string) ($image['file_name'] ?? ''));
+    if ($fileName === '') {
+      continue;
+    }
+
+    $fileId = trim((string) ($image['file_id'] ?? ''));
+    $imageKey = $fileId !== '' ? rawurlencode($fileId) : 'image-' . ((int) ($image['id'] ?? ($index + 1)));
+    $imageId = $projectUrl . '#image-' . $imageKey;
+
+    $imageNode = [
+      '@type' => 'ImageObject',
+      '@id' => $imageId,
+      'url' => $baseUrl . '/konst/' . $fileName,
+      'contentUrl' => $baseUrl . '/konst/' . $fileName,
+      'thumbnailUrl' => $baseUrl . '/konst/thumb/' . $fileName,
+      'name' => (string) ($image['title'] ?? ($project['title'] ?? 'Artwork image')),
+      'caption' => (string) ($image['caption'] ?? ''),
+      'inLanguage' => $language,
+    ];
+
+    $width = isset($image['width_px']) ? (int) $image['width_px'] : 0;
+    $height = isset($image['height_px']) ? (int) $image['height_px'] : 0;
+    if ($width > 0) {
+      $imageNode['width'] = $width;
+    }
+    if ($height > 0) {
+      $imageNode['height'] = $height;
+    }
+
+    $allImageNodes[] = $imageNode;
+    $allImageRefs[] = ['@id' => $imageId];
+
+    $dbImageId = isset($image['id']) ? (int) $image['id'] : 0;
+    if ($dbImageId > 0) {
+      $imageRefByDbId[$dbImageId] = ['@id' => $imageId];
+    }
+  }
+
+  $highlightListItems = [];
+  $highlightRefs = [];
+  foreach ($highlightedImages as $index => $image) {
+    if (!is_array($image)) {
+      continue;
+    }
+
+    $dbImageId = isset($image['id']) ? (int) $image['id'] : 0;
+    if ($dbImageId > 0 && isset($imageRefByDbId[$dbImageId])) {
+      $highlightRef = $imageRefByDbId[$dbImageId];
+    } else {
+      $fileId = trim((string) ($image['file_id'] ?? ''));
+      $imageKey = $fileId !== '' ? rawurlencode($fileId) : 'image-' . ((int) ($image['id'] ?? ($index + 1)));
+      $highlightRef = ['@id' => $projectUrl . '#image-' . $imageKey];
+    }
+
+    $highlightRefs[] = $highlightRef;
+    $highlightListItems[] = [
+      '@type' => 'ListItem',
+      'position' => $index + 1,
+      'item' => $highlightRef,
+      'name' => (string) ($image['title'] ?? ('Highlighted image ' . ($index + 1))),
     ];
   }
-  
-  if (!empty($image['project'])) {
-    $jsonLd["@graph"][0]["isPartOf"] = [
-      "@type" => "CreativeWorkSeries",
-      "name" => $image['project'],
-      "creator" => ["@id" => "https://www.annesimonsson.se/#person"]
-    ];
+
+  $projectName = (string) ($project['title'] ?? 'Artwork project');
+  $projectDescription = trim((string) ($project['description'] ?? ''));
+  if ($projectDescription === '') {
+    $projectDescription = trim(strip_tags($projectText));
   }
-  
+
+  $projectNode = [
+    '@type' => 'VisualArtwork',
+    '@id' => $projectUrl . '#project',
+    'name' => $projectName,
+    'alternateName' => (string) ($project['alternate_name'] ?? ''),
+    'description' => $projectDescription,
+    'url' => $projectUrl,
+    'creator' => ['@id' => $baseUrl . '/#person'],
+    'genre' => 'Conceptual art',
+    'inLanguage' => $language,
+    'associatedMedia' => $highlightRefs,
+    'isPartOf' => ['@id' => $baseUrl . '/artwork#webpage'],
+  ];
+
+  $startYear = isset($project['start_year']) ? (int) $project['start_year'] : 0;
+  $endYear = isset($project['end_year']) ? (int) $project['end_year'] : 0;
+  if ($startYear > 0) {
+    $projectNode['dateCreated'] = (string) $startYear;
+  }
+  if ($startYear > 0 && $endYear > 0) {
+    $projectNode['temporalCoverage'] = $startYear . '/' . $endYear;
+  }
+
+  $newsNodes = [];
+  $subjectOfRefs = [];
+  foreach ($projectNews as $newsItem) {
+    if (!is_array($newsItem)) {
+      continue;
+    }
+
+    $newsSlug = trim((string) ($newsItem['slug'] ?? ''));
+    if ($newsSlug === '') {
+      continue;
+    }
+
+    $newsId = $baseUrl . '/news#news-' . rawurlencode($newsSlug);
+    $subjectOfRefs[] = ['@id' => $newsId];
+    $newsNodes[] = [
+      '@type' => 'BlogPosting',
+      '@id' => $newsId,
+      'url' => $newsId,
+      'headline' => (string) ($newsItem['title'] ?? $newsSlug),
+      'isPartOf' => ['@id' => $baseUrl . '/#website'],
+      'about' => ['@id' => $projectUrl . '#project'],
+      'author' => ['@id' => $baseUrl . '/#person'],
+      'publisher' => ['@id' => $baseUrl . '/#website'],
+    ];
+
+    $createdAt = trim((string) ($newsItem['created_at'] ?? ''));
+    if ($createdAt !== '') {
+      $timestamp = strtotime($createdAt);
+      if ($timestamp !== false) {
+        $newsNodes[count($newsNodes) - 1]['datePublished'] = date('c', $timestamp);
+      }
+    }
+
+    $updatedAt = trim((string) ($newsItem['updated_at'] ?? ''));
+    if ($updatedAt !== '') {
+      $updatedTimestamp = strtotime($updatedAt);
+      if ($updatedTimestamp !== false) {
+        $newsNodes[count($newsNodes) - 1]['dateModified'] = date('c', $updatedTimestamp);
+      }
+    }
+  }
+  if (!empty($subjectOfRefs)) {
+    $projectNode['subjectOf'] = $subjectOfRefs;
+  }
+
+  $projectWebPageNode = [
+    '@type' => 'CollectionPage',
+    '@id' => $projectUrl . '#webpage',
+    'url' => $projectUrl,
+    'name' => $projectName,
+    'description' => $projectDescription,
+    'isPartOf' => ['@id' => $baseUrl . '/#website'],
+    'about' => ['@id' => $projectUrl . '#project'],
+    'mainEntity' => ['@id' => $projectUrl . '#project'],
+    'breadcrumb' => ['@id' => $projectUrl . '#breadcrumb'],
+  ];
+  if (!empty($highlightRefs)) {
+    $projectWebPageNode['primaryImageOfPage'] = $highlightRefs[0];
+  }
+
+  $graph = [
+    [
+      '@type' => 'WebSite',
+      '@id' => $baseUrl . '/#website',
+      'url' => $baseUrl . '/',
+      'name' => 'Anne Hamrin Simonsson',
+      'publisher' => ['@id' => $baseUrl . '/#person'],
+    ],
+    [
+      '@type' => 'Person',
+      '@id' => $baseUrl . '/#person',
+      'name' => 'Anne Hamrin Simonsson',
+      'url' => $baseUrl . '/about',
+      'sameAs' => ['https://www.wikidata.org/wiki/Q137808007'],
+    ],
+    $projectWebPageNode,
+    $projectNode,
+    [
+      '@type' => 'ImageGallery',
+      '@id' => $projectUrl . '#gallery',
+      'name' => $projectName . ' gallery',
+      'url' => $projectUrl,
+      'about' => ['@id' => $projectUrl . '#project'],
+      'hasPart' => $allImageRefs,
+      'numberOfItems' => count($allImageRefs),
+    ],
+    [
+      '@type' => 'ItemList',
+      '@id' => $projectUrl . '#highlights',
+      'name' => 'Highlighted items',
+      'itemListOrder' => 'https://schema.org/ItemListOrderAscending',
+      'numberOfItems' => count($highlightListItems),
+      'itemListElement' => $highlightListItems,
+    ],
+    [
+      '@type' => 'BreadcrumbList',
+      '@id' => $projectUrl . '#breadcrumb',
+      'itemListElement' => [
+        [
+          '@type' => 'ListItem',
+          'position' => 1,
+          'name' => 'Home',
+          'item' => $baseUrl . '/'
+        ],
+        [
+          '@type' => 'ListItem',
+          'position' => 2,
+          'name' => 'Artwork',
+          'item' => $baseUrl . '/artwork'
+        ],
+        [
+          '@type' => 'ListItem',
+          'position' => 3,
+          'name' => $projectName,
+          'item' => $projectUrl
+        ]
+      ],
+    ],
+  ];
+
+  foreach ($allImageNodes as $node) {
+    $graph[] = $node;
+  }
+  foreach ($newsNodes as $node) {
+    $graph[] = $node;
+  }
+
+  $jsonLd = [
+    '@context' => 'https://schema.org',
+    '@graph' => $graph,
+  ];
+
+  return json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+
+
+function generateImageJsonLd(array $image, array $project): string
+{
+  $baseUrl = rtrim((string) base_url('/'), '/');
+  $projectSlug = trim((string) ($project['slug'] ?? ''));
+  $projectTitle = trim((string) ($project['title'] ?? 'Artwork project'));
+  $fileId = trim((string) ($image['file_id'] ?? ''));
+  $fileName = trim((string) ($image['file_name'] ?? ''));
+  $imageSlug = $fileId !== '' ? rawurlencode($fileId) : rawurlencode((string) pathinfo($fileName, PATHINFO_FILENAME));
+  $projectUrl = $projectSlug !== '' ? $baseUrl . '/' . rawurlencode($projectSlug) : $baseUrl . '/artwork';
+  $pageUrl = $projectUrl . '/' . $imageSlug;
+
+  $artworkNode = [
+    '@type' => 'VisualArtwork',
+    '@id' => $pageUrl . '#artwork',
+    'name' => (string) ($image['title'] ?? 'Artwork'),
+    'license' => $baseUrl . '/license.html',
+    'creator' => [
+      '@type' => 'Person',
+      '@id' => $baseUrl . '/#person',
+      'name' => 'Anne Hamrin Simonsson',
+      'sameAs' => ['https://www.wikidata.org/wiki/Q137808007'],
+    ],
+    'isPartOf' => [
+      '@type' => 'CreativeWorkSeries',
+      '@id' => $projectUrl . '#project',
+      'name' => $projectTitle,
+      'url' => $projectUrl,
+      'creator' => ['@id' => $baseUrl . '/#person'],
+    ],
+  ];
+
+  $alternateName = trim((string) ($image['alternate_name'] ?? ''));
+  if ($alternateName !== '') {
+    $artworkNode['alternateName'] = $alternateName;
+  }
+  $caption = trim((string) ($image['caption'] ?? ''));
+  if ($caption !== '') {
+    $artworkNode['description'] = $caption;
+  }
+  $yearCreated = trim((string) ($image['date_created'] ?? ''));
+  if ($yearCreated !== '') {
+    $artworkNode['dateCreated'] = $yearCreated;
+  }
+  $artform = trim((string) ($image['artform'] ?? ''));
+  $artworkNode['artform'] = $artform !== '' ? $artform : 'Visual Artwork';
+  $artMedium = trim((string) ($image['art_medium'] ?? ''));
+  if ($artMedium !== '') {
+    $artworkNode['artMedium'] = $artMedium;
+  }
+  $artworkSurface = trim((string) ($image['artwork_surface'] ?? ''));
+  if ($artworkSurface !== '') {
+    $artworkNode['artworkSurface'] = $artworkSurface;
+  }
+  $artEdition = trim((string) ($image['art_edition'] ?? ''));
+  if ($artEdition !== '') {
+    $artworkNode['artEdition'] = $artEdition;
+  }
+
+  $heightCm = trim((string) ($image['height_cm'] ?? ''));
+  $widthCm = trim((string) ($image['width_cm'] ?? ''));
+  $depthCm = trim((string) ($image['depth_cm'] ?? ''));
+  if ($heightCm !== '' && $widthCm !== '') {
+    $artworkNode['height'] = ['@type' => 'Distance', 'name' => $heightCm . ' cm'];
+    $artworkNode['width'] = ['@type' => 'Distance', 'name' => $widthCm . ' cm'];
+    if ($depthCm !== '') {
+      $artworkNode['depth'] = ['@type' => 'Distance', 'name' => $depthCm . ' cm'];
+    }
+  }
+
+  $geoLocation = trim((string) ($image['geo_location'] ?? ''));
+  if ($geoLocation !== '') {
+    $placeNode = [
+      '@type' => 'Place',
+      'name' => $geoLocation,
+    ];
+    $mapUrl = trim((string) ($image['map_url'] ?? ''));
+    if ($mapUrl !== '') {
+      $placeNode['hasMap'] = $mapUrl;
+    }
+    $addressLocality = trim((string) ($image['address_locality'] ?? ''));
+    $addressRegion = trim((string) ($image['address_region'] ?? ''));
+    $addressCountry = trim((string) ($image['address_country'] ?? ''));
+    if ($addressLocality !== '' || $addressRegion !== '' || $addressCountry !== '') {
+      $addressNode = ['@type' => 'PostalAddress'];
+      if ($addressLocality !== '') {
+        $addressNode['addressLocality'] = $addressLocality;
+      }
+      if ($addressRegion !== '') {
+        $addressNode['addressRegion'] = $addressRegion;
+      }
+      if ($addressCountry !== '') {
+        $addressNode['addressCountry'] = $addressCountry;
+      }
+      $placeNode['address'] = $addressNode;
+    }
+    $artworkNode['locationCreated'] = $placeNode;
+  }
+
+  $imageObjectNode = [
+    '@type' => 'ImageObject',
+    '@id' => $pageUrl . '#image',
+    'url' => $baseUrl . '/konst/' . $fileName,
+    'contentUrl' => $baseUrl . '/konst/' . $fileName,
+    'thumbnailUrl' => $baseUrl . '/konst/thumb/' . $fileName,
+    'license' => $baseUrl . '/license.html',
+    'acquireLicensePage' => $baseUrl . '/license.html',
+    'creditText' => 'Anne Hamrin Simonsson',
+    'copyrightNotice' => '© 2009-2026 Anne Hamrin Simonsson. All rights reserved.',
+    'creator' => [
+      '@type' => 'Person',
+      'name' => trim((string) ($image['photographer_name'] ?? '')) !== ''
+        ? trim((string) ($image['photographer_name'] ?? ''))
+        : 'Anne Hamrin Simonsson',
+    ],
+  ];
+
+  $widthPx = isset($image['width_px']) ? (int) $image['width_px'] : 0;
+  $heightPx = isset($image['height_px']) ? (int) $image['height_px'] : 0;
+  if ($widthPx > 0) {
+    $imageObjectNode['width'] = $widthPx;
+  }
+  if ($heightPx > 0) {
+    $imageObjectNode['height'] = $heightPx;
+  }
+  $extension = strtolower((string) pathinfo($fileName, PATHINFO_EXTENSION));
+  if ($extension !== '') {
+    $imageObjectNode['encodingFormat'] = 'image/' . $extension;
+  }
+
+  $webPageNode = [
+    '@type' => 'WebPage',
+    '@id' => $pageUrl . '#webpage',
+    'url' => $pageUrl,
+    'name' => (string) ($image['title'] ?? 'Artwork image'),
+    'isPartOf' => ['@id' => $baseUrl . '/#website'],
+    'mainEntity' => ['@id' => $pageUrl . '#artwork'],
+    'primaryImageOfPage' => ['@id' => $pageUrl . '#image'],
+    'breadcrumb' => ['@id' => $pageUrl . '#breadcrumb'],
+  ];
+
+  $jsonLd = [
+    '@context' => 'https://schema.org',
+    '@graph' => [
+      [
+        '@type' => 'WebSite',
+        '@id' => $baseUrl . '/#website',
+        'url' => $baseUrl . '/',
+        'name' => 'Anne Hamrin Simonsson',
+        'publisher' => ['@id' => $baseUrl . '/#person'],
+      ],
+      $webPageNode,
+      $artworkNode,
+      $imageObjectNode,
+      [
+        '@type' => 'BreadcrumbList',
+        '@id' => $pageUrl . '#breadcrumb',
+        'itemListElement' => [
+          ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => $baseUrl . '/'],
+          ['@type' => 'ListItem', 'position' => 2, 'name' => 'Artwork', 'item' => $baseUrl . '/artwork'],
+          ['@type' => 'ListItem', 'position' => 3, 'name' => $projectTitle, 'item' => $projectUrl],
+          ['@type' => 'ListItem', 'position' => 4, 'name' => (string) ($image['title'] ?? 'Image'), 'item' => $pageUrl],
+        ],
+      ],
+    ],
+  ];
+
   return json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
 

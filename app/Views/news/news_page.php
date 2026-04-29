@@ -1,12 +1,11 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('ldjson') ?>
+<?php if (!empty($news_jsonld)): ?>
 <script type="application/ld+json">
-<?= file_get_contents(APPPATH . 'Data/LdJson/about.json') ?>
-
-
-
+<?= $news_jsonld ?>
 </script>
+<?php endif; ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('adminContent') ?>
@@ -723,45 +722,3 @@ foreach ($projects ?? [] as $project) {
 
 <?= $this->endSection() ?>
 
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Blog",
-        "@id": "<?= current_url() ?>#news-feed",
-      "name": "Anne Simonsson - News & Updates",
-      "blogPost": [
-  <?php foreach ($news_items as $index => $item): ?>
-        {
-          "@type": "BlogPosting",
-          "@id": "<?= current_url() ?>#news-<?= $item['slug'] ?>",
-          "headline": "<?= esc($item['title']) ?>",
-          "datePublished": "<?= date('c', strtotime($item['created_at'])) ?>",
-          "description": "<?= esc($item['excerpt']) ?>",
-          "image": "<?= base_url($item['main_image'] ?? 'assets/img/fallback-art.jpg') ?>",
-          "author": {
-            "@type": "Person",
-            "name": "Anne Hamrin Simonsson",
-            "url": "<?= base_url('about') ?>"
-          }
-          <?php if ($item['event_start_date']): ?>,
-          "about": {
-            "@type": "Event",
-            "name": "<?= esc($item['title']) ?>",
-            "startDate": "<?= $item['event_start_date'] ?>",
-            "endDate": "<?= $item['event_end_date'] ?? $item['event_start_date'] ?>",
-            "location": {
-              "@type": "Place",
-              "name": "<?= esc($item['event_location']) ?>"
-            }
-          }
-          <?php endif; ?>
-        }<?= ($index < count($news_items) - 1) ? ',' : '' ?>
-  <?php endforeach; ?>
-  ]
-}
-]
-}
-</script>

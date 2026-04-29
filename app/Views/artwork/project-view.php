@@ -1,5 +1,14 @@
 <?= $this->extend('layouts/main') ?>
 
+<?= $this->section('ldjson') ?>
+<?php if (!empty($project_jsonld)): ?>
+<script type="application/ld+json">
+<?= $project_jsonld ?>
+
+</script>
+<?php endif; ?>
+<?= $this->endSection() ?>
+
 <?= $this->section('adminContent') ?>
 <?php if (session()->get('isLoggedIn')): ?>
 

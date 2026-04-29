@@ -44,6 +44,7 @@ class News extends BaseController
     $page_specific = [
       'news_items' => $news_items,
       'projects'   => $projects,
+      'news_jsonld' => generateNewsPageJsonLd($news_items, $projects),
     ];
     
     return $this->renderView('news/news_page', $required, $page_specific);
@@ -729,5 +730,180 @@ class News extends BaseController
 
     return $this->supportsNewsImageDimensions;
   }
+}
+
+function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
+{
+  $baseUrl = rtrim((string) base_url('/'), '/');
+  $newsPageUrl = $baseUrl . '/news';
+
+  $blogPostRefs = [];
+  $blogPostNodes = [];
+
+  $projectSlugById = [];
+  foreach ($projects as $project) {
+    if (!is_array($project)) {
+      continue;
+    }
+    $id = isset($project['id']) ? (int) $project['id'] : 0;
+    $slug = trim((string) ($project['slug'] ?? ''));
+    if ($id > 0 && $slug !== '') {
+      $projectSlugById[$id] = $slug;
+    }
+  }
+
+  foreach ($newsItems as $item) {
+    if (!is_array($item)) {
+      continue;
+    }
+
+    $slug = trim((string) ($item['slug'] ?? ''));
+    $title = trim((string) ($item['title'] ?? ''));
+    if ($slug === '' || $title === '') {
+      continue;
+    }
+
+    $postId = $newsPageUrl . '#news-' . rawurlencode($slug);
+    $blogPostRefs[] = ['@id' => $postId];
+
+    $postNode = [
+      '@type' => 'BlogPosting',
+      '@id' => $postId,
+      'url' => $postId,
+      'headline' => $title,
+      'author' => ['@id' => $baseUrl . '/#person'],
+      'publisher' => ['@id' => $baseUrl . '/#website'],
+      'mainEntityOfPage' => ['@id' => $newsPageUrl . '#webpage'],
+      'isPartOf' => ['@id' => $newsPageUrl . '#blog'],
+      'inLanguage' => 'en',
+    ];
+
+    $createdAt = trim((string) ($item['created_at'] ?? ''));
+    if ($createdAt !== '') {
+      $timestamp = strtotime($createdAt);
+      if ($timestamp !== false) {
+        $postNode['datePublished'] = date('c', $timestamp);
+      }
+    }
+
+    $updatedAt = trim((string) ($item['updated_at'] ?? ''));
+    if ($updatedAt !== '') {
+      $updatedTimestamp = strtotime($updatedAt);
+      if ($updatedTimestamp !== false) {
+        $postNode['dateModified'] = date('c', $updatedTimestamp);
+      }
+    }
+
+    $description = trim((string) ($item['excerpt'] ?? ''));
+    if ($description === '') {
+      $description = trim((string) ($item['content'] ?? ''));
+      if ($description !== '') {
+        $description = preg_replace('/\s+/', ' ', strip_tags($description)) ?? '';
+        $description = substr($description, 0, 280);
+      }
+    }
+    if ($description !== '') {
+      $postNode['description'] = $description;
+    }
+
+    $mainImage = trim((string) ($item['main_image'] ?? ''));
+    if ($mainImage !== '') {
+      $postNode['image'] = [
+        '@type' => 'ImageObject',
+        'url' => base_url($mainImage),
+      ];
+    }
+
+    $eventStart = trim((string) ($item['event_start_date'] ?? ''));
+    if ($eventStart !== '') {
+      $event = [
+        '@type' => 'Event',
+        'name' => $title,
+        'startDate' => $eventStart,
+      ];
+      $eventEnd = trim((string) ($item['event_end_date'] ?? ''));
+      if ($eventEnd !== '') {
+        $event['endDate'] = $eventEnd;
+      }
+      $eventLocation = trim((string) ($item['event_location'] ?? ''));
+      if ($eventLocation !== '') {
+        $event['location'] = ['@type' => 'Place', 'name' => $eventLocation];
+      }
+      $postNode['about'] = $event;
+    }
+
+    $projectId = isset($item['project_id']) ? (int) $item['project_id'] : 0;
+    if ($projectId > 0 && isset($projectSlugById[$projectId])) {
+      $postNode['isRelatedTo'] = [
+        '@id' => $baseUrl . '/' . rawurlencode((string) $projectSlugById[$projectId]) . '#project',
+      ];
+    }
+
+    $blogPostNodes[] = $postNode;
+  }
+
+  $graph = [
+    [
+      '@type' => 'WebSite',
+      '@id' => $baseUrl . '/#website',
+      'url' => $baseUrl . '/',
+      'name' => 'Anne Hamrin Simonsson',
+      'publisher' => ['@id' => $baseUrl . '/#person'],
+    ],
+    [
+      '@type' => 'Person',
+      '@id' => $baseUrl . '/#person',
+      'name' => 'Anne Hamrin Simonsson',
+      'url' => $baseUrl . '/about',
+      'sameAs' => ['https://www.wikidata.org/wiki/Q137808007'],
+    ],
+    [
+      '@type' => 'CollectionPage',
+      '@id' => $newsPageUrl . '#webpage',
+      'url' => $newsPageUrl,
+      'name' => 'News',
+      'description' => 'Latest updates, exhibitions, talks, and workshops by Anne Hamrin Simonsson.',
+      'isPartOf' => ['@id' => $baseUrl . '/#website'],
+      'about' => ['@id' => $baseUrl . '/#person'],
+      'mainEntity' => ['@id' => $newsPageUrl . '#blog'],
+      'breadcrumb' => ['@id' => $newsPageUrl . '#breadcrumb'],
+    ],
+    [
+      '@type' => 'Blog',
+      '@id' => $newsPageUrl . '#blog',
+      'url' => $newsPageUrl,
+      'name' => 'Anne Hamrin Simonsson News',
+      'blogPost' => $blogPostRefs,
+    ],
+    [
+      '@type' => 'BreadcrumbList',
+      '@id' => $newsPageUrl . '#breadcrumb',
+      'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => $baseUrl . '/'],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'News', 'item' => $newsPageUrl],
+      ],
+    ],
+  ];
+
+  foreach ($blogPostNodes as $postNode) {
+    $graph[] = $postNode;
+  }
+
+  $jsonLd = [
+    '@context' => 'https://schema.org',
+    '@graph' => $graph,
+  ];
+
+  return json_encode(
+    $jsonLd,
+    JSON_UNESCAPED_SLASHES
+    |
+    JSON_UNESCAPED_UNICODE
+    | JSON_PRETTY_PRINT
+    | JSON_HEX_TAG
+    | JSON_HEX_AMP
+    | JSON_HEX_APOS
+    | JSON_HEX_QUOT
+  );
 }
 
