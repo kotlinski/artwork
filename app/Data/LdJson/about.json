@@ -3,13 +3,14 @@
   "@graph": [
     {
       "@type": "ProfilePage",
-      "@id": "https://www.annesimonsson.se/about",
+      "@id": "https://www.annesimonsson.se/about#webpage",
       "name": "About Anne Hamrin Simonsson",
       "url": "https://www.annesimonsson.se/about",
       "description": "Biography, CV, and artist statement of Anne Hamrin Simonsson.",
       "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
       "isPartOf": { "@id": "https://www.annesimonsson.se/#website" },
-      "inLanguage": "en"
+      "inLanguage": "en",
+      "breadcrumb": { "@id": "https://www.annesimonsson.se/about#breadcrumb" }
     },
     {
       "@type": "Person",
@@ -185,16 +186,14 @@
       "name": "Main Navigation",
       "hasPart": [
         { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
-        { "@type": "WebPage", "name": "Installations", "url": "https://www.annesimonsson.se/album/installations" },
-        { "@type": "WebPage", "name": "Objects", "url": "https://www.annesimonsson.se/album/objects" },
-        { "@type": "WebPage", "name": "Paintings", "url": "https://www.annesimonsson.se/album/paintings" },
+        { "@type": "WebPage", "name": "Artwork", "url": "https://www.annesimonsson.se/artwork" },
         { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
         { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
       ]
     },
     {
       "@type": "VisualArtwork",
-      "@id": "https://www.annesimonsson.se/album/installations/liv-no-8#artwork",
+      "@id": "https://www.annesimonsson.se/artwork#liv-no-8",
       "name": "LIV no 8",
       "creator": { "@id": "https://www.annesimonsson.se/#person" },
       "locationCreated": {

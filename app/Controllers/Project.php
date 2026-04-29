@@ -325,7 +325,7 @@ class Project extends BaseController
 }
 
 
-function generateImageJsonLd($image, $album_path)
+function generateImageJsonLd($image, $projectPath)
 {
   $year_created = !empty($image['date_created']) ? $image['date_created'] : null;
   
@@ -334,7 +334,7 @@ function generateImageJsonLd($image, $album_path)
     "@graph" => [
       [
         "@type" => "VisualArtwork",
-        "@id" => "https://www.annesimonsson.se" . $album_path . "/" . $image['file_id'] . "#artwork",
+        "@id" => "https://www.annesimonsson.se" . $projectPath . "/" . $image['file_id'] . "#artwork",
         "name" => $image['title'],
         "alternateName" => $image['alternate_name'],
         "license" => "https://www.annesimonsson.se/license.html",
@@ -353,7 +353,7 @@ function generateImageJsonLd($image, $album_path)
       ],
       [
         "@type" => "ImageObject",
-        "@id" => "https://www.annesimonsson.se" . $album_path . "/" . $image['file_id'] . "#image",
+        "@id" => "https://www.annesimonsson.se" . $projectPath . "/" . $image['file_id'] . "#image",
         "url" => "https://www.annesimonsson.se/konst/" . $image['file_name'],
         "contentUrl" => "https://www.annesimonsson.se/konst/" . $image['file_name'],
         "thumbnailUrl" => "https://www.annesimonsson.se/konst/thumb/" . $image['file_name'],

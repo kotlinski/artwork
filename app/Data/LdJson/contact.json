@@ -3,16 +3,15 @@
   "@graph": [
     {
       "@type": "ContactPage",
-      "@id": "https://www.annesimonsson.se/contact",
+      "@id": "https://www.annesimonsson.se/contact#webpage",
       "name": "Contact Anne Hamrin Simonsson",
       "url": "https://www.annesimonsson.se/contact",
       "description": "Contact information for Swedish conceptual artist Anne Hamrin Simonsson.",
+      "inLanguage": "en",
       "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
+      "about": { "@id": "https://www.annesimonsson.se/#person" },
       "isPartOf": { "@id": "https://www.annesimonsson.se/#website" },
-      "mentions": [
-        { "@type": "Person", "name": "Simon Kotlinski", "jobTitle": "Web Developer", "email": "simon.kotlinski@gmail.com" },
-        { "@type": "Person", "name": "Per Hamrin", "jobTitle": "Photographer", "email": "per.hamrin@netatonce.net" }
-      ]
+      "breadcrumb": { "@id": "https://www.annesimonsson.se/contact#breadcrumb" }
     },
     {
       "@type": "Person",
@@ -33,10 +32,31 @@
       "@id": "https://www.annesimonsson.se/#website",
       "url": "https://www.annesimonsson.se/",
       "name": "Anne Hamrin Simonsson",
-      "publisher": { "@id": "https://www.annesimonsson.se/#person" }
+      "publisher": { "@id": "https://www.annesimonsson.se/#person" },
+      "contactPoint": [
+        { "@id": "https://www.annesimonsson.se/#contact-simon" },
+        { "@id": "https://www.annesimonsson.se/#contact-per" }
+      ]
+    },
+    {
+      "@type": "ContactPoint",
+      "@id": "https://www.annesimonsson.se/#contact-simon",
+      "contactType": "web development",
+      "name": "Simon Kotlinski",
+      "email": "mailto:simon.kotlinski@gmail.com",
+      "availableLanguage": ["en", "sv"]
+    },
+    {
+      "@type": "ContactPoint",
+      "@id": "https://www.annesimonsson.se/#contact-per",
+      "contactType": "photography",
+      "name": "Per Hamrin",
+      "email": "mailto:per.hamrin@netatonce.net",
+      "availableLanguage": ["en", "sv"]
     },
     {
       "@type": "BreadcrumbList",
+      "@id": "https://www.annesimonsson.se/contact#breadcrumb",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
         { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.annesimonsson.se/contact" }
@@ -48,9 +68,7 @@
       "name": "Main Navigation",
       "hasPart": [
         { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
-        { "@type": "WebPage", "name": "Installations", "url": "https://www.annesimonsson.se/album/installations" },
-        { "@type": "WebPage", "name": "Objects", "url": "https://www.annesimonsson.se/album/objects" },
-        { "@type": "WebPage", "name": "Paintings", "url": "https://www.annesimonsson.se/album/paintings" },
+        { "@type": "WebPage", "name": "Artwork", "url": "https://www.annesimonsson.se/artwork" },
         { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
         { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
       ]

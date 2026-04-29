@@ -1,5 +1,112 @@
 <?= $this->extend('layouts/main') ?>
 
+<?= $this->section('ldjson') ?>
+<script type="application/ld+json">
+<?php
+$baseUrl = rtrim((string) base_url('/'), '/');
+$itemListElements = [];
+$position = 1;
+
+if (isset($projects) && is_array($projects)) {
+  foreach ($projects as $project) {
+    if (!is_array($project)) {
+      continue;
+    }
+
+    $slug = trim((string) ($project['slug'] ?? ''));
+    if ($slug === '') {
+      continue;
+    }
+
+    $itemListElements[] = [
+      '@type' => 'ListItem',
+      'position' => $position++,
+      'name' => (string) ($project['title'] ?? $slug),
+      'item' => $baseUrl . '/' . rawurlencode($slug),
+    ];
+  }
+}
+
+$artworkLdJson = [
+  '@context' => 'https://schema.org',
+  '@graph' => [
+    [
+      '@type' => 'WebSite',
+      '@id' => $baseUrl . '/#website',
+      'url' => $baseUrl . '/',
+      'name' => 'Anne Hamrin Simonsson',
+      'publisher' => ['@id' => $baseUrl . '/#person'],
+    ],
+    [
+      '@type' => 'Person',
+      '@id' => $baseUrl . '/#person',
+      'name' => 'Anne Hamrin Simonsson',
+      'url' => $baseUrl . '/about',
+      'sameAs' => [
+        'https://www.wikidata.org/wiki/Q137808007',
+        'https://www.instagram.com/ahamrinsimonsson/',
+        'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+        'https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/',
+        'https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson',
+        'https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/'
+      ],
+    ],
+    [
+      '@type' => 'CollectionPage',
+      '@id' => $baseUrl . '/artwork#webpage',
+      'url' => $baseUrl . '/artwork',
+      'name' => 'Artwork by Anne Hamrin Simonsson',
+      'description' => 'Overview of artwork projects by Swedish conceptual artist Anne Hamrin Simonsson.',
+      'isPartOf' => ['@id' => $baseUrl . '/#website'],
+      'about' => ['@id' => $baseUrl . '/#person'],
+      'mainEntity' => ['@id' => $baseUrl . '/artwork#itemlist'],
+      'breadcrumb' => ['@id' => $baseUrl . '/artwork#breadcrumb'],
+    ],
+    [
+      '@type' => 'ItemList',
+      '@id' => $baseUrl . '/artwork#itemlist',
+      'name' => 'Artwork Projects',
+      'itemListOrder' => 'https://schema.org/ItemListOrderAscending',
+      'itemListElement' => $itemListElements,
+    ],
+    [
+      '@type' => 'BreadcrumbList',
+      '@id' => $baseUrl . '/artwork#breadcrumb',
+      'itemListElement' => [
+        [
+          '@type' => 'ListItem',
+          'position' => 1,
+          'name' => 'Home',
+          'item' => $baseUrl . '/'
+        ],
+        [
+          '@type' => 'ListItem',
+          'position' => 2,
+          'name' => 'Artwork',
+          'item' => $baseUrl . '/artwork'
+        ]
+      ],
+    ],
+    [
+      '@type' => 'SiteNavigationElement',
+      '@id' => $baseUrl . '/#navigation',
+      'name' => 'Main Navigation',
+      'hasPart' => [
+        ['@type' => 'WebPage', 'name' => 'News', 'url' => $baseUrl . '/news'],
+        ['@type' => 'WebPage', 'name' => 'Artwork', 'url' => $baseUrl . '/artwork'],
+        ['@type' => 'WebPage', 'name' => 'About', 'url' => $baseUrl . '/about'],
+        ['@type' => 'WebPage', 'name' => 'Contact', 'url' => $baseUrl . '/contact']
+      ],
+    ],
+  ],
+];
+
+echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+?>
+
+</script>
+<?= $this->endSection() ?>
+
 <?= $this->section('adminContent') ?>
 <?php if (session()->get('isLoggedIn')): ?>
 <?php $allFormErrors = session('errors') ?? []; ?>
