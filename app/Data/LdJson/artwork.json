@@ -11,10 +11,30 @@
       }
     },
     {
+      "@type": "Organization",
+      "@id": "https://www.annesimonsson.se/#organization",
+      "name": "Anne Hamrin Simonsson",
+      "url": "https://www.annesimonsson.se/",
+      "logo": {
+        "@id": "https://www.annesimonsson.se/#publisher-logo"
+      }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://www.annesimonsson.se/#publisher-logo",
+      "url": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "contentUrl": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "width": 320,
+      "height": 320
+    },
+    {
       "@type": "Person",
       "@id": "https://www.annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
       "url": "https://www.annesimonsson.se/about",
+      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "jobTitle": "Visual Artist",
+      "description": "Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.",
       "sameAs": [
         "https://www.wikidata.org/wiki/Q137808007",
         "https://www.instagram.com/ahamrinsimonsson/",

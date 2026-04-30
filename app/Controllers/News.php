@@ -736,6 +736,21 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
 {
   $baseUrl = rtrim((string) base_url('/'), '/');
   $newsPageUrl = $baseUrl . '/news';
+  $organizationId = $baseUrl . '/#organization';
+  $logoId = $baseUrl . '/#publisher-logo';
+  $publisherForArticles = [
+    '@type' => 'Organization',
+    '@id' => $organizationId,
+    'name' => 'Anne Hamrin Simonsson',
+    'url' => $baseUrl . '/',
+    'logo' => [
+      '@type' => 'ImageObject',
+      '@id' => $logoId,
+      'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'width' => 320,
+      'height' => 320,
+    ],
+  ];
 
   $blogPostRefs = [];
   $blogPostNodes = [];
@@ -772,7 +787,7 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       'url' => $postId,
       'headline' => $title,
       'author' => ['@id' => $baseUrl . '/#person'],
-      'publisher' => ['@id' => $baseUrl . '/#website'],
+      'publisher' => $publisherForArticles,
       'mainEntityOfPage' => ['@id' => $newsPageUrl . '#webpage'],
       'isPartOf' => ['@id' => $newsPageUrl . '#blog'],
       'inLanguage' => 'en',
@@ -808,10 +823,21 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
 
     $mainImage = trim((string) ($item['main_image'] ?? ''));
     if ($mainImage !== '') {
-      $postNode['image'] = [
+      $imageNode = [
         '@type' => 'ImageObject',
         'url' => base_url($mainImage),
       ];
+
+      $imageWidth = isset($item['width_px']) ? (int) $item['width_px'] : 0;
+      $imageHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
+      if ($imageWidth > 0) {
+        $imageNode['width'] = $imageWidth;
+      }
+      if ($imageHeight > 0) {
+        $imageNode['height'] = $imageHeight;
+      }
+
+      $postNode['image'] = $imageNode;
     }
 
     $eventStart = trim((string) ($item['event_start_date'] ?? ''));
@@ -828,6 +854,15 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       $eventLocation = trim((string) ($item['event_location'] ?? ''));
       if ($eventLocation !== '') {
         $event['location'] = ['@type' => 'Place', 'name' => $eventLocation];
+      } else {
+        $event['location'] = [
+          '@type' => 'Place',
+          'name' => 'Sweden',
+          'address' => [
+            '@type' => 'PostalAddress',
+            'addressCountry' => 'SE',
+          ],
+        ];
       }
       $postNode['about'] = $event;
     }
@@ -851,11 +886,33 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       'publisher' => ['@id' => $baseUrl . '/#person'],
     ],
     [
+      '@type' => 'Organization',
+      '@id' => $organizationId,
+      'name' => 'Anne Hamrin Simonsson',
+      'url' => $baseUrl . '/',
+      'logo' => ['@id' => $logoId],
+    ],
+    [
+      '@type' => 'ImageObject',
+      '@id' => $logoId,
+      'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'width' => 320,
+      'height' => 320,
+    ],
+    [
       '@type' => 'Person',
       '@id' => $baseUrl . '/#person',
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/about',
-      'sameAs' => ['https://www.wikidata.org/wiki/Q137808007'],
+      'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'jobTitle' => 'Visual Artist',
+      'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
+      'sameAs' => [
+        'https://www.wikidata.org/wiki/Q137808007',
+        'https://www.instagram.com/ahamrinsimonsson/',
+        'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+      ],
     ],
     [
       '@type' => 'CollectionPage',

@@ -4,6 +4,8 @@
 <script type="application/ld+json">
 <?php
 $baseUrl = rtrim((string) base_url('/'), '/');
+$organizationId = $baseUrl . '/#organization';
+$logoId = $baseUrl . '/#publisher-logo';
 $itemListElements = [];
 $position = 1;
 
@@ -38,10 +40,28 @@ $artworkLdJson = [
       'publisher' => ['@id' => $baseUrl . '/#person'],
     ],
     [
+      '@type' => 'Organization',
+      '@id' => $organizationId,
+      'name' => 'Anne Hamrin Simonsson',
+      'url' => $baseUrl . '/',
+      'logo' => ['@id' => $logoId],
+    ],
+    [
+      '@type' => 'ImageObject',
+      '@id' => $logoId,
+      'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'width' => 320,
+      'height' => 320,
+    ],
+    [
       '@type' => 'Person',
       '@id' => $baseUrl . '/#person',
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/about',
+      'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'jobTitle' => 'Visual Artist',
+      'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
       'sameAs' => [
         'https://www.wikidata.org/wiki/Q137808007',
         'https://www.instagram.com/ahamrinsimonsson/',

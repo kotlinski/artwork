@@ -315,6 +315,9 @@ function generateStartpageJsonLd(string $description, array $imageData = []): st
 {
     $baseUrl = rtrim((string) base_url('/'), '/');
     $pageUrl = $baseUrl . '/';
+    $webPageId = $baseUrl . '/#webpage';
+    $organizationId = $baseUrl . '/#organization';
+    $logoId = $baseUrl . '/#publisher-logo';
 
     $graph = [
         [
@@ -325,10 +328,28 @@ function generateStartpageJsonLd(string $description, array $imageData = []): st
             'publisher' => ['@id' => $baseUrl . '/#person'],
         ],
         [
+            '@type' => 'Organization',
+            '@id' => $organizationId,
+            'name' => 'Anne Hamrin Simonsson',
+            'url' => $pageUrl,
+            'logo' => ['@id' => $logoId],
+        ],
+        [
+            '@type' => 'ImageObject',
+            '@id' => $logoId,
+            'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+            'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+            'width' => 320,
+            'height' => 320,
+        ],
+        [
             '@type' => 'Person',
             '@id' => $baseUrl . '/#person',
             'name' => 'Anne Hamrin Simonsson',
             'url' => $baseUrl . '/about',
+            'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+            'jobTitle' => 'Visual Artist',
+            'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
             'sameAs' => [
                 'https://www.wikidata.org/wiki/Q137808007',
                 'https://www.instagram.com/ahamrinsimonsson/',
@@ -337,7 +358,7 @@ function generateStartpageJsonLd(string $description, array $imageData = []): st
         ],
         [
             '@type' => 'WebPage',
-            '@id' => $baseUrl . '/#webpage',
+            '@id' => $webPageId,
             'url' => $pageUrl,
             'name' => 'Anne Hamrin Simonsson',
             'description' => $description,
@@ -373,7 +394,12 @@ function generateStartpageJsonLd(string $description, array $imageData = []): st
             $imageNode['height'] = $fullHeight;
         }
 
-        $graph[2]['primaryImageOfPage'] = ['@id' => $imageNodeId];
+        foreach ($graph as $idx => $node) {
+            if (($node['@id'] ?? null) === $webPageId) {
+                $graph[$idx]['primaryImageOfPage'] = ['@id' => $imageNodeId];
+                break;
+            }
+        }
         $graph[] = $imageNode;
     }
 
