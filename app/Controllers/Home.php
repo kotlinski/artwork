@@ -21,10 +21,11 @@ class Home extends BaseController
         }
 
         $required = [
-            'title' => 'Anne Hamrin Simonsson',
+            'title' => 'Anne Hamrin Simonsson | Official Website',
             'selected_menu_item' => '',
             'body_class' => 'startpage',
             'description' => $description,
+            'meta_keywords' => 'Anne Hamrin Simonsson, conceptual art, visual artist, Swedish artist, installation art, artwork, exhibitions',
             'og_image' => $imageData['full_url'] ?? base_url('anne-hamrin-simonsson-portrait.jpg'),
             'og_image_width' => (string) ($imageData['full_width'] ?? 320),
             'og_image_height' => (string) ($imageData['full_height'] ?? 320),
@@ -332,6 +333,22 @@ function generateStartpageJsonLd(string $description, array $imageData = []): st
             '@id' => $organizationId,
             'name' => 'Anne Hamrin Simonsson',
             'url' => $pageUrl,
+            'sameAs' => [
+                'https://www.wikidata.org/wiki/Q137808007',
+                'https://www.instagram.com/ahamrinsimonsson/',
+                'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+                'https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/',
+                'https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson',
+                'https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/',
+            ],
+            'contactPoint' => [
+                [
+                    '@type' => 'ContactPoint',
+                    'contactType' => 'artwork inquiries',
+                    'url' => $baseUrl . '/contact',
+                    'availableLanguage' => ['en', 'sv'],
+                ],
+            ],
             'logo' => ['@id' => $logoId],
         ],
         [
@@ -347,7 +364,14 @@ function generateStartpageJsonLd(string $description, array $imageData = []): st
             '@id' => $baseUrl . '/#person',
             'name' => 'Anne Hamrin Simonsson',
             'url' => $baseUrl . '/about',
-            'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+            'image' => [
+                '@type' => 'ImageObject',
+                '@id' => $logoId,
+                'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+                'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+                'width' => 320,
+                'height' => 320,
+            ],
             'jobTitle' => 'Visual Artist',
             'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
             'sameAs' => [

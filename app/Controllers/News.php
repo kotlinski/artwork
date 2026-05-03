@@ -35,6 +35,7 @@ class News extends BaseController
       'title' => 'News | Anne Hamrin Simonsson',
       'selected_menu_item' => 'news',
       'description' => 'Keep up with Anne Hamrin Simonsson’s latest news, from Swedish Arts Grants Committee awards to current exhibitions at Kalmar Konstmuseum and more.',
+      'meta_keywords' => 'Anne Hamrin Simonsson, news, exhibitions, talks, workshops, conceptual art, visual artist, Swedish artist, contemporary art',
       'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
       'og_image_width' => '320',
       'og_image_height' => '320',
@@ -738,18 +739,63 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
   $newsPageUrl = $baseUrl . '/news';
   $organizationId = $baseUrl . '/#organization';
   $logoId = $baseUrl . '/#publisher-logo';
+
+  $siteLogoObject = [
+    '@type' => 'ImageObject',
+    '@id' => $logoId,
+    'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+    'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+    'width' => 320,
+    'height' => 320,
+  ];
+
+  try {
+    $startpageModel = new \App\Models\Startpage();
+    $startpage = $startpageModel->orderBy('id', 'DESC')->first();
+    $startImagePath = trim((string)($startpage['image_path'] ?? ''));
+    if ($startImagePath !== '') {
+      $fullPath = str_starts_with($startImagePath, 'media/startpage/')
+        ? $startImagePath
+        : 'media/startpage/' . ltrim($startImagePath, '/');
+      if (is_file(FCPATH . $fullPath)) {
+        $siteLogoObject['url'] = base_url($fullPath);
+        $siteLogoObject['contentUrl'] = base_url($fullPath);
+        $dims = @getimagesize(FCPATH . $fullPath);
+        if (is_array($dims) && isset($dims[0], $dims[1]) && $dims[0] > 0 && $dims[1] > 0) {
+          $siteLogoObject['width'] = (int)$dims[0];
+          $siteLogoObject['height'] = (int)$dims[1];
+        }
+      }
+    }
+  } catch (\Throwable $e) {
+    // Keep portrait fallback if start page image lookup fails.
+  }
+
+  $fallbackPostImageObject = $siteLogoObject;
+  unset($fallbackPostImageObject['@id']);
+
   $publisherForArticles = [
     '@type' => 'Organization',
     '@id' => $organizationId,
     'name' => 'Anne Hamrin Simonsson',
     'url' => $baseUrl . '/',
-    'logo' => [
-      '@type' => 'ImageObject',
-      '@id' => $logoId,
-      'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'width' => 320,
-      'height' => 320,
+    'sameAs' => [
+      'https://www.wikidata.org/wiki/Q137808007',
+      'https://www.instagram.com/ahamrinsimonsson/',
+      'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+      'https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/',
+      'https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson',
+      'https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/',
     ],
+    'contactPoint' => [
+      [
+        '@type' => 'ContactPoint',
+        'contactType' => 'artwork inquiries',
+        'url' => $baseUrl . '/contact',
+        'availableLanguage' => ['en', 'sv'],
+      ],
+    ],
+    'logo' => $siteLogoObject,
   ];
 
   $blogPostRefs = [];
@@ -859,6 +905,10 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       $postNode['image'] = $imageNode;
     }
 
+    if (!isset($postNode['image'])) {
+      $postNode['image'] = $fallbackPostImageObject;
+    }
+
     $eventStart = trim((string) ($item['event_start_date'] ?? ''));
     if ($eventStart !== '') {
       $event = [
@@ -909,22 +959,38 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       '@id' => $organizationId,
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/',
+      'sameAs' => [
+        'https://www.wikidata.org/wiki/Q137808007',
+        'https://www.instagram.com/ahamrinsimonsson/',
+        'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+        'https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/',
+        'https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson',
+        'https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/',
+      ],
+      'contactPoint' => [
+        [
+          '@type' => 'ContactPoint',
+          'contactType' => 'artwork inquiries',
+          'url' => $baseUrl . '/contact',
+          'availableLanguage' => ['en', 'sv'],
+        ],
+      ],
       'logo' => ['@id' => $logoId],
     ],
     [
       '@type' => 'ImageObject',
       '@id' => $logoId,
-      'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'width' => 320,
-      'height' => 320,
+      'url' => $siteLogoObject['url'],
+      'contentUrl' => $siteLogoObject['contentUrl'],
+      'width' => $siteLogoObject['width'],
+      'height' => $siteLogoObject['height'],
     ],
     [
       '@type' => 'Person',
       '@id' => $baseUrl . '/#person',
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/about',
-      'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'image' => $siteLogoObject,
       'jobTitle' => 'Visual Artist',
       'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
       'sameAs' => [

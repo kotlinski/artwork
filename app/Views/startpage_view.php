@@ -57,12 +57,14 @@ $image = $startpage_image ?? [];
               <?php if (!empty($image['expanded_srcset'])): ?>data-full-image-srcset="<?= esc($image['expanded_srcset'], 'attr') ?>" data-full-image-sizes="<?= esc($image['expanded_sizes'] ?? '96vw', 'attr') ?>"<?php endif; ?>
               data-alt="<?= esc($caption, 'attr') ?>"
               data-news-title="<?= esc($caption, 'attr') ?>"
+              title="Open startpage image"
               aria-label="Open startpage image in fullscreen">
         <img src="<?= esc($image['display_url'] ?? '', 'attr') ?>"
              srcset="<?= esc($image['display_url'] ?? '', 'attr') ?> 1x, <?= esc($image['display_2x_url'] ?? ($image['display_url'] ?? ''), 'attr') ?> 2x"
              width="<?= (int) ($image['display_width'] ?? 380) ?>"
              height="<?= (int) ($image['display_height'] ?? 280) ?>"
              alt="<?= esc($caption) ?>"
+             title="<?= esc($caption, 'attr') ?>"
              fetchpriority="high"
              decoding="async">
       </button>
@@ -75,7 +77,7 @@ $image = $startpage_image ?? [];
 <div id="news-image-fullscreen-modal" class="news-image-fullscreen-modal" style="display:none;" aria-hidden="true">
   <button type="button" class="news-image-fullscreen-close-top" data-news-image-close aria-label="Close image">&times;</button>
   <figure class="news-image-fullscreen-figure">
-    <img id="news-image-fullscreen-img" src="" alt="">
+    <img id="news-image-fullscreen-img" src="" alt="Startpage image" title="Startpage image">
     <figcaption class="news-image-fullscreen-caption">
       <span id="news-image-fullscreen-title" class="news-image-fullscreen-title"></span>
       <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close" data-news-image-close aria-label="Close image">close</button>
@@ -98,10 +100,12 @@ $image = $startpage_image ?? [];
     }
 
     function openModal(src, alt, title, srcset, sizes) {
+      var imageLabel = title || alt || 'Startpage image';
       modalImg.srcset = srcset || '';
       modalImg.sizes = sizes || '';
       modalImg.src = src;
-      modalImg.alt = alt || '';
+      modalImg.alt = alt || imageLabel;
+      modalImg.title = imageLabel;
       modalTitle.textContent = title || '';
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
@@ -123,6 +127,8 @@ $image = $startpage_image ?? [];
       modalImg.src = '';
       modalImg.srcset = '';
       modalImg.sizes = '';
+      modalImg.alt = 'Startpage image';
+      modalImg.title = 'Startpage image';
       modalTitle.textContent = '';
       if (isBodyLocked) {
         document.body.style.position = '';
