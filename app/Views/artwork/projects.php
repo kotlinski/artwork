@@ -6,6 +6,14 @@
 $baseUrl = rtrim((string) base_url('/'), '/');
 $organizationId = $baseUrl . '/#organization';
 $logoId = $baseUrl . '/#publisher-logo';
+$portraitImageObject = [
+  '@type' => 'ImageObject',
+  '@id' => $logoId,
+  'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+  'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+  'width' => 320,
+  'height' => 320,
+];
 $itemListElements = [];
 $position = 1;
 
@@ -44,22 +52,31 @@ $artworkLdJson = [
       '@id' => $organizationId,
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/',
+      'sameAs' => [
+        'https://www.wikidata.org/wiki/Q137808007',
+        'https://www.instagram.com/ahamrinsimonsson/',
+        'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+        'https://www.konstikalmarlan.se/verksamhet/anne-hamrin-simonsson/',
+        'https://www.smalandstriennalen.se/medverkande/anne-hamrin-simonsson',
+        'https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/'
+      ],
+      'contactPoint' => [
+        [
+          '@type' => 'ContactPoint',
+          'contactType' => 'artwork inquiries',
+          'url' => $baseUrl . '/contact',
+          'availableLanguage' => ['en', 'sv'],
+        ],
+      ],
       'logo' => ['@id' => $logoId],
     ],
-    [
-      '@type' => 'ImageObject',
-      '@id' => $logoId,
-      'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'width' => 320,
-      'height' => 320,
-    ],
+    $portraitImageObject,
     [
       '@type' => 'Person',
       '@id' => $baseUrl . '/#person',
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/about',
-      'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'image' => $portraitImageObject,
       'jobTitle' => 'Visual Artist',
       'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
       'sameAs' => [
@@ -77,6 +94,7 @@ $artworkLdJson = [
       'url' => $baseUrl . '/artwork',
       'name' => 'Artwork by Anne Hamrin Simonsson',
       'description' => 'Overview of artwork projects by Swedish conceptual artist Anne Hamrin Simonsson.',
+      'image' => $portraitImageObject,
       'isPartOf' => ['@id' => $baseUrl . '/#website'],
       'about' => ['@id' => $baseUrl . '/#person'],
       'mainEntity' => ['@id' => $baseUrl . '/artwork#itemlist'],
@@ -671,14 +689,28 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
           <div class="hero-container" style="<?= $containerStyle ?>">
             <?php foreach ($validImages as $image):
               $image_file_name = $image['file_name'];
-              $image_title = $image['title'] ?? '';
+              $image_title = trim((string)($image['title'] ?? ''));
+              if ($image_title === '') {
+                $image_title = trim((string)($image['alternate_name'] ?? ''));
+              }
+              if ($image_title === '') {
+                $image_title = trim((string)($image['caption'] ?? ''));
+              }
+              if ($image_title === '') {
+                $image_title = trim((string)($project['title'] ?? ($project->title ?? '')));
+              }
+              if ($image_title === '') {
+                $image_title = 'Artwork image';
+              }
+              $image_link_title = 'Open project: ' . trim((string)($project['title'] ?? ($project->title ?? 'Artwork')));
               ?>
-              <a href="<?= $projectUrl ?>" style="display: block; width: 100%;">
+              <a href="<?= $projectUrl ?>" title="<?= esc($image_link_title, 'attr') ?>" style="display: block; width: 100%;">
                 <img
                   src="<?= base_url('konst/thumb/' . $image_file_name) ?>"
                   srcset="<?= base_url('konst/thumb/' . $image_file_name) ?> 1x,
                           <?= base_url('konst/thumb2x/' . $image_file_name) ?> 2x"
                   alt="<?= esc($image_title) ?>"
+                  title="<?= esc($image_title, 'attr') ?>"
                   loading="lazy"
                   style="<?= $imageStyle ?>"/>
               </a>

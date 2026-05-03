@@ -38,6 +38,23 @@ class Artwork extends BaseController
     $clean_ids = array_map('intval', array_filter($image_ids));
     $images_data = !empty($clean_ids) ? $image_model->whereIn('id', $clean_ids)->findAll() : [];
     $indexed_images = array_column($images_data, null, 'id');
+
+    $overviewOgImage = base_url('anne-hamrin-simonsson-portrait.jpg');
+    $overviewOgImageWidth = '320';
+    $overviewOgImageHeight = '320';
+    $firstProjectId = isset($projects[0]['id']) ? (int)$projects[0]['id'] : 0;
+    if ($firstProjectId > 0) {
+      $firstProjectImage = $image_model
+        ->where('project', $firstProjectId)
+        ->orderBy('`order`', 'ASC')
+        ->first();
+      $firstProjectImageFile = trim((string)($firstProjectImage['file_name'] ?? ''));
+      if ($firstProjectImageFile !== '') {
+        $overviewOgImage = base_url('konst/' . $firstProjectImageFile);
+        $overviewOgImageWidth = (string)((int)($firstProjectImage['width_px'] ?? 0) ?: 320);
+        $overviewOgImageHeight = (string)((int)($firstProjectImage['height_px'] ?? 0) ?: 320);
+      }
+    }
     
     foreach ($projects as &$project) {
       if (session()->get('is_logged_in')) {
@@ -53,15 +70,46 @@ class Artwork extends BaseController
         'right' => $indexed_images[(int)$project['image_right']] ?? null
       ];
     }
+
+    $keywordMap = [];
+    $keywordSeeds = [
+      'Anne Hamrin Simonsson',
+      'Anne Hamrin Simonsson artist',
+      'artwork',
+      'conceptual art',
+      'visual art',
+      'Swedish artist',
+      'art projects',
+    ];
+    foreach ($keywordSeeds as $keyword) {
+      $key = strtolower($keyword);
+      $keywordMap[$key] = $keyword;
+    }
+    foreach ($projects as $project) {
+      $title = trim((string)($project['title'] ?? ''));
+      if ($title === '') {
+        continue;
+      }
+      $key = strtolower($title);
+      if (!isset($keywordMap[$key])) {
+        $keywordMap[$key] = $title;
+      }
+      if (count($keywordMap) >= 12) {
+        break;
+      }
+    }
+    $metaKeywords = implode(', ', array_values($keywordMap));
+
     $data['projects'] = $projects;
     $required = [
       'title' => 'Artwork | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
       'body_class' => 'artwork-overview',
       'description' => 'Biography and artist statement of Anne Hamrin Simonsson, a Swedish conceptual artist based on Öland, known for her site-specific installations and objects.',
-      'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'og_image_width' => '320',
-      'og_image_height' => '320',
+      'meta_keywords' => $metaKeywords,
+      'og_image' => $overviewOgImage,
+      'og_image_width' => $overviewOgImageWidth,
+      'og_image_height' => $overviewOgImageHeight,
     ];
     return $this->renderView('artwork/projects.php', $required, $data);
   }
