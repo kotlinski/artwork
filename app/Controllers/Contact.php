@@ -20,6 +20,7 @@ class Contact extends BaseController
       'title' => 'Contact | Anne Hamrin Simonsson',
       'selected_menu_item' => 'contact',
       'description' => 'Get in touch with Anne Hamrin Simonsson for inquiries, collaborations, or information regarding her conceptual art installations and paintings in Sweden.',
+      'meta_keywords' => 'Anne Hamrin Simonsson, contact, contemporary art, visual artist, Swedish artist, artwork inquiries, collaboration, commissions',
       'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
       'og_image_width' => '320',
       'og_image_height' => '320',
