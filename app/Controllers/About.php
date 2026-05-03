@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\ParsedownWithLinkTargets;
+
 class About extends BaseController
 {
   
@@ -10,7 +12,9 @@ class About extends BaseController
     $model = new \App\Models\About();
     $about = $model->orderBy('id', 'DESC')->first();;
     
-    $parser = new \Parsedown();
+    $parser = new ParsedownWithLinkTargets();
+    $parser->setSafeMode(true);
+    $parser->setBreaksEnabled(true);
     
     $required = [
       'title' => 'About | Anne Hamrin Simonsson',

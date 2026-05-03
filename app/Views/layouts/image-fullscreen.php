@@ -116,7 +116,8 @@ if (count($_preloadEntries) > 0) {
 
   <?= $this->renderSection('ldjson') ?>
 
-  <meta name="author" content="Simon Kotlinski">
+  <meta name="author" content="Anne Hamrin Simonsson">
+  <meta name="publisher" content="Anne Hamrin Simonsson">
   <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
   <style>
     <?= file_get_contents(FCPATH . 'css/image-fullscreen.css'); ?>

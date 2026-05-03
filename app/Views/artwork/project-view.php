@@ -928,6 +928,25 @@
         // Keep intrinsic dimensions accurate for stable layout while fitting thumbnails within 122x122.
         $origW = isset($img['width_px']) ? (int)$img['width_px'] : 0;
         $origH = isset($img['height_px']) ? (int)$img['height_px'] : 0;
+        $thumbTitle = trim((string)($img['title'] ?? ''));
+        if ($thumbTitle === '') {
+          $thumbTitle = trim((string)($img['alternate_name'] ?? ''));
+        }
+        if ($thumbTitle === '') {
+          $thumbTitle = trim((string)($img['caption'] ?? ''));
+        }
+        if ($thumbTitle === '') {
+          $thumbTitle = trim((string)($img['file_id'] ?? ''));
+        }
+        if ($thumbTitle === '') {
+          $thumbTitle = 'Artwork image';
+        }
+        $thumbFileIdDisplay = trim(str_replace('-', ' ', (string)($img['file_id'] ?? '')));
+        $thumbTitleWithFileId = $thumbTitle;
+        if ($thumbFileIdDisplay !== '' && strcasecmp($thumbFileIdDisplay, $thumbTitle) !== 0) {
+          $thumbTitleWithFileId .= ', ' . $thumbFileIdDisplay;
+        }
+        $thumbLinkTitle = 'Open image: ' . $thumbTitleWithFileId;
         if ($origW > 0 && $origH > 0) {
           $scale = min(122 / $origW, 122 / $origH, 1);
           $thumbW = max(1, (int)round($origW * $scale));
@@ -938,13 +957,15 @@
         }
         ?>
         <a href="<?= base_url(($project['slug'] ?? '') . '/' . ($img['file_id'] ?? '')) ?>"
+           title="<?= esc($thumbLinkTitle, 'attr') ?>"
            style="display:flex;align-items:center;justify-content:center;background:#fff;width:var(--thumb-size);overflow:hidden;">
           <img
             src="<?= base_url('konst/thumb/' . $img['file_name']) ?>"
             srcset="<?= base_url('konst/thumb/' . $img['file_name']) ?> 1x, <?= base_url('konst/thumb2x/' . $img['file_name']) ?> 2x"
             width="<?= $thumbW ?>"
             height="<?= $thumbH ?>"
-            alt="<?= esc($img['title'] ?? '') ?>"
+            alt="<?= esc($thumbTitle) ?>"
+            title="<?= esc($thumbTitleWithFileId, 'attr') ?>"
             loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>"
             fetchpriority="<?= $idx === 0 ? 'high' : 'auto' ?>"
             decoding="async"
@@ -965,9 +986,11 @@
       <?php if ($showProjectLanguageSwitch): ?>
         <nav class="project-language-switch" aria-label="Project text language">
           <a href="<?= base_url($project['slug'] ?? '') ?>?lang=en" data-lang="en"
+             title="Show project text in English"
              class="<?= $langQuery === 'en' ? 'is-active' : '' ?>">EN</a>
           <span aria-hidden="true">|</span>
           <a href="<?= base_url($project['slug'] ?? '') ?>?lang=sv" data-lang="sv"
+             title="Show project text in Swedish"
              class="<?= $langQuery === 'sv' ? 'is-active' : '' ?>">SV</a>
         </nav>
       <?php endif; ?>
@@ -981,7 +1004,9 @@
       return '';
     }
     if (class_exists('Parsedown')) {
-      $parsedown = new Parsedown();
+      $parsedown = new \App\Libraries\ParsedownWithLinkTargets();
+      $parsedown->setSafeMode(true);
+      $parsedown->setBreaksEnabled(true);
       return $parsedown->text($value);
     }
     return nl2br(esc($value));
@@ -997,7 +1022,9 @@
       if (!empty($text)) {
         // Use Parsedown if available, else fallback to nl2br
         if (class_exists('Parsedown')) {
-          $parsedown = new Parsedown();
+          $parsedown = new \App\Libraries\ParsedownWithLinkTargets();
+          $parsedown->setSafeMode(true);
+          $parsedown->setBreaksEnabled(true);
           echo $parsedown->text($text);
         } else {
           echo nl2br(esc($text));
@@ -1112,7 +1139,7 @@
         &times;
       </button>
       <figure class="news-image-fullscreen-figure">
-        <img id="news-image-fullscreen-img" src="" alt="">
+        <img id="news-image-fullscreen-img" src="" alt="News image" title="News image">
         <figcaption class="news-image-fullscreen-caption">
           <span id="news-image-fullscreen-title" class="news-image-fullscreen-title"></span>
           <button type="button" id="news-image-fullscreen-close" class="news-image-fullscreen-close"
@@ -1137,10 +1164,12 @@
         }
 
         function openModal(src, alt, title, srcset, sizes) {
+          var imageLabel = title || alt || 'News image';
           modalImg.srcset = srcset || '';
           modalImg.sizes = sizes || '';
           modalImg.src = src;
-          modalImg.alt = alt || '';
+          modalImg.alt = alt || imageLabel;
+          modalImg.title = imageLabel;
           modalTitle.textContent = title || '';
           modal.style.display = 'flex';
           modal.setAttribute('aria-hidden', 'false');
@@ -1162,6 +1191,8 @@
           modalImg.src = '';
           modalImg.srcset = '';
           modalImg.sizes = '';
+          modalImg.alt = 'News image';
+          modalImg.title = 'News image';
           modalTitle.textContent = '';
           if (isBodyLocked) {
             document.body.style.position = '';
@@ -1205,7 +1236,7 @@
   <?php endif; ?>
     <div class="back-to-overview-row"
          style="display: flex; justify-content: space-between; align-items: center; margin: 1em 0;">
-      <a href="<?= base_url('artwork') . '#' . ($project['slug'] ?? '') ?>">Back to Artworks</a>
+      <a href="<?= base_url('artwork') . '#' . ($project['slug'] ?? '') ?>" title="Back to artworks overview">Back to Artworks</a>
     </div>
   <?php endif; ?>
 </div>

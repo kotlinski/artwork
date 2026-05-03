@@ -47,19 +47,6 @@ class Project extends BaseController
     }
     $next_project_slug = $nextProject['slug'] ?? null;
     $next_project_title = $nextProject['title'] ?? null;
-    $meta_description = trim((string)($project['seo_description'] ?? ''));
-    if ($meta_description === '') {
-      $meta_description = trim((string)($project['description'] ?? ''));
-    }
-    $required = [
-      'title' => $project['title'] .
-        (isset($project['start_year']) ? ' (' . $project['start_year'] . (isset($project['end_year']) && $project['end_year'] ? '–' . $project['end_year'] : '') . ')' : ''),
-      'selected_menu_item' => 'artwork',
-      'description' => $meta_description,
-      'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
-      'og_image_width' => '320',
-      'og_image_height' => '320',
-    ];
     // Ensure all fields are set with safe defaults
     $project = array_merge([
       'id' => '',
@@ -100,6 +87,32 @@ class Project extends BaseController
     if (!isset($images) || !is_array($images)) $images = [];
     $next_project_slug = $next_project_slug ?? '';
     $next_project_title = $next_project_title ?? '';
+
+    $project_meta_description = $this->build_project_meta_description($project, $projectText);
+    $project_meta_keywords = $this->build_project_meta_keywords($project, $projectText);
+    $project_og_image = base_url('anne-hamrin-simonsson-portrait.jpg');
+    $project_og_image_width = '320';
+    $project_og_image_height = '320';
+    foreach ($images as $project_image) {
+      $project_image_file = trim((string)($project_image['file_name'] ?? ''));
+      if ($project_image_file === '') {
+        continue;
+      }
+      $project_og_image = base_url('konst/' . $project_image_file);
+      $project_og_image_width = (string)((int)($project_image['width_px'] ?? 0) ?: 320);
+      $project_og_image_height = (string)((int)($project_image['height_px'] ?? 0) ?: 320);
+      break;
+    }
+    $required = [
+      'title' => $project['title'] . ' | Anne Hamrin Simonsson',
+      'selected_menu_item' => 'artwork',
+      'description' => $project_meta_description,
+      'meta_description' => $project_meta_description,
+      'meta_keywords' => $project_meta_keywords,
+      'og_image' => $project_og_image,
+      'og_image_width' => $project_og_image_width,
+      'og_image_height' => $project_og_image_height,
+    ];
 
     // Fetch news items linked to this project
     $newsModel = new \App\Models\NewsModel();
@@ -334,6 +347,159 @@ class Project extends BaseController
     }, $newsItems);
   }
 
+  protected function build_project_meta_description(array $project, string $project_text): string
+  {
+    $artist_name = 'Anne Hamrin Simonsson';
+    $project_title = trim((string)($project['title'] ?? ''));
+    $seo_description = trim((string)($project['seo_description'] ?? ''));
+    $project_description = trim((string)($project['description'] ?? ''));
+    $project_text_plain = $this->clean_meta_text((string)$project_text);
+
+    $description = $seo_description !== ''
+      ? $seo_description
+      : ($project_description !== '' ? $project_description : $project_text_plain);
+    $description = $this->clean_meta_text($description);
+
+    $start_year = isset($project['start_year']) ? (int)$project['start_year'] : 0;
+    $end_year = isset($project['end_year']) ? (int)$project['end_year'] : 0;
+    $year_text = '';
+    if ($start_year > 0 && $end_year > 0) {
+      $year_text = $start_year . '-' . $end_year;
+    } elseif ($start_year > 0) {
+      $year_text = (string)$start_year;
+    } elseif ($end_year > 0) {
+      $year_text = (string)$end_year;
+    }
+
+    $filler_sentences = [];
+    if ($project_title !== '') {
+      $title_sentence = 'The project ' . $project_title . ' by ' . $artist_name;
+      if ($year_text !== '') {
+        $title_sentence .= ' (' . $year_text . ')';
+      }
+      $filler_sentences[] = $title_sentence . '.';
+    }
+    $filler_sentences[] = 'Explore artworks, materials, and context from this project by ' . $artist_name . '.';
+    $filler_sentences[] = 'Discover visual art and project details from ' . $artist_name . '.';
+
+    if ($description !== '' && !preg_match('/[.!?]$/', $description)) {
+      $description .= '.';
+    }
+
+    foreach ($filler_sentences as $sentence) {
+      if ($this->meta_length($description) >= 150) {
+        break;
+      }
+      $description = trim($description);
+      $description .= ($description !== '' ? ' ' : '') . trim($sentence);
+      $description = $this->clean_meta_text($description);
+    }
+
+    while ($this->meta_length($description) < 150) {
+      $tail = ' More about ' . ($project_title !== '' ? $project_title . ' and ' : '') . $artist_name . '.';
+      $description .= $tail;
+      $description = $this->clean_meta_text($description);
+      if ($this->meta_length($description) > 280) {
+        break;
+      }
+    }
+
+    $description = $this->truncate_meta_text($description, 220);
+    if ($description === '') {
+      $description = 'Project by ' . $artist_name . '.';
+    }
+
+    return $description;
+  }
+
+  protected function meta_length(string $text): int
+  {
+    return function_exists('mb_strlen') ? (int)mb_strlen($text) : strlen($text);
+  }
+
+  protected function clean_meta_text(string $text): string
+  {
+    $text = strip_tags($text);
+    $text = preg_replace('/\[([^\]]+)\]\(([^)]+)\)/', '$1', $text) ?? $text;
+    $text = str_replace(['*', '_', '`'], '', $text);
+    $text = preg_replace('/\s+/', ' ', $text) ?? $text;
+    return trim($text);
+  }
+
+  protected function build_project_meta_keywords(array $project, string $project_text): string
+  {
+    $artist_name = 'Anne Hamrin Simonsson';
+    $project_title = trim((string)($project['title'] ?? ''));
+    $alternate_name = trim((string)($project['alternate_name'] ?? ''));
+    $description = trim((string)($project['description'] ?? ''));
+    $seo_description = trim((string)($project['seo_description'] ?? ''));
+    $text_plain = trim(strip_tags((string)$project_text));
+
+    $start_year = isset($project['start_year']) ? (int)$project['start_year'] : 0;
+    $end_year = isset($project['end_year']) ? (int)$project['end_year'] : 0;
+    $year_keyword = '';
+    if ($start_year > 0 && $end_year > 0) {
+      $year_keyword = $start_year . '-' . $end_year;
+    } elseif ($start_year > 0) {
+      $year_keyword = (string)$start_year;
+    }
+
+    $keywords = [
+      $artist_name,
+      'Anne Hamrin Simonsson artist',
+      'contemporary art',
+      'visual art',
+      'conceptual art',
+      $project_title,
+      $alternate_name,
+      $year_keyword,
+      trim((string)($project['slug'] ?? '')),
+    ];
+
+    foreach ([$seo_description, $description, $text_plain] as $source) {
+      if ($source === '') {
+        continue;
+      }
+      if (preg_match_all('/\p{L}[\p{L}\p{N}\-]{2,}/u', $source, $matches)) {
+        foreach ($matches[0] as $token) {
+          $token = trim((string)$token);
+          if ($token === '') {
+            continue;
+          }
+          $keywords[] = $token;
+          if (count($keywords) > 80) {
+            break 2;
+          }
+        }
+      }
+    }
+
+    $stopwords = [
+      'and', 'the', 'for', 'with', 'from', 'this', 'that', 'about', 'into', 'over', 'under',
+      'som', 'och', 'det', 'den', 'att', 'med', 'om', 'ett', 'en', 'the',
+    ];
+    $filtered = [];
+    foreach ($keywords as $keyword) {
+      $keyword = trim((string)$keyword, ",.;:()[]{}\"'");
+      if ($keyword === '') {
+        continue;
+      }
+      $key = strtolower($keyword);
+      if (in_array($key, $stopwords, true)) {
+        continue;
+      }
+      if (isset($filtered[$key])) {
+        continue;
+      }
+      $filtered[$key] = $keyword;
+      if (count($filtered) >= 12) {
+        break;
+      }
+    }
+
+    return implode(', ', array_values($filtered));
+  }
+
   protected function build_image_seo_meta(array $image, array $project): array
   {
     $artist_name = 'Anne Hamrin Simonsson';
@@ -532,6 +698,7 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
   $allImageNodes = [];
   $allImageRefs = [];
   $imageRefByDbId = [];
+  $imageNodeByDbId = [];
   foreach ($images as $index => $image) {
     if (!is_array($image)) {
       continue;
@@ -572,6 +739,7 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
     $dbImageId = isset($image['id']) ? (int) $image['id'] : 0;
     if ($dbImageId > 0) {
       $imageRefByDbId[$dbImageId] = ['@id' => $imageId];
+      $imageNodeByDbId[$dbImageId] = $imageNode;
     }
   }
 
@@ -630,6 +798,26 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
     }
   }
 
+  $projectPrimaryImageObject = null;
+  foreach ($highlightedImages as $highlightedImage) {
+    if (!is_array($highlightedImage)) {
+      continue;
+    }
+    $highlightedDbId = isset($highlightedImage['id']) ? (int) $highlightedImage['id'] : 0;
+    if ($highlightedDbId > 0 && isset($imageNodeByDbId[$highlightedDbId])) {
+      $projectPrimaryImageObject = $imageNodeByDbId[$highlightedDbId];
+      break;
+    }
+  }
+  if ($projectPrimaryImageObject === null && $projectPrimaryImageUrl !== '') {
+    $projectPrimaryImageObject = [
+      '@type' => 'ImageObject',
+      'url' => $projectPrimaryImageUrl,
+      'contentUrl' => $projectPrimaryImageUrl,
+      'name' => $projectName,
+    ];
+  }
+
   $projectNode = [
     '@type' => 'VisualArtwork',
     '@id' => $projectUrl . '#project',
@@ -643,8 +831,8 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
     'associatedMedia' => $highlightRefs,
     'isPartOf' => ['@id' => $baseUrl . '/artwork#webpage'],
   ];
-  if ($projectPrimaryImageUrl !== '') {
-    $projectNode['image'] = $projectPrimaryImageUrl;
+  if ($projectPrimaryImageObject !== null) {
+    $projectNode['image'] = $projectPrimaryImageObject;
   }
 
   $startYear = isset($project['start_year']) ? (int) $project['start_year'] : 0;
@@ -679,7 +867,48 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
       'about' => ['@id' => $projectUrl . '#project'],
       'author' => ['@id' => $baseUrl . '/#person'],
       'publisher' => $publisherForArticles,
+      'mainEntityOfPage' => ['@id' => $projectUrl . '#webpage'],
     ];
+
+    if ($projectPrimaryImageObject !== null) {
+      $newsNodes[count($newsNodes) - 1]['image'] = $projectPrimaryImageObject;
+    }
+
+    $schemaImagePath = '';
+    foreach (['main_image_x_large', 'main_image_large', 'main_image_medium', 'main_image', 'main_image_thumb'] as $candidateField) {
+      $candidatePath = trim((string) ($newsItem[$candidateField] ?? ''));
+      if ($candidatePath !== '') {
+        $schemaImagePath = $candidatePath;
+        break;
+      }
+    }
+
+    if ($schemaImagePath !== '') {
+      $imageNode = [
+        '@type' => 'ImageObject',
+        'url' => base_url($schemaImagePath),
+      ];
+
+      $imageWidth = 0;
+      $imageHeight = 0;
+      $schemaDims = @getimagesize(FCPATH . ltrim($schemaImagePath, '/'));
+      if (is_array($schemaDims) && isset($schemaDims[0], $schemaDims[1])) {
+        $imageWidth = (int) $schemaDims[0];
+        $imageHeight = (int) $schemaDims[1];
+      }
+      if ($imageWidth <= 0 || $imageHeight <= 0) {
+        $imageWidth = isset($newsItem['width_px']) ? (int) $newsItem['width_px'] : 0;
+        $imageHeight = isset($newsItem['height_px']) ? (int) $newsItem['height_px'] : 0;
+      }
+      if ($imageWidth > 0) {
+        $imageNode['width'] = $imageWidth;
+      }
+      if ($imageHeight > 0) {
+        $imageNode['height'] = $imageHeight;
+      }
+
+      $newsNodes[count($newsNodes) - 1]['image'] = $imageNode;
+    }
 
     $createdAt = trim((string) ($newsItem['created_at'] ?? ''));
     if ($createdAt !== '') {
@@ -712,9 +941,20 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
     'mainEntity' => ['@id' => $projectUrl . '#project'],
     'breadcrumb' => ['@id' => $projectUrl . '#breadcrumb'],
   ];
-  if (!empty($highlightRefs)) {
+  if ($projectPrimaryImageObject !== null) {
+    $projectWebPageNode['primaryImageOfPage'] = $projectPrimaryImageObject;
+  } elseif (!empty($highlightRefs)) {
     $projectWebPageNode['primaryImageOfPage'] = $highlightRefs[0];
   }
+
+  $personImageObject = [
+    '@type' => 'ImageObject',
+    '@id' => $logoId,
+    'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+    'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+    'width' => 320,
+    'height' => 320,
+  ];
 
   $graph = [
     [
@@ -757,7 +997,7 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
       '@id' => $baseUrl . '/#person',
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/about',
-      'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+      'image' => $personImageObject,
       'jobTitle' => 'Visual Artist',
       'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
       'sameAs' => [
@@ -830,6 +1070,7 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
 function generateImageJsonLd(array $image, array $project): string
 {
   $baseUrl = rtrim((string) base_url('/'), '/');
+  $artistName = 'Anne Hamrin Simonsson';
   $organizationId = $baseUrl . '/#organization';
   $logoId = $baseUrl . '/#publisher-logo';
   $projectSlug = trim((string) ($project['slug'] ?? ''));
@@ -841,11 +1082,86 @@ function generateImageJsonLd(array $image, array $project): string
   $pageUrl = $projectUrl . '/' . $imageSlug;
   $imageNodeId = $pageUrl . '#image';
 
+  $normalizeText = static function (string $value): string {
+    $value = strip_tags($value);
+    $value = preg_replace('/\[([^\]]+)\]\(([^)]+)\)/', '$1', $value) ?? $value;
+    $value = str_replace(['*', '_', '`'], '', $value);
+    $value = preg_replace('/\s+/', ' ', $value) ?? $value;
+    return trim($value);
+  };
+
+  $truncateMeta = static function (string $text, int $maxLen): string {
+    $text = trim($text);
+    if ($text === '' || strlen($text) <= $maxLen) {
+      return $text;
+    }
+    $cut = substr($text, 0, $maxLen + 1);
+    $lastSpace = strrpos($cut, ' ');
+    if ($lastSpace !== false && $lastSpace > (int)($maxLen * 0.6)) {
+      $cut = substr($cut, 0, $lastSpace);
+    } else {
+      $cut = substr($cut, 0, $maxLen);
+    }
+    return rtrim($cut, ",;:. ") . '.';
+  };
+
+  $captionText = $normalizeText((string)($image['caption'] ?? ''));
+  $titleText = $normalizeText((string)($image['title'] ?? ''));
+  $altText = $normalizeText((string)($image['alternate_name'] ?? ''));
+  $projectTitleText = $normalizeText($projectTitle);
+  $dateText = $normalizeText((string)($image['date_created'] ?? ''));
+  $artformText = $normalizeText((string)($image['artform'] ?? ''));
+  $mediumText = $normalizeText((string)($image['art_medium'] ?? ''));
+  $surfaceText = $normalizeText((string)($image['artwork_surface'] ?? ''));
+  $locationText = $normalizeText((string)($image['geo_location'] ?? ''));
+
+  $descriptionParts = [];
+  if ($captionText !== '') {
+    $descriptionParts[] = $captionText;
+  }
+  $identity = $titleText !== '' ? $titleText : 'Artwork';
+  if ($altText !== '' && strcasecmp($altText, $identity) !== 0) {
+    $identity .= ' (' . $altText . ')';
+  }
+  $identitySentence = $identity . ' by ' . $artistName;
+  if ($projectTitleText !== '') {
+    $identitySentence .= ' from the project ' . $projectTitleText;
+  }
+  $descriptionParts[] = $identitySentence;
+
+  $extraBits = [];
+  if ($dateText !== '') {
+    $extraBits[] = 'created ' . $dateText;
+  }
+  if ($artformText !== '') {
+    $extraBits[] = 'art form ' . $artformText;
+  }
+  if ($mediumText !== '') {
+    $extraBits[] = 'medium ' . $mediumText;
+  }
+  if ($surfaceText !== '') {
+    $extraBits[] = 'surface ' . $surfaceText;
+  }
+  if ($locationText !== '') {
+    $extraBits[] = 'location ' . $locationText;
+  }
+  if (!empty($extraBits)) {
+    $descriptionParts[] = implode(', ', $extraBits);
+  }
+
+  $jsonLdDescription = $normalizeText(implode('. ', array_filter($descriptionParts)));
+  if ($jsonLdDescription !== '' && !preg_match('/[.!?]$/', $jsonLdDescription)) {
+    $jsonLdDescription .= '.';
+  }
+  if (strlen($jsonLdDescription) < 50) {
+    $jsonLdDescription .= ' Explore this artwork and related project details by ' . $artistName . '.';
+  }
+  $jsonLdDescription = $truncateMeta($normalizeText($jsonLdDescription), 240);
+
   $artworkNode = [
     '@type' => 'VisualArtwork',
     '@id' => $pageUrl . '#artwork',
     'name' => (string) ($image['title'] ?? 'Artwork'),
-    'image' => ['@id' => $imageNodeId],
     'license' => $baseUrl . '/license.html',
     'creator' => [
       '@type' => 'Person',
@@ -867,7 +1183,9 @@ function generateImageJsonLd(array $image, array $project): string
     $artworkNode['alternateName'] = $alternateName;
   }
   $caption = trim((string) ($image['caption'] ?? ''));
-  if ($caption !== '') {
+  if ($jsonLdDescription !== '') {
+    $artworkNode['description'] = $jsonLdDescription;
+  } elseif ($caption !== '') {
     $artworkNode['description'] = $caption;
   }
   $yearCreated = trim((string) ($image['date_created'] ?? ''));
@@ -944,9 +1262,12 @@ function generateImageJsonLd(array $image, array $project): string
       '@type' => 'Person',
       'name' => trim((string) ($image['photographer_name'] ?? '')) !== ''
         ? trim((string) ($image['photographer_name'] ?? ''))
-        : 'Anne Hamrin Simonsson',
+        : $artistName,
     ],
   ];
+  if ($jsonLdDescription !== '') {
+    $imageObjectNode['description'] = $jsonLdDescription;
+  }
 
   $widthPx = isset($image['width_px']) ? (int) $image['width_px'] : 0;
   $heightPx = isset($image['height_px']) ? (int) $image['height_px'] : 0;
@@ -992,6 +1313,7 @@ function generateImageJsonLd(array $image, array $project): string
     '@id' => $pageUrl . '#webpage',
     'url' => $pageUrl,
     'name' => (string) ($image['title'] ?? 'Artwork image'),
+    'description' => $jsonLdDescription !== '' ? $jsonLdDescription : ($captionText !== '' ? $captionText : ('Artwork by ' . $artistName . '.')),
     'image' => $imageObjectInline,
     'isPartOf' => ['@id' => $baseUrl . '/#website'],
     'mainEntity' => ['@id' => $pageUrl . '#artwork'],

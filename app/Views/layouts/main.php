@@ -9,11 +9,15 @@
 
   <?php if ($robots !== 'noindex,nofollow'): ?>
     <?php $meta_description_content = $meta_description ?? ($description ?? ''); ?>
+    <?php $meta_keywords_content = $meta_keywords ?? ($keywords ?? ''); ?>
     <link rel="canonical" href="<?= current_url() ?>">
     <meta property="og:url" content="<?= current_url() ?>">
     <meta property="og:title" content="<?= $title ?>">
-    <meta name="description" content="<?= $meta_description_content ?>">
-    <meta property="og:description" content="<?= $meta_description_content ?>">
+    <meta name="description" content="<?= esc($meta_description_content, 'attr') ?>">
+    <meta property="og:description" content="<?= esc($meta_description_content, 'attr') ?>">
+    <?php if (!empty($meta_keywords_content)): ?>
+      <meta name="keywords" content="<?= esc($meta_keywords_content, 'attr') ?>">
+    <?php endif; ?>
 
     <meta property="og:type" content="website">
     <meta property="og:image" content="<?= $og_image ?>">
@@ -24,7 +28,8 @@
 
   <?= $this->renderSection('ldjson') ?>
 
-  <meta name="author" content="Simon Kotlinski">
+  <meta name="author" content="Anne Hamrin Simonsson">
+  <meta name="publisher" content="Anne Hamrin Simonsson">
   <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
   <?php if (isset($lcp_image_url) && $lcp_image_url !== ''): ?>
     <link rel="preload" as="image" href="<?= $lcp_image_url ?>" fetchpriority="high">
@@ -54,14 +59,14 @@ $bodyClass = trim(implode(' ', $bodyClassParts));
 <div class="site-wrapper">
 <?php if (!isset($hide_main_header) || !$hide_main_header): ?>
   <header class="main-header">
-    <div class="site-branding"><a href="<?= base_url('/') ?>">ANNE HAMRIN SIMONSSON</a></div>
+    <div class="site-branding"><a href="<?= base_url('/') ?>" title="Anne Hamrin Simonsson home">ANNE HAMRIN SIMONSSON</a></div>
   </header>
   <nav class="main-nav">
     <div class="main-nav-inner">
     <?php
     $menu_items = ['news', 'artwork', 'about', 'contact'];
     foreach ($menu_items as $item): ?>
-      <a href="<?= base_url($item) ?>"<?= $item === $selected_menu_item ? ' class="current"' : '' ?>><?= $item ?></a>
+      <a href="<?= base_url($item) ?>" title="<?= esc(ucfirst($item), 'attr') ?>"<?= $item === $selected_menu_item ? ' class="current"' : '' ?>><?= $item ?></a>
     <?php endforeach; ?>
     </div>
   </nav>

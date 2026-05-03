@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\ParsedownWithLinkTargets;
+
 class Contact extends BaseController
 {
   
@@ -10,7 +12,9 @@ class Contact extends BaseController
     $model = new \App\Models\Contact();
     $contact = $model->orderBy('id', 'DESC')->first();;
     
-    $parser = new \Parsedown();
+    $parser = new ParsedownWithLinkTargets();
+    $parser->setSafeMode(true);
+    $parser->setBreaksEnabled(true);
     
     $required = [
       'title' => 'Contact | Anne Hamrin Simonsson',

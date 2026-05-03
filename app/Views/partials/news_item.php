@@ -85,6 +85,13 @@ $isFirst = $idx === 0;
 $lazyLoad = !$isFirst;
 $linkedProjectId = (string)($item['project_id'] ?? '');
 $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjectId] ?? null) : null;
+$newsImageTitle = trim((string)($item['title'] ?? ''));
+if ($newsImageTitle === '') {
+  $newsImageTitle = trim((string)($item['slug'] ?? ''));
+}
+if ($newsImageTitle === '') {
+  $newsImageTitle = 'News image';
+}
 ?>
 <article<?= $articleId !== '' ? ' id="' . esc($articleId) . '"' : '' ?> class="news-item"<?= $includeDataAttrs ? ' data-project-id="' . esc($item['project_id'] ?? '') . '" data-slug="' . esc($item['slug'] ?? '') . '" data-content="' . htmlspecialchars($item['content'] ?? '', ENT_QUOTES) . '"' : '' ?>>
   <<?= $headingTag ?>><?= esc($item['title'] ?? '') ?></<?= $headingTag ?>>
@@ -100,6 +107,7 @@ $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjec
               <?php if ($expandedSrcset !== ''): ?>data-full-image-srcset="<?= esc($expandedSrcset, 'attr') ?>" data-full-image-sizes="<?= esc($expandedSizes, 'attr') ?>"<?php endif; ?>
               data-alt="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
               data-news-title="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
+              title="<?= esc($newsImageTitle, 'attr') ?>"
               aria-label="Open image in fullscreen">
         <img
           src="<?= base_url($mainImageThumb) ?>"
@@ -108,6 +116,7 @@ $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjec
           height="<?= $thumbH ?>"
           style="width:<?= $thumbW ?>px;height:<?= $thumbH ?>px;display:block;"
           alt="<?= esc($item['title'] ?? '') ?>"
+          title="<?= esc($newsImageTitle, 'attr') ?>"
           loading="<?= $lazyLoad ? 'lazy' : 'eager' ?>"
           fetchpriority="<?= $isFirst ? 'high' : 'auto' ?>"
           decoding="async">

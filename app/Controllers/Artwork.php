@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\HtaccessRedirectManager;
+use App\Libraries\ParsedownWithLinkTargets;
 use App\Models\Image;
 use App\Models\Project;
 
@@ -22,7 +23,7 @@ class Artwork extends BaseController
       $projectsQuery = $projectsQuery->where('is_published', 1);
     }
     $projects = $projectsQuery->findAll();
-    $parser = class_exists('Parsedown') ? new \Parsedown() : null;
+    $parser = class_exists('Parsedown') ? new ParsedownWithLinkTargets() : null;
     if ($parser !== null) {
       $parser->setSafeMode(true);
       $parser->setBreaksEnabled(true);
