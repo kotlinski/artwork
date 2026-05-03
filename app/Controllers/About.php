@@ -20,6 +20,7 @@ class About extends BaseController
       'title' => 'About | Anne Hamrin Simonsson',
       'selected_menu_item' => 'about',
       'description' => 'Biography and artist statement of Anne Hamrin Simonsson, a Swedish conceptual artist based on Öland, known for her site-specific installations and objects.',
+      'meta_keywords' => 'Anne Hamrin Simonsson, about, biography, CV, artist statement, conceptual art, visual artist, Swedish artist, installation art',
       'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
       'og_image_width' => '320',
       'og_image_height' => '320',
