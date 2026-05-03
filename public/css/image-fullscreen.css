@@ -118,6 +118,15 @@ a:hover {
     padding-right: 10px;
 }
 
+.image-title {
+    display: none;
+    flex-basis: 100%;
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 12px;
+    font-weight: 600;
+}
+
 /* --- BUTTONS (Positioned to NOT affect center) --- */
 .close-btn {
     position: absolute;

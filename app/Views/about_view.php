@@ -7,7 +7,7 @@
 </script>
 <?= $this->endSection() ?>
 
-<?= $this->section('adminContent') ?>
+<?= $this->section('admin_content') ?>
 <?= view('partials/markdown_editor', [
   'formAction' => base_url('about/update'),
   'id' => $about['id'],

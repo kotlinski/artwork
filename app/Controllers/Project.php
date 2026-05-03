@@ -10,9 +10,9 @@ class Project extends BaseController
   public function detail($slug)
   {
     $model = new \App\Models\Project();
-    $isLoggedIn = (bool)session()->get('isLoggedIn');
+    $is_logged_in = (bool)session()->get('is_logged_in');
     $projectQuery = $model->where('slug', $slug);
-    if (!$isLoggedIn) {
+    if (!$is_logged_in) {
       $projectQuery = $projectQuery->where('is_published', 1);
     }
     $project = $projectQuery->first();
@@ -30,7 +30,7 @@ class Project extends BaseController
     $nextProject = null;
     if ($currentSortOrder !== null) {
       $nextProjectQuery = $projectModel->where('sort_order >', $currentSortOrder);
-      if (!$isLoggedIn) {
+      if (!$is_logged_in) {
         $nextProjectQuery = $nextProjectQuery->where('is_published', 1);
       }
       $nextProject = $nextProjectQuery
@@ -39,7 +39,7 @@ class Project extends BaseController
       if (!$nextProject) {
         // Wrap to first project if at end
         $wrapQuery = (new \App\Models\Project())->orderBy('sort_order', 'ASC');
-        if (!$isLoggedIn) {
+        if (!$is_logged_in) {
           $wrapQuery = $wrapQuery->where('is_published', 1);
         }
         $nextProject = $wrapQuery->first();
@@ -47,11 +47,15 @@ class Project extends BaseController
     }
     $next_project_slug = $nextProject['slug'] ?? null;
     $next_project_title = $nextProject['title'] ?? null;
+    $meta_description = trim((string)($project['seo_description'] ?? ''));
+    if ($meta_description === '') {
+      $meta_description = trim((string)($project['description'] ?? ''));
+    }
     $required = [
       'title' => $project['title'] .
         (isset($project['start_year']) ? ' (' . $project['start_year'] . (isset($project['end_year']) && $project['end_year'] ? '–' . $project['end_year'] : '') . ')' : ''),
       'selected_menu_item' => 'artwork',
-      'description' => $project['description'] ?? '',
+      'description' => $meta_description,
       'og_image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
       'og_image_width' => '320',
       'og_image_height' => '320',
@@ -63,6 +67,7 @@ class Project extends BaseController
       'title' => '',
       'alternate_name' => '',
       'description' => '',
+      'seo_description' => '',
       'text' => '',
       'text_sv' => '',
       'start_year' => '',
@@ -112,7 +117,7 @@ class Project extends BaseController
     }
 
     $allProjectsQuery = $projectModel->orderBy('sort_order', 'ASC');
-    if (!$isLoggedIn) {
+    if (!$is_logged_in) {
       $allProjectsQuery = $allProjectsQuery->where('is_published', 1);
     }
     $allProjects = $allProjectsQuery->findAll();
@@ -136,9 +141,9 @@ class Project extends BaseController
   public function imageDetail($project_slug, $image_slug)
   {
     $model = new \App\Models\Project();
-    $isLoggedIn = (bool)session()->get('isLoggedIn');
+    $is_logged_in = (bool)session()->get('is_logged_in');
     $projectQuery = $model->where('slug', $project_slug);
-    if (!$isLoggedIn) {
+    if (!$is_logged_in) {
       $projectQuery = $projectQuery->where('is_published', 1);
     }
     $project = $projectQuery->first();
@@ -167,10 +172,14 @@ class Project extends BaseController
     $next_index = $images_count > 0 ? (($current_index + 1) % $images_count) : null;
     $prev_slug = $prev_index !== null && isset($images[$prev_index]) ? (isset($images[$prev_index]['file_id']) ? $images[$prev_index]['file_id'] : (isset($images[$prev_index]['file_name']) ? pathinfo($images[$prev_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
     $next_slug = $next_index !== null && isset($images[$next_index]) ? (isset($images[$next_index]['file_id']) ? $images[$next_index]['file_id'] : (isset($images[$next_index]['file_name']) ? pathinfo($images[$next_index]['file_name'], PATHINFO_FILENAME) : '')) : null;
+    $seo_meta = $this->build_image_seo_meta($image, $project);
+
     $required = [
       'title' => $image['title'] . ' | Anne Hamrin Simonsson',
       'selected_menu_item' => 'artwork',
-      'description' => !empty($image['caption']) ? $image['caption'] : 'Artwork by Anne Hamrin Simonsson',
+      'description' => $seo_meta['description'],
+      'meta_description' => $seo_meta['description'],
+      'meta_keywords' => $seo_meta['keywords'],
       'og_image' => base_url('konst/' . $image['file_name']),
       'og_image_width' => $image['width_px'],
       'og_image_height' => $image['height_px'],
@@ -254,7 +263,7 @@ class Project extends BaseController
   {
       $model = new \App\Models\Project();
       $projectsQuery = $model->orderBy('sort_order', 'DESC');
-      if (!session()->get('isLoggedIn')) {
+      if (!session()->get('is_logged_in')) {
           $projectsQuery = $projectsQuery->where('is_published', 1);
       }
       $projects = $projectsQuery->findAll();
@@ -324,6 +333,135 @@ class Project extends BaseController
       return $item;
     }, $newsItems);
   }
+
+  protected function build_image_seo_meta(array $image, array $project): array
+  {
+    $artist_name = 'Anne Hamrin Simonsson';
+    $image_title = trim((string)($image['title'] ?? ''));
+    $project_title = trim((string)($project['title'] ?? ''));
+    $caption = trim((string)($image['caption'] ?? ''));
+    $date_created = trim((string)($image['date_created'] ?? ''));
+    $artform = trim((string)($image['artform'] ?? ''));
+    $art_medium = trim((string)($image['art_medium'] ?? ''));
+    $artwork_surface = trim((string)($image['artwork_surface'] ?? ''));
+    $geo_location = trim((string)($image['geo_location'] ?? ''));
+    $address_locality = trim((string)($image['address_locality'] ?? ''));
+    $address_region = trim((string)($image['address_region'] ?? ''));
+
+    $dimensions = [];
+    $height_cm = trim((string)($image['height_cm'] ?? ''));
+    $width_cm = trim((string)($image['width_cm'] ?? ''));
+    $depth_cm = trim((string)($image['depth_cm'] ?? ''));
+    if ($height_cm !== '' && $width_cm !== '') {
+      $dimension_text = $height_cm . ' x ' . $width_cm . ' cm';
+      if ($depth_cm !== '') {
+        $dimension_text .= ', depth ' . $depth_cm . ' cm';
+      }
+      $dimensions[] = $dimension_text;
+    }
+
+    $description_parts = [];
+    if ($image_title !== '') {
+      $description_parts[] = $image_title . ' by ' . $artist_name;
+    } else {
+      $description_parts[] = 'Artwork by ' . $artist_name;
+    }
+    if ($project_title !== '') {
+      $description_parts[] = 'from the project ' . $project_title;
+    }
+    if ($date_created !== '') {
+      $description_parts[] = 'created ' . $date_created;
+    }
+    if ($artform !== '') {
+      $description_parts[] = 'art form: ' . $artform;
+    }
+    if ($art_medium !== '') {
+      $description_parts[] = 'medium: ' . $art_medium;
+    }
+    if ($artwork_surface !== '') {
+      $description_parts[] = 'surface: ' . $artwork_surface;
+    }
+    if (!empty($dimensions)) {
+      $description_parts[] = 'dimensions: ' . implode(', ', $dimensions);
+    }
+
+    $location_bits = array_values(array_filter([$geo_location, $address_locality, $address_region], static fn($v) => $v !== ''));
+    if (!empty($location_bits)) {
+      $description_parts[] = 'location: ' . implode(', ', array_unique($location_bits));
+    }
+
+    if ($caption !== '') {
+      $description_parts[] = $caption;
+    }
+
+    $description = preg_replace('/\s+/', ' ', implode('. ', array_filter($description_parts)));
+    $description = trim((string)$description, " \t\n\r\0\x0B.");
+    if ($description !== '') {
+      $description .= '.';
+    }
+
+    // Keep description sufficiently descriptive while avoiding very long snippets.
+    $description = $this->truncate_meta_text($description, 220);
+    if ($description === '') {
+      $description = 'Artwork by ' . $artist_name . '.';
+    }
+
+    $keyword_candidates = [
+      $artist_name,
+      'Anne Hamrin Simonsson artist',
+      'contemporary art',
+      'visual art',
+      'Swedish artist',
+      $image_title,
+      $project_title,
+      $artform,
+      $art_medium,
+      $artwork_surface,
+      $address_locality,
+      $address_region,
+      $geo_location,
+      trim((string)($image['file_id'] ?? '')),
+    ];
+
+    $keywords = [];
+    foreach ($keyword_candidates as $keyword) {
+      $keyword = trim((string)$keyword);
+      if ($keyword === '') {
+        continue;
+      }
+      $key = strtolower($keyword);
+      if (isset($keywords[$key])) {
+        continue;
+      }
+      $keywords[$key] = $keyword;
+      if (count($keywords) >= 12) {
+        break;
+      }
+    }
+
+    return [
+      'description' => $description,
+      'keywords' => implode(', ', array_values($keywords)),
+    ];
+  }
+
+  protected function truncate_meta_text(string $text, int $max_len): string
+  {
+    $text = trim(preg_replace('/\s+/', ' ', $text));
+    if ($text === '' || strlen($text) <= $max_len) {
+      return $text;
+    }
+
+    $cut = substr($text, 0, $max_len + 1);
+    $last_space = strrpos($cut, ' ');
+    if ($last_space !== false && $last_space > (int)($max_len * 0.6)) {
+      $cut = substr($cut, 0, $last_space);
+    } else {
+      $cut = substr($cut, 0, $max_len);
+    }
+
+    return rtrim($cut, ",;:. ") . '.';
+  }
 }
 
 
@@ -337,6 +475,19 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
     '@id' => $organizationId,
     'name' => 'Anne Hamrin Simonsson',
     'url' => $baseUrl . '/',
+    'sameAs' => [
+      'https://www.wikidata.org/wiki/Q137808007',
+      'https://www.instagram.com/ahamrinsimonsson/',
+      'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+    ],
+    'contactPoint' => [
+      [
+        '@type' => 'ContactPoint',
+        'contactType' => 'artwork inquiries',
+        'url' => $baseUrl . '/contact',
+        'availableLanguage' => ['en', 'sv'],
+      ],
+    ],
     'logo' => [
       '@type' => 'ImageObject',
       '@id' => $logoId,
@@ -578,6 +729,19 @@ function generateProjectJsonLd(array $project, array $images, string $projectTex
       '@id' => $organizationId,
       'name' => 'Anne Hamrin Simonsson',
       'url' => $baseUrl . '/',
+      'sameAs' => [
+        'https://www.wikidata.org/wiki/Q137808007',
+        'https://www.instagram.com/ahamrinsimonsson/',
+        'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+      ],
+      'contactPoint' => [
+        [
+          '@type' => 'ContactPoint',
+          'contactType' => 'artwork inquiries',
+          'url' => $baseUrl . '/contact',
+          'availableLanguage' => ['en', 'sv'],
+        ],
+      ],
       'logo' => ['@id' => $logoId],
     ],
     [
@@ -675,11 +839,13 @@ function generateImageJsonLd(array $image, array $project): string
   $imageSlug = $fileId !== '' ? rawurlencode($fileId) : rawurlencode((string) pathinfo($fileName, PATHINFO_FILENAME));
   $projectUrl = $projectSlug !== '' ? $baseUrl . '/' . rawurlencode($projectSlug) : $baseUrl . '/artwork';
   $pageUrl = $projectUrl . '/' . $imageSlug;
+  $imageNodeId = $pageUrl . '#image';
 
   $artworkNode = [
     '@type' => 'VisualArtwork',
     '@id' => $pageUrl . '#artwork',
     'name' => (string) ($image['title'] ?? 'Artwork'),
+    'image' => ['@id' => $imageNodeId],
     'license' => $baseUrl . '/license.html',
     'creator' => [
       '@type' => 'Person',
@@ -765,10 +931,11 @@ function generateImageJsonLd(array $image, array $project): string
 
   $imageObjectNode = [
     '@type' => 'ImageObject',
-    '@id' => $pageUrl . '#image',
+    '@id' => $imageNodeId,
     'url' => $baseUrl . '/konst/' . $fileName,
     'contentUrl' => $baseUrl . '/konst/' . $fileName,
     'thumbnailUrl' => $baseUrl . '/konst/thumb/' . $fileName,
+    'name' => (string) ($image['title'] ?? 'Artwork image'),
     'license' => $baseUrl . '/license.html',
     'acquireLicensePage' => $baseUrl . '/license.html',
     'creditText' => 'Anne Hamrin Simonsson',
@@ -794,14 +961,41 @@ function generateImageJsonLd(array $image, array $project): string
     $imageObjectNode['encodingFormat'] = 'image/' . $extension;
   }
 
+  $imageObjectInline = [
+    '@type' => 'ImageObject',
+    '@id' => $imageNodeId,
+    'url' => $imageObjectNode['url'],
+    'contentUrl' => $imageObjectNode['contentUrl'],
+    'thumbnailUrl' => $imageObjectNode['thumbnailUrl'],
+    'name' => $imageObjectNode['name'],
+  ];
+  if ($widthPx > 0) {
+    $imageObjectInline['width'] = $widthPx;
+  }
+  if ($heightPx > 0) {
+    $imageObjectInline['height'] = $heightPx;
+  }
+
+  $portraitImageInline = [
+    '@type' => 'ImageObject',
+    '@id' => $logoId,
+    'url' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+    'contentUrl' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+    'width' => 320,
+    'height' => 320,
+  ];
+
+  $artworkNode['image'] = $imageObjectInline;
+
   $webPageNode = [
     '@type' => 'WebPage',
     '@id' => $pageUrl . '#webpage',
     'url' => $pageUrl,
     'name' => (string) ($image['title'] ?? 'Artwork image'),
+    'image' => $imageObjectInline,
     'isPartOf' => ['@id' => $baseUrl . '/#website'],
     'mainEntity' => ['@id' => $pageUrl . '#artwork'],
-    'primaryImageOfPage' => ['@id' => $pageUrl . '#image'],
+    'primaryImageOfPage' => $imageObjectInline,
     'breadcrumb' => ['@id' => $pageUrl . '#breadcrumb'],
   ];
 
@@ -820,6 +1014,19 @@ function generateImageJsonLd(array $image, array $project): string
         '@id' => $organizationId,
         'name' => 'Anne Hamrin Simonsson',
         'url' => $baseUrl . '/',
+        'sameAs' => [
+          'https://www.wikidata.org/wiki/Q137808007',
+          'https://www.instagram.com/ahamrinsimonsson/',
+          'https://www.linkedin.com/in/anne-hamrin-simonsson-1948aba5/',
+        ],
+        'contactPoint' => [
+          [
+            '@type' => 'ContactPoint',
+            'contactType' => 'artwork inquiries',
+            'url' => $baseUrl . '/contact',
+            'availableLanguage' => ['en', 'sv'],
+          ],
+        ],
         'logo' => ['@id' => $logoId],
       ],
       [
@@ -835,7 +1042,7 @@ function generateImageJsonLd(array $image, array $project): string
         '@id' => $baseUrl . '/#person',
         'name' => 'Anne Hamrin Simonsson',
         'url' => $baseUrl . '/about',
-        'image' => base_url('anne-hamrin-simonsson-portrait.jpg'),
+        'image' => $portraitImageInline,
         'jobTitle' => 'Visual Artist',
         'description' => 'Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.',
         'sameAs' => [

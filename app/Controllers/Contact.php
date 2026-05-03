@@ -31,7 +31,7 @@ class Contact extends BaseController
   public function update()
   {
     // Security check: ensure only logged in users can post here
-    if (!session()->get('isLoggedIn')) {
+    if (!session()->get('is_logged_in')) {
       return redirect()->to('/login');
     }
     

@@ -9,8 +9,8 @@
 <?php endif; ?>
 <?= $this->endSection() ?>
 
-<?= $this->section('adminContent') ?>
-<?php if (session()->get('isLoggedIn')): ?>
+<?= $this->section('admin_content') ?>
+<?php if (session()->get('is_logged_in')): ?>
 
   <?php $uploadErrors = session()->getFlashdata('upload_errors'); ?>
   <?php $overviewErrors = session('errors') ?? []; ?>
@@ -125,10 +125,17 @@
 
         <label class="md-extra-field project-overview-description-field">
           Description
-          <small class="news-field-hint">Should be 150-160 characters long.</small>
-          <textarea name="description" id="project-description-textarea" rows="4" maxlength="300"
+          <textarea name="description" id="project-description-textarea" rows="3" maxlength="500"
                     class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? ($project['description'] ?? '')) ?></textarea>
-          <span id="desc-char-count" class="project-overview-char-count">0/160</span>
+        </label>
+
+        <label class="md-extra-field project-overview-description-field">
+          SEO Description
+          <small class="news-field-hint">Used for meta tags. Should be 150–160 characters long.</small>
+          <input type="text" name="seo_description" id="project-seo-description-input" maxlength="255"
+                 class="project-overview-seo-input"
+                 value="<?= esc(old('seo_description') ?? ($project['seo_description'] ?? '')) ?>">
+          <span id="seo-desc-char-count" class="project-overview-char-count">0 / 160</span>
         </label>
 
         <div class="form-actions project-overview-form-actions">
@@ -229,16 +236,21 @@
       });
 
       const descTextarea = document.getElementById('project-description-textarea');
-      const descCharCount = document.getElementById('desc-char-count');
-      if (descTextarea && descCharCount) {
-        function updateDescCharCount() {
-          const len = descTextarea.value.length;
-          descCharCount.textContent = '150 < ' + len + ' < 160';
-          descCharCount.style.color = (len <= 150 || len >= 160) ? '#b00' : '#080';
+      if (descTextarea) {
+        descTextarea.addEventListener('input', function () {});
+      }
+
+      const seo_input = document.getElementById('project-seo-description-input');
+      const seo_char_count = document.getElementById('seo-desc-char-count');
+      if (seo_input && seo_char_count) {
+        function update_seo_char_count() {
+          const len = seo_input.value.length;
+          seo_char_count.textContent = len + ' / 160';
+          seo_char_count.style.color = (len >= 150 && len <= 160) ? '#080' : (len > 0 ? '#b00' : '#888');
         }
 
-        descTextarea.addEventListener('input', updateDescCharCount);
-        updateDescCharCount();
+        seo_input.addEventListener('input', update_seo_char_count);
+        update_seo_char_count();
       }
 
       if (shouldOpenOverviewModal) {

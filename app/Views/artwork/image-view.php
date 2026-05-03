@@ -13,6 +13,17 @@ $project = $project ?? null;
 $image = $image ?? null;
 $prev_slug = $prev_slug ?? null;
 $next_slug = $next_slug ?? null;
+$image_title = trim((string)($image['title'] ?? ''));
+if ($image_title === '') {
+  $image_title = trim((string)($image['file_id'] ?? ''));
+}
+$image_alt = trim((string)($image['caption'] ?? ''));
+if ($image_alt === '') {
+  $image_alt = $image_title !== '' ? $image_title : 'Artwork image';
+}
+$close_link_title = 'Close image view';
+$prev_link_title = 'Previous image';
+$next_link_title = 'Next image';
 
 // Default src: prefer 'large' over the original/x-large so non-srcset
 // browsers don't pay for an oversized download. Modern browsers will
@@ -67,11 +78,13 @@ if ($fileName !== '' && $origW > 0 && $origH > 0) {
 
 $expandedSrcset = implode(', ', $expandedSrcsetEntries);
 ?>
-<h1 class="visually-hidden"><?= $image['title'] ?></h1>
+<h1 class="visually-hidden"><?= esc($image_title !== '' ? $image_title : 'Artwork image') ?></h1>
 <div class="container">
   <div class="carousel-overlay">
     <button
       class="close-btn"
+      title="<?= esc($close_link_title, 'attr') ?>"
+      aria-label="<?= esc($close_link_title, 'attr') ?>"
       onclick="handleClose(); return false;">
       &times;
     </button>
@@ -84,6 +97,8 @@ $expandedSrcset = implode(', ', $expandedSrcsetEntries);
       <a
         href="<?= base_url($project['slug'] . '/' . $prev_slug) ?>"
         onclick="window.location.replace(this.href); return false;"
+        title="<?= esc($prev_link_title, 'attr') ?>"
+        aria-label="<?= esc($prev_link_title, 'attr') ?>"
         class="nav-btn prev-btn">
         <span>&#10094;</span>
       </a>
@@ -92,6 +107,8 @@ $expandedSrcset = implode(', ', $expandedSrcsetEntries);
       <a
         href="<?= base_url($project['slug'] . '/' . $next_slug) ?>"
         onclick="window.location.replace(this.href); return false;"
+        title="<?= esc($next_link_title, 'attr') ?>"
+        aria-label="<?= esc($next_link_title, 'attr') ?>"
         class="nav-btn next-btn">
         <span>&#10095;</span>
       </a>
@@ -103,7 +120,8 @@ $expandedSrcset = implode(', ', $expandedSrcsetEntries);
       <img
         src="<?= $expandedSrc ?>"
         <?php if ($expandedSrcset !== ''): ?>srcset="<?= esc($expandedSrcset, 'attr') ?>" sizes="<?= esc($expandedSizes, 'attr') ?>"<?php endif; ?>
-        alt="<?= esc($image['caption'] ?? '') ?>"
+        alt="<?= esc($image_alt) ?>"
+        title="<?= esc($image_title !== '' ? $image_title : $image_alt) ?>"
         width="<?= $image['width_px'] ?>"
         height="<?= $image['height_px'] ?>"
         fetchpriority="high"
@@ -113,8 +131,11 @@ $expandedSrcset = implode(', ', $expandedSrcsetEntries);
       >
 
       <figcaption>
+        <?php if ($image_title !== ''): ?>
+          <span class="image-title"><?= esc($image_title) ?></span>
+        <?php endif; ?>
         <span class="caption-text"><?= esc($image['caption'] ?? '') ?></span>
-        <a href="#" onclick="handleClose(); return false;" id="close-btn">close</a>
+        <a href="#" onclick="handleClose(); return false;" id="close-btn" title="<?= esc($close_link_title, 'attr') ?>">close</a>
         <span class="copyright-line">Copyright © Anne Hamrin Simonsson</span>
       </figcaption>
     </figure>

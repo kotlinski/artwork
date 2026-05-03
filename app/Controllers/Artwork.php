@@ -18,7 +18,7 @@ class Artwork extends BaseController
   public function index()
   {
     $projectsQuery = $this->projectModel->orderBy('sort_order', 'ASC');
-    if (!session()->get('isLoggedIn')) {
+    if (!session()->get('is_logged_in')) {
       $projectsQuery = $projectsQuery->where('is_published', 1);
     }
     $projects = $projectsQuery->findAll();
@@ -39,7 +39,7 @@ class Artwork extends BaseController
     $indexed_images = array_column($images_data, null, 'id');
     
     foreach ($projects as &$project) {
-      if (session()->get('isLoggedIn')) {
+      if (session()->get('is_logged_in')) {
         $project['images'] = $image_model->where('project', $project['id'])->orderBy('`order`', 'ASC')->findAll();
       }
       $project['description_parsed'] = $parser !== null

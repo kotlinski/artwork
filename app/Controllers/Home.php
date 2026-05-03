@@ -40,7 +40,7 @@ class Home extends BaseController
 
     public function update()
     {
-        if (!session()->get('isLoggedIn')) {
+        if (!session()->get('is_logged_in')) {
             return redirect()->to('/login');
         }
 

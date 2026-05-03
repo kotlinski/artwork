@@ -98,11 +98,16 @@ if (count($_preloadEntries) > 0) {
   <meta name="robots" content="<?= $robots ?>">
 
   <?php if ($robots !== 'noindex,nofollow'): ?>
+    <?php $meta_description_content = $meta_description ?? ($description ?? ''); ?>
+    <?php $meta_keywords_content = $meta_keywords ?? ($keywords ?? ''); ?>
     <link rel="canonical" href="<?= current_url() ?>">
     <meta property="og:url" content="<?= current_url() ?>">
     <meta property="og:title" content="<?= $title ?>">
-    <meta name="description" content="<?= $description ?>">
-    <meta property="og:description" content="<?= $description ?>">
+    <meta name="description" content="<?= esc($meta_description_content, 'attr') ?>">
+    <meta property="og:description" content="<?= esc($meta_description_content, 'attr') ?>">
+    <?php if (!empty($meta_keywords_content)): ?>
+      <meta name="keywords" content="<?= esc($meta_keywords_content, 'attr') ?>">
+    <?php endif; ?>
     <meta property="og:type" content="website">
     <meta property="og:image" content="<?= $og_image ?>">
     <meta property="og:image:width" content="<?= $og_image_width ?>">

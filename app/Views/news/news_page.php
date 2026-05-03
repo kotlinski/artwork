@@ -8,7 +8,7 @@
 <?php endif; ?>
 <?= $this->endSection() ?>
 
-<?= $this->section('adminContent') ?>
+<?= $this->section('admin_content') ?>
 <?php
 $createErrors = session()->getFlashdata('create_errors') ?? [];
 $createTitle = session()->getFlashdata('create_title') ?? '';
@@ -204,7 +204,7 @@ foreach ($projects ?? [] as $project) {
   </figure>
 </div>
 
-<?php if (session()->get('isLoggedIn')): ?>
+<?php if (session()->get('is_logged_in')): ?>
   <!-- News Edit Modal -->
   <div id="news-edit-modal" class="news-edit-modal-overlay" style="display:none;" role="dialog" aria-modal="true"
        aria-labelledby="news-edit-modal-heading">

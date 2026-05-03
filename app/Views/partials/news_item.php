@@ -115,7 +115,7 @@ $linkedProjectTitle = $linkedProjectId !== '' ? ($projectTitleById[$linkedProjec
     </div>
   <?php endif; ?>
 
-  <?php if ($showAdmin && session()->get('isLoggedIn')): ?>
+  <?php if ($showAdmin && session()->get('is_logged_in')): ?>
     <div class="news-admin-meta">
       Linked project:
       <strong><?= $linkedProjectTitle !== null ? esc($linkedProjectTitle) : 'None' ?></strong>

@@ -105,7 +105,7 @@ class Filters extends BaseFilters
    * before or after URI patterns.
    *
    * Example:
-   * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+   * 'is_logged_in' => ['before' => ['account/*', 'profiles/*']]
    *
    * @var array<string, array<string, list<string>>>
    */

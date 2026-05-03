@@ -8,11 +8,12 @@
   <meta name="robots" content="<?= $robots ?>">
 
   <?php if ($robots !== 'noindex,nofollow'): ?>
+    <?php $meta_description_content = $meta_description ?? ($description ?? ''); ?>
     <link rel="canonical" href="<?= current_url() ?>">
     <meta property="og:url" content="<?= current_url() ?>">
     <meta property="og:title" content="<?= $title ?>">
-    <meta name="description" content="<?= $description ?>">
-    <meta property="og:description" content="<?= $description ?>">
+    <meta name="description" content="<?= $meta_description_content ?>">
+    <meta property="og:description" content="<?= $meta_description_content ?>">
 
     <meta property="og:type" content="website">
     <meta property="og:image" content="<?= $og_image ?>">
@@ -32,7 +33,7 @@
     <?= file_get_contents(FCPATH . 'css/layout.css') ?>
     <?= file_get_contents(FCPATH . 'css/style.css') ?>
   </style>
-  <?php if (session()->get('isLoggedIn')): ?>
+  <?php if (session()->get('is_logged_in')): ?>
     <link rel="stylesheet" href="<?= base_url('css/admin.css') ?>" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="<?= base_url('css/admin.css') ?>"></noscript>
   <?php endif; ?>
@@ -68,7 +69,7 @@ $bodyClass = trim(implode(' ', $bodyClassParts));
 
 
 <main class="content">
-  <?php if (session()->get('isLoggedIn')): ?>
+  <?php if (session()->get('is_logged_in')): ?>
     <div class="contained">
       <h2>Administration</h2><br/>
       <p>You are signed in. You can update each page, use the menu to navigate.</p>
@@ -77,7 +78,7 @@ $bodyClass = trim(implode(' ', $bodyClassParts));
       </div>
       <hr class="light admin-divider"/>
     </div>
-    <?= $this->renderSection('adminContent') ?>
+    <?= $this->renderSection('admin_content') ?>
   <?php endif; ?>
 
   <?= $this->renderSection('content') ?>
@@ -89,7 +90,7 @@ $bodyClass = trim(implode(' ', $bodyClassParts));
 </footer>
 </div>
 
-<?php if (session()->get('isLoggedIn')): ?>
+<?php if (session()->get('is_logged_in')): ?>
   <script src="<?= base_url('js/markdown-editor.js') ?>" defer></script>
 <?php endif; ?>
 </body>

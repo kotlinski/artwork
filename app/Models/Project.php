@@ -17,6 +17,7 @@ class Project extends Model
     'title',
     'alternate_name',
     'description',
+    'seo_description',
     'text',
     'text_sv',
     'start_year',

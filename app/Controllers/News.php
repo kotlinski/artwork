@@ -136,7 +136,7 @@ class News extends BaseController
   
   public function store()
   {
-    if (!session()->get('isLoggedIn')) {
+    if (!session()->get('is_logged_in')) {
       return redirect()->to('/login');
     }
 
@@ -553,7 +553,7 @@ class News extends BaseController
 
   public function update()
   {
-    if (!session()->get('isLoggedIn')) {
+    if (!session()->get('is_logged_in')) {
       return redirect()->to('/login');
     }
 
@@ -685,7 +685,7 @@ class News extends BaseController
 
   public function delete()
   {
-    if (!session()->get('isLoggedIn')) {
+    if (!session()->get('is_logged_in')) {
       return redirect()->to('/login');
     }
 
@@ -821,15 +821,34 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       $postNode['description'] = $description;
     }
 
-    $mainImage = trim((string) ($item['main_image'] ?? ''));
-    if ($mainImage !== '') {
+    // Prefer larger generated variants in schema while keeping thumbnails in UI.
+    $schemaImagePath = '';
+    foreach (['main_image_x_large', 'main_image_large', 'main_image_medium', 'main_image'] as $candidateField) {
+      $candidatePath = trim((string) ($item[$candidateField] ?? ''));
+      if ($candidatePath !== '') {
+        $schemaImagePath = $candidatePath;
+        break;
+      }
+    }
+
+    if ($schemaImagePath !== '') {
       $imageNode = [
         '@type' => 'ImageObject',
-        'url' => base_url($mainImage),
+        'url' => base_url($schemaImagePath),
       ];
 
-      $imageWidth = isset($item['width_px']) ? (int) $item['width_px'] : 0;
-      $imageHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
+      // Prefer actual dimensions of the schema image variant (x-large/large/medium).
+      $imageWidth = 0;
+      $imageHeight = 0;
+      $schemaDims = @getimagesize(FCPATH . ltrim($schemaImagePath, '/'));
+      if (is_array($schemaDims) && isset($schemaDims[0], $schemaDims[1])) {
+        $imageWidth = (int) $schemaDims[0];
+        $imageHeight = (int) $schemaDims[1];
+      }
+      if ($imageWidth <= 0 || $imageHeight <= 0) {
+        $imageWidth = isset($item['width_px']) ? (int) $item['width_px'] : 0;
+        $imageHeight = isset($item['height_px']) ? (int) $item['height_px'] : 0;
+      }
       if ($imageWidth > 0) {
         $imageNode['width'] = $imageWidth;
       }

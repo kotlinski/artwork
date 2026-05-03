@@ -127,8 +127,8 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
 </script>
 <?= $this->endSection() ?>
 
-<?= $this->section('adminContent') ?>
-<?php if (session()->get('isLoggedIn')): ?>
+<?= $this->section('admin_content') ?>
+<?php if (session()->get('is_logged_in')): ?>
 <?php $allFormErrors = session('errors') ?? []; ?>
 <?php $overviewProjectId = (string) (old('overview_project_id') ?? ''); ?>
 <?php $isOverviewValidation = $overviewProjectId !== ''; ?>
@@ -248,18 +248,16 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
 
         <label class="md-extra-field project-overview-description-field">
           Description
-          <div class="md-toolbar">
-            <button type="button" onclick="mdWrap('project-overview-description', '**', '**')" title="Bold">B</button>
-            <button type="button" onclick="mdWrap('project-overview-description', '*', '*')" title="Italic"><em>I</em></button>
-            <button type="button" onclick="mdInsert('project-overview-description', '## ')" title="Heading">H</button>
-            <button type="button" onclick="mdWrap('project-overview-description', '[', '](url)')" title="Link">🔗</button>
-            <button type="button" onclick="mdInsert('project-overview-description', '- ')" title="Bullet List">• List</button>
-            <button type="button" onclick="mdInsert('project-overview-description', '1. ')" title="Numbered List">1. List</button>
-            <button type="button" onclick="mdInsert('project-overview-description', '  \n')" title="Line Break">↵</button>
-            <button type="button" onclick="mdWrap('project-overview-description', '`', '`')" title="Code">&lt;/&gt;</button>
-          </div>
-          <textarea name="description" id="project-overview-description" rows="4" maxlength="300" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? '') ?></textarea>
-          <small class="news-field-hint">Tip: &quot;↵&quot; adds a soft line break.</small>
+          <textarea name="description" id="project-overview-description" rows="3" maxlength="500" class="news-edit-modal-textarea project-overview-description-input"><?= esc(old('description') ?? '') ?></textarea>
+        </label>
+
+        <label class="md-extra-field project-overview-description-field">
+          SEO Description
+          <small class="news-field-hint">Used for meta tags. Should be 150–160 characters long.</small>
+          <input type="text" name="seo_description" id="project-overview-seo-description" maxlength="255"
+                 class="project-overview-seo-input"
+                 value="<?= esc(old('seo_description') ?? '') ?>">
+          <span id="project-overview-seo-char-count" class="project-overview-char-count">0 / 160</span>
         </label>
 
         <div class="form-actions project-overview-form-actions">
@@ -329,6 +327,7 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
     start_year: <?= json_encode(($project['start_year'] ?? 0) != 0 ? (string)$project['start_year'] : '') ?>,
     end_year: <?= json_encode(($project['end_year'] ?? 0) != 0 ? (string)$project['end_year'] : '') ?>,
     description: <?= json_encode($project['description'] ?? '') ?>,
+    seo_description: <?= json_encode($project['seo_description'] ?? '') ?>,
     image_left: <?= json_encode((string)($project['image_left'] ?? '')) ?>,
     image_mid: <?= json_encode((string)($project['image_mid'] ?? '')) ?>,
     image_right: <?= json_encode((string)($project['image_right'] ?? '')) ?>,
@@ -349,6 +348,7 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
     start_year: <?= json_encode((string)(old('start_year') ?? '')) ?>,
     end_year: <?= json_encode((string)(old('end_year') ?? '')) ?>,
     description: <?= json_encode((string)(old('description') ?? '')) ?>,
+    seo_description: <?= json_encode((string)(old('seo_description') ?? '')) ?>,
     image_left: <?= json_encode((string)(old('image_left') ?? '')) ?>,
     image_mid: <?= json_encode((string)(old('image_mid') ?? '')) ?>,
     image_right: <?= json_encode((string)(old('image_right') ?? '')) ?>
@@ -382,6 +382,15 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
     select.innerHTML = html;
   }
 
+  function update_project_overview_seo_char_count() {
+    const input = document.getElementById('project-overview-seo-description');
+    const counter = document.getElementById('project-overview-seo-char-count');
+    if (!input || !counter) return;
+    const len = input.value.length;
+    counter.textContent = len + ' / 160';
+    counter.style.color = (len >= 150 && len <= 160) ? '#080' : (len > 0 ? '#b00' : '#888');
+  }
+
   function openProjectOverviewModal(projectId, overrides) {
     const project = projectOverviewData[String(projectId)] || projectOverviewData[Number(projectId)];
     if (!project) return;
@@ -398,6 +407,8 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
     document.getElementById('project-overview-start-year').value = values.start_year || '';
     document.getElementById('project-overview-end-year').value = values.end_year || '';
     document.getElementById('project-overview-description').value = values.description || '';
+    document.getElementById('project-overview-seo-description').value = values.seo_description || '';
+    update_project_overview_seo_char_count();
 
     projectOverviewImageMap = {};
     (project.images || []).forEach(function (img) {
@@ -441,6 +452,11 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    const seo_input = document.getElementById('project-overview-seo-description');
+    if (seo_input) {
+      seo_input.addEventListener('input', update_project_overview_seo_char_count);
+    }
+
     const createForm = document.getElementById('project-create-form');
     if (createForm) {
       createForm.addEventListener('submit', async function (e) {
@@ -683,7 +699,7 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         <div style="text-align: right;">
           <a href="<?= $projectUrl ?>" aria-label='read more about <?= esc($project['title'] ) ?>'>read more<span class="visually-hidden"> about <?= esc($project['title'] )?></span></a>
         </div>
-        <?php if (session()->get('isLoggedIn')): ?>
+        <?php if (session()->get('is_logged_in')): ?>
           <div style="margin-top: 0; text-align: center;">
             <button
               type="button"

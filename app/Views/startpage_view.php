@@ -8,7 +8,7 @@
 <?php endif; ?>
 <?= $this->endSection() ?>
 
-<?= $this->section('adminContent') ?>
+<?= $this->section('admin_content') ?>
 <?php
 $actionError = session()->getFlashdata('error') ?? '';
 $actionSuccess = session()->getFlashdata('success') ?? '';

@@ -16,7 +16,7 @@ class Auth extends BaseController
   public function login()
   {
     $session = session();
-    var_dump($session->get('isLoggedIn'));
+    var_dump($session->get('is_logged_in'));
     var_dump($session->get('user_id'));
     $model = new User();
     $username = $this->request->getVar('username');
@@ -35,7 +35,7 @@ class Auth extends BaseController
         $model->update($user['id'], ['password' => password_hash($password, PASSWORD_DEFAULT)]);
       }
       if ($isValid) {
-        $session->set(['isLoggedIn' => true, 'user_id' => $user['id']]);
+        $session->set(['is_logged_in' => true, 'user_id' => $user['id']]);
         return redirect()->to('/artwork');
       }
       print("Didn't verify password.");
