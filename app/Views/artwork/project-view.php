@@ -631,6 +631,66 @@
       document.getElementById('image-edit-modal-shared').style.display = 'none';
     }
 
+    (function () {
+      const form = document.getElementById('image-edit-modal-form');
+      const updateBtn = form.querySelector('button[type="submit"]');
+      let statusEl = null;
+
+      // Insert a small status label next to the Update button
+      statusEl = document.createElement('span');
+      statusEl.style.cssText = 'font-size:12px;margin-right:8px;';
+      statusEl.setAttribute('aria-live', 'polite');
+      updateBtn.insertAdjacentElement('beforebegin', statusEl);
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        updateBtn.disabled = true;
+        statusEl.textContent = 'Saving…';
+        statusEl.style.color = '#555';
+
+        try {
+          const resp = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'application/json'
+            },
+            body: new FormData(form)
+          });
+
+          const payload = await resp.json();
+          if (!resp.ok || !payload.success) {
+            throw new Error(payload.error || 'Update failed');
+          }
+
+          // Update the in-memory image data so Prev/Next reflect new values
+          const updatedImage = payload.image;
+          if (updatedImage) {
+            const pid = String(updatedImage.project);
+            const images = window.projectImages[pid];
+            if (images) {
+              const idx = images.findIndex(img => String(img.id) === String(updatedImage.id));
+              if (idx !== -1) {
+                images[idx] = updatedImage;
+              }
+            }
+          }
+
+          statusEl.textContent = 'Saved';
+          statusEl.style.color = '#1a4d1a';
+          setTimeout(function () {
+            if (statusEl.textContent === 'Saved') statusEl.textContent = '';
+          }, 2500);
+        } catch (err) {
+          statusEl.textContent = (err && err.message) ? err.message : 'Update failed';
+          statusEl.style.color = '#c00';
+        } finally {
+          updateBtn.disabled = false;
+        }
+      });
+    })();
+
     function getCurrentModalImage() {
       const pid = String(window.currentProjectId);
       const idx = Number(window.currentImageIndex);

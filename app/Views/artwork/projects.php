@@ -145,6 +145,34 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
 </script>
 <?= $this->endSection() ?>
 
+<?php
+$projectTitleCounts = [];
+if (isset($projects) && is_array($projects)) {
+  foreach ($projects as $project) {
+    if (!is_array($project)) {
+      continue;
+    }
+    $titleKey = trim((string)($project['title'] ?? ''));
+    if ($titleKey === '') {
+      continue;
+    }
+    $projectTitleCounts[$titleKey] = ($projectTitleCounts[$titleKey] ?? 0) + 1;
+  }
+}
+
+$projectDisplayTitle = static function (array $project) use ($projectTitleCounts): string {
+  $title = trim((string)($project['title'] ?? ''));
+  $slug = trim((string)($project['slug'] ?? ''));
+  if ($title === '') {
+    return $slug;
+  }
+  if (($projectTitleCounts[$title] ?? 0) > 1 && $slug !== '') {
+    return $title . ' (' . $slug . ')';
+  }
+  return $title;
+};
+?>
+
 <?= $this->section('admin_content') ?>
 <?php if (session()->get('is_logged_in')): ?>
 <?php $allFormErrors = session('errors') ?? []; ?>
@@ -178,7 +206,7 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
                 <span class="order-btn disabled">▼</span>
               <?php endif; ?>
             </td>
-            <td><a href="/<?= $project['slug'] ?>"><?= esc($project['title']) ?></a></td>
+            <td><a href="/<?= $project['slug'] ?>"><?= esc($projectDisplayTitle($project)) ?></a></td>
             <td class="project-publish-col">
               <label class="project-publish-toggle-label">
                 <input
@@ -719,7 +747,7 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         <?php endif; ?>
         <h2>
           <a href="<?= $projectUrl ?>">
-            <?= isset($project->title) ? esc($project->title) : esc($project['title'] ?? '') ?>
+            <?= esc($projectDisplayTitle((array)$project)) ?>
             <!--            <?php /*if ($year_range !== ''): */?>
               (<?php /*= $year_range */?>)
             --><?php /*endif; */?>
@@ -729,7 +757,7 @@ echo json_encode($artworkLdJson, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
           <?= $project['description_parsed'] ?? nl2br(esc($project['description'] ?? '')) ?>
         </p>
         <div style="text-align: right;">
-          <a href="<?= $projectUrl ?>" aria-label='read more about <?= esc($project['title'] ) ?>'>read more<span class="visually-hidden"> about <?= esc($project['title'] )?></span></a>
+          <a href="<?= $projectUrl ?>" aria-label='read more about <?= esc($projectDisplayTitle((array)$project)) ?>'>read more<span class="visually-hidden"> about <?= esc($projectDisplayTitle((array)$project)) ?></span></a>
         </div>
         <?php if (session()->get('is_logged_in')): ?>
           <div style="margin-top: 0; text-align: center;">

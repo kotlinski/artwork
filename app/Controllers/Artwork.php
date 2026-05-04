@@ -70,6 +70,8 @@ class Artwork extends BaseController
         'right' => $indexed_images[(int)$project['image_right']] ?? null
       ];
     }
+    // Prevent reference leakage from the foreach-by-reference loop.
+    unset($project);
 
     $keywordMap = [];
     $keywordSeeds = [
