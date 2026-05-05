@@ -199,4 +199,12 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+
+    /**
+     * Google Analytics measurement ID.
+     *
+     * Accepts GA4 IDs (`G-XXXX`) or a legacy numeric account ID.
+     * Can be overridden with `app.googleAnalyticsId` in `.env`.
+     */
+    public string $googleAnalyticsId = 'G-Q81HEN1V5E';
 }

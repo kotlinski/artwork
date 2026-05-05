@@ -122,6 +122,7 @@ if (count($_preloadEntries) > 0) {
   <style>
     <?= file_get_contents(FCPATH . 'css/image-fullscreen.css'); ?>
   </style>
+  <?= view('partials/google_analytics', ['googleAnalyticsId' => config('App')->googleAnalyticsId]) ?>
 </head>
 <body>
 <main class="fullscreen-content">

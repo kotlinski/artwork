@@ -43,6 +43,8 @@
     <noscript><link rel="stylesheet" href="<?= base_url('css/admin.css') ?>"></noscript>
   <?php endif; ?>
 
+  <?= view('partials/google_analytics', ['googleAnalyticsId' => config('App')->googleAnalyticsId]) ?>
+
 </head>
 <?php
 $bodyClassParts = [];
