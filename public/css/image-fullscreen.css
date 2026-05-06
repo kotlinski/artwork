@@ -42,6 +42,9 @@ a:hover {
     place-items: center;
     z-index: 1000;
     contain: layout style;
+    /* Shift content slightly upward so the image appears visually centered
+       (compensates for the caption area below the image) */
+    padding-bottom: 2vh;
 }
 
 .media-wrapper {
@@ -153,7 +156,7 @@ a:hover {
 
 .nav-btn {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 1vh);
     transform: translateY(-50%);
     background: rgba(76, 76, 76, 0);
     border: none;
@@ -163,8 +166,19 @@ a:hover {
     font-size: 24px;
     cursor: pointer;
     transition: background 0.3s;
-    z-index: 1;
+    z-index: 1010;
 }
+
+/* Invisible extended hit area for all screen sizes */
+.nav-btn::after {
+    content: "";
+    position: absolute;
+    top: -80px;
+    bottom: -80px;
+    left: -30px;
+    right: -30px;
+}
+
 @media (min-width: 1000px) {
     .nav-btn {
         margin: 0 15px;
@@ -182,10 +196,10 @@ a:hover {
     }
 }
 
-@media (max-width: 500px) {
+/* Mobile: reduce visible padding so arrow doesn't overlap image */
+@media (max-width: 768px) {
     .nav-btn {
-        background: #fff;
-        padding: 0 1px;
+        padding: 2px 2px;
         margin: 0;
     }
 }

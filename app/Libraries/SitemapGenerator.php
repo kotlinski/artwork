@@ -11,6 +11,12 @@ class SitemapGenerator
     protected string $baseUrl;
     protected string $outputPath;
 
+    /**
+     * Baseline date for version 2 deployment.
+     * No lastmod will be earlier than this date.
+     */
+    protected string $baselineDate = '2026-05-06';
+
     public function __construct()
     {
         // Always use the production URL so the sitemap is correct on all environments.
@@ -47,11 +53,11 @@ class SitemapGenerator
             $latestImage['updated_at']   ?? null,
         ]);
 
-        $urls[] = $this->url('/', '1.0', 'weekly', $startpageDate);
+        $urls[] = $this->url('/', '0.8', 'weekly', $startpageDate);
 
         // --- News page ---
         $newsPageDate = $latestNews['created_at'] ?? $startpageDate;
-        $urls[] = $this->url('/news', '0.8', 'weekly', $newsPageDate);
+        $urls[] = $this->url('/news', '1.0', 'weekly', $newsPageDate);
 
         // --- Projects overview ---
         $overviewDate = $latestProject['updated_at'] ?? $startpageDate;
@@ -134,7 +140,12 @@ class SitemapGenerator
             return '';
         }
         try {
-            $dt = new \DateTime($date);
+            $dt       = new \DateTime($date);
+            $baseline = new \DateTime($this->baselineDate);
+            // Enforce baseline: no lastmod earlier than deployment date
+            if ($dt < $baseline) {
+                $dt = $baseline;
+            }
             return $dt->format('Y-m-d');
         } catch (\Exception $e) {
             return '';

@@ -1,0 +1,13 @@
+# Redirect all requests to the public/ subdirectory.
+# Place this file in the web root on shared hosting where you cannot
+# change the document root to point directly at public/.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # If the request is NOT already targeting something inside public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    # And it's not a real file/directory at the root level
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+

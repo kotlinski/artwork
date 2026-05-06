@@ -175,5 +175,43 @@ $expandedSrcset = implode(', ', $expandedSrcsetEntries);
       handleClose();
     }
   });
+
+  // Swipe gesture support for touch devices
+  (function() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchEndX = 0;
+    var touchEndY = 0;
+    var minSwipeDistance = 50;
+
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      var dx = touchEndX - touchStartX;
+      var dy = touchEndY - touchStartY;
+
+      // Only trigger if horizontal swipe is dominant
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDistance) {
+        if (dx < 0) {
+          // Swipe left → next image
+          var right_arrow = document.querySelector('.nav-btn.next-btn');
+          if (right_arrow && right_arrow.href) {
+            window.location.replace(right_arrow.href);
+          }
+        } else {
+          // Swipe right → previous image
+          var left_arrow = document.querySelector('.nav-btn.prev-btn');
+          if (left_arrow && left_arrow.href) {
+            window.location.replace(left_arrow.href);
+          }
+        }
+      }
+    }, { passive: true });
+  })();
 </script>
 <?= $this->endSection() ?>

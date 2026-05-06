@@ -21,6 +21,9 @@ Options -Indexes
 	# Keep these BEFORE front-controller rewrite rules.
 	# ------------------------------------------------------------------
 
+	# Collapse double /album/album/ prefix into single /album/
+	RewriteRule ^album/album/(.*)$ /album/$1 [R=301,L,NC]
+
 	# Old overview/category pages
 	RewriteRule ^album/?$ /artwork [R=301,L,NC]
 	RewriteRule ^album/(installations|objects|paintings)/?$ /artwork [R=301,L,NC]
@@ -52,9 +55,8 @@ Options -Indexes
 	RewriteRule ^ %1 [L,R=301]
 
 	# Rewrite "www.example.com -> example.com"
-	RewriteCond %{HTTPS} !=on
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+	RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
 	# Checks to see if the user is attempting to access a valid file,
 	# such as an image or css document, if this isn't true it sends the

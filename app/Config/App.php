@@ -206,5 +206,12 @@ class App extends BaseConfig
      * Accepts GA4 IDs (`G-XXXX`) or a legacy numeric account ID.
      * Can be overridden with `app.googleAnalyticsId` in `.env`.
      */
-    public string $googleAnalyticsId = 'G-Q81HEN1V5E';
+    public string $googleAnalyticsId = '';
+
+    /**
+     * Microsoft Clarity project ID.
+     *
+     * Can be overridden with `app.clarityProjectId` in `.env`.
+     */
+    public string $clarityProjectId = '';
 }

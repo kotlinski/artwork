@@ -25,7 +25,8 @@
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
-app.googleAnalyticsId = 'G-Q81HEN1V5E'
+# app.googleAnalyticsId = ''
+# app.clarityProjectId = ''
 
 #--------------------------------------------------------------------
 # DATABASE

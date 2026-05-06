@@ -123,6 +123,7 @@ if (count($_preloadEntries) > 0) {
     <?= file_get_contents(FCPATH . 'css/image-fullscreen.css'); ?>
   </style>
   <?= view('partials/google_analytics', ['googleAnalyticsId' => config('App')->googleAnalyticsId]) ?>
+  <?= view('partials/microsoft_clarity', ['clarityProjectId' => config('App')->clarityProjectId]) ?>
 </head>
 <body>
 <main class="fullscreen-content">

@@ -70,9 +70,10 @@ body {
         display: none;
     }
 
-    /* Pages with .contained don't need horizontal scroll;
+    /* Pages with .contained or .text don't need horizontal scroll;
        restoring overflow-x: visible unblocks position: sticky on h1 */
-    .content:has(.contained) {
+    .content:has(.contained),
+    .content:has(.text) {
         overflow-x: visible !important;
         overflow-y: visible !important;
    /*     max-width: 380px !important;*/
@@ -80,6 +81,10 @@ body {
 
     .content p {
         padding-right: 10px;
+    }
+
+    h1 {
+        top: 17px;
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SitemapGenerator;
 use App\Models\User;
 
 class Auth extends BaseController

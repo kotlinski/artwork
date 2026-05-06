@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="format-detection" content="telephone=no, date=no">
   <title><?= $title ?></title>
@@ -44,6 +45,7 @@
   <?php endif; ?>
 
   <?= view('partials/google_analytics', ['googleAnalyticsId' => config('App')->googleAnalyticsId]) ?>
+  <?= view('partials/microsoft_clarity', ['clarityProjectId' => config('App')->clarityProjectId]) ?>
 
 </head>
 <?php
