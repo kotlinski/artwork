@@ -22,7 +22,7 @@
 <div class="text">
   <h1>About</h1>
   <!--class="visually-hidden"-->
-  <div>
+  <div class="about-body">
     <?= $about_text ?>
   </div>
 </div>
