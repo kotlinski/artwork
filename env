@@ -21,6 +21,8 @@
 #--------------------------------------------------------------------
 
 # app.baseURL = ''
+# NOTE: For production, always use https:// in the base URL so that
+# base_url() generates HTTPS links (e.g. app.baseURL = 'https://example.com/').
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
