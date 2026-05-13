@@ -909,31 +909,12 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       $postNode['image'] = $fallbackPostImageObject;
     }
 
-    $eventStart = trim((string) ($item['event_start_date'] ?? ''));
-    if ($eventStart !== '') {
-      $event = [
-        '@type' => 'Event',
-        'name' => $title,
-        'startDate' => $eventStart,
-      ];
-      $eventEnd = trim((string) ($item['event_end_date'] ?? ''));
-      if ($eventEnd !== '') {
-        $event['endDate'] = $eventEnd;
-      }
-      $eventLocation = trim((string) ($item['event_location'] ?? ''));
-      if ($eventLocation !== '') {
-        $event['location'] = ['@type' => 'Place', 'name' => $eventLocation];
-      } else {
-        $event['location'] = [
-          '@type' => 'Place',
-          'name' => 'Sweden',
-          'address' => [
-            '@type' => 'PostalAddress',
-            'addressCountry' => 'SE',
-          ],
-        ];
-      }
-      $postNode['about'] = $event;
+    // Add plain-text articleBody and wordCount for richer BlogPosting data.
+    $plainTextContent = trim(strip_tags((string) ($item['content_parsed'] ?? ($item['content'] ?? ''))));
+    $plainTextContent = preg_replace('/\s+/', ' ', $plainTextContent) ?? '';
+    if ($plainTextContent !== '') {
+      $postNode['articleBody'] = $plainTextContent;
+      $postNode['wordCount'] = str_word_count($plainTextContent);
     }
 
     $projectId = isset($item['project_id']) ? (int) $item['project_id'] : 0;
@@ -943,7 +924,87 @@ function generateNewsPageJsonLd(array $newsItems, array $projects = []): string
       ];
     }
 
-    $blogPostNodes[] = $postNode;
+    $eventStart = trim((string) ($item['event_start_date'] ?? ''));
+    if ($eventStart !== '') {
+      $eventLocation = trim((string) ($item['event_location'] ?? ''));
+      $eventEnd = trim((string) ($item['event_end_date'] ?? ''));
+
+      $locationNode = $eventLocation !== ''
+        ? [
+          '@type' => 'Place',
+          'name' => $eventLocation,
+          'address' => [
+            '@type' => 'PostalAddress',
+            'addressCountry' => 'SE',
+          ],
+        ]
+        : [
+          '@type' => 'Place',
+          'name' => 'Sweden',
+          'address' => [
+            '@type' => 'PostalAddress',
+            'addressCountry' => 'SE',
+          ],
+        ];
+
+      // Determine if this is a past or upcoming event.
+      $eventEndOrStart = $eventEnd !== '' ? $eventEnd : $eventStart;
+      $eventEndTimestamp = strtotime($eventEndOrStart);
+      $isPastEvent = $eventEndTimestamp !== false && $eventEndTimestamp < time();
+
+      $event = [
+        '@type' => 'ExhibitionEvent',
+        '@id' => $postId . '-event',
+        'name' => $title,
+        'startDate' => $eventStart,
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+        'location' => $locationNode,
+        'organizer' => ['@id' => $organizationId],
+        'performer' => ['@id' => $baseUrl . '/#person'],
+        'offers' => [
+          '@type' => 'Offer',
+          'price' => '0',
+          'priceCurrency' => 'SEK',
+          'availability' => $isPastEvent
+            ? 'https://schema.org/SoldOut'
+            : 'https://schema.org/InStock',
+          'url' => $postId,
+          'validFrom' => $postNode['datePublished'] ?? $eventStart,
+        ],
+        'inLanguage' => 'en',
+      ];
+
+      $event['endDate'] = $eventEnd !== '' ? $eventEnd : $eventStart;
+      if ($description !== '') {
+        $event['description'] = $description;
+      }
+      if (isset($postNode['image'])) {
+        $event['image'] = $postNode['image'];
+      }
+
+      // Map category to more specific event type.
+      $category = trim((string) ($item['category'] ?? 'general'));
+      if ($category === 'exhibition') {
+        $event['@type'] = 'ExhibitionEvent';
+      } elseif ($category === 'talk') {
+        $event['@type'] = 'Event';
+        $event['additionalType'] = 'https://schema.org/EducationEvent';
+      } elseif ($category === 'workshop') {
+        $event['@type'] = 'EducationEvent';
+      } else {
+        $event['@type'] = 'Event';
+      }
+
+      $postNode['about'] = ['@id' => $postId . '-event'];
+      $blogPostNodes[] = $postNode;
+      $blogPostNodes[] = $event;
+      $postNode = null; // Signal that we already added it.
+    }
+
+    if ($postNode !== null) {
+      $blogPostNodes[] = $postNode;
+    }
   }
 
   $graph = [
