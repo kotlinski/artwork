@@ -11,6 +11,6 @@
 
     # Internally rewrite all requests into public/ (invisible to browser).
     RewriteCond %{REQUEST_URI} !^/public/
-    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteRule ^(.*)$ public/$1 [L,E=SCRIPT_NAME:/index.php]
 </IfModule>
 

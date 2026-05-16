@@ -15,10 +15,7 @@ class Home extends BaseController
         $startpage = is_array($startpage) ? $startpage : ['id' => null, 'text' => '', 'image_path' => null];
 
         $imageData = $this->resolveStartpageImageData((string) ($startpage['image_path'] ?? ''));
-        $description = trim((string) ($startpage['text'] ?? ''));
-        if ($description === '') {
-            $description = 'Official website of Swedish artist Anne Hamrin Simonsson; news, artwork, about and contact.';
-        }
+        $description = 'Official website of Swedish artist Anne Hamrin Simonsson. Discover conceptual art, paintings, and installations with unique artist insights.';
 
         $required = [
             'title' => 'Anne Hamrin Simonsson | Official Website',
