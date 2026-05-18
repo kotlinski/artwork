@@ -51,6 +51,7 @@ $routes->group('image', ['filter' => 'auth'], function ($routes) {
     $routes->post('delete/(:num)', 'ImageAdmin::delete/$1');
 });
 
+
 $routes->get('(:segment)/(:segment)', 'Project::imageDetail/$1/$2');
 $routes->get('(:segment)', 'Project::detail/$1');
 
