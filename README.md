@@ -1,6 +1,6 @@
-# www.annesimonsson.se
+# [https://annesimonsson.se](https://annesimonsson.se)
 
-A website for my aunt Anne. [www.annesimonsson.se](https://annesimonsson.se) 
+A website for my aunt [Anne Hamrin Simonsson](https://annesimonsson.se/about) 
 
 ## setup
 PHP and MySQL, using the CodeIgniter framework
