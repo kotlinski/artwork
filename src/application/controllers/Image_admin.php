@@ -126,33 +126,71 @@ class Image_admin extends CI_Controller {
 	}
 
   public function update($id) {
+    // Basic identifying fields
     $newTitle = $this->input->post('title');
     $newFileId = $this->input->post('file_id');
     $newCaption = $this->input->post('caption');
-    $geoLocation = $this->input->post('geo_location');
     $project = $this->input->post('project');
+
+    // SEO & Artistic Fields
+    $artform = $this->input->post('artform');
+    $artMedium = $this->input->post('art_medium');
+    $artworkSurface = $this->input->post('artwork_surface');
+    $artEdition = $this->input->post('art_edition');
+    $genre = $this->input->post('genre');
+    $dateCreated = $this->input->post('date_created');
+
+    // Physical Dimensions
+    $heightCm = $this->input->post('height_cm');
+    $widthCm = $this->input->post('width_cm');
+    $depthCm = $this->input->post('depth_cm');
+
+    // Location & Mapping
+    $geoLocation = $this->input->post('geo_location');
+    $addressLocality = $this->input->post('address_locality');
+    $addressRegion = $this->input->post('address_region');
+    $addressCountry = $this->input->post('address_country');
+    $mapUrl = $this->input->post('map_url');
+
+    // Photography
+    $photographerName = $this->input->post('photographer_name');
 
     $old_data = $this->images_model->get_image($id);
     $oldFileName = $old_data->file_name;
-    // Get file extension
     $ext = pathinfo($oldFileName, PATHINFO_EXTENSION);
-
     $newFileName = "anne-hamrin-simonsson-{$newFileId}.{$ext}";
-    // Update database
+
+    // Comprehensive data array for the model
     $data = [
-      'title' => $newTitle,
-      'file_id' => $newFileId,
-      'caption' => $newCaption,
-      'file_name' => $newFileName,
-      'geo_location' => $geoLocation,
-      'project' => $project
+      'title'             => $newTitle,
+      'alternate_name'    => $this->input->post('alternate_name'),
+      'file_id'           => $newFileId,
+      'caption'           => $newCaption,
+      'file_name'         => $newFileName,
+      'project'           => $project,
+      'artform'           => $artform,
+      'art_medium'        => $artMedium,
+      'artwork_surface'   => $artworkSurface,
+      'art_edition'       => $artEdition,
+      'genre'             => $genre,
+      'date_created'      => $dateCreated,
+      'height_cm'         => !empty($heightCm) ? $heightCm : null,
+      'width_cm'          => !empty($widthCm) ? $widthCm : null,
+      'depth_cm'          => !empty($depthCm) ? $depthCm : null,
+      'geo_location'      => $geoLocation,
+      'address_locality'  => $addressLocality,
+      'address_region'    => $addressRegion,
+      'address_country'   => !empty($addressCountry) ? $addressCountry : 'SE',
+      'map_url'           => $mapUrl,
+      'photographer_name' => $photographerName
     ];
+
     $this->images_model->update($id, $data);
+
+    // File Renaming and .htaccess Logic
     if ($newTitle !== null && $newFileId !== null && $newCaption !== null) {
       $oldFileId = $old_data->file_id;
-      // Build new file name
 
-      // If file_id changed, rename files
       if ($oldFileId !== $newFileId) {
         $folders = ['konst', 'konst/thumb', 'konst/medium'];
         define('PUBPATH', str_replace(SELF, '', FCPATH));
@@ -163,37 +201,25 @@ class Image_admin extends CI_Controller {
             rename($oldPath, $newPath);
           }
         }
+
+        // Determine album folder for RewriteRule
         $folder = '';
         switch ($old_data->artwork_filter) {
-          case "2":
-            $folder = 'installations';
-            break;
-          case "3":
-            $folder = 'objects';
-            break;
-          case "4":
-            $folder = 'paintings';
-            break;
+          case "2": $folder = 'installations'; break;
+          case "3": $folder = 'objects'; break;
+          case "4": $folder = 'paintings'; break;
         }
 
-        // Path to .htaccess
         $htaccessPath = __DIR__ . '/../../.htaccess';
-        // Build rewrite rule
         $rule = "RewriteRule ^album/{$folder}/{$oldFileId}$ /album/{$folder}/{$newFileId} [R=301,L]";
-        // Read .htaccess lines
         $lines = file($htaccessPath, FILE_IGNORE_NEW_LINES);
-        // Insert rule at line 27 (index 26)
         array_splice($lines, 33, 0, $rule);
-        // Write back to .htaccess
         file_put_contents($htaccessPath, implode("\n", $lines));
       }
 
-      echo "<br /><br /><p>Your image has been updated: {$oldFileId} -> {$newFileId}</p>";
+      echo "<br /><br /><p>Image and artwork metadata updated: {$newFileId}</p>";
     } else {
-      ob_start();
-      var_dump($_POST);
-      $postDump = ob_get_clean();
-      echo $postDump . "<br /><br /><p>Missing title or file ID.</p>";
+      echo "<br /><br /><p>Error: Essential fields (title, file_id) missing.</p>";
     }
   }
 

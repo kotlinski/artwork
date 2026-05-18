@@ -96,6 +96,9 @@ RewriteRule ^album/paintings/sparris-oland$ /album/paintings/sparris [R=301,L]
 RewriteRule ^album/paintings/onion-kalmar$ /album/paintings/onion [R=301,L]
 RewriteRule ^album/paintings/rodkal-oland$ /album/paintings/rodkal [R=301,L]
 
+# Remove duplicated 'album/' in the path
+RewriteCond %{REQUEST_URI} ^/album/album/
+RewriteRule ^(album/)+(.+)$ /album/$2 [R=301,L]
 
 
 # --- APP ROUTING (Do not change) ---

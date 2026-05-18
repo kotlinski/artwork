@@ -58,7 +58,7 @@ class Images_model extends CI_Model {
 	}
 
   public function get_all_images() {
-    $this->db->select('file_id, file_name, title, caption, geo_location, datum, artwork_filter, updated_at, project, height_px', 'width_px');
+    $this->db->select('*');
     $this->db->from('images');
     $this->db->order_by('order', 'ASC'); // Keeps your custom sorting
     return $this->db->get()->result_array();
