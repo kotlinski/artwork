@@ -11,8 +11,9 @@
   <?php if ($robots !== 'noindex,nofollow'): ?>
     <?php $meta_description_content = $meta_description ?? ($description ?? ''); ?>
     <?php $meta_keywords_content = $meta_keywords ?? ($keywords ?? ''); ?>
-    <link rel="canonical" href="<?= site_url(uri_string()) ?>">
-    <meta property="og:url" content="<?= site_url(uri_string()) ?>">
+    <?php $canonical_url = preg_replace('#^(https?://)www\.#i', '$1', site_url(uri_string())); ?>
+    <link rel="canonical" href="<?= $canonical_url ?>">
+    <meta property="og:url" content="<?= $canonical_url ?>">
     <meta property="og:title" content="<?= $title ?>">
     <meta name="description" content="<?= esc($meta_description_content, 'attr') ?>">
     <meta property="og:description" content="<?= esc($meta_description_content, 'attr') ?>">

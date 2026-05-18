@@ -3,36 +3,36 @@
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://www.annesimonsson.se/#website",
-      "url": "https://www.annesimonsson.se/",
+      "@id": "https://annesimonsson.se/#website",
+      "url": "https://annesimonsson.se/",
       "name": "Anne Hamrin Simonsson",
       "publisher": {
-        "@id": "https://www.annesimonsson.se/#person"
+        "@id": "https://annesimonsson.se/#person"
       }
     },
     {
       "@type": "Organization",
-      "@id": "https://www.annesimonsson.se/#organization",
+      "@id": "https://annesimonsson.se/#organization",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se/",
+      "url": "https://annesimonsson.se/",
       "logo": {
-        "@id": "https://www.annesimonsson.se/#publisher-logo"
+        "@id": "https://annesimonsson.se/#publisher-logo"
       }
     },
     {
       "@type": "ImageObject",
-      "@id": "https://www.annesimonsson.se/#publisher-logo",
-      "url": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
-      "contentUrl": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "@id": "https://annesimonsson.se/#publisher-logo",
+      "url": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "contentUrl": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
       "width": 320,
       "height": 320
     },
     {
       "@type": "Person",
-      "@id": "https://www.annesimonsson.se/#person",
+      "@id": "https://annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se/about",
-      "image": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "url": "https://annesimonsson.se/about",
+      "image": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
       "jobTitle": "Visual Artist",
       "description": "Anne Hamrin Simonsson is a Swedish conceptual and visual artist known for site-specific installations and objects.",
       "sameAs": [
@@ -46,71 +46,71 @@
     },
     {
       "@type": "CollectionPage",
-      "@id": "https://www.annesimonsson.se/artwork#webpage",
-      "url": "https://www.annesimonsson.se/artwork",
+      "@id": "https://annesimonsson.se/artwork#webpage",
+      "url": "https://annesimonsson.se/artwork",
       "name": "Artwork by Anne Hamrin Simonsson",
       "description": "Overview of artwork projects by Swedish conceptual artist Anne Hamrin Simonsson.",
       "isPartOf": {
-        "@id": "https://www.annesimonsson.se/#website"
+        "@id": "https://annesimonsson.se/#website"
       },
       "about": {
-        "@id": "https://www.annesimonsson.se/#person"
+        "@id": "https://annesimonsson.se/#person"
       },
       "mainEntity": {
-        "@id": "https://www.annesimonsson.se/artwork#itemlist"
+        "@id": "https://annesimonsson.se/artwork#itemlist"
       },
       "breadcrumb": {
-        "@id": "https://www.annesimonsson.se/artwork#breadcrumb"
+        "@id": "https://annesimonsson.se/artwork#breadcrumb"
       }
     },
     {
       "@type": "ItemList",
-      "@id": "https://www.annesimonsson.se/artwork#itemlist",
+      "@id": "https://annesimonsson.se/artwork#itemlist",
       "name": "Artwork Projects",
       "itemListOrder": "https://schema.org/ItemListOrderAscending"
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://www.annesimonsson.se/artwork#breadcrumb",
+      "@id": "https://annesimonsson.se/artwork#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://www.annesimonsson.se/"
+          "item": "https://annesimonsson.se/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Artwork",
-          "item": "https://www.annesimonsson.se/artwork"
+          "item": "https://annesimonsson.se/artwork"
         }
       ]
     },
     {
       "@type": "SiteNavigationElement",
-      "@id": "https://www.annesimonsson.se/#navigation",
+      "@id": "https://annesimonsson.se/#navigation",
       "name": "Main Navigation",
       "hasPart": [
         {
           "@type": "WebPage",
           "name": "News",
-          "url": "https://www.annesimonsson.se/news"
+          "url": "https://annesimonsson.se/news"
         },
         {
           "@type": "WebPage",
           "name": "Artwork",
-          "url": "https://www.annesimonsson.se/artwork"
+          "url": "https://annesimonsson.se/artwork"
         },
         {
           "@type": "WebPage",
           "name": "About",
-          "url": "https://www.annesimonsson.se/about"
+          "url": "https://annesimonsson.se/about"
         },
         {
           "@type": "WebPage",
           "name": "Contact",
-          "url": "https://www.annesimonsson.se/contact"
+          "url": "https://annesimonsson.se/contact"
         }
       ]
     }

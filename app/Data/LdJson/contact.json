@@ -3,26 +3,26 @@
   "@graph": [
     {
       "@type": "ContactPage",
-      "@id": "https://www.annesimonsson.se/contact#webpage",
+      "@id": "https://annesimonsson.se/contact#webpage",
       "name": "Contact Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se/contact",
+      "url": "https://annesimonsson.se/contact",
       "description": "Contact information for Swedish conceptual artist Anne Hamrin Simonsson.",
       "inLanguage": "en",
-      "mainEntity": { "@id": "https://www.annesimonsson.se/#person" },
-      "about": { "@id": "https://www.annesimonsson.se/#person" },
-      "isPartOf": { "@id": "https://www.annesimonsson.se/#website" },
-      "breadcrumb": { "@id": "https://www.annesimonsson.se/contact#breadcrumb" }
+      "mainEntity": { "@id": "https://annesimonsson.se/#person" },
+      "about": { "@id": "https://annesimonsson.se/#person" },
+      "isPartOf": { "@id": "https://annesimonsson.se/#website" },
+      "breadcrumb": { "@id": "https://annesimonsson.se/contact#breadcrumb" }
     },
     {
       "@type": "Person",
-      "@id": "https://www.annesimonsson.se/#person",
+      "@id": "https://annesimonsson.se/#person",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se/about",
+      "url": "https://annesimonsson.se/about",
       "image": {
         "@type": "ImageObject",
-        "@id": "https://www.annesimonsson.se/#publisher-logo",
-        "url": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
-        "contentUrl": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+        "@id": "https://annesimonsson.se/#publisher-logo",
+        "url": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+        "contentUrl": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
         "width": 320,
         "height": 320
       },
@@ -39,20 +39,20 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://www.annesimonsson.se/#website",
-      "url": "https://www.annesimonsson.se/",
+      "@id": "https://annesimonsson.se/#website",
+      "url": "https://annesimonsson.se/",
       "name": "Anne Hamrin Simonsson",
-      "publisher": { "@id": "https://www.annesimonsson.se/#person" },
+      "publisher": { "@id": "https://annesimonsson.se/#person" },
       "contactPoint": [
-        { "@id": "https://www.annesimonsson.se/#contact-simon" },
-        { "@id": "https://www.annesimonsson.se/#contact-per" }
+        { "@id": "https://annesimonsson.se/#contact-simon" },
+        { "@id": "https://annesimonsson.se/#contact-per" }
       ]
     },
     {
       "@type": "Organization",
-      "@id": "https://www.annesimonsson.se/#organization",
+      "@id": "https://annesimonsson.se/#organization",
       "name": "Anne Hamrin Simonsson",
-      "url": "https://www.annesimonsson.se/",
+      "url": "https://annesimonsson.se/",
       "sameAs": [
         "https://www.wikidata.org/wiki/Q137808007",
         "https://www.instagram.com/ahamrinsimonsson/",
@@ -62,22 +62,22 @@
         "https://www.kalmarkonstmuseum.se/exhibition/med-orat-mot-marken-och-blicken-utat/"
       ],
       "contactPoint": [
-        { "@id": "https://www.annesimonsson.se/#contact-simon" },
-        { "@id": "https://www.annesimonsson.se/#contact-per" }
+        { "@id": "https://annesimonsson.se/#contact-simon" },
+        { "@id": "https://annesimonsson.se/#contact-per" }
       ],
-      "logo": { "@id": "https://www.annesimonsson.se/#publisher-logo" }
+      "logo": { "@id": "https://annesimonsson.se/#publisher-logo" }
     },
     {
       "@type": "ImageObject",
-      "@id": "https://www.annesimonsson.se/#publisher-logo",
-      "url": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
-      "contentUrl": "https://www.annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "@id": "https://annesimonsson.se/#publisher-logo",
+      "url": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
+      "contentUrl": "https://annesimonsson.se/anne-hamrin-simonsson-portrait.jpg",
       "width": 320,
       "height": 320
     },
     {
       "@type": "ContactPoint",
-      "@id": "https://www.annesimonsson.se/#contact-simon",
+      "@id": "https://annesimonsson.se/#contact-simon",
       "contactType": "web development",
       "name": "Simon Kotlinski",
       "email": "mailto:simon.kotlinski@gmail.com",
@@ -85,7 +85,7 @@
     },
     {
       "@type": "ContactPoint",
-      "@id": "https://www.annesimonsson.se/#contact-per",
+      "@id": "https://annesimonsson.se/#contact-per",
       "contactType": "photography",
       "name": "Per Hamrin",
       "email": "mailto:per.hamrin@netatonce.net",
@@ -93,21 +93,21 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://www.annesimonsson.se/contact#breadcrumb",
+      "@id": "https://annesimonsson.se/contact#breadcrumb",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.annesimonsson.se/" },
-        { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.annesimonsson.se/contact" }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://annesimonsson.se/" },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://annesimonsson.se/contact" }
       ]
     },
     {
       "@type": "SiteNavigationElement",
-      "@id": "https://www.annesimonsson.se/#navigation",
+      "@id": "https://annesimonsson.se/#navigation",
       "name": "Main Navigation",
       "hasPart": [
-        { "@type": "WebPage", "name": "News", "url": "https://www.annesimonsson.se/news" },
-        { "@type": "WebPage", "name": "Artwork", "url": "https://www.annesimonsson.se/artwork" },
-        { "@type": "WebPage", "name": "About", "url": "https://www.annesimonsson.se/about" },
-        { "@type": "WebPage", "name": "Contact", "url": "https://www.annesimonsson.se/contact" }
+        { "@type": "WebPage", "name": "News", "url": "https://annesimonsson.se/news" },
+        { "@type": "WebPage", "name": "Artwork", "url": "https://annesimonsson.se/artwork" },
+        { "@type": "WebPage", "name": "About", "url": "https://annesimonsson.se/about" },
+        { "@type": "WebPage", "name": "Contact", "url": "https://annesimonsson.se/contact" }
       ]
     }
   ]
