@@ -1065,7 +1065,8 @@
     }
     if (class_exists('Parsedown')) {
       $parsedown = new \App\Libraries\ParsedownWithLinkTargets();
-      $parsedown->setSafeMode(true);
+      $parsedown->setSafeMode(false);
+      $parsedown->setMarkupEscaped(false);
       $parsedown->setBreaksEnabled(true);
       return $parsedown->text($value);
     }
@@ -1083,7 +1084,8 @@
         // Use Parsedown if available, else fallback to nl2br
         if (class_exists('Parsedown')) {
           $parsedown = new \App\Libraries\ParsedownWithLinkTargets();
-          $parsedown->setSafeMode(true);
+          $parsedown->setSafeMode(false);
+          $parsedown->setMarkupEscaped(false);
           $parsedown->setBreaksEnabled(true);
           echo $parsedown->text($text);
         } else {
