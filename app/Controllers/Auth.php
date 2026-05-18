@@ -16,33 +16,29 @@ class Auth extends BaseController
   
   public function login()
   {
-    $session = session();
-    var_dump($session->get('is_logged_in'));
-    var_dump($session->get('user_id'));
-    $model = new User();
+    $session  = session();
+    $model    = new User();
     $username = $this->request->getVar('username');
     $password = $this->request->getVar('password');
-    
+
     $user = $model->where('username', $username)->first();
-   
+
     if ($user) {
       $isValid = false;
-      
+
       if (password_verify($password, $user['password'])) {
         $isValid = true;
       } elseif (hash('sha512', $password) === $user['password']) {
-        
         $isValid = true;
         $model->update($user['id'], ['password' => password_hash($password, PASSWORD_DEFAULT)]);
       }
+
       if ($isValid) {
         $session->set(['is_logged_in' => true, 'user_id' => $user['id']]);
         return redirect()->to('/artwork');
       }
-      print("Didn't verify password.");
-      die();
     }
-    
+
     return redirect()->back()->with('error', 'Invalid login credentials.');
   }
   

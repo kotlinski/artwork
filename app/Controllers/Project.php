@@ -9,6 +9,12 @@ class Project extends BaseController
 {
   public function detail($slug)
   {
+    // Redirect legacy ?image=<slug> query-param URLs to the clean path /<project>/<image>
+    $imageParam = $this->request->getGet('image');
+    if ($imageParam !== null && $imageParam !== '') {
+      return redirect()->to(base_url($slug . '/' . rawurlencode($imageParam)), 301);
+    }
+
     $model = new \App\Models\Project();
     $is_logged_in = (bool)session()->get('is_logged_in');
     $projectQuery = $model->where('slug', $slug);

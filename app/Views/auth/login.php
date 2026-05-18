@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <div class="contained" style="justify-items: center;padding-top: 20px">
   <div style="width: 50%;">
-    <form class="login-form" action="<?= base_url('login/auth') ?>" method="post"
+    <form class="login-form" action="/login/auth" method="post"
           style="display:flex; flex-direction:column; gap:10px;">
       <div style="display:flex; flex-direction:column;">
         <label for="username">Username</label>

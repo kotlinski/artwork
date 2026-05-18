@@ -32,6 +32,7 @@ class Filters extends BaseFilters
     'secureheaders' => SecureHeaders::class,
     'auth' => \App\Filters\AuthFilter::class,
     'compress' => \App\Filters\ResponseCompressionFilter::class,
+    'striptracking' => \App\Filters\StripTrackingParamsFilter::class,
     'cors' => Cors::class,
     'forcehttps' => ForceHTTPS::class,
     'pagecache' => PageCache::class,
@@ -75,6 +76,7 @@ class Filters extends BaseFilters
    */
   public array $globals = [
     'before' => [
+      'striptracking', // Strip UTM / trk / fbclid etc. and 301-redirect to clean URL
       // 'honeypot',
       // 'csrf',
       // 'invalidchars',

@@ -20,7 +20,7 @@ class SitemapGenerator
     public function __construct()
     {
         // Always use the production URL so the sitemap is correct on all environments.
-        $this->baseUrl    = 'https://www.annesimonsson.se';
+        $this->baseUrl    = 'https://annesimonsson.se';
         $this->outputPath = FCPATH . 'sitemap.xml';
     }
 
