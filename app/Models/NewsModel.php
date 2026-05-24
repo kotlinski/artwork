@@ -15,9 +15,17 @@ class NewsModel extends Model
   ];
   
   /**
-   * Fetch all news ordered by date
+   * Fetch published news ordered by date (public-facing).
    */
-  public function getLatestNews()
+  public function getLatestNews(): array
+  {
+    return $this->where('is_published', 1)->orderBy('created_at', 'DESC')->findAll();
+  }
+
+  /**
+   * Fetch all news ordered by date, including drafts (admin-facing).
+   */
+  public function getAllNews(): array
   {
     return $this->orderBy('created_at', 'DESC')->findAll();
   }

@@ -93,8 +93,8 @@ if ($newsImageTitle === '') {
   $newsImageTitle = 'News image';
 }
 ?>
-<article<?= $articleId !== '' ? ' id="' . esc($articleId) . '"' : '' ?> class="news-item"<?= $includeDataAttrs ? ' data-project-id="' . esc($item['project_id'] ?? '') . '" data-slug="' . esc($item['slug'] ?? '') . '" data-content="' . htmlspecialchars($item['content'] ?? '', ENT_QUOTES) . '"' : '' ?>>
-  <<?= $headingTag ?>><?= esc($item['title'] ?? '') ?></<?= $headingTag ?>>
+<article<?= $articleId !== '' ? ' id="' . esc($articleId) . '"' : '' ?> class="news-item<?= !empty($showAdmin) && session()->get('is_logged_in') && empty($item['is_published']) ? ' news-item--draft' : '' ?>"<?= $includeDataAttrs ? ' data-project-id="' . esc($item['project_id'] ?? '') . '" data-slug="' . esc($item['slug'] ?? '') . '" data-content="' . htmlspecialchars($item['content'] ?? '', ENT_QUOTES) . '"' : '' ?>>
+  <<?= $headingTag ?>><?= esc($item['title'] ?? '') ?><?php if (!empty($showAdmin) && session()->get('is_logged_in') && empty($item['is_published'])): ?> <span class="news-draft-badge">Draft</span><?php endif; ?></<?= $headingTag ?>>
   <div class="body">
     <?= $item['content_parsed'] ?? nl2br(esc($item['content'] ?? '')) ?>
   </div>
@@ -134,6 +134,8 @@ if ($newsImageTitle === '') {
               data-id="<?= esc($item['id'] ?? '') ?>"
               data-title="<?= htmlspecialchars($item['title'] ?? '', ENT_QUOTES) ?>"
               data-content="<?= htmlspecialchars($item['content'] ?? '', ENT_QUOTES) ?>"
+              data-excerpt="<?= htmlspecialchars($item['excerpt'] ?? '', ENT_QUOTES) ?>"
+              data-is-published="<?= esc((int)($item['is_published'] ?? 1)) ?>"
               data-project-id="<?= esc($item['project_id'] ?? '') ?>"
               data-category="<?= esc($item['category'] ?? 'general') ?>"
               data-main-image="<?= htmlspecialchars($item['main_image'] ?? '', ENT_QUOTES) ?>"
@@ -142,10 +144,8 @@ if ($newsImageTitle === '') {
               data-event-end-date="<?= esc($item['event_end_date'] ?? '') ?>"
               data-external-link="<?= htmlspecialchars($item['external_link'] ?? '', ENT_QUOTES) ?>">Edit
       </button>
-      <form method="post" action="<?= base_url('news/delete') ?>" class="news-delete-form"
-            onsubmit="return confirm('Are you sure?');">
-        <?= csrf_field() ?>
-        <input type="hidden" name="id" value="<?= esc($item['id'] ?? '') ?>">
+      <form method="post" action="/news/delete/<?= (int)($item['id'] ?? 0) ?>" class="news-delete-form"
+            onsubmit="return confirm('Are you sure?');"><?= csrf_field() ?>
         <button type="submit" class="news-delete-link">delete</button>
       </form>
     </div>

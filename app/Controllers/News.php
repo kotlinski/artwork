@@ -12,7 +12,15 @@ class News extends BaseController
 
   public function index(){
     $model = new \App\Models\NewsModel();
-    $news_items = $model->getLatestNews();
+    $news_items = session()->get('is_logged_in') ? $model->getAllNews() : $model->getLatestNews();
+
+    // Temporary diagnostic: log first item's keys and id value
+    if (session()->get('is_logged_in') && !empty($news_items)) {
+      log_message('error', 'News index DIAG: first item keys={keys}, id={id}', [
+        'keys' => implode(',', array_keys($news_items[0])),
+        'id'   => var_export($news_items[0]['id'] ?? 'KEY_MISSING', true),
+      ]);
+    }
     $news_items = $this->normalizeMainImagePaths($news_items);
     $lcpImageUrl = '';
     foreach (array_slice($news_items, 0, 3) as $candidate) {
@@ -144,6 +152,8 @@ class News extends BaseController
     $title = trim($this->request->getPost('title') ?? '');
     $slug = $this->normalizeSlug($title);
     $content = $this->request->getPost('content') ?? '';
+    $excerpt = trim($this->request->getPost('excerpt') ?? '');
+    $isPublished = $this->request->getPost('is_published') !== null ? 1 : 0;
     $projectId = $this->request->getPost('project_id');
     $category = $this->normalizeCategory($this->request->getPost('category'));
     $eventLocation = trim($this->request->getPost('event_location') ?? '');
@@ -183,6 +193,8 @@ class News extends BaseController
         ->with('create_title', $title)
         ->with('create_slug', $slug)
         ->with('create_content', $content)
+        ->with('create_excerpt', $excerpt)
+        ->with('create_is_published', $isPublished)
         ->with('create_project_id', $projectId ?? '')
         ->with('create_category', $category)
         ->with('create_event_location', $eventLocation)
@@ -210,6 +222,8 @@ class News extends BaseController
           ->with('create_title', $title)
           ->with('create_slug', $slug)
           ->with('create_content', $content)
+          ->with('create_excerpt', $excerpt)
+          ->with('create_is_published', $isPublished)
           ->with('create_project_id', $projectId ?? '')
           ->with('create_category', $category)
           ->with('create_event_location', $eventLocation)
@@ -220,17 +234,19 @@ class News extends BaseController
     }
 
     $data = [
-      'title'      => $title,
-      'slug'       => $slug,
-      'content'    => $content,
-      'category'   => $category,
-      'created_at' => date('Y-m-d H:i:s'),
+      'title'        => $title,
+      'slug'         => $slug,
+      'content'      => $content,
+      'excerpt'      => $excerpt !== '' ? $excerpt : null,
+      'category'     => $category,
+      'is_published' => $isPublished,
+      'created_at'   => date('Y-m-d H:i:s'),
     ];
     if (!empty($projectId)) {
       $data['project_id'] = (int) $projectId;
     }
     $data['main_image'] = $mainImagePath;
-    if ($this->supportsNewsImageDimensions()) {
+    if ($this->supportsNewsImageDimensions() && $mainImageWidth !== null && $mainImageHeight !== null) {
       $data['width_px'] = $mainImageWidth;
       $data['height_px'] = $mainImageHeight;
     }
@@ -251,6 +267,8 @@ class News extends BaseController
         ->with('create_title', $title)
         ->with('create_slug', $slug)
         ->with('create_content', $content)
+        ->with('create_excerpt', $excerpt)
+        ->with('create_is_published', $isPublished)
         ->with('create_project_id', $projectId ?? '')
         ->with('create_category', $category)
         ->with('create_event_location', $eventLocation)
@@ -356,10 +374,17 @@ class News extends BaseController
 
     helper('webp');
 
-    // Generate only thumbnails synchronously — they are tiny and fast.
-    // Larger variants (root, small, medium, large, x-large) are generated
-    // in a background process so the web request does not time out.
-    foreach (['thumb/' => [122, 122, min($quality, 65)], 'thumb2x/' => [244, 244, min($quality, 70)]] as $subdir => $opts) {
+    // Generate all variants synchronously (no background process)
+    $variantSpecs = [
+      'thumb/'   => [122, 122, min($quality, 65)],
+      'thumb2x/' => [244, 244, min($quality, 70)],
+      'mobile/'  => [640, 480, min($quality, 72)],
+      'small/'   => [800, 600, min($quality, 75)],
+      'medium/'  => [1280, 960, min($quality, 80)],
+      'large/'   => [1920, 1440, min($quality, 85)],
+      'x-large/' => [2560, 1920, min($quality, 87)],
+    ];
+    foreach ($variantSpecs as $subdir => $opts) {
       $targetDir = $newsDir . $subdir;
       if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
         throw new \RuntimeException('Failed to create news variant directory: ' . $subdir);
@@ -367,8 +392,8 @@ class News extends BaseController
       generate_webp_fit($origPath, $targetDir . $webpName, $opts[0], $opts[1], $opts[2]);
     }
 
-    // Fire background process: regenerate all variants (root + large) for this basename only.
-    $this->dispatchVariantRegeneration($baseName);
+    // Remove/bypass background variant regeneration
+    // $this->dispatchVariantRegeneration($baseName);
 
     $relativePath = 'media/news/' . $webpName;
     // Dimensions from thumb (root webp may not exist yet until background job finishes).
@@ -386,8 +411,20 @@ class News extends BaseController
 
     protected function dispatchVariantRegeneration(string $baseName): void
     {
-        $phpBin = $this->resolvePhpCliBinary();
-    $sparkPath = ROOTPATH . 'spark';
+        // Background process dispatch requires exec()/shell_exec() which are
+        // commonly disabled on shared hosting.  Skip silently — the background
+        // job is a nice-to-have optimisation; the thumbnail variants generated
+        // synchronously in saveNewsMainImageVariants() are sufficient for the
+        // main page to render correctly.
+        if (!function_exists('exec')) {
+            log_message('info', 'exec() unavailable; background news variant regeneration skipped for {basename}.', [
+                'basename' => $baseName,
+            ]);
+            return;
+        }
+
+        $phpBin   = $this->resolvePhpCliBinary();
+        $sparkPath = ROOTPATH . 'spark';
 
         if ($phpBin === null) {
           log_message('warning', 'No PHP CLI binary found; background news variant regeneration skipped for {basename}.', [
@@ -406,14 +443,14 @@ class News extends BaseController
         $logFile = WRITEPATH . 'logs/news-regenerate.log';
 
     $cmd = sprintf(
-          'nohup %s %s news:regenerate-images --basename %s >> %s 2>&1 & echo $!',
+           'nohup %s %s news:regenerate-images --basename %s >> %s 2>&1 & echo $!',
       escapeshellarg($phpBin),
       escapeshellarg($sparkPath),
-          escapeshellarg($baseName),
-          escapeshellarg($logFile)
+           escapeshellarg($baseName),
+           escapeshellarg($logFile)
     );
 
-        $output = [];
+        $output   = [];
         $exitCode = 0;
         @exec($cmd, $output, $exitCode);
 
@@ -434,17 +471,14 @@ class News extends BaseController
 
       protected function resolvePhpCliBinary(): ?string
       {
-        $candidates = [];
-
-        $fromShell = trim((string) @shell_exec('command -v php 2>/dev/null'));
-        if ($fromShell !== '') {
-          $candidates[] = $fromShell;
-        }
-
-        $candidates[] = PHP_BINDIR . '/php';
-        $candidates[] = '/opt/homebrew/bin/php';
-        $candidates[] = '/usr/local/bin/php';
-        $candidates[] = '/usr/bin/php';
+        // shell_exec / exec may be disabled on shared hosting — only probe
+        // well-known filesystem paths; never call shell functions here.
+        $candidates = [
+          PHP_BINDIR . '/php',
+          '/usr/local/bin/php',
+          '/usr/bin/php',
+          '/opt/homebrew/bin/php',
+        ];
 
         foreach ($candidates as $candidate) {
           $candidate = trim((string) $candidate);
@@ -552,7 +586,7 @@ class News extends BaseController
     return basename($path);
   }
 
-  public function update()
+  public function update(int $id = 0)
   {
     if (!session()->get('is_logged_in')) {
       return redirect()->to('/login');
@@ -560,7 +594,6 @@ class News extends BaseController
 
     try {
 
-    $id = (int) $this->request->getPost('id');
     if ($id <= 0) {
       return redirect()->to('/news')->with('error', 'Invalid news item.')->withInput();
     }
@@ -574,6 +607,8 @@ class News extends BaseController
     $data = [];
     $title = $this->request->getPost('title');
     $content = $this->request->getPost('content');
+    $excerpt = $this->request->getPost('excerpt');
+    $isPublished = $this->request->getPost('is_published');
     $projectId = $this->request->getPost('project_id');
     $category = $this->request->getPost('category');
     $eventLocation = $this->request->getPost('event_location');
@@ -590,13 +625,20 @@ class News extends BaseController
     if ($content !== null) {
       $data['content'] = $content;
     }
+    if ($excerpt !== null) {
+      $trimmedExcerpt = trim($excerpt);
+      $data['excerpt'] = $trimmedExcerpt !== '' ? $trimmedExcerpt : null;
+    }
+    if ($isPublished !== null) {
+      $data['is_published'] = in_array($isPublished, ['1', 1, true, 'true', 'on'], true) ? 1 : 0;
+    }
     if ($projectId !== null) {
       $data['project_id'] = $projectId !== '' ? (int) $projectId : null;
     }
     if ($category !== null) {
       $data['category'] = $this->normalizeCategory($category);
     }
-    if ($removeMainImage) {
+      if ($removeMainImage) {
       $data['main_image'] = null;
       if ($this->supportsNewsImageDimensions()) {
         $data['width_px'] = null;
@@ -613,7 +655,7 @@ class News extends BaseController
         // Keep update requests responsive: generate only root + thumbs synchronously.
         $savedMainImage = $this->saveNewsMainImageVariants($mainImageFile, $this->normalizeSlug((string) ($title ?? ('news-item-' . $id))));
         $data['main_image'] = $savedMainImage['path'];
-        if ($this->supportsNewsImageDimensions()) {
+        if ($this->supportsNewsImageDimensions() && $savedMainImage['width_px'] !== null && $savedMainImage['height_px'] !== null) {
           $data['width_px'] = $savedMainImage['width_px'];
           $data['height_px'] = $savedMainImage['height_px'];
         }
@@ -677,39 +719,61 @@ class News extends BaseController
     return redirect()->to('/news#news-' . $slug)->with('success', 'News updated.');
     } catch (\Throwable $e) {
       log_message('critical', 'Unhandled error in News::update for id {id}: {msg}', [
-        'id' => (int) ($this->request->getPost('id') ?? 0),
+        'id' => (int) ($this->request->getPost('news_item_id') ?? 0),
         'msg' => $e->getMessage(),
       ]);
       return redirect()->to('/news')->with('error', 'Unexpected error while updating news item.')->withInput();
     }
   }
 
-  public function delete()
+  public function delete(int $id = 0)
   {
     if (!session()->get('is_logged_in')) {
       return redirect()->to('/login');
     }
 
-    $id = (int) $this->request->getPost('id');
-    if ($id <= 0) {
-      return redirect()->to('/news')->with('error', 'Invalid news item.');
+    try {
+      if ($id <= 0) {
+      log_message('error', 'News delete: invalid id received. raw="{raw}", uri="{uri}", method={method}, content_type={ct}', [
+          'raw'    => $id,
+          'uri'    => $this->request->getUri()->getPath(),
+          'method' => $this->request->getMethod(),
+          'ct'     => $this->request->getHeaderLine('Content-Type'),
+      ]);
+        return redirect()->to('/news')->with('error', 'Invalid news item.');
+      }
+
+      $model = new \App\Models\NewsModel();
+      $item  = $model->find($id);
+
+      if (!$item) {
+        return redirect()->to('/news')->with('error', 'News item not found.');
+      }
+
+      $mainImage = (string) ($item['main_image'] ?? '');
+      if ($mainImage !== '') {
+        try {
+          $this->deleteNewsMainImageVariants($mainImage);
+        } catch (\Throwable $e) {
+          // Log but continue — the DB record must still be removed.
+          log_message('warning', 'News delete: could not remove image files for id {id}: {msg}', [
+            'id'  => $id,
+            'msg' => $e->getMessage(),
+          ]);
+        }
+      }
+
+      $model->delete($id);
+
+      return redirect()->to('/news')->with('success', 'News deleted.');
+
+    } catch (\Throwable $e) {
+      log_message('error', 'News delete: unhandled exception for id {id}: {msg}', [
+        'id'  => $id,
+        'msg' => $e->getMessage(),
+      ]);
+      return redirect()->to('/news')->with('error', 'Failed to delete the news item.');
     }
-
-    $model = new \App\Models\NewsModel();
-    $item = $model->find($id);
-
-    if (!$item) {
-      return redirect()->to('/news')->with('error', 'News item not found.');
-    }
-
-    $mainImage = (string) ($item['main_image'] ?? '');
-    if ($mainImage !== '') {
-      $this->deleteNewsMainImageVariants($mainImage);
-    }
-
-    $model->delete($id);
-
-    return redirect()->to('/news')->with('success', 'News deleted.');
   }
 
   protected function supportsNewsImageDimensions(): bool
