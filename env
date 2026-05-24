@@ -21,9 +21,11 @@
 #--------------------------------------------------------------------
 
 # app.baseURL = ''
-# NOTE: For production, always use https:// in the base URL so that
-# base_url() generates HTTPS links (e.g. app.baseURL = 'https://example.com/').
-# If you have trouble with `.`, you could also use `_`.
+# NOTE: For production, set this to the canonical URL WITHOUT www so that
+# base_url() generates correct HTTPS links (e.g. app.baseURL = 'https://annehamrinsimonsson.se/').
+# www.annehamrinsimonsson.se is listed in app.allowedHostnames (App.php) so
+# that forms served on the www host submit back to the www host, avoiding the
+# 301 redirect that converts POST → GET and drops the request body.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false

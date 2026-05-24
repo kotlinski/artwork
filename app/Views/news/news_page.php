@@ -14,6 +14,8 @@ $createErrors = session()->getFlashdata('create_errors') ?? [];
 $createTitle = session()->getFlashdata('create_title') ?? '';
 $createSlug = session()->getFlashdata('create_slug') ?? '';
 $createContent = session()->getFlashdata('create_content') ?? '';
+$createExcerpt = session()->getFlashdata('create_excerpt') ?? '';
+$createIsPublished = session()->getFlashdata('create_is_published') ?? 1;
 $createProjectId = session()->getFlashdata('create_project_id') ?? '';
 $createCategory = session()->getFlashdata('create_category') ?? 'general';
 $createEventLocation = session()->getFlashdata('create_event_location') ?? '';
@@ -22,12 +24,14 @@ $createEventEndDate = session()->getFlashdata('create_event_end_date') ?? '';
 $createExternalLink = session()->getFlashdata('create_external_link') ?? '';
 $actionError = session()->getFlashdata('error') ?? '';
 $actionSuccess = session()->getFlashdata('success') ?? '';
-$editOldId = (string)(old('id') ?? '');
+$editOldId = (string)(old('news_item_id') ?? '');
 $showEditFormError = $editOldId !== '' && $actionError !== '';
 $globalActionError = $showEditFormError ? '' : $actionError;
 $openEditModal = $showEditFormError;
 $editOldTitle = (string)(old('title') ?? '');
 $editOldContent = (string)(old('content') ?? '');
+$editOldExcerpt = (string)(old('excerpt') ?? '');
+$editOldIsPublished = old('is_published');
 $editOldProjectId = (string)(old('project_id') ?? '');
 $editOldCategory = (string)(old('category') ?? 'general');
 $editOldEventLocation = (string)(old('event_location') ?? '');
@@ -96,7 +100,7 @@ foreach ($projects ?? [] as $project) {
       </div>
     </div>
 
-    <form id="news-add-form" action="<?= base_url('news/store') ?>" method="post" enctype="multipart/form-data">
+    <form id="news-add-form" action="/news/store" method="post" enctype="multipart/form-data">
       <?= csrf_field() ?>
       <label class="md-title-field">
         Title
@@ -147,6 +151,14 @@ foreach ($projects ?? [] as $project) {
         External link
         <input type="url" name="external_link" id="news-add-external-link" value="<?= esc($createExternalLink) ?>"
                placeholder="https://...">
+      </label>
+      <label class="md-extra-field">
+        Excerpt <small>(max 160 chars, used in search snippets)</small>
+        <input type="text" name="excerpt" id="news-add-excerpt" value="<?= esc($createExcerpt) ?>" maxlength="160">
+      </label>
+      <label class="md-extra-field news-published-row">
+        <input type="checkbox" name="is_published" id="news-add-is-published" value="1"<?= (int)$createIsPublished !== 0 ? ' checked' : '' ?>>
+        Published (visible to visitors)
       </label>
       <div class="md-toolbar">
         <button type="button" onclick="mdWrap('news-add-content', '**', '**')" title="Bold">B</button>
@@ -232,9 +244,8 @@ foreach ($projects ?? [] as $project) {
         </div>
       </div>
 
-      <form id="news-edit-form" action="<?= base_url('news/update') ?>" method="post" enctype="multipart/form-data">
+      <form id="news-edit-form" action="/news/update/0" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
-        <input type="hidden" name="id" id="news-edit-id">
         <label class="md-title-field">
           Title
           <input type="text" name="title" id="news-edit-title" value="<?= esc($editOldTitle) ?>">
@@ -290,6 +301,14 @@ foreach ($projects ?? [] as $project) {
           <input type="text" inputmode="url" name="external_link" id="news-edit-external-link"
                  value="<?= esc($editOldExternalLink) ?>" placeholder="https://...">
         </label>
+        <label class="md-extra-field">
+          Excerpt <small>(max 160 chars, used in search snippets)</small>
+          <input type="text" name="excerpt" id="news-edit-excerpt" value="<?= esc($editOldExcerpt) ?>" maxlength="160">
+        </label>
+        <label class="md-extra-field news-published-row">
+          <input type="checkbox" name="is_published" id="news-edit-is-published" value="1"<?= $editOldIsPublished === null || in_array($editOldIsPublished, ['1', 1, true, 'true', 'on'], true) ? ' checked' : '' ?>>
+          Published (visible to visitors)
+        </label>
         <div class="md-toolbar">
           <button type="button" onclick="mdWrap('news-edit-content', '**', '**')" title="Bold">B</button>
           <button type="button" onclick="mdWrap('news-edit-content', '*', '*')" title="Italic"><em>I</em></button>
@@ -322,7 +341,7 @@ foreach ($projects ?? [] as $project) {
       var editModal = document.getElementById('news-edit-modal');
       var editCloseBtn = document.getElementById('news-edit-modal-close');
       var editCancelBtn = document.getElementById('news-edit-cancel-btn');
-      var editIdInput = document.getElementById('news-edit-id');
+      var editForm = document.getElementById('news-edit-form');
       var editTitleInput = document.getElementById('news-edit-title');
       var editContentInput = document.getElementById('news-edit-content');
       var editProjectSel = document.getElementById('news-edit-project');
@@ -337,6 +356,8 @@ foreach ($projects ?? [] as $project) {
       var editPreviewModal = document.getElementById('news-edit-preview-modal');
       var editPreviewBody = document.getElementById('news-edit-preview-content');
       var editPreviewClose = document.getElementById('news-edit-preview-close');
+      var editExcerptInput = document.getElementById('news-edit-excerpt');
+      var editIsPublishedCheckbox = document.getElementById('news-edit-is-published');
 
       var addOpenBtn = document.getElementById('news-add-open-btn');
       var addModal = document.getElementById('news-add-modal');
@@ -354,7 +375,6 @@ foreach ($projects ?? [] as $project) {
       var addPreviewModal = document.getElementById('news-add-preview-modal');
       var addPreviewBody = document.getElementById('news-add-preview-content');
       var addPreviewClose = document.getElementById('news-add-preview-close');
-      var editForm = document.getElementById('news-edit-form');
       var addForm = document.getElementById('news-add-form');
 
       var shouldOpenCreateModal = <?= $openCreateModal ? 'true' : 'false' ?>;
@@ -363,6 +383,8 @@ foreach ($projects ?? [] as $project) {
         'id' => $editOldId,
         'title' => $editOldTitle,
         'content' => $editOldContent,
+        'excerpt' => $editOldExcerpt,
+        'is_published' => $editOldIsPublished,
         'project_id' => $editOldProjectId,
         'category' => $editOldCategory,
         'event_location' => $editOldEventLocation,
@@ -475,7 +497,7 @@ foreach ($projects ?? [] as $project) {
             .replace(/'/g, '&#039;');
         }
 
-        editIdInput.value = btn.dataset.id || '';
+        editForm.action = '/news/update/' + encodeURIComponent(btn.dataset.id || '0');
         editTitleInput.value = btn.dataset.title || '';
         editContentInput.value = btn.dataset.content || '';
 
@@ -503,6 +525,12 @@ foreach ($projects ?? [] as $project) {
         editEventStartDateInput.value = btn.dataset.eventStartDate || '';
         editEventEndDateInput.value = btn.dataset.eventEndDate || '';
         editExternalLinkInput.value = (btn.dataset.externalLink || '').trim();
+        if (editExcerptInput) {
+          editExcerptInput.value = btn.dataset.excerpt || '';
+        }
+        if (editIsPublishedCheckbox) {
+          editIsPublishedCheckbox.checked = btn.dataset.isPublished === '1';
+        }
 
         editModal.style.display = 'flex';
         refreshBodyScrollLock();
@@ -613,13 +641,19 @@ foreach ($projects ?? [] as $project) {
           refreshBodyScrollLock();
         }
 
-        editIdInput.value = oldEditId;
+        editForm.action = '/news/update/' + encodeURIComponent(oldEditId || '0');
         editTitleInput.value = String(editOldValues.title || '');
         editContentInput.value = String(editOldValues.content || '');
         editEventLocationInput.value = String(editOldValues.event_location || '');
         editEventStartDateInput.value = String(editOldValues.event_start_date || '');
         editEventEndDateInput.value = String(editOldValues.event_end_date || '');
         editExternalLinkInput.value = String(editOldValues.external_link || '');
+        if (editExcerptInput) {
+          editExcerptInput.value = String(editOldValues.excerpt || '');
+        }
+        if (editIsPublishedCheckbox) {
+          editIsPublishedCheckbox.checked = editOldValues.is_published === '1' || editOldValues.is_published === 1 || editOldValues.is_published === true;
+        }
 
         if (editProjectSel) {
           var oldProjectId = String(editOldValues.project_id || '');

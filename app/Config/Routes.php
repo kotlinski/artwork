@@ -13,8 +13,8 @@ $routes->get('user/(:num)', 'Home::profile/$1');
 
 $routes->get('news', 'News::index');
 $routes->post('news/store', 'News::store', ['filter' => 'auth']);
-$routes->post('news/update', 'News::update', ['filter' => 'auth']);
-$routes->post('news/delete', 'News::delete', ['filter' => 'auth']);
+$routes->post('news/update/(:num)', 'News::update/$1', ['filter' => 'auth']);
+$routes->post('news/delete/(:num)', 'News::delete/$1', ['filter' => 'auth']);
 
 
 $routes->get('login', 'Auth::index');

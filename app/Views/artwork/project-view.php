@@ -61,7 +61,7 @@
         </div>
       <?php endif; ?>
 
-      <form method="post" action="<?= base_url('artwork/update/' . ($project['id'] ?? '')) ?>"
+      <form method="post" action="/artwork/update/<?= esc($project['id'] ?? '') ?>"
             id="project-overview-form" class="project-overview-form">
         <?= csrf_field() ?>
 
@@ -285,7 +285,7 @@
             <span onclick="closeUploadModal()"
                   style="position:absolute;top:10px;right:16px;font-size:22px;cursor:pointer;">&times;</span>
             <h3 style="margin-top:0;">Upload Image</h3>
-            <form method="post" action="<?= base_url('image/upload') ?>" enctype="multipart/form-data">
+            <form method="post" action="/image/upload" enctype="multipart/form-data">
               <?= csrf_field() ?>
               <input type="hidden" name="project_id" value="<?= esc($project['id']) ?>">
               <input type="hidden" name="return_to" value="<?= esc(current_url()) ?>">

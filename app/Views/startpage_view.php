@@ -23,7 +23,7 @@ $actionSuccess = session()->getFlashdata('success') ?? '';
     <div class="alert success"><?= esc($actionSuccess) ?></div>
   <?php endif; ?>
 
-  <form method="post" action="<?= base_url('startpage/update') ?>" enctype="multipart/form-data" class="startpage-admin-form">
+  <form method="post" action="/startpage/update" enctype="multipart/form-data" class="startpage-admin-form">
     <?= csrf_field() ?>
     <input type="hidden" name="id" value="<?= esc($startpage['id'] ?? '') ?>">
     <label>
