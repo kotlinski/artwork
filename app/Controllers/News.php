@@ -374,10 +374,17 @@ class News extends BaseController
 
     helper('webp');
 
-    // Generate only thumbnails synchronously — they are tiny and fast.
-    // Larger variants (root, small, medium, large, x-large) are generated
-    // in a background process so the web request does not time out.
-    foreach (['thumb/' => [122, 122, min($quality, 65)], 'thumb2x/' => [244, 244, min($quality, 70)]] as $subdir => $opts) {
+    // Generate all variants synchronously (no background process)
+    $variantSpecs = [
+      'thumb/'   => [122, 122, min($quality, 65)],
+      'thumb2x/' => [244, 244, min($quality, 70)],
+      'mobile/'  => [640, 480, min($quality, 72)],
+      'small/'   => [800, 600, min($quality, 75)],
+      'medium/'  => [1280, 960, min($quality, 80)],
+      'large/'   => [1920, 1440, min($quality, 85)],
+      'x-large/' => [2560, 1920, min($quality, 87)],
+    ];
+    foreach ($variantSpecs as $subdir => $opts) {
       $targetDir = $newsDir . $subdir;
       if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
         throw new \RuntimeException('Failed to create news variant directory: ' . $subdir);
@@ -385,8 +392,8 @@ class News extends BaseController
       generate_webp_fit($origPath, $targetDir . $webpName, $opts[0], $opts[1], $opts[2]);
     }
 
-    // Fire background process: regenerate all variants (root + large) for this basename only.
-    $this->dispatchVariantRegeneration($baseName);
+    // Remove/bypass background variant regeneration
+    // $this->dispatchVariantRegeneration($baseName);
 
     $relativePath = 'media/news/' . $webpName;
     // Dimensions from thumb (root webp may not exist yet until background job finishes).
